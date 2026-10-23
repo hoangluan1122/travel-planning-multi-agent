@@ -1,0 +1,736 @@
+{
+  "at": "2026-10-22T18:13:55.175264+00:00",
+  "catalog_checks": [
+    {
+      "id": "vn:current:01",
+      "name": "Hà Nội",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:04",
+      "name": "Cao Bằng",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:08",
+      "name": "Tuyên Quang",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:11",
+      "name": "Điện Biên",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:12",
+      "name": "Lai Châu",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:14",
+      "name": "Sơn La",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:15",
+      "name": "Lào Cai",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:19",
+      "name": "Thái Nguyên",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:20",
+      "name": "Lạng Sơn",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:22",
+      "name": "Quảng Ninh",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:24",
+      "name": "Bắc Ninh",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:25",
+      "name": "Phú Thọ",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:31",
+      "name": "Hải Phòng",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:33",
+      "name": "Hưng Yên",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:37",
+      "name": "Ninh Bình",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:38",
+      "name": "Thanh Hoá",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:40",
+      "name": "Nghệ An",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:42",
+      "name": "Hà Tĩnh",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:44",
+      "name": "Quảng Trị",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:46",
+      "name": "Huế",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:48",
+      "name": "Đà Nẵng",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:51",
+      "name": "Quảng Ngãi",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:52",
+      "name": "Gia Lai",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:56",
+      "name": "Khánh Hoà",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:66",
+      "name": "Đắk Lắk",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:68",
+      "name": "Lâm Đồng",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:75",
+      "name": "Đồng Nai",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:79",
+      "name": "Hồ Chí Minh",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:80",
+      "name": "Tây Ninh",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:82",
+      "name": "Đồng Tháp",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:86",
+      "name": "Vĩnh Long",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:91",
+      "name": "An Giang",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:92",
+      "name": "Cần Thơ",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:96",
+      "name": "Cà Mau",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B88524163723846",
+      "name": "Ha Noi",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B83521686955161",
+      "name": "Hai Phong city",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B96308820470444",
+      "name": "Vinh Phuc",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B68919720940076",
+      "name": "Bac Ninh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B67516045218271",
+      "name": "Hai Duong",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B44494243017525",
+      "name": "Hung Yen",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B12107111916395",
+      "name": "Ha Nam",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B20746110231329",
+      "name": "Nam Dinh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B20616531840607",
+      "name": "Thai Binh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B41574483521441",
+      "name": "Ninh Binh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B2460165200518",
+      "name": "Ha Giang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B1361738734679",
+      "name": "Cao Bang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B42676652118328",
+      "name": "Lao Cai",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B4759892125349",
+      "name": "Bac Kan",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B88361205501198",
+      "name": "Lang Son",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B73616464654527",
+      "name": "Tuyen Quang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B36384395722912",
+      "name": "Yen Bai",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B17233922132357",
+      "name": "Thai Nguyen",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B28646400052348",
+      "name": "Phu Tho",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B62111271042496",
+      "name": "Bac Giang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B81921848301353",
+      "name": "Quang Ninh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B53499237908836",
+      "name": "Lai Chau",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B43959947796344",
+      "name": "Dien Bien",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B468177984494",
+      "name": "Son La",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B6309440870014",
+      "name": "Hoa Binh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B14601182429662",
+      "name": "Thanh Hoa",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B97833110077401",
+      "name": "Nghe An",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B87087531133117",
+      "name": "Ha Tinh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B65693439337447",
+      "name": "Quang Binh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B44896738513023",
+      "name": "Quang Tri",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B45787052577523",
+      "name": "Thua Thien Hue",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B50429603760085",
+      "name": "Da Nang city",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B81090783675893",
+      "name": "Quang Nam",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B75668302912706",
+      "name": "Quang Ngai",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B74203908632215",
+      "name": "Binh Dinh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B98489387811888",
+      "name": "Phu Yen",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B10360554271582",
+      "name": "Khanh Hoa",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B99097564233841",
+      "name": "Kon Tum",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B65944102779481",
+      "name": "Gia Lai",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B27925407123619",
+      "name": "Dak Lak",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B97204404646484",
+      "name": "Dak Nong",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B27972968793997",
+      "name": "Lam Dong",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B30341580753291",
+      "name": "Ho Chi Minh city",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B10372127640352",
+      "name": "Ninh Thuan",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B91533185921664",
+      "name": "Binh Phuoc",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B68831130498504",
+      "name": "Tay Ninh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B72472272151030",
+      "name": "Binh Duong",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B18994607263782",
+      "name": "Dong Nai",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B66755059201060",
+      "name": "Binh Thuan",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B65814596254146",
+      "name": "Ba Ria - Vung Tau",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B70412767084504",
+      "name": "Long An",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B9719971169594",
+      "name": "Dong Thap",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B61647312176937",
+      "name": "An Giang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B92903016018094",
+      "name": "Tien Giang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B40962937393015",
+      "name": "Vinh Long",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B38836907429723",
+      "name": "Ben Tre",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B27465896611770",
+      "name": "Kien Giang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B92937877455266",
+      "name": "Can Tho city",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B83870711995154",
+      "name": "Hau Giang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B54636768110772",
+      "name": "Tra Vinh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B18522696029042",
+      "name": "Soc Trang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B25525264729444",
+      "name": "Bac Lieu",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B69653549619538",
+      "name": "Ca Mau",
+      "historical": true,
+      "passed": true
+    }
+  ],
+  "live_cases": [
+    {
+      "number": 1,
+      "province": "Hà Nội",
+      "destination": "Hà Nội",
+      "category": "hotel",
+      "outcome": "source_error",
+      "elapsed_s": 3.97,
+      "records": 0,
+      "status": "source_error",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [],
+      "request_id": "682daf0c-e7d1-4428-9657-e6aefeebdc8c",
+      "resolved_location": null
+    },
+    {
+      "number": 2,
+      "province": "Cao Bằng",
+      "destination": "Cao Bằng",
+      "category": "restaurant",
+      "outcome": "source_error",
+      "elapsed_s": 4.66,
+      "records": 0,
+      "status": "source_error",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [],
+      "request_id": "64856448-2bcd-4fbf-8c06-9780b61ece9c",
+      "resolved_location": null
+    },
+    {
+      "number": 3,
+      "province": "Tuyên Quang",
+      "destination": "Đồng Văn",
+      "category": "attraction",
+      "outcome": "source_error",
+      "elapsed_s": 6.8,
+      "records": 0,
+      "status": "source_error",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [],
+      "request_id": "aec2e201-27c2-4ae8-aa8c-ac5cad19bf94",
+      "resolved_location": null
+    },
+    {
+      "number": 4,
+      "province": "Lào Cai",
+      "destination": "Sa Pa",
+      "category": "hotel",
+      "outcome": "source_error",
+      "elapsed_s": 5.17,
+      "records": 0,
+      "status": "source_error",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [],
+      "request_id": "21f7f154-7565-42d9-9194-c46219452efc",
+      "resolved_location": null
+    },
+    {
+      "number": 5,
+      "province": "Điện Biên",
+      "destination": "Điện Biên Phủ",
+      "category": "restaurant",
+      "outcome": "source_error",
+      "elapsed_s": 3.58,
+      "records": 0,
+      "status": "source_error",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [],
+      "request_id": "c8d2224d-c1d9-4982-9dae-a473b8ca3ddc",
+      "resolved_location": null
+    },
+    {
+      "number": 6,
+      "province": "Lai Châu",
+      "destination": "Lai Châu",
+      "category": "attraction",
+      "outcome": "source_error",
+      "elapsed_s": 5.08,
+      "records": 0,
+      "status": "source_error",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [],
+      "request_id": "55bb2b25-3bbb-499c-8989-32f094cd871e",
+      "resolved_location": null
+    },
+    {
+      "number": 7,
+      "province": "Sơn La",
+      "destination": "Mộc Châu",
+      "category": "hotel",
+      "outcome": "source_error",
+      "elapsed_s": 4.88,
+      "records": 0,
+      "status": "source_error",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [],
+      "request_id": "7ca89678-c884-4ddb-b305-1cba1ba900e0",
+      "resolved_location": null
+    },
+    {
+      "number": 8,
+      "province": "Thái Nguyên",
+      "destination": "Bắc Kạn",
+      "category": "restaurant",
+      "outcome": "source_error",
+      "elapsed_s": 7.48,
+      "records": 0,
+      "status": "source_error",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [],
+      "request_id": "04fdf64d-ca8b-4b20-83c3-f637591d7098",
+      "resolved_location": null
+    },
+    {
+      "number": 9,
+      "province": "Lạng Sơn",
+      "destination": "Lạng Sơn",
+      "category": "attraction",
+      "outcome": "source_error",
+      "elapsed_s": 3.62,
+      "records": 0,
+      "status": "source_error",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [],
+      "request_id": "ba636deb-2f5e-48ca-992c-722cdc876524",
+      "resolved_location": null
+    }
+  ],
+  "outcomes": {
+    "source_error": 9
+  },
+  "planned_live_cases": 40,
+  "not_run": 31,
+  "stop_reason": null,
+  "network_requests": {
+    "geocoding-api.open-meteo.com": 9,
+    "photon.komoot.io": 9
+  },
+  "exhaustive": false,
+  "llm_called": false
+}

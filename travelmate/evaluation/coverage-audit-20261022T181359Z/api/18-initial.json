@@ -1,0 +1,125 @@
+{
+  "request_id": "528b9dc5-34e6-4446-b6b1-c9a458a62f7e",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Thiên Cầm",
+  "category": "attraction",
+  "resolved_location": {
+    "id": "geonames:13645257",
+    "name": "Thiên Cầm",
+    "latitude": 18.27836,
+    "longitude": 106.07867,
+    "admin1": "Hà Tĩnh",
+    "admin2": "Huyện Cẩm Xuyên",
+    "feature_code": "PPLA2",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/13645257/",
+    "fetched_at": "2026-10-22T18:15:33.359809Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:way/1456837244": {
+      "distance_m": 2053.0565017798613,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=18.27836&limit=50&lon=106.07867&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 1,
+  "offset": 0,
+  "has_more": false,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:15:31.920052Z",
+  "completed_at": "2026-10-22T18:15:37.116372Z",
+  "places": [
+    {
+      "id": "osm:way/1456837244",
+      "name": "Bãi biển Thiên Cầm",
+      "address": "Thiên Cầm, Cẩm Nhượng, Hà Tĩnh, Việt Nam",
+      "latitude": 18.2771383,
+      "longitude": 106.098072,
+      "source": "osm_photon",
+      "types": [
+        "beach"
+      ],
+      "fetched_at": "2026-10-22T18:15:37.116372Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/1456837244",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/1456837244",
+        "latitude": "https://www.openstreetmap.org/way/1456837244",
+        "longitude": "https://www.openstreetmap.org/way/1456837244",
+        "types": "https://www.openstreetmap.org/way/1456837244",
+        "address": "https://www.openstreetmap.org/way/1456837244"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:way/1456837244",
+      "title": "Bãi biển Thiên Cầm",
+      "snippet": "Thiên Cầm, Cẩm Nhượng, Hà Tĩnh, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1456837244",
+      "search_url": "https://photon.komoot.io/reverse?lat=18.27836&limit=50&lon=106.07867&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:37.116372Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:31.920052Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:33.359809Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:15:37.116372Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 1
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:15:37.116372Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 1
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

@@ -1,0 +1,261 @@
+{
+  "request_id": "6a8b0bfe-54ee-45b4-bc05-c5ca0c59834f",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Đồng Xoài",
+  "category": "hotel",
+  "resolved_location": {
+    "id": "geonames:1582436",
+    "name": "Đồng Xoài",
+    "latitude": 11.53495,
+    "longitude": 106.88324,
+    "admin1": "Dong Nai",
+    "admin2": "Thị Xã Đồng Xoài",
+    "feature_code": "PPLA",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1582436/",
+    "fetched_at": "2026-10-22T18:16:20.811196Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:way/407436383": {
+      "distance_m": 1515.4689159394645,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.53495&limit=50&lon=106.88324&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4272635295": {
+      "distance_m": 2079.001147975013,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.53495&limit=50&lon=106.88324&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/13684278498": {
+      "distance_m": 2176.469946769728,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.53495&limit=50&lon=106.88324&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/5972773185": {
+      "distance_m": 3370.2779336401118,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.53495&limit=50&lon=106.88324&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 4,
+  "offset": 0,
+  "has_more": false,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:16:20.815196Z",
+  "completed_at": "2026-10-22T18:16:24.555284Z",
+  "places": [
+    {
+      "id": "osm:way/407436383",
+      "name": "Hotel Thai Duong",
+      "address": "Đường Phú Riềng Đỏ, Bình Phước, Đồng Xoài, Thành phố Đồng Nai, Việt Nam",
+      "latitude": 11.5253948,
+      "longitude": 106.8931585,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:16:24.554270Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/407436383",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/407436383",
+        "latitude": "https://www.openstreetmap.org/way/407436383",
+        "longitude": "https://www.openstreetmap.org/way/407436383",
+        "types": "https://www.openstreetmap.org/way/407436383",
+        "address": "https://www.openstreetmap.org/way/407436383"
+      }
+    },
+    {
+      "id": "osm:node/4272635295",
+      "name": "Thanh Sang",
+      "address": "1068, Phú Riềng Đỏ, Bình Phước, Đồng Xoài, Thành phố Đồng Nai, Việt Nam",
+      "latitude": 11.5359488,
+      "longitude": 106.9022951,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:16:24.554270Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4272635295",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4272635295",
+        "latitude": "https://www.openstreetmap.org/node/4272635295",
+        "longitude": "https://www.openstreetmap.org/node/4272635295",
+        "types": "https://www.openstreetmap.org/node/4272635295",
+        "address": "https://www.openstreetmap.org/node/4272635295"
+      }
+    },
+    {
+      "id": "osm:node/13684278498",
+      "name": "Nhà Nghỉ Phúc Hậu",
+      "address": "Nguyễn Huệ, Bình Phước, Đồng Xoài, Thành phố Đồng Nai, Việt Nam",
+      "latitude": 11.5227845,
+      "longitude": 106.8988894,
+      "source": "osm_photon",
+      "types": [
+        "motel"
+      ],
+      "fetched_at": "2026-10-22T18:16:24.554270Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/13684278498",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/13684278498",
+        "latitude": "https://www.openstreetmap.org/node/13684278498",
+        "longitude": "https://www.openstreetmap.org/node/13684278498",
+        "types": "https://www.openstreetmap.org/node/13684278498",
+        "address": "https://www.openstreetmap.org/node/13684278498"
+      }
+    },
+    {
+      "id": "osm:node/5972773185",
+      "name": "Hướng Dương",
+      "address": "Đường Phú Riềng Đỏ, Bình Phước, Đồng Xoài, Thành phố Đồng Nai, Việt Nam",
+      "latitude": 11.5052276,
+      "longitude": 106.8892995,
+      "source": "osm_photon",
+      "types": [
+        "motel"
+      ],
+      "fetched_at": "2026-10-22T18:16:24.554270Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5972773185",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5972773185",
+        "latitude": "https://www.openstreetmap.org/node/5972773185",
+        "longitude": "https://www.openstreetmap.org/node/5972773185",
+        "types": "https://www.openstreetmap.org/node/5972773185",
+        "address": "https://www.openstreetmap.org/node/5972773185"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:way/407436383",
+      "title": "Hotel Thai Duong",
+      "snippet": "Đường Phú Riềng Đỏ, Bình Phước, Đồng Xoài, Thành phố Đồng Nai, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/407436383",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.53495&limit=50&lon=106.88324&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:24.554270Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4272635295",
+      "title": "Thanh Sang",
+      "snippet": "1068, Phú Riềng Đỏ, Bình Phước, Đồng Xoài, Thành phố Đồng Nai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4272635295",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.53495&limit=50&lon=106.88324&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:24.554270Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13684278498",
+      "title": "Nhà Nghỉ Phúc Hậu",
+      "snippet": "Nguyễn Huệ, Bình Phước, Đồng Xoài, Thành phố Đồng Nai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13684278498",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.53495&limit=50&lon=106.88324&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:24.554270Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5972773185",
+      "title": "Hướng Dương",
+      "snippet": "Đường Phú Riềng Đỏ, Bình Phước, Đồng Xoài, Thành phố Đồng Nai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5972773185",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.53495&limit=50&lon=106.88324&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:24.554270Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "stay_price",
+    "room_availability",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:16:20.815196Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:16:20.816197Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:16:24.555284Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 4
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:16:24.555284Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 4
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

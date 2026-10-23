@@ -1,0 +1,763 @@
+{
+  "evaluated_at": "2026-10-21T02:35:25.592994+00:00",
+  "cases": [
+    {
+      "case": "danang-normal",
+      "request": {
+        "origin": {
+          "id": "origin",
+          "latitude": 16.0678,
+          "longitude": 108.2208
+        },
+        "visits": [
+          {
+            "id": "stop-1",
+            "latitude": 16.0472,
+            "longitude": 108.2244,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          },
+          {
+            "id": "stop-2",
+            "latitude": 16.0795,
+            "longitude": 108.224,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          },
+          {
+            "id": "stop-3",
+            "latitude": 16.059,
+            "longitude": 108.245,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          }
+        ],
+        "departure_minute": 540,
+        "finish_by_minute": 1080,
+        "return_to_origin": true
+      },
+      "optimized": {
+        "status": "feasible",
+        "schedule": [
+          {
+            "place_id": "stop-2",
+            "arrival_second": 32534.9,
+            "start_second": 32534.9,
+            "end_second": 35234.9
+          },
+          {
+            "place_id": "stop-1",
+            "arrival_second": 35560.1,
+            "start_second": 35560.1,
+            "end_second": 38260.1
+          },
+          {
+            "place_id": "stop-3",
+            "arrival_second": 38489.799999999996,
+            "start_second": 38489.799999999996,
+            "end_second": 41189.799999999996
+          }
+        ],
+        "travel_seconds": 999,
+        "baseline_travel_seconds": 1194.4,
+        "baseline_feasible": true,
+        "saved_travel_seconds": 195.4000000000001,
+        "finish_second": 41498.99999999999,
+        "matrix": {
+          "point_ids": [
+            "origin",
+            "stop-1",
+            "stop-2",
+            "stop-3"
+          ],
+          "durations_seconds": [
+            [
+              0,
+              253.1,
+              134.9,
+              322.1
+            ],
+            [
+              204.7,
+              0,
+              237.9,
+              229.7
+            ],
+            [
+              183.8,
+              325.2,
+              0,
+              394.2
+            ],
+            [
+              309.2,
+              283.6,
+              342.4,
+              0
+            ]
+          ],
+          "source": "https://router.project-osrm.org",
+          "fetched_at": "2026-10-21T02:35:21.370656Z"
+        },
+        "evaluated_orders": 6,
+        "warnings": [
+          "Tối ưu thời gian lái xe theo ma trận tĩnh; không có giao thông realtime.",
+          "Giờ mở cửa và thời lượng tham quan do đầu vào cung cấp, chưa xác minh nguồn.",
+          "OSRM/OpenStreetMap; dịch vụ demo không có cam kết vận hành."
+        ]
+      },
+      "nearest_neighbor_seconds": 999,
+      "random_seed": 42,
+      "random_trials": [
+        999,
+        1194.4,
+        1017.4000000000001,
+        1017.4000000000001,
+        999,
+        1194.4,
+        1017.4000000000001,
+        1017.4000000000001,
+        1017.4000000000001,
+        999,
+        1194.4,
+        1194.4,
+        1194.4,
+        1017.4000000000001,
+        1194.4,
+        1009,
+        1017.4000000000001,
+        1027.4,
+        1194.4,
+        1194.4
+      ],
+      "random_feasible_count": 20,
+      "random_mean_seconds": 1085.52
+    },
+    {
+      "case": "danang-tight",
+      "request": {
+        "origin": {
+          "id": "origin",
+          "latitude": 16.0678,
+          "longitude": 108.2208
+        },
+        "visits": [
+          {
+            "id": "stop-1",
+            "latitude": 16.0472,
+            "longitude": 108.2244,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          },
+          {
+            "id": "stop-2",
+            "latitude": 16.0795,
+            "longitude": 108.224,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          },
+          {
+            "id": "stop-3",
+            "latitude": 16.059,
+            "longitude": 108.245,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          }
+        ],
+        "departure_minute": 540,
+        "finish_by_minute": 550,
+        "return_to_origin": true
+      },
+      "optimized": {
+        "status": "infeasible",
+        "schedule": [],
+        "travel_seconds": null,
+        "baseline_travel_seconds": null,
+        "baseline_feasible": false,
+        "saved_travel_seconds": null,
+        "finish_second": null,
+        "matrix": {
+          "point_ids": [
+            "origin",
+            "stop-1",
+            "stop-2",
+            "stop-3"
+          ],
+          "durations_seconds": [
+            [
+              0,
+              253.1,
+              134.9,
+              322.1
+            ],
+            [
+              204.7,
+              0,
+              237.9,
+              229.7
+            ],
+            [
+              183.8,
+              325.2,
+              0,
+              394.2
+            ],
+            [
+              309.2,
+              283.6,
+              342.4,
+              0
+            ]
+          ],
+          "source": "https://router.project-osrm.org",
+          "fetched_at": "2026-10-21T02:35:21.370656Z"
+        },
+        "evaluated_orders": 6,
+        "warnings": [
+          "Tối ưu thời gian lái xe theo ma trận tĩnh; không có giao thông realtime.",
+          "Giờ mở cửa và thời lượng tham quan do đầu vào cung cấp, chưa xác minh nguồn.",
+          "OSRM/OpenStreetMap; dịch vụ demo không có cam kết vận hành."
+        ]
+      },
+      "nearest_neighbor_seconds": null,
+      "random_seed": 42,
+      "random_trials": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "random_feasible_count": 0,
+      "random_mean_seconds": null
+    },
+    {
+      "case": "hanoi-normal",
+      "request": {
+        "origin": {
+          "id": "origin",
+          "latitude": 21.0285,
+          "longitude": 105.8542
+        },
+        "visits": [
+          {
+            "id": "stop-1",
+            "latitude": 21.0358,
+            "longitude": 105.8345,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          },
+          {
+            "id": "stop-2",
+            "latitude": 21.0245,
+            "longitude": 105.8412,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          },
+          {
+            "id": "stop-3",
+            "latitude": 21.03,
+            "longitude": 105.852,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          }
+        ],
+        "departure_minute": 540,
+        "finish_by_minute": 1080,
+        "return_to_origin": true
+      },
+      "optimized": {
+        "status": "feasible",
+        "schedule": [
+          {
+            "place_id": "stop-3",
+            "arrival_second": 32464.5,
+            "start_second": 32464.5,
+            "end_second": 35164.5
+          },
+          {
+            "place_id": "stop-1",
+            "arrival_second": 35460.8,
+            "start_second": 35460.8,
+            "end_second": 38160.8
+          },
+          {
+            "place_id": "stop-2",
+            "arrival_second": 38384.600000000006,
+            "start_second": 38384.600000000006,
+            "end_second": 41084.600000000006
+          }
+        ],
+        "travel_seconds": 857.5,
+        "baseline_travel_seconds": 983.8000000000001,
+        "baseline_feasible": true,
+        "saved_travel_seconds": 126.30000000000007,
+        "finish_second": 41357.50000000001,
+        "matrix": {
+          "point_ids": [
+            "origin",
+            "stop-1",
+            "stop-2",
+            "stop-3"
+          ],
+          "durations_seconds": [
+            [
+              0,
+              340.4,
+              223.8,
+              64.5
+            ],
+            [
+              361.5,
+              0,
+              223.8,
+              394.9
+            ],
+            [
+              272.9,
+              357.4,
+              0,
+              328
+            ],
+            [
+              91.6,
+              296.3,
+              187.5,
+              0
+            ]
+          ],
+          "source": "https://router.project-osrm.org",
+          "fetched_at": "2026-10-21T02:35:22.955234Z"
+        },
+        "evaluated_orders": 6,
+        "warnings": [
+          "Tối ưu thời gian lái xe theo ma trận tĩnh; không có giao thông realtime.",
+          "Giờ mở cửa và thời lượng tham quan do đầu vào cung cấp, chưa xác minh nguồn.",
+          "OSRM/OpenStreetMap; dịch vụ demo không có cam kết vận hành."
+        ]
+      },
+      "nearest_neighbor_seconds": 970.9,
+      "random_seed": 42,
+      "random_trials": [
+        1067.7,
+        970.9,
+        1209.6,
+        1209.6,
+        1067.7,
+        983.8000000000001,
+        1209.6,
+        1209.6,
+        1209.6,
+        1067.7,
+        983.8000000000001,
+        970.9,
+        983.8000000000001,
+        1209.6,
+        983.8000000000001,
+        1195.6999999999998,
+        1209.6,
+        857.5,
+        970.9,
+        970.9
+      ],
+      "random_feasible_count": 20,
+      "random_mean_seconds": 1077.115
+    },
+    {
+      "case": "hanoi-tight",
+      "request": {
+        "origin": {
+          "id": "origin",
+          "latitude": 21.0285,
+          "longitude": 105.8542
+        },
+        "visits": [
+          {
+            "id": "stop-1",
+            "latitude": 21.0358,
+            "longitude": 105.8345,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          },
+          {
+            "id": "stop-2",
+            "latitude": 21.0245,
+            "longitude": 105.8412,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          },
+          {
+            "id": "stop-3",
+            "latitude": 21.03,
+            "longitude": 105.852,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          }
+        ],
+        "departure_minute": 540,
+        "finish_by_minute": 550,
+        "return_to_origin": true
+      },
+      "optimized": {
+        "status": "infeasible",
+        "schedule": [],
+        "travel_seconds": null,
+        "baseline_travel_seconds": null,
+        "baseline_feasible": false,
+        "saved_travel_seconds": null,
+        "finish_second": null,
+        "matrix": {
+          "point_ids": [
+            "origin",
+            "stop-1",
+            "stop-2",
+            "stop-3"
+          ],
+          "durations_seconds": [
+            [
+              0,
+              340.4,
+              223.8,
+              64.5
+            ],
+            [
+              361.5,
+              0,
+              223.8,
+              394.9
+            ],
+            [
+              272.9,
+              357.4,
+              0,
+              328
+            ],
+            [
+              91.6,
+              296.3,
+              187.5,
+              0
+            ]
+          ],
+          "source": "https://router.project-osrm.org",
+          "fetched_at": "2026-10-21T02:35:22.955234Z"
+        },
+        "evaluated_orders": 6,
+        "warnings": [
+          "Tối ưu thời gian lái xe theo ma trận tĩnh; không có giao thông realtime.",
+          "Giờ mở cửa và thời lượng tham quan do đầu vào cung cấp, chưa xác minh nguồn.",
+          "OSRM/OpenStreetMap; dịch vụ demo không có cam kết vận hành."
+        ]
+      },
+      "nearest_neighbor_seconds": null,
+      "random_seed": 42,
+      "random_trials": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "random_feasible_count": 0,
+      "random_mean_seconds": null
+    },
+    {
+      "case": "hcmc-normal",
+      "request": {
+        "origin": {
+          "id": "origin",
+          "latitude": 10.7766,
+          "longitude": 106.7009
+        },
+        "visits": [
+          {
+            "id": "stop-1",
+            "latitude": 10.7725,
+            "longitude": 106.698,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          },
+          {
+            "id": "stop-2",
+            "latitude": 10.7798,
+            "longitude": 106.699,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          },
+          {
+            "id": "stop-3",
+            "latitude": 10.782,
+            "longitude": 106.692,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          }
+        ],
+        "departure_minute": 540,
+        "finish_by_minute": 1080,
+        "return_to_origin": true
+      },
+      "optimized": {
+        "status": "feasible",
+        "schedule": [
+          {
+            "place_id": "stop-1",
+            "arrival_second": 32484,
+            "start_second": 32484,
+            "end_second": 35184
+          },
+          {
+            "place_id": "stop-3",
+            "arrival_second": 35378.4,
+            "start_second": 35378.4,
+            "end_second": 38078.4
+          },
+          {
+            "place_id": "stop-2",
+            "arrival_second": 38168.700000000004,
+            "start_second": 38168.700000000004,
+            "end_second": 40868.700000000004
+          }
+        ],
+        "travel_seconds": 428.9,
+        "baseline_travel_seconds": 553.9000000000001,
+        "baseline_feasible": true,
+        "saved_travel_seconds": 125.00000000000011,
+        "finish_second": 40928.9,
+        "matrix": {
+          "point_ids": [
+            "origin",
+            "stop-1",
+            "stop-2",
+            "stop-3"
+          ],
+          "durations_seconds": [
+            [
+              0,
+              84,
+              84.4,
+              186.6
+            ],
+            [
+              156.7,
+              0,
+              173.6,
+              194.4
+            ],
+            [
+              60.2,
+              126.1,
+              0,
+              149.8
+            ],
+            [
+              146.5,
+              151.3,
+              90.3,
+              0
+            ]
+          ],
+          "source": "https://router.project-osrm.org",
+          "fetched_at": "2026-10-21T02:35:24.585604Z"
+        },
+        "evaluated_orders": 6,
+        "warnings": [
+          "Tối ưu thời gian lái xe theo ma trận tĩnh; không có giao thông realtime.",
+          "Giờ mở cửa và thời lượng tham quan do đầu vào cung cấp, chưa xác minh nguồn.",
+          "OSRM/OpenStreetMap; dịch vụ demo không có cam kết vận hành."
+        ]
+      },
+      "nearest_neighbor_seconds": 553.9000000000001,
+      "random_seed": 42,
+      "random_trials": [
+        551.4,
+        559.7,
+        542.2,
+        542.2,
+        551.4,
+        553.9000000000001,
+        542.2,
+        542.2,
+        542.2,
+        551.4,
+        553.9000000000001,
+        559.7,
+        553.9000000000001,
+        542.2,
+        553.9000000000001,
+        428.9,
+        542.2,
+        571.7,
+        559.7,
+        559.7
+      ],
+      "random_feasible_count": 20,
+      "random_mean_seconds": 545.23
+    },
+    {
+      "case": "hcmc-tight",
+      "request": {
+        "origin": {
+          "id": "origin",
+          "latitude": 10.7766,
+          "longitude": 106.7009
+        },
+        "visits": [
+          {
+            "id": "stop-1",
+            "latitude": 10.7725,
+            "longitude": 106.698,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          },
+          {
+            "id": "stop-2",
+            "latitude": 10.7798,
+            "longitude": 106.699,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          },
+          {
+            "id": "stop-3",
+            "latitude": 10.782,
+            "longitude": 106.692,
+            "duration_minutes": 45,
+            "opens_minute": 0,
+            "closes_minute": 1440
+          }
+        ],
+        "departure_minute": 540,
+        "finish_by_minute": 550,
+        "return_to_origin": true
+      },
+      "optimized": {
+        "status": "infeasible",
+        "schedule": [],
+        "travel_seconds": null,
+        "baseline_travel_seconds": null,
+        "baseline_feasible": false,
+        "saved_travel_seconds": null,
+        "finish_second": null,
+        "matrix": {
+          "point_ids": [
+            "origin",
+            "stop-1",
+            "stop-2",
+            "stop-3"
+          ],
+          "durations_seconds": [
+            [
+              0,
+              84,
+              84.4,
+              186.6
+            ],
+            [
+              156.7,
+              0,
+              173.6,
+              194.4
+            ],
+            [
+              60.2,
+              126.1,
+              0,
+              149.8
+            ],
+            [
+              146.5,
+              151.3,
+              90.3,
+              0
+            ]
+          ],
+          "source": "https://router.project-osrm.org",
+          "fetched_at": "2026-10-21T02:35:24.585604Z"
+        },
+        "evaluated_orders": 6,
+        "warnings": [
+          "Tối ưu thời gian lái xe theo ma trận tĩnh; không có giao thông realtime.",
+          "Giờ mở cửa và thời lượng tham quan do đầu vào cung cấp, chưa xác minh nguồn.",
+          "OSRM/OpenStreetMap; dịch vụ demo không có cam kết vận hành."
+        ]
+      },
+      "nearest_neighbor_seconds": null,
+      "random_seed": 42,
+      "random_trials": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "random_feasible_count": 0,
+      "random_mean_seconds": null
+    }
+  ],
+  "limitations": [
+    "Road-network estimates, not observed travel times",
+    "Coordinate samples, not verified attraction entrances",
+    "No live Gemini evaluation or human usability evaluation"
+  ]
+}

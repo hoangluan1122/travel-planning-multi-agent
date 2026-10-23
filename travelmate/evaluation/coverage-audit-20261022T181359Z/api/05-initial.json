@@ -1,0 +1,368 @@
+{
+  "request_id": "86266675-1f90-4fbb-aec8-8a2f9f8d2ed4",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Điện Biên Phủ",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "geonames:1583477",
+    "name": "Điện Biên Phủ",
+    "latitude": 21.38602,
+    "longitude": 103.02301,
+    "admin1": "Tỉnh Ðiện Biên",
+    "admin2": "Thành Phố Điện Biên Phủ",
+    "feature_code": "PPLA",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1583477/",
+    "fetched_at": "2026-10-22T18:14:20.252730Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/4061334793": {
+      "distance_m": 341.43328171037797,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4416978389": {
+      "distance_m": 491.17821554561215,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4416360920": {
+      "distance_m": 583.3525381036709,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4411036390": {
+      "distance_m": 695.476269343192,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4693157590": {
+      "distance_m": 1145.3527473127967,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 12,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:14:17.968891Z",
+  "completed_at": "2026-10-22T18:14:23.724412Z",
+  "places": [
+    {
+      "id": "osm:node/4061334793",
+      "name": "Sông Hồng Restaurant",
+      "address": "Đường Hoàng Công Chất, Mường Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "latitude": 21.385886,
+      "longitude": 103.0197155,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4061334793",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4061334793",
+        "latitude": "https://www.openstreetmap.org/node/4061334793",
+        "longitude": "https://www.openstreetmap.org/node/4061334793",
+        "types": "https://www.openstreetmap.org/node/4061334793",
+        "address": "https://www.openstreetmap.org/node/4061334793"
+      }
+    },
+    {
+      "id": "osm:node/4416978389",
+      "name": "vụ ân restaurant",
+      "address": "Hoàng Văn Thái, Mường Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "latitude": 21.3824981,
+      "longitude": 103.0201467,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4416978389",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4416978389",
+        "latitude": "https://www.openstreetmap.org/node/4416978389",
+        "longitude": "https://www.openstreetmap.org/node/4416978389",
+        "types": "https://www.openstreetmap.org/node/4416978389",
+        "address": "https://www.openstreetmap.org/node/4416978389"
+      }
+    },
+    {
+      "id": "osm:node/4416360920",
+      "name": "Không gian Cafe",
+      "address": "Đường Hoàng Công Chất, Mường Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "latitude": 21.385016,
+      "longitude": 103.01748,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4416360920",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4416360920",
+        "latitude": "https://www.openstreetmap.org/node/4416360920",
+        "longitude": "https://www.openstreetmap.org/node/4416360920",
+        "types": "https://www.openstreetmap.org/node/4416360920",
+        "address": "https://www.openstreetmap.org/node/4416360920"
+      }
+    },
+    {
+      "id": "osm:node/4411036390",
+      "name": "Nhà hàng Ngọc Mai",
+      "address": "Đường Trần Can, Mường Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "latitude": 21.388598,
+      "longitude": 103.01689,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4411036390",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4411036390",
+        "latitude": "https://www.openstreetmap.org/node/4411036390",
+        "longitude": "https://www.openstreetmap.org/node/4411036390",
+        "types": "https://www.openstreetmap.org/node/4411036390",
+        "address": "https://www.openstreetmap.org/node/4411036390"
+      }
+    },
+    {
+      "id": "osm:node/4693157590",
+      "name": "Yen Ninh",
+      "address": "Đường Võ Nguyên Giáp, Tân Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "latitude": 21.3960546,
+      "longitude": 103.0205131,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4693157590",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4693157590",
+        "latitude": "https://www.openstreetmap.org/node/4693157590",
+        "longitude": "https://www.openstreetmap.org/node/4693157590",
+        "types": "https://www.openstreetmap.org/node/4693157590",
+        "address": "https://www.openstreetmap.org/node/4693157590"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/4061334793",
+      "title": "Sông Hồng Restaurant",
+      "snippet": "Đường Hoàng Công Chất, Mường Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4061334793",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4416978389",
+      "title": "vụ ân restaurant",
+      "snippet": "Hoàng Văn Thái, Mường Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4416978389",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4416360920",
+      "title": "Không gian Cafe",
+      "snippet": "Đường Hoàng Công Chất, Mường Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4416360920",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4411036390",
+      "title": "Nhà hàng Ngọc Mai",
+      "snippet": "Đường Trần Can, Mường Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4411036390",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4693157590",
+      "title": "Yen Ninh",
+      "snippet": "Đường Võ Nguyên Giáp, Tân Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4693157590",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7156615985",
+      "title": "Quán chay tú oanh",
+      "snippet": "653 Tô 9, Tân Thanh, Tp, Tân Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7156615985",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4411033391",
+      "title": "Nhà hàng Dân Tộc Quán",
+      "snippet": "Nguyễn Hữu Thọ, Mường Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4411033391",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4411036391",
+      "title": "Nhà hàng Tay Muong",
+      "snippet": "Nguyễn Hữu Thọ, Mường Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4411036391",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3294335516",
+      "title": "Vegetarian Restaurant",
+      "snippet": "Đường Võ Nguyên Giáp, Tân Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3294335516",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5626777821",
+      "title": "Bun Cha Oc",
+      "snippet": "571, Võ Nguyên Giáp, Tân Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5626777821",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5492915121",
+      "title": "Cà phê PhaDin",
+      "snippet": "Trần Đăng Ninh, Mường Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5492915121",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12299547911",
+      "title": "Thảo Coffee",
+      "snippet": "Nguyễn Hữu Thọ, Mường Thanh, Điện Biên Phủ, Điện Biên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12299547911",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.38602&limit=50&lon=103.02301&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:23.723408Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:14:17.968891Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:14:20.253733Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:14:23.724412Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 12
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:14:23.724412Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

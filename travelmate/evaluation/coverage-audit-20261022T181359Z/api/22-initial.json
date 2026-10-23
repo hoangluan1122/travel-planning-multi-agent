@@ -1,0 +1,306 @@
+{
+  "request_id": "ad93020e-d64e-4b19-af65-580aa22e9cf6",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Lý Sơn",
+  "category": "hotel",
+  "resolved_location": {
+    "id": "geonames:8673396",
+    "name": "Lý Sơn",
+    "latitude": 15.37198,
+    "longitude": 109.11891,
+    "admin1": "Quang Ngai",
+    "admin2": "Huyện Lý Sơn",
+    "feature_code": "PPLA2",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/8673396/",
+    "fetched_at": "2026-10-22T18:15:51.817432Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:way/862936699": {
+      "distance_m": 308.01074606554533,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.37198&limit=50&lon=109.11891&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/9935946530": {
+      "distance_m": 2476.663719281174,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.37198&limit=50&lon=109.11891&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/863492149": {
+      "distance_m": 2513.284818433369,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.37198&limit=50&lon=109.11891&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/863492147": {
+      "distance_m": 2559.4537345079557,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.37198&limit=50&lon=109.11891&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/863704677": {
+      "distance_m": 2640.5292490274473,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.37198&limit=50&lon=109.11891&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 5,
+  "offset": 0,
+  "has_more": false,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:15:49.307268Z",
+  "completed_at": "2026-10-22T18:15:56.011316Z",
+  "places": [
+    {
+      "id": "osm:way/862936699",
+      "name": "Mường Thanh Hotel",
+      "address": "Đường Cơ Động, Tây An Hải, Quảng Ngãi, Việt Nam",
+      "latitude": 15.3716638,
+      "longitude": 109.116056,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:56.010313Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/862936699",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/862936699",
+        "latitude": "https://www.openstreetmap.org/way/862936699",
+        "longitude": "https://www.openstreetmap.org/way/862936699",
+        "types": "https://www.openstreetmap.org/way/862936699",
+        "address": "https://www.openstreetmap.org/way/862936699"
+      }
+    },
+    {
+      "id": "osm:node/9935946530",
+      "name": "Khách Sạn Hiệp Sĩ Lý Sơn",
+      "address": "Đường Cơ Động, Quảng Ngãi, Việt Nam",
+      "latitude": 15.3798814,
+      "longitude": 109.0973124,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:56.010313Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/9935946530",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/9935946530",
+        "latitude": "https://www.openstreetmap.org/node/9935946530",
+        "longitude": "https://www.openstreetmap.org/node/9935946530",
+        "types": "https://www.openstreetmap.org/node/9935946530",
+        "address": "https://www.openstreetmap.org/node/9935946530"
+      }
+    },
+    {
+      "id": "osm:way/863492149",
+      "name": "Khách sạn Lý Sơn",
+      "address": "Đường Cơ Động, Tây An Hải, Quảng Ngãi, Việt Nam",
+      "latitude": 15.3796374,
+      "longitude": 109.0968547,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:56.010313Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/863492149",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/863492149",
+        "latitude": "https://www.openstreetmap.org/way/863492149",
+        "longitude": "https://www.openstreetmap.org/way/863492149",
+        "types": "https://www.openstreetmap.org/way/863492149",
+        "address": "https://www.openstreetmap.org/way/863492149"
+      }
+    },
+    {
+      "id": "osm:way/863492147",
+      "name": "Central Hotel",
+      "address": "Đường Cơ Động, Tây An Hải, Quảng Ngãi, Việt Nam",
+      "latitude": 15.3792348,
+      "longitude": 109.0962546,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:56.010313Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/863492147",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/863492147",
+        "latitude": "https://www.openstreetmap.org/way/863492147",
+        "longitude": "https://www.openstreetmap.org/way/863492147",
+        "types": "https://www.openstreetmap.org/way/863492147",
+        "address": "https://www.openstreetmap.org/way/863492147"
+      }
+    },
+    {
+      "id": "osm:way/863704677",
+      "name": "Đại Dương Hotel",
+      "address": "Đường Cơ Động, Tây An Hải, Quảng Ngãi, Việt Nam",
+      "latitude": 15.380261,
+      "longitude": 109.0958276,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:56.010313Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/863704677",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/863704677",
+        "latitude": "https://www.openstreetmap.org/way/863704677",
+        "longitude": "https://www.openstreetmap.org/way/863704677",
+        "types": "https://www.openstreetmap.org/way/863704677",
+        "address": "https://www.openstreetmap.org/way/863704677"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:way/862936699",
+      "title": "Mường Thanh Hotel",
+      "snippet": "Đường Cơ Động, Tây An Hải, Quảng Ngãi, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/862936699",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.37198&limit=50&lon=109.11891&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:56.010313Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/9935946530",
+      "title": "Khách Sạn Hiệp Sĩ Lý Sơn",
+      "snippet": "Đường Cơ Động, Quảng Ngãi, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/9935946530",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.37198&limit=50&lon=109.11891&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:56.010313Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/863492149",
+      "title": "Khách sạn Lý Sơn",
+      "snippet": "Đường Cơ Động, Tây An Hải, Quảng Ngãi, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/863492149",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.37198&limit=50&lon=109.11891&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:56.010313Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/863492147",
+      "title": "Central Hotel",
+      "snippet": "Đường Cơ Động, Tây An Hải, Quảng Ngãi, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/863492147",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.37198&limit=50&lon=109.11891&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:56.010313Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/863704677",
+      "title": "Đại Dương Hotel",
+      "snippet": "Đường Cơ Động, Tây An Hải, Quảng Ngãi, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/863704677",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.37198&limit=50&lon=109.11891&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:56.010313Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "stay_price",
+    "room_availability",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:49.307268Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:51.817432Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:15:56.011316Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 5
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:15:56.011316Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

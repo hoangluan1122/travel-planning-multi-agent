@@ -1,0 +1,316 @@
+{
+  "request_id": "2042c52d-75f6-4903-b4d6-2e8cea69039b",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Cát Bà",
+  "category": "attraction",
+  "resolved_location": {
+    "id": "geonames:1586052",
+    "name": "Cát Bà",
+    "latitude": 20.72779,
+    "longitude": 107.04819,
+    "admin1": "Hai Phong",
+    "admin2": "Huyện Cát Hải",
+    "feature_code": "PPL",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1586052/",
+    "fetched_at": "2026-10-22T17:45:21.571876Z"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/4742839722": {
+      "distance_m": 460.7124646888479,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:way/690132854": {
+      "distance_m": 972.4532834610714,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:node/6117262366": {
+      "distance_m": 1028.8651263576878,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:way/409741435": {
+      "distance_m": 1187.7080509915434,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:way/409741436": {
+      "distance_m": 1191.0609864556714,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 8,
+  "offset": 0,
+  "has_more": true,
+  "started_at": "2026-10-22T17:45:24.171124Z",
+  "completed_at": "2026-10-22T17:45:25.313847Z",
+  "places": [
+    {
+      "id": "osm:node/4742839722",
+      "name": "Điểm Biểu tượng ngắm Vịnh Cát Bà",
+      "address": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.7255422,
+      "longitude": 107.0519114,
+      "source": "osm_photon",
+      "types": [
+        "monument"
+      ],
+      "fetched_at": "2026-10-22T17:45:25.312851Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4742839722",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4742839722",
+        "latitude": "https://www.openstreetmap.org/node/4742839722",
+        "longitude": "https://www.openstreetmap.org/node/4742839722",
+        "types": "https://www.openstreetmap.org/node/4742839722",
+        "address": "https://www.openstreetmap.org/node/4742839722"
+      }
+    },
+    {
+      "id": "osm:way/690132854",
+      "name": "Bãi biển Tùng Thu",
+      "address": "Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.7304444,
+      "longitude": 107.0392803,
+      "source": "osm_photon",
+      "types": [
+        "beach"
+      ],
+      "fetched_at": "2026-10-22T17:45:25.312851Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/690132854",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/690132854",
+        "latitude": "https://www.openstreetmap.org/way/690132854",
+        "longitude": "https://www.openstreetmap.org/way/690132854",
+        "types": "https://www.openstreetmap.org/way/690132854",
+        "address": "https://www.openstreetmap.org/way/690132854"
+      }
+    },
+    {
+      "id": "osm:node/6117262366",
+      "name": "View on the bay",
+      "address": "Con đường bướm, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.7242532,
+      "longitude": 107.0573318,
+      "source": "osm_photon",
+      "types": [
+        "viewpoint"
+      ],
+      "fetched_at": "2026-10-22T17:45:25.312851Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/6117262366",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/6117262366",
+        "latitude": "https://www.openstreetmap.org/node/6117262366",
+        "longitude": "https://www.openstreetmap.org/node/6117262366",
+        "types": "https://www.openstreetmap.org/node/6117262366",
+        "address": "https://www.openstreetmap.org/node/6117262366"
+      }
+    },
+    {
+      "id": "osm:way/409741435",
+      "name": "Bãi biển Cát Cỏ 1",
+      "address": "Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.7181214,
+      "longitude": 107.0530437,
+      "source": "osm_photon",
+      "types": [
+        "beach"
+      ],
+      "fetched_at": "2026-10-22T17:45:25.312851Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/409741435",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/409741435",
+        "latitude": "https://www.openstreetmap.org/way/409741435",
+        "longitude": "https://www.openstreetmap.org/way/409741435",
+        "types": "https://www.openstreetmap.org/way/409741435",
+        "address": "https://www.openstreetmap.org/way/409741435"
+      }
+    },
+    {
+      "id": "osm:way/409741436",
+      "name": "Bãi biển Cát Cỏ 2",
+      "address": "Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.7191751,
+      "longitude": 107.0549958,
+      "source": "osm_photon",
+      "types": [
+        "beach"
+      ],
+      "fetched_at": "2026-10-22T17:45:25.312851Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/409741436",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/409741436",
+        "latitude": "https://www.openstreetmap.org/way/409741436",
+        "longitude": "https://www.openstreetmap.org/way/409741436",
+        "types": "https://www.openstreetmap.org/way/409741436",
+        "address": "https://www.openstreetmap.org/way/409741436"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/4742839722",
+      "title": "Điểm Biểu tượng ngắm Vịnh Cát Bà",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4742839722",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:25.312851Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/690132854",
+      "title": "Bãi biển Tùng Thu",
+      "snippet": "Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/690132854",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:25.312851Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6117262366",
+      "title": "View on the bay",
+      "snippet": "Con đường bướm, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6117262366",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:25.312851Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/409741435",
+      "title": "Bãi biển Cát Cỏ 1",
+      "snippet": "Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/409741435",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:25.312851Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/409741436",
+      "title": "Bãi biển Cát Cỏ 2",
+      "snippet": "Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/409741436",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:25.312851Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1195550420",
+      "title": "Storland beach",
+      "snippet": "Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1195550420",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:25.312851Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/409741434",
+      "title": "Bãi biển Cát Cỏ 3",
+      "snippet": "Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/409741434",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:25.312851Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6722564185",
+      "title": "Bar view point",
+      "snippet": "Phố Hà Sen, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6722564185",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:25.312851Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T17:45:24.171124Z",
+      "message": "Xác định khu dân cư tại Việt Nam qua GeoNames/Open-Meteo.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T17:45:24.172120Z",
+      "message": "Tra chỉ mục Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T17:45:25.313847Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài bán kính hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 8
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T17:45:25.313847Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ tâm khu dân cư đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

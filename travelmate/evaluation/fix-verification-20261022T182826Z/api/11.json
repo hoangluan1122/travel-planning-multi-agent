@@ -1,0 +1,370 @@
+{
+  "request_id": "b69226bc-c82a-4460-82b9-0759bf41699d",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Bà Nà Hills",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "photon:way/359114064",
+    "name": "Sun World Bà Nà Hills",
+    "latitude": 15.9958569,
+    "longitude": 107.9890712,
+    "admin1": "",
+    "admin2": "Đà Nẵng",
+    "feature_code": "OSM:theme_park",
+    "country_code": "VN",
+    "source_url": "https://www.openstreetmap.org/way/359114064",
+    "fetched_at": "2026-10-22T18:29:05.204694Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null,
+    "coordinate_kind": "geometry_center"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/13587488508": {
+      "distance_m": 110.41497872227855,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/11423808688": {
+      "distance_m": 164.11109132988102,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/11422706022": {
+      "distance_m": 202.9493426382671,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/12959087697": {
+      "distance_m": 218.77291726687938,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/10154412491": {
+      "distance_m": 239.96886007180268,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 12,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:29:07.697566Z",
+  "completed_at": "2026-10-22T18:29:10.104465Z",
+  "places": [
+    {
+      "id": "osm:node/13587488508",
+      "name": "Four Seasons",
+      "address": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "latitude": 15.9954289,
+      "longitude": 107.9900033,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/13587488508",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/13587488508",
+        "latitude": "https://www.openstreetmap.org/node/13587488508",
+        "longitude": "https://www.openstreetmap.org/node/13587488508",
+        "types": "https://www.openstreetmap.org/node/13587488508",
+        "address": "https://www.openstreetmap.org/node/13587488508"
+      }
+    },
+    {
+      "id": "osm:node/11423808688",
+      "name": "Le Table",
+      "address": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "latitude": 15.996871,
+      "longitude": 107.9879557,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/11423808688",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/11423808688",
+        "latitude": "https://www.openstreetmap.org/node/11423808688",
+        "longitude": "https://www.openstreetmap.org/node/11423808688",
+        "types": "https://www.openstreetmap.org/node/11423808688",
+        "address": "https://www.openstreetmap.org/node/11423808688"
+      }
+    },
+    {
+      "id": "osm:node/11422706022",
+      "name": "El Fresco",
+      "address": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "latitude": 15.9973858,
+      "longitude": 107.9880342,
+      "source": "osm_photon",
+      "types": [
+        "fast_food"
+      ],
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/11422706022",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/11422706022",
+        "latitude": "https://www.openstreetmap.org/node/11422706022",
+        "longitude": "https://www.openstreetmap.org/node/11422706022",
+        "types": "https://www.openstreetmap.org/node/11422706022",
+        "address": "https://www.openstreetmap.org/node/11422706022"
+      }
+    },
+    {
+      "id": "osm:node/12959087697",
+      "name": "Rosa",
+      "address": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "latitude": 15.9976394,
+      "longitude": 107.9882048,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/12959087697",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/12959087697",
+        "latitude": "https://www.openstreetmap.org/node/12959087697",
+        "longitude": "https://www.openstreetmap.org/node/12959087697",
+        "types": "https://www.openstreetmap.org/node/12959087697",
+        "address": "https://www.openstreetmap.org/node/12959087697"
+      }
+    },
+    {
+      "id": "osm:node/10154412491",
+      "name": "Kungfu Noodle",
+      "address": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "latitude": 15.9975204,
+      "longitude": 107.987641,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/10154412491",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/10154412491",
+        "latitude": "https://www.openstreetmap.org/node/10154412491",
+        "longitude": "https://www.openstreetmap.org/node/10154412491",
+        "types": "https://www.openstreetmap.org/node/10154412491",
+        "address": "https://www.openstreetmap.org/node/10154412491"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/13587488508",
+      "title": "Four Seasons",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13587488508",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11423808688",
+      "title": "Le Table",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11423808688",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11422706022",
+      "title": "El Fresco",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11422706022",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12959087697",
+      "title": "Rosa",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12959087697",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10154412491",
+      "title": "Kungfu Noodle",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10154412491",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11423819121",
+      "title": "Brasserie",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11423819121",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11423769989",
+      "title": "Postal Cafe",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11423769989",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11423812931",
+      "title": "Lotteria",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11423812931",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11422697875",
+      "title": "La Crique",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11422697875",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11427627314",
+      "title": "Vietnamese Restaurant",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11427627314",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1109970036",
+      "title": "Beer Plaza",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1109970036",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1109970012",
+      "title": "Trú Vũ Trà Quán",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1109970012",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:10.103464Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:29:07.697566Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:29:07.697566Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:29:10.104465Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 12
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:29:10.104465Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Điểm tham chiếu là tâm hình học của khu vực theo nguồn, không phải cửa vào. Kết quả chỉ nằm trong bán kính đã chọn quanh tâm này; không bao phủ toàn bộ khu du lịch.",
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

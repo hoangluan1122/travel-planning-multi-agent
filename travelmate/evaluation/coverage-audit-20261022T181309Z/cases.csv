@@ -1,0 +1,10 @@
+﻿number,province,destination,category,outcome,status,records,elapsed_s,selected_by_test
+1,Hà Nội,Hà Nội,hotel,source_error,source_error,0,3.97,False
+2,Cao Bằng,Cao Bằng,restaurant,source_error,source_error,0,4.66,False
+3,Tuyên Quang,Đồng Văn,attraction,source_error,source_error,0,6.8,False
+4,Lào Cai,Sa Pa,hotel,source_error,source_error,0,5.17,False
+5,Điện Biên,Điện Biên Phủ,restaurant,source_error,source_error,0,3.58,False
+6,Lai Châu,Lai Châu,attraction,source_error,source_error,0,5.08,False
+7,Sơn La,Mộc Châu,hotel,source_error,source_error,0,4.88,False
+8,Thái Nguyên,Bắc Kạn,restaurant,source_error,source_error,0,7.48,False
+9,Lạng Sơn,Lạng Sơn,attraction,source_error,source_error,0,3.62,False

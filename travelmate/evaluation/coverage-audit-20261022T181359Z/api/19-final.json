@@ -1,0 +1,630 @@
+{
+  "request_id": "e4a231ab-302b-47f0-a233-7f1837d137a5",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Phong Nha",
+  "category": "hotel",
+  "resolved_location": {
+    "id": "geonames:1570838",
+    "name": "Phong Nha",
+    "latitude": 17.60025,
+    "longitude": 106.32099,
+    "admin1": "Quang Tri",
+    "admin2": "Huyện Bố Trạch",
+    "feature_code": "PPL",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1570838/",
+    "fetched_at": "2026-10-22T18:15:38.355614Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/13466836101": {
+      "distance_m": 439.0755734355912,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/5764040759": {
+      "distance_m": 579.8200299575465,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/13466837001": {
+      "distance_m": 820.1442375447006,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/9860677120": {
+      "distance_m": 1107.120512165708,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/11839169864": {
+      "distance_m": 1141.0270837700261,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 41,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:15:37.134371Z",
+  "completed_at": "2026-10-22T18:15:41.123255Z",
+  "places": [
+    {
+      "id": "osm:node/13466836101",
+      "name": "Hui's Homestay",
+      "address": "Đường Hồ Chí Minh nhánh Đông, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "latitude": 17.6022514,
+      "longitude": 106.3245611,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/13466836101",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/13466836101",
+        "latitude": "https://www.openstreetmap.org/node/13466836101",
+        "longitude": "https://www.openstreetmap.org/node/13466836101",
+        "types": "https://www.openstreetmap.org/node/13466836101",
+        "address": "https://www.openstreetmap.org/node/13466836101"
+      }
+    },
+    {
+      "id": "osm:node/5764040759",
+      "name": "Phong Nha Rice Field Homestay & Restaurant",
+      "address": "Đường Hồ Chí Minh nhánh Đông, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "latitude": 17.6029646,
+      "longitude": 106.3256608,
+      "source": "osm_photon",
+      "types": [
+        "guest_house"
+      ],
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5764040759",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5764040759",
+        "latitude": "https://www.openstreetmap.org/node/5764040759",
+        "longitude": "https://www.openstreetmap.org/node/5764040759",
+        "types": "https://www.openstreetmap.org/node/5764040759",
+        "address": "https://www.openstreetmap.org/node/5764040759"
+      }
+    },
+    {
+      "id": "osm:node/13466837001",
+      "name": "Serenity by the lake",
+      "address": "Đường Hồ Chí Minh nhánh Đông, Bố Trạch, Tỉnh Quảng Trị, Việt Nam",
+      "latitude": 17.6010217,
+      "longitude": 106.3286855,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/13466837001",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/13466837001",
+        "latitude": "https://www.openstreetmap.org/node/13466837001",
+        "longitude": "https://www.openstreetmap.org/node/13466837001",
+        "types": "https://www.openstreetmap.org/node/13466837001",
+        "address": "https://www.openstreetmap.org/node/13466837001"
+      }
+    },
+    {
+      "id": "osm:node/9860677120",
+      "name": "Ngoc's Garden House",
+      "address": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "latitude": 17.6080925,
+      "longitude": 106.3145544,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/9860677120",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/9860677120",
+        "latitude": "https://www.openstreetmap.org/node/9860677120",
+        "longitude": "https://www.openstreetmap.org/node/9860677120",
+        "types": "https://www.openstreetmap.org/node/9860677120",
+        "address": "https://www.openstreetmap.org/node/9860677120"
+      }
+    },
+    {
+      "id": "osm:node/11839169864",
+      "name": "Co Cuc Hotel",
+      "address": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "latitude": 17.608569,
+      "longitude": 106.3146871,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/11839169864",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/11839169864",
+        "latitude": "https://www.openstreetmap.org/node/11839169864",
+        "longitude": "https://www.openstreetmap.org/node/11839169864",
+        "types": "https://www.openstreetmap.org/node/11839169864",
+        "address": "https://www.openstreetmap.org/node/11839169864"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/13466836101",
+      "title": "Hui's Homestay",
+      "snippet": "Đường Hồ Chí Minh nhánh Đông, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13466836101",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5764040759",
+      "title": "Phong Nha Rice Field Homestay & Restaurant",
+      "snippet": "Đường Hồ Chí Minh nhánh Đông, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5764040759",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13466837001",
+      "title": "Serenity by the lake",
+      "snippet": "Đường Hồ Chí Minh nhánh Đông, Bố Trạch, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13466837001",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/9860677120",
+      "title": "Ngoc's Garden House",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/9860677120",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11839169864",
+      "title": "Co Cuc Hotel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11839169864",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12712886501",
+      "title": "Tien's cozy homestay",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12712886501",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4194524389",
+      "title": "Mountain View Hotel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4194524389",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6528398285",
+      "title": "Nam Ahn",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6528398285",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5461011722",
+      "title": "Thien Phu Hostel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5461011722",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13480969735",
+      "title": "Magic Finger's Homestay",
+      "snippet": "Đường Hồ Chí Minh nhánh Đông, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13480969735",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4237271290",
+      "title": "Mountain View Hotel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4237271290",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1011584851",
+      "title": "Thành Đạt",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1011584851",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4137858132",
+      "title": "Midtown Hotel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4137858132",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5355717821",
+      "title": "Gold Plus Hotel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5355717821",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1011584847",
+      "title": "Phong Nha I Hotel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1011584847",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2729087925",
+      "title": "Van Anh",
+      "snippet": "Ha Loi Street, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2729087925",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4201566089",
+      "title": "Duong Homestay",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4201566089",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5346660825",
+      "title": "An Binh Hotel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5346660825",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5467071421",
+      "title": "Tuan's Garden House",
+      "snippet": "Đường Hồ Chí Minh nhánh Đông, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5467071421",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13272469056",
+      "title": "Thien Thanh Hotel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13272469056",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4747992622",
+      "title": "Binh Minh Hotel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4747992622",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4739519823",
+      "title": "Gecko hostel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4739519823",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5419176021",
+      "title": "Phong nah-tuan garden house",
+      "snippet": "Cầu Khỉ Lầu, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5419176021",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5413276523",
+      "title": "Shambalaa Hostel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5413276523",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2921270064",
+      "title": "Thao Nguyen Hotel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2921270064",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5685195421",
+      "title": "Mango Hostel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5685195421",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4730366638",
+      "title": "Heritage by Night",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4730366638",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5826875992",
+      "title": "Green Valley Hotel",
+      "snippet": "20, Highway, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5826875992",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4732035847",
+      "title": "Phuong Nam Hotel",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4732035847",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5826891585",
+      "title": "Green Valley hotel",
+      "snippet": "Highway 20, Đường Hồ Chí Minh, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5826891585",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5422190827",
+      "title": "Sy's Homestay",
+      "snippet": "Đường Hồ Chí Minh nhánh Đông, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5422190827",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11839153032",
+      "title": "Phong Nha Riverlife Homestay",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11839153032",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1491233312",
+      "title": "Phong Nha Green Homestay",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1491233312",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4281366290",
+      "title": "Village House",
+      "snippet": "Đường Hồ Chí Minh nhánh Đông, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4281366290",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5912960094",
+      "title": "BFF Homestay",
+      "snippet": "1, Cu Lac, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5912960094",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6548928785",
+      "title": "Fami Homestay",
+      "snippet": "Đường Hồ Chí Minh nhánh Đông, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6548928785",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5671453321",
+      "title": "Tarzan's homestay",
+      "snippet": "Cu Lac, Son Trach, Bo Trach, Quang binh, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5671453321",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1011584854",
+      "title": "Phương Nam",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1011584854",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6204569785",
+      "title": "Hung Phat Bungalow",
+      "snippet": "Đường Hồ Chí Minh nhánh Đông, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6204569785",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6875124806",
+      "title": "Trung Đức hotel",
+      "snippet": "32m, Phong Nha, Quang Binh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6875124806",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1001085886",
+      "title": "Applebee's Homestay",
+      "snippet": "Quốc lộ 9G, Phong Nha, Tỉnh Quảng Trị, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1001085886",
+      "search_url": "https://photon.komoot.io/reverse?lat=17.60025&limit=50&lon=106.32099&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:41.119139Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "stay_price",
+    "room_availability",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:37.134371Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:38.356599Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:15:41.122241Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 41
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:15:41.123255Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

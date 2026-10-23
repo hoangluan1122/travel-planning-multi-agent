@@ -1,5 +1,21 @@
 # Travel Planning Multi-Agent
 
+## Phiên bản đang phát triển — 23/10/2026
+
+Mã nguồn mới, các agent, giao diện thử nghiệm và kết quả kiểm thử nằm trong
+[`travelmate/`](travelmate/README.md). Thư mục `backend/` bên dưới là phiên bản
+khởi tạo trước đó, được giữ lại để đối chiếu.
+
+```powershell
+cd travelmate
+uv sync --extra dev --extra ai --extra browser
+uv run uvicorn app.live_place_api:create_app --factory --host 127.0.0.1 --port 8001
+```
+
+Mở http://127.0.0.1:8001/ để thử Place Agent lấy địa điểm từ nguồn mạng thật.
+Hướng dẫn các dịch vụ khác nằm trong README của thư mục `travelmate/`.
+Xem [kết quả xác minh gần nhất](travelmate/RELEASE_STATUS_2026-10-23.md).
+
 Nền tảng lập kế hoạch du lịch sử dụng kiến trúc Multi-Agent. `PlannerAgent` điều phối các agent chuyên trách về địa điểm, thời tiết, ngân sách và ghi nhớ sở thích để tạo lịch trình theo ngày.
 
 ## Thành phần hiện có

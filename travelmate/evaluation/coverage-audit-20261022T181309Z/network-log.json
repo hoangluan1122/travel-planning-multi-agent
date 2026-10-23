@@ -1,0 +1,182 @@
+[
+  {
+    "number": 1,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=H%C3%A0+N%E1%BB%99i",
+    "at": "2026-10-22T18:13:09.837937+00:00",
+    "status": 200,
+    "bytes": 602,
+    "sha256": "d3da50312f7542034af1d4426605da3ebecfcddc2df99749cd999b1e373e77bb",
+    "error_type": "DecodingError",
+    "elapsed_s": 1.016
+  },
+  {
+    "number": 2,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=H%C3%A0+N%E1%BB%99i",
+    "at": "2026-10-22T18:13:12.341919+00:00",
+    "status": 200,
+    "bytes": 4575,
+    "sha256": "181b23b992ec9f294b69b6d86b43da457f154a111d2766f1585e74c86a2522a4",
+    "error_type": "DecodingError",
+    "elapsed_s": 1.469
+  },
+  {
+    "number": 3,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=Cao+B%E1%BA%B1ng",
+    "at": "2026-10-22T18:13:14.855545+00:00",
+    "status": 200,
+    "bytes": 1874,
+    "sha256": "cfa35b3369b5863d805a6965692cbb8c45c0a74d3fc388618004411aa8decb69",
+    "error_type": "DecodingError",
+    "elapsed_s": 0.891
+  },
+  {
+    "number": 4,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=Cao+B%E1%BA%B1ng",
+    "at": "2026-10-22T18:13:17.362245+00:00",
+    "status": 200,
+    "bytes": 2343,
+    "sha256": "ec9ce67c270621deadd41d9fea6a28e5fb65ffb2be5d1878afa30003acef289a",
+    "error_type": "DecodingError",
+    "elapsed_s": 1.109
+  },
+  {
+    "number": 5,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=%C4%90%E1%BB%93ng+V%C4%83n",
+    "at": "2026-10-22T18:13:19.872458+00:00",
+    "status": 200,
+    "bytes": 6080,
+    "sha256": "76f2b2bf6a32ba2c6a7baec4f2e490dd6de88efe75c14191b1d417b1f1645582",
+    "error_type": "DecodingError",
+    "elapsed_s": 0.875
+  },
+  {
+    "number": 6,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=%C4%90%E1%BB%93ng+V%C4%83n",
+    "at": "2026-10-22T18:13:22.388439+00:00",
+    "status": 200,
+    "bytes": 1282,
+    "sha256": "7a6e968e5e13f3137beac48e5ce5b934fd9991e4a1aa4bdbac38a5587387e841",
+    "error_type": "DecodingError",
+    "elapsed_s": 2.922
+  },
+  {
+    "number": 7,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=Sa+Pa",
+    "at": "2026-10-22T18:13:25.320172+00:00",
+    "status": 200,
+    "bytes": 640,
+    "sha256": "8e8a33baf018bdb4934ce9cc1665c300499c00de6148e5292b595cc9a07aa0fd",
+    "error_type": "DecodingError",
+    "elapsed_s": 0.797
+  },
+  {
+    "number": 8,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=Sa+Pa",
+    "at": "2026-10-22T18:13:27.840985+00:00",
+    "status": 200,
+    "bytes": 3855,
+    "sha256": "b6b34742eebc274a0052f6f2d033373158252472646e397cd731eeceaf1220dd",
+    "error_type": "DecodingError",
+    "elapsed_s": 2.657
+  },
+  {
+    "number": 9,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=%C4%90i%E1%BB%87n+Bi%C3%AAn+Ph%E1%BB%A7",
+    "at": "2026-10-22T18:13:30.495094+00:00",
+    "status": 200,
+    "bytes": 739,
+    "sha256": "7c2347f8c226fc4e9c675f118ad0c49d44e7352f76d148b53244e611330bee93",
+    "error_type": "DecodingError",
+    "elapsed_s": 0.875
+  },
+  {
+    "number": 10,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=%C4%90i%E1%BB%87n+Bi%C3%AAn+Ph%E1%BB%A7",
+    "at": "2026-10-22T18:13:33.006481+00:00",
+    "status": 200,
+    "bytes": 4201,
+    "sha256": "78888bd4b364ee6ad71dc06f4f82389b7f1eec63c2027887b083728604a5dadd",
+    "error_type": "DecodingError",
+    "elapsed_s": 1.047
+  },
+  {
+    "number": 11,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=Lai+Ch%C3%A2u",
+    "at": "2026-10-22T18:13:35.526504+00:00",
+    "status": 200,
+    "bytes": 678,
+    "sha256": "44d8415941ff3698e706aa27f16235dc48b5432978cf30d2dae29255f130829a",
+    "error_type": "DecodingError",
+    "elapsed_s": 0.875
+  },
+  {
+    "number": 12,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=Lai+Ch%C3%A2u",
+    "at": "2026-10-22T18:13:38.028027+00:00",
+    "status": 200,
+    "bytes": 3928,
+    "sha256": "a3bdc44dcb1acd94b17fdc1b50da8f54c49c7751fe877945c1d589acdbb07a51",
+    "error_type": "DecodingError",
+    "elapsed_s": 1.125
+  },
+  {
+    "number": 13,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=M%E1%BB%99c+Ch%C3%A2u",
+    "at": "2026-10-22T18:13:40.536235+00:00",
+    "status": 200,
+    "bytes": 343,
+    "sha256": "99fb3610d8591320efb548ed9fe5aed6a16e2c7002610bc101dbae706c1ff1ee",
+    "error_type": "DecodingError",
+    "elapsed_s": 0.875
+  },
+  {
+    "number": 14,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=M%E1%BB%99c+Ch%C3%A2u",
+    "at": "2026-10-22T18:13:43.049046+00:00",
+    "status": 200,
+    "bytes": 3782,
+    "sha256": "91aff564b81332c51b560294d43098c49ef94d78825fa5a9c04c09cd1e9ea068",
+    "error_type": "DecodingError",
+    "elapsed_s": 0.984
+  },
+  {
+    "number": 15,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=B%E1%BA%AFc+K%E1%BA%A1n",
+    "at": "2026-10-22T18:13:45.560550+00:00",
+    "status": 200,
+    "bytes": 661,
+    "sha256": "10e1184a9d841257a62d4db92b59ffeb2c4b9f964205816dd1b063919abec3a7",
+    "error_type": "DecodingError",
+    "elapsed_s": 0.859
+  },
+  {
+    "number": 16,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=B%E1%BA%AFc+K%E1%BA%A1n",
+    "at": "2026-10-22T18:13:48.074014+00:00",
+    "status": 200,
+    "bytes": 2677,
+    "sha256": "8319e83b577dd7895d4d0f157d2363a61703907056616df08e4b615f6dfe7a2f",
+    "error_type": "DecodingError",
+    "elapsed_s": 3.453
+  },
+  {
+    "number": 17,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=L%E1%BA%A1ng+S%C6%A1n",
+    "at": "2026-10-22T18:13:51.549453+00:00",
+    "status": 200,
+    "bytes": 2765,
+    "sha256": "208857f8273a2aa15c0ddb325ccd43032ead551c6dc847f472b7ba0f62c92fac",
+    "error_type": "DecodingError",
+    "elapsed_s": 0.844
+  },
+  {
+    "number": 18,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=L%E1%BA%A1ng+S%C6%A1n",
+    "at": "2026-10-22T18:13:54.061425+00:00",
+    "status": 200,
+    "bytes": 3532,
+    "sha256": "539550191bde1cfb549fc20e8128df039ab3688a081edfe8e4306c38641786de",
+    "error_type": "DecodingError",
+    "elapsed_s": 1.109
+  }
+]

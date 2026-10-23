@@ -1,0 +1,658 @@
+{
+  "request_id": "a7bdc0dc-d3f9-4900-8af3-56fdfd8c1f3b",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Cát Bà",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "geonames:1586052",
+    "name": "Cát Bà",
+    "latitude": 20.72779,
+    "longitude": 107.04819,
+    "admin1": "Hai Phong",
+    "admin2": "Huyện Cát Hải",
+    "feature_code": "PPL",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1586052/",
+    "fetched_at": "2026-10-22T17:45:21.571876Z"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/6045579085": {
+      "distance_m": 66.10144173473265,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:node/4583782591": {
+      "distance_m": 138.38159561731314,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:node/5853825985": {
+      "distance_m": 193.18952706225974,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:node/4968881231": {
+      "distance_m": 198.82993265777705,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:node/5485790821": {
+      "distance_m": 204.04615231628242,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 46,
+  "offset": 0,
+  "has_more": true,
+  "started_at": "2026-10-22T17:45:23.180768Z",
+  "completed_at": "2026-10-22T17:45:24.166133Z",
+  "places": [
+    {
+      "id": "osm:node/6045579085",
+      "name": "Night food market",
+      "address": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.7275197,
+      "longitude": 107.0476239,
+      "source": "osm_photon",
+      "types": [
+        "fast_food"
+      ],
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/6045579085",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/6045579085",
+        "latitude": "https://www.openstreetmap.org/node/6045579085",
+        "longitude": "https://www.openstreetmap.org/node/6045579085",
+        "types": "https://www.openstreetmap.org/node/6045579085",
+        "address": "https://www.openstreetmap.org/node/6045579085"
+      }
+    },
+    {
+      "id": "osm:node/4583782591",
+      "name": "Com No 368",
+      "address": "Phố Tùng Dinh, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.7277826,
+      "longitude": 107.0468594,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4583782591",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4583782591",
+        "latitude": "https://www.openstreetmap.org/node/4583782591",
+        "longitude": "https://www.openstreetmap.org/node/4583782591",
+        "types": "https://www.openstreetmap.org/node/4583782591",
+        "address": "https://www.openstreetmap.org/node/4583782591"
+      }
+    },
+    {
+      "id": "osm:node/5853825985",
+      "name": "8x Café & Bistro",
+      "address": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.726725,
+      "longitude": 107.0467223,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5853825985",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5853825985",
+        "latitude": "https://www.openstreetmap.org/node/5853825985",
+        "longitude": "https://www.openstreetmap.org/node/5853825985",
+        "types": "https://www.openstreetmap.org/node/5853825985",
+        "address": "https://www.openstreetmap.org/node/5853825985"
+      }
+    },
+    {
+      "id": "osm:node/4968881231",
+      "name": "My Way",
+      "address": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.7266545,
+      "longitude": 107.0467131,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4968881231",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4968881231",
+        "latitude": "https://www.openstreetmap.org/node/4968881231",
+        "longitude": "https://www.openstreetmap.org/node/4968881231",
+        "types": "https://www.openstreetmap.org/node/4968881231",
+        "address": "https://www.openstreetmap.org/node/4968881231"
+      }
+    },
+    {
+      "id": "osm:node/5485790821",
+      "name": "25 Klub Restaurant",
+      "address": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.7265808,
+      "longitude": 107.0467142,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5485790821",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5485790821",
+        "latitude": "https://www.openstreetmap.org/node/5485790821",
+        "longitude": "https://www.openstreetmap.org/node/5485790821",
+        "types": "https://www.openstreetmap.org/node/5485790821",
+        "address": "https://www.openstreetmap.org/node/5485790821"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/6045579085",
+      "title": "Night food market",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6045579085",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4583782591",
+      "title": "Com No 368",
+      "snippet": "Phố Tùng Dinh, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4583782591",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5853825985",
+      "title": "8x Café & Bistro",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5853825985",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4968881231",
+      "title": "My Way",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4968881231",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5485790821",
+      "title": "25 Klub Restaurant",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5485790821",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7077433186",
+      "title": "Indian Restaurant Ganesh",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7077433186",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5203556821",
+      "title": "SAM ăn vặt 3 miền",
+      "snippet": "26, tùng dinh, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5203556821",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5168566912",
+      "title": "Aroma Cat Ba seafood restaurant",
+      "snippet": "175a, Đường 1/4, Đặc khu Cát Hải, Hai Phong, viet nam, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5168566912",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4330795089",
+      "title": "Nam VIP CAFÉ",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4330795089",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7996425485",
+      "title": "Thảo Minh restaurant",
+      "snippet": "197, Đường 1/4, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7996425485",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7087702387",
+      "title": "Straßen-Restaurant",
+      "snippet": "Phố Tùng Dinh, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7087702387",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11167015809",
+      "title": "Nam Phuong",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11167015809",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4463333191",
+      "title": "Phương Nhung",
+      "snippet": "185, Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4463333191",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2649308257",
+      "title": "My Way",
+      "snippet": "196, Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2649308257",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4550354489",
+      "title": "Like Coffee",
+      "snippet": "177, 1/4, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4550354489",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5273170621",
+      "title": "Mona's Homestay",
+      "snippet": "180, 1/4, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5273170621",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6325083485",
+      "title": "My Way Café",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6325083485",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11167017406",
+      "title": "Quân Cát Bà",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11167017406",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6318299785",
+      "title": "Anh, Nguyêt",
+      "snippet": "211, Môt Tháng Tu, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6318299785",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11167015807",
+      "title": "Ba Tàu",
+      "snippet": "Phố Tùng Dinh, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11167015807",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13385805501",
+      "title": "Lin Vegan",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13385805501",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12301479634",
+      "title": "Tit & Mit",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12301479634",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7056361335",
+      "title": "Start Up Coffee",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7056361335",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13404096964",
+      "title": "Vu Duong",
+      "snippet": "Phố Tùng Dinh, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13404096964",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6375427194",
+      "title": "Pho Bó 10",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6375427194",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/994727603",
+      "title": "Phong an lang",
+      "snippet": "18, Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/994727603",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13385805801",
+      "title": "Trinh Ly Food",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13385805801",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6045579185",
+      "title": "Bahn Cuon Trang Nong",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6045579185",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/14266357301",
+      "title": "Tom & Jerry Bahn mi",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/14266357301",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11167007006",
+      "title": "Domik",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11167007006",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5379965522",
+      "title": "Dolphin Restaraunt",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5379965522",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6472390135",
+      "title": "Street Food",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6472390135",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6251713085",
+      "title": "The Little Leaf",
+      "snippet": "91, Núi Ngọc, Đặc khu Cát Hải, Cat Ba Town, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6251713085",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6127555186",
+      "title": "The Big Man restaurant",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6127555186",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6229504085",
+      "title": "The Bigman",
+      "snippet": "Đường 1/4, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6229504085",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1460535514",
+      "title": "Highlands",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1460535514",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7140561985",
+      "title": "Napoli Pizza",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7140561985",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6021545911",
+      "title": "Phi Nhung",
+      "snippet": "7, Cång Cá, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6021545911",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6224590485",
+      "title": "Casa Bonita",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6224590485",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6469030977",
+      "title": "Cat Ba View",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6469030977",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10742866105",
+      "title": "The Little Leaf",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10742866105",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13506592667",
+      "title": "Tam Vegetarian",
+      "snippet": "Phố Cái Bèo, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13506592667",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6045873086",
+      "title": "Casa Bonita",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6045873086",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/994727609",
+      "title": "Ha Vy",
+      "snippet": "315, Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/994727609",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11834671369",
+      "title": "Cơm Sườn 1991",
+      "snippet": "15, Phố Cái Bèo, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11834671369",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6914828285",
+      "title": "Napoli pizza",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6914828285",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:24.160133Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T17:45:23.180768Z",
+      "message": "Xác định khu dân cư tại Việt Nam qua GeoNames/Open-Meteo.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T17:45:23.181768Z",
+      "message": "Tra chỉ mục Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T17:45:24.166133Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài bán kính hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 46
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T17:45:24.166133Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ tâm khu dân cư đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

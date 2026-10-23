@@ -1,0 +1,140 @@
+{
+  "verification": "replay_of_real_source_records_not_new_live_search_or_llm_benchmark",
+  "place_snapshot": "evaluation\\browser-places-sapa-live.json",
+  "request": {
+    "candidates": [
+      {
+        "id": "official:d51f0bf7ca477c688fd03dad",
+        "name": "Hotel de la Coupole Sapa - MGallery Collection",
+        "address": "1, Hoang Lien Street, Sapa District, Lao Cai Province, SAPA, Vietnam",
+        "latitude": 22.334686,
+        "longitude": 103.840433,
+        "source": "official_mgallery_jsonld",
+        "types": [
+          "hotel"
+        ],
+        "fetched_at": "2026-10-22T06:20:45.038699Z",
+        "estimated_visit_cost_vnd": null,
+        "source_url": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "attribution": null,
+        "coordinate_kind": "point",
+        "opening_hours_raw": null,
+        "website_url": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "image_reference": null,
+        "field_sources": {
+          "name": "https://mgallery.accor.com/en/hotels/A5V2.html",
+          "address": "https://mgallery.accor.com/en/hotels/A5V2.html",
+          "latitude": "https://mgallery.accor.com/en/hotels/A5V2.html",
+          "longitude": "https://mgallery.accor.com/en/hotels/A5V2.html",
+          "types": "https://mgallery.accor.com/en/hotels/A5V2.html"
+        }
+      }
+    ],
+    "interests": [
+      "khách sạn",
+      "gia đình"
+    ],
+    "limit": 5,
+    "excluded_place_ids": [],
+    "required_place_ids": [],
+    "context": {
+      "origin": null,
+      "max_distance_m": null,
+      "proximity_scale_m": 5000.0,
+      "max_price_vnd": "1500000",
+      "price_basis": "per_room_night",
+      "prices": {},
+      "features": {},
+      "required_features": [],
+      "unknown_policy": "keep_with_warning",
+      "weather_risk": "not_supplied",
+      "weather_source": null,
+      "weights": {
+        "interests": 0.5,
+        "proximity": 0.2,
+        "affordability": 0.2,
+        "weather": 0.1
+      }
+    }
+  },
+  "result": {
+    "places": [
+      {
+        "id": "official:d51f0bf7ca477c688fd03dad",
+        "name": "Hotel de la Coupole Sapa - MGallery Collection",
+        "address": "1, Hoang Lien Street, Sapa District, Lao Cai Province, SAPA, Vietnam",
+        "latitude": 22.334686,
+        "longitude": 103.840433,
+        "source": "official_mgallery_jsonld",
+        "types": [
+          "hotel"
+        ],
+        "fetched_at": "2026-10-22T06:20:45.038699Z",
+        "estimated_visit_cost_vnd": null,
+        "source_url": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "attribution": null,
+        "coordinate_kind": "point",
+        "opening_hours_raw": null,
+        "website_url": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "image_reference": null,
+        "field_sources": {
+          "name": "https://mgallery.accor.com/en/hotels/A5V2.html",
+          "address": "https://mgallery.accor.com/en/hotels/A5V2.html",
+          "latitude": "https://mgallery.accor.com/en/hotels/A5V2.html",
+          "longitude": "https://mgallery.accor.com/en/hotels/A5V2.html",
+          "types": "https://mgallery.accor.com/en/hotels/A5V2.html"
+        }
+      }
+    ],
+    "method": "weighted_evidence_v1",
+    "warnings": [
+      "Điểm 0–100 là độ khớp theo công thức đầu vào, không phải sao cộng đồng hay xác suất hài lòng.",
+      "Bằng chứng và giá do caller cung cấp; công cụ chưa tự xác minh nguồn qua Internet.",
+      "Khoảng cách là đường chim bay; Route cần kiểm tra đường đi và thời gian sau khi chọn điểm."
+    ],
+    "status": "partial",
+    "items": [
+      {
+        "place_id": "official:d51f0bf7ca477c688fd03dad",
+        "score": 35.714285714285715,
+        "criteria": [
+          {
+            "criterion": "interests",
+            "value": 0.5,
+            "weight": 0.7142857142857143,
+            "contribution": 35.714285714285715,
+            "evidence_sources": [
+              "https://mgallery.accor.com/en/hotels/A5V2.html"
+            ],
+            "explanation": "1/2 sở thích khớp taxonomy hoặc bằng chứng được cung cấp."
+          },
+          {
+            "criterion": "affordability",
+            "value": 0.0,
+            "weight": 0.28571428571428575,
+            "contribution": 0.0,
+            "evidence_sources": [],
+            "explanation": "So mức giá tối đa với trần cùng đơn vị; thiếu giá nhận 0 điểm tiêu chí và giữ cảnh báo."
+          }
+        ],
+        "matched_interests": [
+          "khách sạn"
+        ],
+        "unresolved_interests": [
+          "gia đình"
+        ],
+        "missing_evidence": [
+          "price",
+          "interests"
+        ],
+        "distance_m": null,
+        "distance_method": "not_computed",
+        "is_required": false,
+        "price_unavailable_reason": "not_supplied"
+      }
+    ],
+    "rejected": [],
+    "required_conflicts": [],
+    "evaluated_at": "2026-10-22T13:33:09.672463Z"
+  }
+}

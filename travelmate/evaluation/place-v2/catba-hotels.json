@@ -1,0 +1,641 @@
+{
+  "request_id": "5cee92bc-754e-4b55-94d3-7eccfad7790b",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Cát Bà",
+  "category": "hotel",
+  "resolved_location": {
+    "id": "geonames:1586052",
+    "name": "Cát Bà",
+    "latitude": 20.72779,
+    "longitude": 107.04819,
+    "admin1": "Hai Phong",
+    "admin2": "Huyện Cát Hải",
+    "feature_code": "PPL",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1586052/",
+    "fetched_at": "2026-10-22T17:45:21.571876Z"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/5591851035": {
+      "distance_m": 26.0531923353072,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:node/5853825685": {
+      "distance_m": 105.91157474714907,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:node/6630731185": {
+      "distance_m": 196.19237909675033,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:node/11167017405": {
+      "distance_m": 202.98521653303845,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:node/5010909779": {
+      "distance_m": 210.74117925026627,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 44,
+  "offset": 0,
+  "has_more": true,
+  "started_at": "2026-10-22T17:45:20.652165Z",
+  "completed_at": "2026-10-22T17:45:23.175768Z",
+  "places": [
+    {
+      "id": "osm:node/5591851035",
+      "name": "Ubytovani cat ba",
+      "address": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.7275559,
+      "longitude": 107.0481796,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5591851035",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5591851035",
+        "latitude": "https://www.openstreetmap.org/node/5591851035",
+        "longitude": "https://www.openstreetmap.org/node/5591851035",
+        "types": "https://www.openstreetmap.org/node/5591851035",
+        "address": "https://www.openstreetmap.org/node/5591851035"
+      }
+    },
+    {
+      "id": "osm:node/5853825685",
+      "name": "May Hostel",
+      "address": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.7286726,
+      "longitude": 107.0485729,
+      "source": "osm_photon",
+      "types": [
+        "hostel"
+      ],
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5853825685",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5853825685",
+        "latitude": "https://www.openstreetmap.org/node/5853825685",
+        "longitude": "https://www.openstreetmap.org/node/5853825685",
+        "types": "https://www.openstreetmap.org/node/5853825685",
+        "address": "https://www.openstreetmap.org/node/5853825685"
+      }
+    },
+    {
+      "id": "osm:node/6630731185",
+      "name": "Cat Ba backpackers hostel",
+      "address": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.726719,
+      "longitude": 107.0466908,
+      "source": "osm_photon",
+      "types": [
+        "hostel"
+      ],
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/6630731185",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/6630731185",
+        "latitude": "https://www.openstreetmap.org/node/6630731185",
+        "longitude": "https://www.openstreetmap.org/node/6630731185",
+        "types": "https://www.openstreetmap.org/node/6630731185",
+        "address": "https://www.openstreetmap.org/node/6630731185"
+      }
+    },
+    {
+      "id": "osm:node/11167017405",
+      "name": "Chu Long",
+      "address": "Phố Tùng Dinh, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "latitude": 20.7277476,
+      "longitude": 107.0462387,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/11167017405",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/11167017405",
+        "latitude": "https://www.openstreetmap.org/node/11167017405",
+        "longitude": "https://www.openstreetmap.org/node/11167017405",
+        "types": "https://www.openstreetmap.org/node/11167017405",
+        "address": "https://www.openstreetmap.org/node/11167017405"
+      }
+    },
+    {
+      "id": "osm:node/5010909779",
+      "name": "Nhật Anh Hotel 2",
+      "address": "số 23, Tùng Dinh, Đặc khu Cát Hải, Thành phố Hải Phòng, Việt Nam",
+      "latitude": 20.7278897,
+      "longitude": 107.0461664,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5010909779",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5010909779",
+        "latitude": "https://www.openstreetmap.org/node/5010909779",
+        "longitude": "https://www.openstreetmap.org/node/5010909779",
+        "types": "https://www.openstreetmap.org/node/5010909779",
+        "address": "https://www.openstreetmap.org/node/5010909779"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/5591851035",
+      "title": "Ubytovani cat ba",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5591851035",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5853825685",
+      "title": "May Hostel",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5853825685",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6630731185",
+      "title": "Cat Ba backpackers hostel",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6630731185",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11167017405",
+      "title": "Chu Long",
+      "snippet": "Phố Tùng Dinh, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11167017405",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5010909779",
+      "title": "Nhật Anh Hotel 2",
+      "snippet": "số 23, Tùng Dinh, Đặc khu Cát Hải, Thành phố Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5010909779",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13386171302",
+      "title": "Gem Hostel",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13386171302",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4791799202",
+      "title": "Phu Thanh",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4791799202",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5951808285",
+      "title": "Thu Ha Hotel",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5951808285",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5181438830",
+      "title": "Trang Anh hôtel",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5181438830",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5273170621",
+      "title": "Mona's Homestay",
+      "snippet": "180, 1/4, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5273170621",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3179329661",
+      "title": "Phuong Mai Family Hotel",
+      "snippet": "193, 1/4, Đặc khu Cát Hải, Hai Phong, Vietnam, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3179329661",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5594172523",
+      "title": "Huong Cang Hotel",
+      "snippet": "Phố Cát Bà, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5594172523",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6294921385",
+      "title": "Phong Nghi",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6294921385",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4794363321",
+      "title": "Huyen vu",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4794363321",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4754045222",
+      "title": "Ngoc Hoa Hotel",
+      "snippet": "211, Đường 1/4, Đặc khu Cát Hải, Cát Bà, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4754045222",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12564714802",
+      "title": "Phuc An",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12564714802",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4544639393",
+      "title": "Phong Lan",
+      "snippet": "214, Đường 1/4, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4544639393",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5430448623",
+      "title": "thuy Anh",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5430448623",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6203109686",
+      "title": "Hoang phuc",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6203109686",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/994727535",
+      "title": "Lan Ha",
+      "snippet": "21, Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/994727535",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/994768209",
+      "title": "Hoàng Hiếu Hotel",
+      "snippet": "17/19, Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/994768209",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5471055437",
+      "title": "Thu Hoai",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5471055437",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6318299786",
+      "title": "The Ireland Hotel",
+      "snippet": "51, Nui Ngoc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6318299786",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5164512231",
+      "title": "Hông Quàng Hotel",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5164512231",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6045578986",
+      "title": "Sea Pearl Hotel & Spa",
+      "snippet": "219, Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6045578986",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/994727586",
+      "title": "Dung Hà",
+      "snippet": "15, Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/994727586",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/994727574",
+      "title": "Tuan Ha",
+      "snippet": "9, Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/994727574",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/994727620",
+      "title": "Sun & Sea Hotel",
+      "snippet": "28, Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/994727620",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6251324086",
+      "title": "Family Friendy Hotel",
+      "snippet": "alley 5, Nui Ngoc, Street 3, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6251324086",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/994727621",
+      "title": "vien duong hotel",
+      "snippet": "23, Núi Ngọc, Đặc khu Cát Hải, Cát Bà, Vietnam, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/994727621",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/994727590",
+      "title": "Yen Thanh",
+      "snippet": "Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/994727590",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3251910822",
+      "title": "Sea View Hotel",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3251910822",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/994727512",
+      "title": "Nam Phương 1",
+      "snippet": "Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/994727512",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/994727585",
+      "title": "Sông Chanh II",
+      "snippet": "32, Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/994727585",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12327738808",
+      "title": "Trang toàn hotel",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12327738808",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4930999322",
+      "title": "Viet Anh",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4930999322",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5835330685",
+      "title": "Phuong Thao",
+      "snippet": "48, Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5835330685",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11167015806",
+      "title": "Cát Bà Swan Hotel",
+      "snippet": "46, Phố Tùng Dinh, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11167015806",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/994768173",
+      "title": "Rồng Biển Hotel",
+      "snippet": "3, Phố Hoa Phong, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/994768173",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4619897789",
+      "title": "Cat ba Garden House",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4619897789",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6472390133",
+      "title": "Galaxy Hotel",
+      "snippet": "Phố Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6472390133",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5792050153",
+      "title": "Snow White’s Homestay",
+      "snippet": "number 2 zone 8, Cái Bèo, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5792050153",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4375049390",
+      "title": "Cat Ba Lingur Hostel 2",
+      "snippet": "84, Núi Ngọc, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4375049390",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13385748204",
+      "title": "Bảo Phúc",
+      "snippet": "Phố Tùng Dinh, Đặc khu Cát Hải, Hải Phòng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13385748204",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.72779&limit=50&lon=107.04819&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:23.171770Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "stay_price",
+    "room_availability",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T17:45:20.652165Z",
+      "message": "Xác định khu dân cư tại Việt Nam qua GeoNames/Open-Meteo.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T17:45:21.572876Z",
+      "message": "Tra chỉ mục Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T17:45:23.174770Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài bán kính hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 44
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T17:45:23.175768Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ tâm khu dân cư đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

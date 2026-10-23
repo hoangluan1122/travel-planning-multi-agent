@@ -1,0 +1,377 @@
+{
+  "request_id": "847fa711-153b-4b2d-84b5-c4a1fe2d4046",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Quy Nhơn",
+  "category": "attraction",
+  "resolved_location": {
+    "id": "geonames:1568574",
+    "name": "Quy Nhơn",
+    "latitude": 13.77648,
+    "longitude": 109.22367,
+    "admin1": "Gia Lai",
+    "admin2": "Huyện Phù Cát",
+    "feature_code": "PPLA",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1568574/",
+    "fetched_at": "2026-10-22T18:16:01.919761Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/1532359114": {
+      "distance_m": 287.86302063257835,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/1532249217": {
+      "distance_m": 523.0190556893301,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/783059395": {
+      "distance_m": 902.4326869688757,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/13587412402": {
+      "distance_m": 1245.154459360139,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/1448205224": {
+      "distance_m": 1374.33241141207,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 13,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:15:59.844222Z",
+  "completed_at": "2026-10-22T18:16:04.739964Z",
+  "places": [
+    {
+      "id": "osm:node/1532359114",
+      "name": "Tượng đài Quang Trung - Nguyễn Huệ",
+      "address": "Vòng xoay Quang Trung, Quy Nhơn, Gia Lai, Việt Nam",
+      "latitude": 13.7771664,
+      "longitude": 109.2262401,
+      "source": "osm_photon",
+      "types": [
+        "monument"
+      ],
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/1532359114",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/1532359114",
+        "latitude": "https://www.openstreetmap.org/node/1532359114",
+        "longitude": "https://www.openstreetmap.org/node/1532359114",
+        "types": "https://www.openstreetmap.org/node/1532359114",
+        "address": "https://www.openstreetmap.org/node/1532359114"
+      }
+    },
+    {
+      "id": "osm:node/1532249217",
+      "name": "BẢO TÀNG TƯ NHÂN GỐM CỔ GÒ SÀNH VIJAYA - CHAMPA - BÌNH ĐỊNH",
+      "address": "Tăng Bạt Hổ, Quy Nhơn, Gia Lai, Việt Nam",
+      "latitude": 13.7734048,
+      "longitude": 109.2273345,
+      "source": "osm_photon",
+      "types": [
+        "museum"
+      ],
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/1532249217",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/1532249217",
+        "latitude": "https://www.openstreetmap.org/node/1532249217",
+        "longitude": "https://www.openstreetmap.org/node/1532249217",
+        "types": "https://www.openstreetmap.org/node/1532249217",
+        "address": "https://www.openstreetmap.org/node/1532249217"
+      }
+    },
+    {
+      "id": "osm:way/783059395",
+      "name": "công viên Đống Đa",
+      "address": "Đống Đa, Quy Nhơn, thành phố Quy Nhơn, Bình Định, Việt Nam",
+      "latitude": 13.7832436,
+      "longitude": 109.2282884,
+      "source": "osm_photon",
+      "types": [
+        "park"
+      ],
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/783059395",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/783059395",
+        "latitude": "https://www.openstreetmap.org/way/783059395",
+        "longitude": "https://www.openstreetmap.org/way/783059395",
+        "types": "https://www.openstreetmap.org/way/783059395",
+        "address": "https://www.openstreetmap.org/way/783059395"
+      }
+    },
+    {
+      "id": "osm:node/13587412402",
+      "name": "Bảo Tàng Tổng Hợp Bình Định",
+      "address": "28, Nguyễn Huệ, Quy Nhơn, Gia Lai, Việt Nam",
+      "latitude": 13.7704529,
+      "longitude": 109.233387,
+      "source": "osm_photon",
+      "types": [
+        "museum"
+      ],
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/13587412402",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/13587412402",
+        "latitude": "https://www.openstreetmap.org/node/13587412402",
+        "longitude": "https://www.openstreetmap.org/node/13587412402",
+        "types": "https://www.openstreetmap.org/node/13587412402",
+        "address": "https://www.openstreetmap.org/node/13587412402"
+      }
+    },
+    {
+      "id": "osm:way/1448205224",
+      "name": "Công viên Hữu Nghị",
+      "address": "Quy Nhơn, Gia Lai, Việt Nam",
+      "latitude": 13.7882141,
+      "longitude": 109.2196726,
+      "source": "osm_photon",
+      "types": [
+        "park"
+      ],
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/1448205224",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/1448205224",
+        "latitude": "https://www.openstreetmap.org/way/1448205224",
+        "longitude": "https://www.openstreetmap.org/way/1448205224",
+        "types": "https://www.openstreetmap.org/way/1448205224",
+        "address": "https://www.openstreetmap.org/way/1448205224"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/1532359114",
+      "title": "Tượng đài Quang Trung - Nguyễn Huệ",
+      "snippet": "Vòng xoay Quang Trung, Quy Nhơn, Gia Lai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1532359114",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1532249217",
+      "title": "BẢO TÀNG TƯ NHÂN GỐM CỔ GÒ SÀNH VIJAYA - CHAMPA - BÌNH ĐỊNH",
+      "snippet": "Tăng Bạt Hổ, Quy Nhơn, Gia Lai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1532249217",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/783059395",
+      "title": "công viên Đống Đa",
+      "snippet": "Đống Đa, Quy Nhơn, thành phố Quy Nhơn, Bình Định, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/783059395",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13587412402",
+      "title": "Bảo Tàng Tổng Hợp Bình Định",
+      "snippet": "28, Nguyễn Huệ, Quy Nhơn, Gia Lai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13587412402",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1448205224",
+      "title": "Công viên Hữu Nghị",
+      "snippet": "Quy Nhơn, Gia Lai, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1448205224",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1527934285",
+      "title": "Tượng Đài Chiến Thắng",
+      "snippet": "Xuân Diệu, Quy Nhơn, Gia Lai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1527934285",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5336416674",
+      "title": "Tượng đài Nguyễn Sinh Sắc - Nguyễn Tất Thành",
+      "snippet": "Diên Hồng, Quy Nhơn, Gia Lai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5336416674",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12617745001",
+      "title": "Flower",
+      "snippet": "Xuân Diệu, Quy Nhơn, Gia Lai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12617745001",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/481823401",
+      "title": "Quy Nhon Beach",
+      "snippet": "Quy Nhơn Nam, Quy Nhơn, Gia Lai, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/481823401",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5336416675",
+      "title": "Công viên Thiếu Nhi",
+      "snippet": "Quy Nhơn Nam, Quy Nhơn, Gia Lai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5336416675",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4259837989",
+      "title": "Gazebos",
+      "snippet": "Hàn Mặc Tử, Quy Nhơn Nam, Quy Nhơn, Gia Lai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4259837989",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4172034894",
+      "title": "Khu du lịch Ghềnh Ráng",
+      "snippet": "Hàn Mặc Tử, Quy Nhơn Nam, Quy Nhơn, Gia Lai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4172034894",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1636134720",
+      "title": "Bãi Tắm Hoàng Hậu",
+      "snippet": "Hàn Mặc Tử, Quy Nhơn Nam, Quy Nhơn, Gia Lai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1636134720",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.77648&limit=50&lon=109.22367&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:04.737961Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:59.844222Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:16:01.919761Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:16:04.739964Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 13
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:16:04.739964Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

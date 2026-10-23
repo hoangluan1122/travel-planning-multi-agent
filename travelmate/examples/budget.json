@@ -1,0 +1,9 @@
+{
+  "budget_vnd": "3000000",
+  "lines": [
+    {"id":"hotel","category":"accommodation","unit_price_vnd":"500000","quantity":2,"source":"user_estimate","certainty":"estimated"},
+    {"id":"meals","category":"meals","unit_price_vnd":"100000","quantity":6,"source":"user_estimate","certainty":"estimated"},
+    {"id":"transport","category":"transport","quantity":1,"source":"not_yet_quoted","certainty":"unknown"},
+    {"id":"visits","category":"visits","unit_price_vnd":"100000","quantity":2,"source":"user_estimate","certainty":"estimated"}
+  ]
+}

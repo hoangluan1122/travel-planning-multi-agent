@@ -1,0 +1,316 @@
+{
+  "request_id": "a1d9a52c-872c-4057-bb7f-485223fa8f3c",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Bà Nà Hills",
+  "category": "attraction",
+  "resolved_location": {
+    "id": "photon:way/359114064",
+    "name": "Sun World Bà Nà Hills",
+    "latitude": 15.9958569,
+    "longitude": 107.9890712,
+    "admin1": "",
+    "admin2": "Đà Nẵng",
+    "feature_code": "OSM:theme_park",
+    "country_code": "VN",
+    "source_url": "https://www.openstreetmap.org/way/359114064",
+    "fetched_at": "2026-10-22T18:29:05.204694Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null,
+    "coordinate_kind": "geometry_center"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:way/359114064": {
+      "distance_m": 0.0,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/1511011826": {
+      "distance_m": 104.90028715176246,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/10154412164": {
+      "distance_m": 112.33993009842064,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4122433690": {
+      "distance_m": 451.56912978556403,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/542867598": {
+      "distance_m": 453.1613847556673,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 6,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:29:10.112465Z",
+  "completed_at": "2026-10-22T18:29:12.668737Z",
+  "places": [
+    {
+      "id": "osm:way/359114064",
+      "name": "Sun World Bà Nà Hills",
+      "address": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "latitude": 15.9958569,
+      "longitude": 107.9890712,
+      "source": "osm_photon",
+      "types": [
+        "theme_park"
+      ],
+      "fetched_at": "2026-10-22T18:29:12.667735Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/359114064",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/359114064",
+        "latitude": "https://www.openstreetmap.org/way/359114064",
+        "longitude": "https://www.openstreetmap.org/way/359114064",
+        "types": "https://www.openstreetmap.org/way/359114064",
+        "address": "https://www.openstreetmap.org/way/359114064"
+      }
+    },
+    {
+      "id": "osm:way/1511011826",
+      "name": "Louvre",
+      "address": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "latitude": 15.9951834,
+      "longitude": 107.9897584,
+      "source": "osm_photon",
+      "types": [
+        "attraction"
+      ],
+      "fetched_at": "2026-10-22T18:29:12.667735Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/1511011826",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/1511011826",
+        "latitude": "https://www.openstreetmap.org/way/1511011826",
+        "longitude": "https://www.openstreetmap.org/way/1511011826",
+        "types": "https://www.openstreetmap.org/way/1511011826",
+        "address": "https://www.openstreetmap.org/way/1511011826"
+      }
+    },
+    {
+      "id": "osm:node/10154412164",
+      "name": "Fantasy Park",
+      "address": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "latitude": 15.9968339,
+      "longitude": 107.9888036,
+      "source": "osm_photon",
+      "types": [
+        "theme_park"
+      ],
+      "fetched_at": "2026-10-22T18:29:12.667735Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/10154412164",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/10154412164",
+        "latitude": "https://www.openstreetmap.org/node/10154412164",
+        "longitude": "https://www.openstreetmap.org/node/10154412164",
+        "types": "https://www.openstreetmap.org/node/10154412164",
+        "address": "https://www.openstreetmap.org/node/10154412164"
+      }
+    },
+    {
+      "id": "osm:node/4122433690",
+      "name": "Núi Bà Nà",
+      "address": "Đà Nẵng, Việt Nam",
+      "latitude": 15.9982174,
+      "longitude": 107.9856335,
+      "source": "osm_photon",
+      "types": [
+        "peak"
+      ],
+      "fetched_at": "2026-10-22T18:29:12.667735Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4122433690",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4122433690",
+        "latitude": "https://www.openstreetmap.org/node/4122433690",
+        "longitude": "https://www.openstreetmap.org/node/4122433690",
+        "types": "https://www.openstreetmap.org/node/4122433690",
+        "address": "https://www.openstreetmap.org/node/4122433690"
+      }
+    },
+    {
+      "id": "osm:way/542867598",
+      "name": "Luna Castle",
+      "address": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "latitude": 15.9930536,
+      "longitude": 107.9921484,
+      "source": "osm_photon",
+      "types": [
+        "castle"
+      ],
+      "fetched_at": "2026-10-22T18:29:12.667735Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/542867598",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/542867598",
+        "latitude": "https://www.openstreetmap.org/way/542867598",
+        "longitude": "https://www.openstreetmap.org/way/542867598",
+        "types": "https://www.openstreetmap.org/way/542867598",
+        "address": "https://www.openstreetmap.org/way/542867598"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:way/359114064",
+      "title": "Sun World Bà Nà Hills",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/359114064",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:12.667735Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1511011826",
+      "title": "Louvre",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1511011826",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:12.667735Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10154412164",
+      "title": "Fantasy Park",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10154412164",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:12.667735Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4122433690",
+      "title": "Núi Bà Nà",
+      "snippet": "Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4122433690",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:12.667735Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/542867598",
+      "title": "Luna Castle",
+      "snippet": "Wine Cellar, Xã Bà Nà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/542867598",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:12.667735Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5286977425",
+      "title": "Núi Thần Tài",
+      "snippet": "Quốc lộ 14G, Xã Hòa Vang, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5286977425",
+      "search_url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:12.667735Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:29:10.112465Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:29:10.112465Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:29:12.668737Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 6
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:29:12.668737Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Điểm tham chiếu là tâm hình học của khu vực theo nguồn, không phải cửa vào. Kết quả chỉ nằm trong bán kính đã chọn quanh tâm này; không bao phủ toàn bộ khu du lịch.",
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

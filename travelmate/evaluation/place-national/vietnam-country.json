@@ -1,0 +1,1437 @@
+{
+  "request_id": "e4cd5180-d0be-476f-b300-3bd80ee8e1a4",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Việt Nam",
+  "category": "hotel",
+  "resolved_location": {
+    "id": "vn:country",
+    "name": "Việt Nam (phạm vi cả nước)",
+    "latitude": 15.28856,
+    "longitude": 109.9847425,
+    "admin1": "",
+    "admin2": "",
+    "feature_code": "ADM0",
+    "country_code": "VN",
+    "source_url": "https://raw.githubusercontent.com/thanglequoc/vietnamese-provinces-database/8b78ba5118715e1fa81769286724db79346abf52/mongodb/gis/mongo_data_vn_province_gis.json",
+    "fetched_at": "2026-10-22T17:57:07.933477Z",
+    "scope": "country",
+    "bbox": [
+      102.141487,
+      7.183812,
+      117.827998,
+      23.393308
+    ],
+    "boundary_version": "2026-03-11",
+    "historical": false,
+    "attribution": "Thang Le Quoc / vietnamese-provinces-database; GIS derived from Bando.com.vn; reference snapshot 2026-03-11"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/12857894336": {
+      "distance_m": 204010.14860863375,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:way/1139091056": {
+      "distance_m": 602751.9429370265,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:way/597992121": {
+      "distance_m": 768198.799347982,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=109.9847425%2C7.183812%2C117.827998%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:node/4530597794": {
+      "distance_m": 769972.6943441608,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:node/12377587602": {
+      "distance_m": 204109.22780979186,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 130,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:05:43.950115Z",
+  "completed_at": "2026-10-22T18:06:03.477640Z",
+  "places": [
+    {
+      "id": "osm:node/12857894336",
+      "name": "L’Amore",
+      "address": "Đường Võ Nguyên Giáp, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "latitude": 16.0431603,
+      "longitude": 108.2478601,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/12857894336",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/12857894336",
+        "latitude": "https://www.openstreetmap.org/node/12857894336",
+        "longitude": "https://www.openstreetmap.org/node/12857894336",
+        "types": "https://www.openstreetmap.org/node/12857894336",
+        "address": "https://www.openstreetmap.org/node/12857894336"
+      }
+    },
+    {
+      "id": "osm:way/1139091056",
+      "name": "Nhà khách A11",
+      "address": "Hẻm 149, Tam Bình, Thành phố Hồ Chí Minh, Việt Nam",
+      "latitude": 10.8825635,
+      "longitude": 106.7419291,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/1139091056",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/1139091056",
+        "latitude": "https://www.openstreetmap.org/way/1139091056",
+        "longitude": "https://www.openstreetmap.org/way/1139091056",
+        "types": "https://www.openstreetmap.org/way/1139091056",
+        "address": "https://www.openstreetmap.org/way/1139091056"
+      }
+    },
+    {
+      "id": "osm:way/597992121",
+      "name": "Nhà khách Thủ Đô",
+      "address": "Trường Sa, Khánh Hòa, Việt Nam",
+      "latitude": 8.6443236,
+      "longitude": 111.920791,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:05:55.046934Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/597992121",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/597992121",
+        "latitude": "https://www.openstreetmap.org/way/597992121",
+        "longitude": "https://www.openstreetmap.org/way/597992121",
+        "types": "https://www.openstreetmap.org/way/597992121",
+        "address": "https://www.openstreetmap.org/way/597992121"
+      }
+    },
+    {
+      "id": "osm:node/4530597794",
+      "name": "Khach Sạn Sao Băng",
+      "address": "61/2, Ngõ 61 Lạc Trung, Vĩnh Tuy, Hà Nội, Việt Nam",
+      "latitude": 21.0028522,
+      "longitude": 105.8667059,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4530597794",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4530597794",
+        "latitude": "https://www.openstreetmap.org/node/4530597794",
+        "longitude": "https://www.openstreetmap.org/node/4530597794",
+        "types": "https://www.openstreetmap.org/node/4530597794",
+        "address": "https://www.openstreetmap.org/node/4530597794"
+      }
+    },
+    {
+      "id": "osm:node/12377587602",
+      "name": "VernalHome Boutique DaNang",
+      "address": "Đường Lưu Quang Thuận, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "latitude": 16.0404222,
+      "longitude": 108.245577,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/12377587602",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/12377587602",
+        "latitude": "https://www.openstreetmap.org/node/12377587602",
+        "longitude": "https://www.openstreetmap.org/node/12377587602",
+        "types": "https://www.openstreetmap.org/node/12377587602",
+        "address": "https://www.openstreetmap.org/node/12377587602"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/12857894336",
+      "title": "L’Amore",
+      "snippet": "Đường Võ Nguyên Giáp, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12857894336",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1139091056",
+      "title": "Nhà khách A11",
+      "snippet": "Hẻm 149, Tam Bình, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1139091056",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/597992121",
+      "title": "Nhà khách Thủ Đô",
+      "snippet": "Trường Sa, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/597992121",
+      "search_url": "https://photon.komoot.io/api/?bbox=109.9847425%2C7.183812%2C117.827998%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:55.046934Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4530597794",
+      "title": "Khach Sạn Sao Băng",
+      "snippet": "61/2, Ngõ 61 Lạc Trung, Vĩnh Tuy, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4530597794",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12377587602",
+      "title": "VernalHome Boutique DaNang",
+      "snippet": "Đường Lưu Quang Thuận, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12377587602",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10039482275",
+      "title": "Phòng trọ Hoa Xuân",
+      "snippet": "46/35, Đường Thạnh Lộc 15, An Phú Đông, Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10039482275",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4579273890",
+      "title": "nhà nghỉ thanh bình",
+      "snippet": "Ngõ 192 Lê Trọng Tấn, Phương Liệt, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4579273890",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12346439701",
+      "title": "Abogo Villa Pool Near Beach BBQ Free Da Nang",
+      "snippet": "67, Đường Mỹ Đa Đông 8, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12346439701",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3253193981",
+      "title": "Khách Sạn Somerset Vista",
+      "snippet": "Đường Giang Văn Minh, An Khánh, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3253193981",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10284320409",
+      "title": "Khách sạn Lieber",
+      "snippet": "Phố Yên Phúc, Hà Đông, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10284320409",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12843905567",
+      "title": "Draco",
+      "snippet": "Đường An Thượng 2, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12843905567",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/8038997385",
+      "title": "Khách Sạn Nguyễn Anh",
+      "snippet": "Đường Số 18, Hiệp Bình, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/8038997385",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/37933051",
+      "title": "Hilton Hanoi Opera",
+      "snippet": "1, Phố Lê Thánh Tông, Cửa Nam, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/37933051",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12839924378",
+      "title": "Golden Lotus",
+      "snippet": "Đường An Thượng 31, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12839924378",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6759753424",
+      "title": "Khách Sạn Quỳnh Vân",
+      "snippet": "Đường Nguyễn Văn Lượng, Gò Vấp, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6759753424",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/222427943",
+      "title": "Hotel de l'Opera Hanoi",
+      "snippet": "29, Phố Tràng Tiền, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/222427943",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12173072816",
+      "title": "Santa Luxury",
+      "snippet": "Đường Đỗ Bá, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12173072816",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3250483385",
+      "title": "Khách Sạn Lại Trần",
+      "snippet": "Nguyễn Gia Trí, Thạnh Mỹ Tây, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3250483385",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5353997224",
+      "title": "Nhà Khách Dreamcatcher",
+      "snippet": "21b, Ha Hoi, Hoan Kiem, Cửa Nam, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5353997224",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12842150960",
+      "title": "Essenza",
+      "snippet": "Đường An Thượng 33, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12842150960",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12300683628",
+      "title": "Bin Bin 11",
+      "snippet": "Đường số 58, Cát Lái, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12300683628",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6361078787",
+      "title": "Khách Sạn Boss Legend",
+      "snippet": "Phố Hàng Thùng, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6361078787",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12842150961",
+      "title": "Hi Coffe&Apartment",
+      "snippet": "Đường An Thượng 33, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12842150961",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12707738546",
+      "title": "Khách Sạn Hoàng Thanh Thủy 4",
+      "snippet": "Trương Thị Ngào, Trung Mỹ Tây, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12707738546",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/997997446",
+      "title": "Khách Sạn Hanoi Spark",
+      "snippet": "16, Phố Hàng Thùng, Hoàn Kiếm, Hà Nội, Thành phố Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/997997446",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12837179230",
+      "title": "Menora Premium",
+      "snippet": "Đường Phan Tôn, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12837179230",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3654067007",
+      "title": "Khách Sạn Trăng Mật",
+      "snippet": "46, Đào Duy Anh, Đức Nhuận, Ho Chi Minh City, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3654067007",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4172441594",
+      "title": "Splendid Star Grand Hotel",
+      "snippet": "14, Thọ Xương, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4172441594",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12853200244",
+      "title": "Sweden Hotel&Apartment",
+      "snippet": "Đường An Thượng 29, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12853200244",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4259725089",
+      "title": "Khách Sạn Green Ruby",
+      "snippet": "Hẻm 25 Cửu Long, Tân Sơn Hòa, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4259725089",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3565070798",
+      "title": "Nhà Khách Green Hanoi Backpackers",
+      "snippet": "Ngõ Huyện, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3565070798",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1181332448",
+      "title": "Davue",
+      "snippet": "Đường Đỗ Bí, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1181332448",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/804925986",
+      "title": "Khách Sạn Xuân Hương",
+      "snippet": "Lê Thánh Tôn, Sài Gòn, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/804925986",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4198645830",
+      "title": "Khách Sạn Hanoi Alibaba",
+      "snippet": "Phố Hàng Bè, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4198645830",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12850675081",
+      "title": "TV’s hotel & appartment",
+      "snippet": "Đường Ngô Thì Sĩ, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12850675081",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2268280973",
+      "title": "Khách Sạn King",
+      "snippet": "Thái Văn Lung, Sài Gòn, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2268280973",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5713788598",
+      "title": "The Artisan Lakeview Hotel",
+      "snippet": "23B, Hàng Hành, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5713788598",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1181331971",
+      "title": "Aria Grand",
+      "snippet": "Đường Phan Tôn, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1181331971",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2276291868",
+      "title": "Khách Sạn Northern",
+      "snippet": "Thi Sách, Sài Gòn, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2276291868",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4278275294",
+      "title": "Riverside",
+      "snippet": "Phố Hàng Mắm, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4278275294",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12857894306",
+      "title": "Zones",
+      "snippet": "Đường Phan Tứ, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12857894306",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7094702392",
+      "title": "Khách sạn La Vela Sài Gòn",
+      "snippet": "280, Nam Kỳ Khởi Nghĩa, Xuân Hòa, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7094702392",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7042362985",
+      "title": "Khách Sạn & Spa Acoustic",
+      "snippet": "Phố Thợ Nhuộm, Cửa Nam, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7042362985",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12163654197",
+      "title": "Sydney Da Nang",
+      "snippet": "Đường An Thượng 36, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12163654197",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/9587489374",
+      "title": "Khách Sạn Bông Sen Sài Gòn",
+      "snippet": "Đồng Khởi, Sài Gòn, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/9587489374",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4136040289",
+      "title": "Khách Sạn Hanoi Imperial",
+      "snippet": "44, Hàng Hành, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4136040289",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1181332443",
+      "title": "Golden star hotel",
+      "snippet": "04-06, Đường Phan Liêm, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1181332443",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2036596285",
+      "title": "Grand Hotel",
+      "snippet": "Đồng Khởi, Sài Gòn, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2036596285",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6065635287",
+      "title": "Khách Sạn Chân Cầm",
+      "snippet": "Phố Chân Cầm, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6065635287",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12103878902",
+      "title": "Siro House Homestay",
+      "snippet": "8, Kiệt 72 Nguyễn Văn Thoại, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12103878902",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/193142038",
+      "title": "Majestic Hotel",
+      "snippet": "Đồng Khởi, Sài Gòn, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/193142038",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3222752022",
+      "title": "Lavender Central Hotel",
+      "snippet": "39, Phố Hàng Bạc, Hoàn Kiếm, Hà Nội, Thành phố Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3222752022",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11888500069",
+      "title": "Lucia beach hotel",
+      "snippet": "Đường Dương Đình Nghệ, An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11888500069",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/39598474",
+      "title": "Khách sạn Rex Sài Gòn",
+      "snippet": "141, Nguyễn Huệ, Sài Gòn, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/39598474",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/969250573",
+      "title": "Khách Sạn Golden Wings",
+      "snippet": "106, Mã Mây, Hoàn Kiếm, Hà Nội, Thành phố Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/969250573",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5216161821",
+      "title": "Cậu 8",
+      "snippet": "107, Đường Bùi Hữu Nghĩa, An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5216161821",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3938880925",
+      "title": "Khách Sạn GK Central",
+      "snippet": "92-94, Ly Tu Trong, Bến Thành, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3938880925",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2446633202",
+      "title": "Khách Sạn Hanoi 3B",
+      "snippet": "Phố Mã Mây, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2446633202",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5263740122",
+      "title": "đnCậu8",
+      "snippet": "107, Bùi Hữu Nghĩa, An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5263740122",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1124626713",
+      "title": "Khách Sạn Rạng Đông",
+      "snippet": "Cách Mạng Tháng Tám, Bến Thành, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1124626713",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4178588391",
+      "title": "Skyline Hotel",
+      "snippet": "16-20, Ngõ Trung Yên, Hoàn Kiếm, Hà Nội, Thành phố Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4178588391",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12121684001",
+      "title": "Alibaba",
+      "snippet": "168, Đường Hồ Nghinh, An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12121684001",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11430487156",
+      "title": "9 Hostel&Suites",
+      "snippet": "90D, Le Lai, Bến Thành, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11430487156",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/969250543",
+      "title": "Sunshine 2",
+      "snippet": "Phố Mã Mây, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/969250543",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5111939921",
+      "title": "sông Thu",
+      "snippet": "Đường Chính Hữu, An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5111939921",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4716032289",
+      "title": "Khách Sạn Le Le",
+      "snippet": "171, Đường Phạm Ngũ Lão, Bến Thành, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4716032289",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13073739902",
+      "title": "Eliana Premio Hotel",
+      "snippet": "108, Phố Hàng Bông, Hoàn Kiếm, Hà Nội, Thành phố Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13073739902",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12175071919",
+      "title": "Euro Star",
+      "snippet": "Đường Trần Hưng Đạo, An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12175071919",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3945869998",
+      "title": "Khách Sạn The Town House 50",
+      "snippet": "50E, Bùi Thi Xuân Street, Bến Thành, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3945869998",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6320954686",
+      "title": "Khách Sạn Hanoi Lavender",
+      "snippet": "Phố Hàng Bông, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6320954686",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12175071920",
+      "title": "Xenia",
+      "snippet": "Đường Trần Hưng Đạo, An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12175071920",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13307615812",
+      "title": "A25",
+      "snippet": "Phạm Ngũ Lão, Bến Thành, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13307615812",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5248429921",
+      "title": "Khách Sạn Hanoi Nostalgia",
+      "snippet": "Phố Lương Ngọc Quyến, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5248429921",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1247583064",
+      "title": "Adina Hotel",
+      "snippet": "Đường Phạm Văn Đồng, An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1247583064",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6311136611",
+      "title": "Nhà Khách Cola's",
+      "snippet": "Hẻm 382 Nguyễn Thị Minh Khai, Bàn Cờ, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6311136611",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4737914985",
+      "title": "North Hotel №2",
+      "snippet": "5B, Ngõ Tâm Thường, Hoàn Kiếm, Hà Nội, Thành phố Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4737914985",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6133794685",
+      "title": "MƯỜI",
+      "snippet": "25, Đường Nguyễn Văn Siêu, An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6133794685",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12017194273",
+      "title": "LaCa Hostel",
+      "snippet": "84/34, Hẻm 84 Bùi Viện, Bến Thành, Phường Phạm Ngũ Lão, Q1, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12017194273",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5485752201",
+      "title": "Nhà Nghỉ Hải Thành",
+      "snippet": "Phố Trần Quý Cáp, Văn Miếu - Quốc Tử Giám, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5485752201",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1046782306",
+      "title": "Vanda",
+      "snippet": "Đường Nguyễn Văn Linh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1046782306",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13741794601",
+      "title": "Family House",
+      "snippet": "107/19, Bùi Viện, Bến Thành, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13741794601",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4790944154",
+      "title": "Nova",
+      "snippet": "Phố Hàng Điếu, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4790944154",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12412721201",
+      "title": "Secret garden",
+      "snippet": "Đường Bạch Đằng, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12412721201",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4143264008",
+      "title": "KnK Inn (Homestay) Sports Pub Rooftop Garden",
+      "snippet": "96, Đường Ðề Thám, Cầu Ông Lãnh, Thành phố Hồ Chí Minh, Ho Chi Minh City, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4143264008",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5689369738",
+      "title": "Little Charm",
+      "snippet": "44, Phố Hàng Bồ, Hoàn Kiếm, Hà Nội, Thành phố Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5689369738",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12175071930",
+      "title": "Haian",
+      "snippet": "Đường Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12175071930",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7025492986",
+      "title": "Khách Sạn Ailen Garden",
+      "snippet": "Hẻm 283 Phạm Ngũ Lão, Bến Thành, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7025492986",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13531432204",
+      "title": "Hanoi Graceful Hotel",
+      "snippet": "Phố Hàng Phèn, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13531432204",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1247506170",
+      "title": "Bamboo Green",
+      "snippet": "157, Đường Trần Phú, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1247506170",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12528272801",
+      "title": "Hidden Hogwarts",
+      "snippet": "Hẻm 14 Ðỗ Quang Ðẩu, Bến Thành, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12528272801",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/335641430",
+      "title": "Khách Sạn Đức Thái",
+      "snippet": "Phố Hàng Gà, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/335641430",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13290137087",
+      "title": "Han Riverine",
+      "snippet": "Đường Bạch Đằng, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13290137087",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13757796401",
+      "title": "Language exchange 1",
+      "snippet": "5, Hẻm 399/43 Nguyễn Ðình Chiểu, Bàn Cờ, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13757796401",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4016191396",
+      "title": "Khách Sạn Hanoi Rocks",
+      "snippet": "Phố Hàng Đường, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4016191396",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5397904121",
+      "title": "Zion Hostel",
+      "snippet": "Kiệt 75 Lê Hồng Phong, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5397904121",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13754826602",
+      "title": "Mimosa",
+      "snippet": "Cống Quỳnh, Bến Thành, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13754826602",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3516568369",
+      "title": "Nhà Khách Drift Backpackers",
+      "snippet": "45, Phố Bát Sứ, Hoàn Kiếm, Hà Nội, Thành phố Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3516568369",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/316236720",
+      "title": "Tru by Hilton Da Nang City Centre",
+      "snippet": "15, Đường Lê Duẩn, Hải Châu, Đà Nẵng, Da Nang City, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/316236720",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5563186922",
+      "title": "Khách Sạn NoGias",
+      "snippet": "Hồ Hảo Hớn, Cầu Ông Lãnh, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5563186922",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7202275018",
+      "title": "Nhà Khách Hanoi Camila",
+      "snippet": "Phố Bát Sứ, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7202275018",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12649595801",
+      "title": "Banana Homestay",
+      "snippet": "Đường Nguyễn Du, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12649595801",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/140703174",
+      "title": "Khách sạn Equatorial",
+      "snippet": "Trần Bình Trọng, Chợ Quán, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/140703174",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2308781236",
+      "title": "Ngog Mai Hotel",
+      "snippet": "Phố Cửa Đông, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2308781236",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6698271427",
+      "title": "Waikiki Hotel",
+      "snippet": "Đường Tôn Thất Đạm, Thanh Khê, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6698271427",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1348765572",
+      "title": "LAGUNA Hotel",
+      "snippet": "25-27, Nội Khu Hưng Gia 4, Tân Hưng, Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1348765572",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4182923406",
+      "title": "Khách Sạn Hanoi Old Town",
+      "snippet": "Phố Hàng Chiếu, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4182923406",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/9921321628",
+      "title": "The Eden",
+      "snippet": "Đường Nguyễn Tất Thành, Thanh Khê, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/9921321628",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4675325089",
+      "title": "Khách sạn Phương Loan",
+      "snippet": "Số Nhà 847, 3 Tháng 2, Diên Hồng, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4675325089",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5286250123",
+      "title": "Nhà Khách Hanoi Lucky 2",
+      "snippet": "91, Hàng Mã, Hoàn Kiếm, Hà Nội, Thành phố Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5286250123",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5942206189",
+      "title": "Nhà thuê viễn",
+      "snippet": "Đường Nguyễn Văn Cừ, Hải Vân, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5942206189",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11515855856",
+      "title": "Hạnh long 2 HOTEL",
+      "snippet": "Trần Hưng Đạo, An Đông, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11515855856",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7176682312",
+      "title": "Khách Sạn La Cascada House",
+      "snippet": "Phố Gầm Cầu, Hoàn Kiếm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7176682312",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/228987599",
+      "title": "Tru by Hilton Buon Ma Thuot City Centre",
+      "snippet": "15, Hùng Vương, Buôn Ma Thuột, Buon Ma Thuot, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/228987599",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C12.586977333333333%2C109.9847425%2C17.990142666666667&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:56.689264Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11515870724",
+      "title": "Venice hotel",
+      "snippet": "Đường số 3, Bình Hưng, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11515870724",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11626792972",
+      "title": "Khách sạn Seoul",
+      "snippet": "Hẻm 43/99/32 Phố Trung Kính, Yên Hoà, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11626792972",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11515870726",
+      "title": "Khách Sạn Sao Mai",
+      "snippet": "Đường số 9A, Bình Hưng, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11515870726",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/698018254",
+      "title": "Royal Gate Hotel",
+      "snippet": "9, Phố Nguyễn Biểu, Ba Đình, Hà Nội, Thành phố Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/698018254",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6735631024",
+      "title": "Khách Sạn Hoàng Quân",
+      "snippet": "Đường Thạch Lam, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6735631024",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1275213498",
+      "title": "Victoria Hotel",
+      "snippet": "Ngõ 4 Đại Lộ Thăng Long, Từ Liêm, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1275213498",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4675324990",
+      "title": "Khách Sạn Kim Hương",
+      "snippet": "Số nhà 122, Đường Trần Quý, Minh Phụng, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4675324990",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/570586943",
+      "title": "Khách sạn Bảo Sơn",
+      "snippet": "50, Đường Nguyễn Chí Thanh, Láng, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/570586943",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6735631023",
+      "title": "Khách Sạn Chùy Ngọc",
+      "snippet": "Đường Thạch Lam, Phú Thạnh, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6735631023",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12277048825",
+      "title": "InterContinental Hanoi Landmark72",
+      "snippet": "E6, Đường Phạm Hùng, Yên Hoà, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12277048825",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4278303304",
+      "title": "Chung cư Him Lam Nam Khánh",
+      "snippet": "209, Đường số 1011, Chánh Hưng, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4278303304",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2545040256",
+      "title": "Khách Sạn Cầu Giấy",
+      "snippet": "Ngõ 132 Đường Cầu Giấy, Nghĩa Đô, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2545040256",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/14045677449",
+      "title": "Phòng cho thuê Thanh Xuân",
+      "snippet": "Đường số 21, An Lạc, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/14045677449",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C7.183812%2C109.9847425%2C12.586977333333333&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:48.031154Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1287008824",
+      "title": "King's Hotel Dịch Vọng",
+      "snippet": "4, Ngõ 55 Dịch Vọng, Cầu Giấy, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1287008824",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12215653101",
+      "title": "Era Apartment Nguyễn Khánh Toàn",
+      "snippet": "Ngách 158/51 Đường Nguyễn Khánh Toàn, Nghĩa Đô, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12215653101",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12420714001",
+      "title": "22Housing Moon Westlake Residence",
+      "snippet": "185a, Phố Trích Sài, Tây Hồ, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12420714001",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11085187215",
+      "title": "L7 Hotels by Lotte West Lake Hanoi",
+      "snippet": "Ngõ 683 Lạc Long Quân, Tây Hồ, Hà Nội, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11085187215",
+      "search_url": "https://photon.komoot.io/api/?bbox=102.141487%2C17.990142666666667%2C109.9847425%2C23.393308&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:06:00.447367Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "stay_price",
+    "room_availability",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:05:43.950115Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:05:43.950115Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và các ô bao phủ ranh giới tham chiếu.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:06:03.477640Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 130
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:06:03.477640Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Tìm theo polygon ranh giới tham chiếu, không áp dụng bán kính. Lấy mẫu có giới hạn qua các ô không gian, không phải toàn bộ địa điểm trong vùng.",
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

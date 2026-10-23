@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-21",
+  "model": "gemini-3.5-flash-lite",
+  "minimal_generation": "success",
+  "routed_planner": {
+    "input_file": "examples/routed-planner.json",
+    "input_is_fixture": true,
+    "llm": "live Gemini through ADK",
+    "routing": "live OSRM",
+    "status": "route_feasible_draft",
+    "days": 1,
+    "scheduled_place_ids": [["test-stop"]],
+    "road_seconds": [457.8]
+  },
+  "limitations": [
+    "One smoke test, not a representative quality benchmark",
+    "Fixture place, not verified attraction or business",
+    "No verified opening hours or observed travel time",
+    "No Google Maps key used",
+    "Credential used transiently, not saved in this artifact"
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "request_id": "979c4f85-0bb0-4098-914a-909ea6f51958",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Fansipan",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "photon:node/3989371457",
+    "name": "Fansipan",
+    "latitude": 22.3066106,
+    "longitude": 103.7747781,
+    "admin1": "Lào Cai",
+    "admin2": "",
+    "feature_code": "OSM:station",
+    "country_code": "VN",
+    "source_url": "https://www.openstreetmap.org/node/3989371457",
+    "fetched_at": "2026-10-22T18:29:17.675990Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null,
+    "coordinate_kind": "point"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/6743366793": {
+      "distance_m": 192.70714632916497,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.3066106&limit=50&lon=103.7747781&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 1,
+  "offset": 0,
+  "has_more": false,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:29:20.066622Z",
+  "completed_at": "2026-10-22T18:29:22.567576Z",
+  "places": [
+    {
+      "id": "osm:node/6743366793",
+      "name": "Vân Sơn Trà Quán",
+      "address": "Đường mòn Trạm Tôn, Lào Cai, Việt Nam",
+      "latitude": 22.3050544,
+      "longitude": 103.7756025,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:29:22.566479Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/6743366793",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/6743366793",
+        "latitude": "https://www.openstreetmap.org/node/6743366793",
+        "longitude": "https://www.openstreetmap.org/node/6743366793",
+        "types": "https://www.openstreetmap.org/node/6743366793",
+        "address": "https://www.openstreetmap.org/node/6743366793"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/6743366793",
+      "title": "Vân Sơn Trà Quán",
+      "snippet": "Đường mòn Trạm Tôn, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6743366793",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.3066106&limit=50&lon=103.7747781&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:29:22.566479Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:29:20.066622Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:29:20.066622Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:29:22.567576Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 1
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:29:22.567576Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 1
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

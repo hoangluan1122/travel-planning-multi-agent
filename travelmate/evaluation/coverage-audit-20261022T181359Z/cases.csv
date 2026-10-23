@@ -1,0 +1,41 @@
+﻿number,province,destination,category,outcome,status,records,elapsed_s,selected_by_test
+1,Hà Nội,Hà Nội,hotel,usable_sourced_records,success,5,6.58,True
+2,Cao Bằng,Cao Bằng,restaurant,usable_sourced_records,success,5,3.67,True
+3,Tuyên Quang,Đồng Văn,attraction,needs_manual_choice,needs_location,0,2.22,False
+4,Lào Cai,Sa Pa,hotel,usable_sourced_records,success,5,5.2,True
+5,Điện Biên,Điện Biên Phủ,restaurant,usable_sourced_records,success,5,5.77,False
+6,Lai Châu,Lai Châu,attraction,usable_sourced_records,success,5,4.25,True
+7,Sơn La,Mộc Châu,hotel,usable_sourced_records,success,5,5.2,False
+8,Thái Nguyên,Bắc Kạn,restaurant,usable_sourced_records,success,4,4.83,True
+9,Lạng Sơn,Lạng Sơn,attraction,usable_sourced_records,success,1,6.69,True
+10,Quảng Ninh,Hạ Long,hotel,usable_sourced_records,success,5,4.66,True
+11,Phú Thọ,Tam Đảo,restaurant,no_indexed_results,no_results,0,3.98,False
+12,Bắc Ninh,Bắc Giang,attraction,usable_sourced_records,success,5,5.8,False
+13,Hải Phòng,Cát Bà,hotel,usable_sourced_records,success,5,10.88,False
+14,Hưng Yên,Thái Bình,restaurant,usable_sourced_records,success,5,6.91,True
+15,Ninh Bình,Tràng An,attraction,geographic_mismatch,no_results,0,3.72,False
+16,Thanh Hóa,Sầm Sơn,hotel,geographic_mismatch,success,5,5.81,False
+17,Nghệ An,Cửa Lò,restaurant,usable_sourced_records,success,2,5.33,False
+18,Hà Tĩnh,Thiên Cầm,attraction,usable_sourced_records,success,1,5.2,False
+19,Quảng Trị,Phong Nha,hotel,usable_sourced_records,success,5,4.0,False
+20,Huế,Huế,restaurant,usable_sourced_records,success,5,7.3,True
+21,Đà Nẵng,Hội An,attraction,needs_manual_choice,needs_location,0,0.86,False
+22,Quảng Ngãi,Lý Sơn,hotel,usable_sourced_records,success,5,6.7,False
+23,Khánh Hòa,Nha Trang,restaurant,usable_sourced_records,success,5,3.81,False
+24,Gia Lai,Quy Nhơn,attraction,usable_sourced_records,success,5,4.91,False
+25,Đắk Lắk,Tuy Hòa,hotel,usable_sourced_records,success,5,7.66,True
+26,Lâm Đồng,Đà Lạt,restaurant,needs_manual_choice,needs_location,0,0.88,False
+27,Tây Ninh,Tây Ninh,attraction,usable_sourced_records,success,5,5.77,False
+28,Đồng Nai,Đồng Xoài,hotel,usable_sourced_records,success,4,5.48,True
+29,Hồ Chí Minh,Vũng Tàu,restaurant,usable_sourced_records,success,5,4.05,False
+30,Vĩnh Long,Bến Tre,attraction,usable_sourced_records,success,5,6.97,False
+31,Đồng Tháp,Mỹ Tho,hotel,needs_manual_choice,needs_location,0,0.84,False
+32,An Giang,Phú Quốc,restaurant,needs_manual_choice,needs_location,0,2.53,False
+33,Cần Thơ,Sóc Trăng,attraction,needs_manual_choice,needs_location,0,2.53,False
+34,Cà Mau,Bạc Liêu,hotel,usable_sourced_records,success,4,5.95,True
+35,Đà Nẵng,Bà Nà Hills,restaurant,needs_manual_choice,needs_location,0,5.56,False
+36,Lào Cai,Fansipan,attraction,needs_manual_choice,needs_location,0,4.98,False
+37,Hồ Chí Minh,Côn Đảo,hotel,usable_sourced_records,success,5,4.95,False
+38,Lâm Đồng,Mũi Né,restaurant,usable_sourced_records,success,5,4.67,False
+39,Đà Nẵng,Thánh địa Mỹ Sơn,attraction,usable_sourced_records,success,2,7.61,False
+40,Ninh Bình,Vườn quốc gia Cúc Phương,hotel,unresolved_locality,needs_location,0,4.83,False

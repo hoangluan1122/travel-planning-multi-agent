@@ -1,0 +1,32 @@
+[
+  {
+    "number": 1,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=Fansipan",
+    "at": "2026-10-22T18:30:51.094948+00:00",
+    "status": 200,
+    "bytes": 40,
+    "sha256": "c777764f7d206ebc51a2a62b57b65dd74497289ad2a69bec382b036ae738b311",
+    "content_encoding": "deflate",
+    "elapsed_s": 1.078
+  },
+  {
+    "number": 2,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&include=osm.aerialway.station%2Cosm.boundary.national_park%2Cosm.historic.castle%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.bay%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.natural.peak%2Cosm.place.city%2Cosm.place.hamlet%2Cosm.place.island%2Cosm.place.locality%2Cosm.place.neighbourhood%2Cosm.place.quarter%2Cosm.place.suburb%2Cosm.place.town%2Cosm.place.village%2Cosm.tourism.attraction%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint&limit=20&q=Fansipan",
+    "at": "2026-10-22T18:30:53.591611+00:00",
+    "status": 200,
+    "bytes": 480,
+    "sha256": "d6dc05d605b8a4e0ac3fa22dfd5f169f23fceedd261ad0e521d823461d0610db",
+    "content_encoding": "gzip",
+    "elapsed_s": 0.938
+  },
+  {
+    "number": 3,
+    "url": "https://photon.komoot.io/reverse?lat=22.3066106&limit=50&lon=103.7747781&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=10.0",
+    "at": "2026-10-22T18:30:56.098814+00:00",
+    "status": 200,
+    "bytes": 2237,
+    "sha256": "1d4a9d6dde2b021c95926e15fb3785826e345228f6990bad9235478de57bb55f",
+    "content_encoding": "gzip",
+    "elapsed_s": 0.906
+  }
+]

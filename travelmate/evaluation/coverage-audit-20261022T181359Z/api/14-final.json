@@ -1,0 +1,314 @@
+{
+  "request_id": "309b4692-f59f-43bf-a88e-f8043fecb58d",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Thái Bình",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "geonames:1566346",
+    "name": "Thành Phố Thái Bình",
+    "latitude": 20.45,
+    "longitude": 106.34002,
+    "admin1": "Hung Yen",
+    "admin2": "Thành Phố Thái Bình",
+    "feature_code": "PPLA2",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1566346/",
+    "fetched_at": "2026-10-22T18:15:12.129252Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:way/799062658": {
+      "distance_m": 690.0755901303112,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.45&limit=50&lon=106.34002&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/12373248182": {
+      "distance_m": 749.3824630210445,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.45&limit=50&lon=106.34002&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4905260021": {
+      "distance_m": 1483.3398962964566,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.45&limit=50&lon=106.34002&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/6396200385": {
+      "distance_m": 1522.4337586368808,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.45&limit=50&lon=106.34002&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/6395647785": {
+      "distance_m": 1821.5542450012567,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.45&limit=50&lon=106.34002&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 6,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:15:12.143525Z",
+  "completed_at": "2026-10-22T18:15:16.991247Z",
+  "places": [
+    {
+      "id": "osm:way/799062658",
+      "name": "Indie coffee",
+      "address": "224, Lê Đại Hành, Thái Bình, Việt Nam",
+      "latitude": 20.4457197,
+      "longitude": 106.3448159,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:15:16.990116Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/799062658",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/799062658",
+        "latitude": "https://www.openstreetmap.org/way/799062658",
+        "longitude": "https://www.openstreetmap.org/way/799062658",
+        "types": "https://www.openstreetmap.org/way/799062658",
+        "address": "https://www.openstreetmap.org/way/799062658"
+      }
+    },
+    {
+      "id": "osm:node/12373248182",
+      "name": "MAY STEAK BISTRO AND COFFE",
+      "address": "288, Lê Thánh Tông, Thái Bình, Việt Nam",
+      "latitude": 20.4433945,
+      "longitude": 106.3385936,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:15:16.990116Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/12373248182",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/12373248182",
+        "latitude": "https://www.openstreetmap.org/node/12373248182",
+        "longitude": "https://www.openstreetmap.org/node/12373248182",
+        "types": "https://www.openstreetmap.org/node/12373248182",
+        "address": "https://www.openstreetmap.org/node/12373248182"
+      }
+    },
+    {
+      "id": "osm:node/4905260021",
+      "name": "cà phê nét xưa",
+      "address": "Phố Trần Bình Trọng, Việt Nam",
+      "latitude": 20.4435309,
+      "longitude": 106.3275691,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:15:16.990116Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4905260021",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4905260021",
+        "latitude": "https://www.openstreetmap.org/node/4905260021",
+        "longitude": "https://www.openstreetmap.org/node/4905260021",
+        "types": "https://www.openstreetmap.org/node/4905260021",
+        "address": "https://www.openstreetmap.org/node/4905260021"
+      }
+    },
+    {
+      "id": "osm:node/6396200385",
+      "name": "Loi Song Moi",
+      "address": "Quang Trung, Việt Nam",
+      "latitude": 20.4391312,
+      "longitude": 106.3311339,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:15:16.990116Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/6396200385",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/6396200385",
+        "latitude": "https://www.openstreetmap.org/node/6396200385",
+        "longitude": "https://www.openstreetmap.org/node/6396200385",
+        "types": "https://www.openstreetmap.org/node/6396200385",
+        "address": "https://www.openstreetmap.org/node/6396200385"
+      }
+    },
+    {
+      "id": "osm:node/6395647785",
+      "name": "Vegetarian Reataurant",
+      "address": "Đường Kỳ Đồng, Việt Nam",
+      "latitude": 20.4378326,
+      "longitude": 106.328314,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:15:16.990116Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/6395647785",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/6395647785",
+        "latitude": "https://www.openstreetmap.org/node/6395647785",
+        "longitude": "https://www.openstreetmap.org/node/6395647785",
+        "types": "https://www.openstreetmap.org/node/6395647785",
+        "address": "https://www.openstreetmap.org/node/6395647785"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:way/799062658",
+      "title": "Indie coffee",
+      "snippet": "224, Lê Đại Hành, Thái Bình, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/799062658",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.45&limit=50&lon=106.34002&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:16.990116Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12373248182",
+      "title": "MAY STEAK BISTRO AND COFFE",
+      "snippet": "288, Lê Thánh Tông, Thái Bình, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12373248182",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.45&limit=50&lon=106.34002&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:16.990116Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4905260021",
+      "title": "cà phê nét xưa",
+      "snippet": "Phố Trần Bình Trọng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4905260021",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.45&limit=50&lon=106.34002&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:16.990116Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6396200385",
+      "title": "Loi Song Moi",
+      "snippet": "Quang Trung, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6396200385",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.45&limit=50&lon=106.34002&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:16.990116Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6395647785",
+      "title": "Vegetarian Reataurant",
+      "snippet": "Đường Kỳ Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6395647785",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.45&limit=50&lon=106.34002&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:16.990116Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6422017593",
+      "title": "Cà Phê Nét Xua 1",
+      "snippet": "Phố Bùi Thị Xuân, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6422017593",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.45&limit=50&lon=106.34002&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:16.990116Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:12.143525Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:12.144523Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:15:16.991247Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 6
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:15:16.991247Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

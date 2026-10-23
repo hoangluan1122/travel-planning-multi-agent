@@ -1,0 +1,656 @@
+{
+  "request_id": "510b756d-4cc9-4e1b-bd2a-60ed991d9876",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Huế",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "geonames:1580240",
+    "name": "Huế",
+    "latitude": 16.4619,
+    "longitude": 107.59546,
+    "admin1": "Thừa Thiên Huế",
+    "admin2": "Thành Phố Huế",
+    "feature_code": "PPLA",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1580240/",
+    "fetched_at": "2026-10-22T18:15:43.309840Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/6734350786": {
+      "distance_m": 159.0522964701388,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/11715518269": {
+      "distance_m": 168.44515264125326,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4326317004": {
+      "distance_m": 179.19927423868165,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/11581255369": {
+      "distance_m": 201.56995576001484,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/12414887701": {
+      "distance_m": 260.86282844511464,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 44,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:15:43.314840Z",
+  "completed_at": "2026-10-22T18:15:48.426491Z",
+  "places": [
+    {
+      "id": "osm:node/6734350786",
+      "name": "Lago Coffee House",
+      "address": "10, Lê Hồng Phong, Thuận Hóa, Huế, Việt Nam",
+      "latitude": 16.4605223,
+      "longitude": 107.5950589,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/6734350786",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/6734350786",
+        "latitude": "https://www.openstreetmap.org/node/6734350786",
+        "longitude": "https://www.openstreetmap.org/node/6734350786",
+        "types": "https://www.openstreetmap.org/node/6734350786",
+        "address": "https://www.openstreetmap.org/node/6734350786"
+      }
+    },
+    {
+      "id": "osm:node/11715518269",
+      "name": "tan.",
+      "address": "25, Nguyễn Thị Minh Khai, Thuận Hóa, Huế, Việt Nam",
+      "latitude": 16.4610473,
+      "longitude": 107.5967656,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/11715518269",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/11715518269",
+        "latitude": "https://www.openstreetmap.org/node/11715518269",
+        "longitude": "https://www.openstreetmap.org/node/11715518269",
+        "types": "https://www.openstreetmap.org/node/11715518269",
+        "address": "https://www.openstreetmap.org/node/11715518269"
+      }
+    },
+    {
+      "id": "osm:node/4326317004",
+      "name": "Bún bò Huế Kim Đồng",
+      "address": "21, Nguyễn Thị Minh Khai, Thuận Hóa, Huế, Việt Nam",
+      "latitude": 16.4608966,
+      "longitude": 107.596775,
+      "source": "osm_photon",
+      "types": [
+        "fast_food"
+      ],
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4326317004",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4326317004",
+        "latitude": "https://www.openstreetmap.org/node/4326317004",
+        "longitude": "https://www.openstreetmap.org/node/4326317004",
+        "types": "https://www.openstreetmap.org/node/4326317004",
+        "address": "https://www.openstreetmap.org/node/4326317004"
+      }
+    },
+    {
+      "id": "osm:node/11581255369",
+      "name": "Nhà Quìn Coffee Roastery",
+      "address": "29a, Lê Hồng Phong, Thuận Hóa, Huế, Việt Nam",
+      "latitude": 16.4605618,
+      "longitude": 107.5941849,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/11581255369",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/11581255369",
+        "latitude": "https://www.openstreetmap.org/node/11581255369",
+        "longitude": "https://www.openstreetmap.org/node/11581255369",
+        "types": "https://www.openstreetmap.org/node/11581255369",
+        "address": "https://www.openstreetmap.org/node/11581255369"
+      }
+    },
+    {
+      "id": "osm:node/12414887701",
+      "name": "Yên Tea Caffe",
+      "address": "Kiệt 15 Đống, Thuận Hóa, Huế, Việt Nam",
+      "latitude": 16.4628689,
+      "longitude": 107.5932321,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/12414887701",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/12414887701",
+        "latitude": "https://www.openstreetmap.org/node/12414887701",
+        "longitude": "https://www.openstreetmap.org/node/12414887701",
+        "types": "https://www.openstreetmap.org/node/12414887701",
+        "address": "https://www.openstreetmap.org/node/12414887701"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/6734350786",
+      "title": "Lago Coffee House",
+      "snippet": "10, Lê Hồng Phong, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6734350786",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11715518269",
+      "title": "tan.",
+      "snippet": "25, Nguyễn Thị Minh Khai, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11715518269",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4326317004",
+      "title": "Bún bò Huế Kim Đồng",
+      "snippet": "21, Nguyễn Thị Minh Khai, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4326317004",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11581255369",
+      "title": "Nhà Quìn Coffee Roastery",
+      "snippet": "29a, Lê Hồng Phong, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11581255369",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12414887701",
+      "title": "Yên Tea Caffe",
+      "snippet": "Kiệt 15 Đống, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12414887701",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7477670189",
+      "title": "House of cha",
+      "snippet": "Hà Nội, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7477670189",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5643214321",
+      "title": "COM TAM DAN DA",
+      "snippet": "Bến Nghé, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5643214321",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13895421601",
+      "title": "Cozy restaurant",
+      "snippet": "Kiệt 27, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13895421601",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10677707584",
+      "title": "Phinholic",
+      "snippet": "65, Bến Nghé, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10677707584",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6518485385",
+      "title": "Cozy Restaurant & Café",
+      "snippet": "no 6, Kiệt 27, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6518485385",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3712349278",
+      "title": "Zone 7 Coffee & Restaurant",
+      "snippet": "01, Phong Châu, Thuận Hóa, Huế, Thừa Thiên Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3712349278",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6305298885",
+      "title": "Cafe Muối",
+      "snippet": "10, Nguyễn Lương Bằng, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6305298885",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2264793638",
+      "title": "Nina's Cafe",
+      "snippet": "16, Kiệt 34, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2264793638",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6829492641",
+      "title": "Street Food - bánh xèo, nem lụi, bún đậu mắm tôm, bún mắm nêm, bún nem nướng, bánh tôm hồ tây",
+      "snippet": "Nguyễn Huệ, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6829492641",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7199615566",
+      "title": "Kem Flan",
+      "snippet": "Hùng Vương, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7199615566",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11914764769",
+      "title": "Lien Hoa",
+      "snippet": "3, Lê Quý Đôn, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11914764769",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/14272959102",
+      "title": "View Café",
+      "snippet": "7/34, Nguyễn Tri Phương, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/14272959102",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4119810589",
+      "title": "Pallet Restaurant",
+      "snippet": "7/34, Nguyễn Tri Phương, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4119810589",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4568167430",
+      "title": "Nook Cafe & Bar",
+      "snippet": "7 / 34, Kiệt 34, Thuận Hóa, Hue, THỪA THIÊN HUẾ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4568167430",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10556602509",
+      "title": "Family home",
+      "snippet": "11 34, Nguyễn Tri Phương, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10556602509",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5777226054",
+      "title": "The Ka - coffee & milktea",
+      "snippet": "Bến Nghé, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5777226054",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4526208991",
+      "title": "Hùng Vuong inn",
+      "snippet": "20, Hùng Vương, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4526208991",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1333044388",
+      "title": "A Lầu - Dzách Lầu",
+      "snippet": "55, Bến Nghé, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1333044388",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5382938423",
+      "title": "Family Home Restaurant",
+      "snippet": "11/34, Nguyễn Tri Phương, Thuận Hóa, Hue, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5382938423",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11919035602",
+      "title": "Gahi Cafe",
+      "snippet": "36, Đống Đa, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11919035602",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6873078792",
+      "title": "Cafe on Thu Wheels",
+      "snippet": "3/34, Nguyễn Tri Phương, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6873078792",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11503000917",
+      "title": "Noi Coffee & Milktea",
+      "snippet": "11, Lý Thường Kiệt, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11503000917",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12412512101",
+      "title": "Spice Viet",
+      "snippet": "15, Lý Thường Kiệt, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12412512101",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4247628685",
+      "title": "Bun bò huế",
+      "snippet": "Lý Thường Kiệt, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4247628685",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/9921306320",
+      "title": "Ga Yang",
+      "snippet": "Lý Thường Kiệt, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/9921306320",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13666677241",
+      "title": "Lin",
+      "snippet": "Tố Hữu, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13666677241",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12673149601",
+      "title": "Lotteria",
+      "snippet": "Phong Châu, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12673149601",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13147675601",
+      "title": "Namto House Coffee Hue",
+      "snippet": "40, Nguyễn Tri Phương, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13147675601",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12631846150",
+      "title": "Phinholic",
+      "snippet": "38, Nguyễn Tri Phương, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12631846150",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2985540733",
+      "title": "La Boulangerie Francaise",
+      "snippet": "46, Nguyễn Tri Phương, Thuận Hóa, Hue, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2985540733",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4220719090",
+      "title": "Hangout Coffee & Bar",
+      "snippet": "48, Nguyễn Tri Phương, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4220719090",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11829758971",
+      "title": "Cơm hẻm 134",
+      "snippet": "21/134, Bà Triệu, Vỹ Dạ, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11829758971",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2264793625",
+      "title": "Omar Khayyam",
+      "snippet": "Nguyễn Tri Phương, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2264793625",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13408558602",
+      "title": "Highlands Coffee",
+      "snippet": "Bà Triệu, Vỹ Dạ, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13408558602",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13045044001",
+      "title": "Trốn cafe",
+      "snippet": "21, Lê Quý Đôn, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13045044001",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4157403490",
+      "title": "Bigben",
+      "snippet": "Nguyễn Tri Phương, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4157403490",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12629757145",
+      "title": "Bún Nghệ O Két",
+      "snippet": "10, Kiệt 154 Bà Triệu, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12629757145",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6799743358",
+      "title": "Bếp Nhà Hiền",
+      "snippet": "15A, Lê Qúy Đôn, Thuận Hóa, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6799743358",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12673150301",
+      "title": "Pizza Hut",
+      "snippet": "Bà Triệu, Vỹ Dạ, Huế, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12673150301",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.4619&limit=50&lon=107.59546&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:48.423012Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:43.314840Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:43.314840Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:15:48.425658Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 44
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:15:48.425658Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

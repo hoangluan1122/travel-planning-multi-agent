@@ -1,0 +1,584 @@
+{
+  "request_id": "6903a9c1-ed1d-4c64-850f-3ae1977f2caa",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Nha Trang",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "geonames:1572151",
+    "name": "Nha Trang",
+    "latitude": 12.24507,
+    "longitude": 109.19432,
+    "admin1": "Khanh Hoa",
+    "admin2": "Thành Phố Nha Trang",
+    "feature_code": "PPLA",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1572151/",
+    "fetched_at": "2026-10-22T18:15:56.885466Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/5587049921": {
+      "distance_m": 49.97864363635995,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4723897693": {
+      "distance_m": 76.13935523618528,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/6612951786": {
+      "distance_m": 156.53674135945664,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/5741175922": {
+      "distance_m": 172.9332174796486,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/7255498185": {
+      "distance_m": 172.95132958645274,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 36,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:15:56.027313Z",
+  "completed_at": "2026-10-22T18:15:59.823218Z",
+  "places": [
+    {
+      "id": "osm:node/5587049921",
+      "name": "4 Mua - juice bar and snacks",
+      "address": "Hoàng Hoa Thám, Nha Trang, Khánh Hòa, Việt Nam",
+      "latitude": 12.2449427,
+      "longitude": 109.1938789,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5587049921",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5587049921",
+        "latitude": "https://www.openstreetmap.org/node/5587049921",
+        "longitude": "https://www.openstreetmap.org/node/5587049921",
+        "types": "https://www.openstreetmap.org/node/5587049921",
+        "address": "https://www.openstreetmap.org/node/5587049921"
+      }
+    },
+    {
+      "id": "osm:node/4723897693",
+      "name": "Au Lac",
+      "address": "Nguyễn Chánh, Nha Trang, Khánh Hòa, Việt Nam",
+      "latitude": 12.2455217,
+      "longitude": 109.1937934,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4723897693",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4723897693",
+        "latitude": "https://www.openstreetmap.org/node/4723897693",
+        "longitude": "https://www.openstreetmap.org/node/4723897693",
+        "types": "https://www.openstreetmap.org/node/4723897693",
+        "address": "https://www.openstreetmap.org/node/4723897693"
+      }
+    },
+    {
+      "id": "osm:node/6612951786",
+      "name": "chuon chuon",
+      "address": "Hoàng Hoa Thám, Nha Trang, Khánh Hòa, Việt Nam",
+      "latitude": 12.2464558,
+      "longitude": 109.1940665,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/6612951786",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/6612951786",
+        "latitude": "https://www.openstreetmap.org/node/6612951786",
+        "longitude": "https://www.openstreetmap.org/node/6612951786",
+        "types": "https://www.openstreetmap.org/node/6612951786",
+        "address": "https://www.openstreetmap.org/node/6612951786"
+      }
+    },
+    {
+      "id": "osm:node/5741175922",
+      "name": "Luận 20 restaurant",
+      "address": "Trần Hưng Đạo, Nha Trang, Khánh Hòa, Việt Nam",
+      "latitude": 12.2435245,
+      "longitude": 109.1944977,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5741175922",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5741175922",
+        "latitude": "https://www.openstreetmap.org/node/5741175922",
+        "longitude": "https://www.openstreetmap.org/node/5741175922",
+        "types": "https://www.openstreetmap.org/node/5741175922",
+        "address": "https://www.openstreetmap.org/node/5741175922"
+      }
+    },
+    {
+      "id": "osm:node/7255498185",
+      "name": "smile",
+      "address": "Hoàng Hoa Thám, Nha Trang, Khánh Hòa, Việt Nam",
+      "latitude": 12.2436197,
+      "longitude": 109.1937449,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/7255498185",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/7255498185",
+        "latitude": "https://www.openstreetmap.org/node/7255498185",
+        "longitude": "https://www.openstreetmap.org/node/7255498185",
+        "types": "https://www.openstreetmap.org/node/7255498185",
+        "address": "https://www.openstreetmap.org/node/7255498185"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/5587049921",
+      "title": "4 Mua - juice bar and snacks",
+      "snippet": "Hoàng Hoa Thám, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5587049921",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4723897693",
+      "title": "Au Lac",
+      "snippet": "Nguyễn Chánh, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4723897693",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6612951786",
+      "title": "chuon chuon",
+      "snippet": "Hoàng Hoa Thám, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6612951786",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5741175922",
+      "title": "Luận 20 restaurant",
+      "snippet": "Trần Hưng Đạo, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5741175922",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7255498185",
+      "title": "smile",
+      "snippet": "Hoàng Hoa Thám, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7255498185",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2588669959",
+      "title": "SV cafe",
+      "snippet": "1, Nguyễn Chánh, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2588669959",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4078190390",
+      "title": "Fami cafe",
+      "snippet": "19A, Hoàng Hoa Thám, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4078190390",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4078213489",
+      "title": "V-Smile",
+      "snippet": "19, Hoàng Hoa Thám, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4078213489",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4320365521",
+      "title": "Phuong loc tho",
+      "snippet": "Lê Thánh Tôn, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4320365521",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4311973791",
+      "title": "Pizza Lào",
+      "snippet": "46/12/3, Lê Thánh Tôn, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4311973791",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4915896421",
+      "title": "Cafe sv 30 tran phu",
+      "snippet": "Trần Phú, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4915896421",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4696505389",
+      "title": "pho hong",
+      "snippet": "40, Lê Thánh Tôn, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4696505389",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2070423581",
+      "title": "Vuon Dua",
+      "snippet": "46, Lê Thánh Tôn, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2070423581",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4320365523",
+      "title": "Quan da nuong",
+      "snippet": "Tô Hiến Thành, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4320365523",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2588669957",
+      "title": "Pho Burn",
+      "snippet": "Trần Phú, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2588669957",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4220089000",
+      "title": "Olivia Restaurant",
+      "snippet": "2, Nguyễn Thiện Thuật, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4220089000",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4299626122",
+      "title": "Big Bang Restaurant",
+      "snippet": "Trần Phú, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4299626122",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13816848484",
+      "title": "The Coffee House (Việt Nam)",
+      "snippet": "Trần Hưng Đạo, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13816848484",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6649656585",
+      "title": "Ding Tea",
+      "snippet": "02, Ngô Gia Tự, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6649656585",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/14266774501",
+      "title": "A.teo",
+      "snippet": "Lê Quý Đôn, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/14266774501",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13979166287",
+      "title": "McDonald's",
+      "snippet": "1, Trần Hưng Đạo, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13979166287",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13979166286",
+      "title": "Starbucks",
+      "snippet": "1, Trần Hưng Đạo, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13979166286",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13821023301",
+      "title": "thong dong vegan restaurant",
+      "snippet": "12/25, Nguyễn Thiện Thuật, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13821023301",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12441407001",
+      "title": "Domino's Pizza",
+      "snippet": "20, Đường Trần Phú, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12441407001",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13816848483",
+      "title": "Phở Thìn Hà Nội",
+      "snippet": "Lý Tự Trọng, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13816848483",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12584864002",
+      "title": "Egoist",
+      "snippet": "Nguyễn Thiện Thuật, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12584864002",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2587538140",
+      "title": "Loteria",
+      "snippet": "20, Đường Trần Phú, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2587538140",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12992195302",
+      "title": "Texas chicken",
+      "snippet": "20, Чан Фу, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12992195302",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5382673722",
+      "title": "City Fox",
+      "snippet": "Lê Quý Đôn, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5382673722",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12728427001",
+      "title": "Tous Les Temps Coffee & Tea",
+      "snippet": "09, Lê Thánh Tôn, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12728427001",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2162475652",
+      "title": "KFC",
+      "snippet": "20, Đường Trần Phú, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2162475652",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12229967002",
+      "title": "Фо Бо и другие супы (работают допоздна)",
+      "snippet": "Đinh Tiên Hoàng, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12229967002",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12728380901",
+      "title": "Starbucks Nha Trang Center",
+      "snippet": "20, Чан Фу, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12728380901",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2588669956",
+      "title": "E-Land Four Seasons",
+      "snippet": "Trần Phú, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2588669956",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13183662296",
+      "title": "Sky lounge",
+      "snippet": "Trần Hưng Đạo, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13183662296",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5188185622",
+      "title": "Highlands Coffee",
+      "snippet": "Lê Thánh Tôn, Nha Trang, Khánh Hòa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5188185622",
+      "search_url": "https://photon.komoot.io/reverse?lat=12.24507&limit=50&lon=109.19432&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:59.819220Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:56.027313Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:56.885466Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:15:59.823218Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 36
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:15:59.823218Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

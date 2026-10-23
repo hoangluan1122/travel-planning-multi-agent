@@ -1,0 +1,88 @@
+{
+  "status": "sources_found",
+  "query": "hotel Sa Pa Hotel de la Coupole official website",
+  "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+Hotel+de+la+Coupole+official+website",
+  "fetched_at": "2026-10-22T06:18:51.132531Z",
+  "sources": [
+    {
+      "id": "web:1b14311bf35c25cb662c373d",
+      "title": "Hotel de la Coupole Sapa- Giá 1.700.000đ/phòng/đêm",
+      "snippet": "Đặt phòng Hotel de la coupole sapa: khách sạn 5 sao quốc tế chuẩn mực của xa xỉ - Giá 1.700.000đ/phòng/đêm. Cam kết dịch vụ hỗ trợ tốt nhất.",
+      "url": "https://hellotrip.vn/khach-san/hotel-de-la-coupole-sapa/",
+      "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+Hotel+de+la+Coupole+official+website",
+      "fetched_at": "2026-10-22T06:18:51.132531Z",
+      "verification": "search_result_only"
+    },
+    {
+      "id": "web:d51f0bf7ca477c688fd03dad",
+      "title": "Hotel de la Coupole Sapa - MGallery Collection - Accor Group",
+      "snippet": "Hôtel de la Coupole, a 5-star retreat, melds French Indochine grace with the vivid essence of hill tribe heritage. Crafted by Bill Bensley, this sanctuary offers ...",
+      "url": "https://mgallery.accor.com/en/hotels/A5V2.html",
+      "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+Hotel+de+la+Coupole+official+website",
+      "fetched_at": "2026-10-22T06:18:51.132531Z",
+      "verification": "search_result_only"
+    },
+    {
+      "id": "web:34b42ecfc5f996e645a7fb1f",
+      "title": "Hotel de la Coupole - MGallery, Sa Pa (cập nhật giá năm ...",
+      "snippet": "Nằm ở thị trấn Sa Pa, Hotel de la Coupole - MGallery có hồ bơi nước nóng trong nhà, spa và trung tâm thể dục. Lấy cảm hứng từ các dân tộc thiểu số ở Sapa và ...",
+      "url": "https://www.booking.com/hotel/vn/de-la-coupole-mgallery-by-sofitel.vi.html",
+      "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+Hotel+de+la+Coupole+official+website",
+      "fetched_at": "2026-10-22T06:18:51.132531Z",
+      "verification": "search_result_only"
+    },
+    {
+      "id": "web:501ef12978afbc5815d02db5",
+      "title": "HOTEL DE LA COUPOLE - MGALLERY (Sapa) - Tripadvisor",
+      "snippet": "Đánh giá · 1. Ksan nổi tiếng, vị trí đắc địa nhất nhì Sapa · 2. Phòng đẹp cao cấp, mình ở hạng phòng Suite nên rất rộng rãi và sang trọng, bố cục trong phòng ...",
+      "url": "https://www.tripadvisor.com.vn/Hotel_Review-g311304-d15028320-Reviews-Hotel_de_la_Coupole_MGallery-Sapa_Lao_Cai_Province.html",
+      "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+Hotel+de+la+Coupole+official+website",
+      "fetched_at": "2026-10-22T06:18:51.132531Z",
+      "verification": "search_result_only"
+    },
+    {
+      "id": "web:b9c36add04a81bc9ff5bf3c3",
+      "title": "Khách sạn De La Coupole Sapa - MGallery",
+      "snippet": "Được thiết kết bởi kiến trúc sư nổi tiếng thế giới Bill Bensley với cảm hứng từ thời trang cao cấp Pháp vào thế kỷ 20 kết hợp với màu sắc họa tiết dân tộc ...",
+      "url": "https://khachsan.chudu24.com/ks.5711.khach-san-de-la-coupole-sapa-mgallery.html",
+      "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+Hotel+de+la+Coupole+official+website",
+      "fetched_at": "2026-10-22T06:18:51.132531Z",
+      "verification": "search_result_only"
+    }
+  ],
+  "official_details": [],
+  "places": [
+    {
+      "id": "official:d51f0bf7ca477c688fd03dad",
+      "name": "Hotel de la Coupole Sapa - MGallery Collection",
+      "address": "1, Hoang Lien Street, Sapa District, Lao Cai Province, SAPA, Vietnam",
+      "latitude": 22.334686,
+      "longitude": 103.840433,
+      "source": "official_mgallery_jsonld",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T06:18:53.672489Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://mgallery.accor.com/en/hotels/A5V2.html",
+      "attribution": null,
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": "https://mgallery.accor.com/en/hotels/A5V2.html",
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "address": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "latitude": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "longitude": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "types": "https://mgallery.accor.com/en/hotels/A5V2.html"
+      }
+    }
+  ],
+  "warnings": [
+    "Kết quả tìm kiếm là nguồn ứng viên, chưa xác minh địa danh hoặc loại hình.",
+    "Không dùng giá/snippet làm báo giá; chưa xác minh tọa độ, phòng trống hoặc ảnh.",
+    "Tìm bằng tên địa danh, chưa áp dụng bộ lọc bán kính hoặc location_id.",
+    "Tọa độ do website chính thức công bố; chưa kiểm chứng thực địa hoặc giá/phòng trống."
+  ]
+}

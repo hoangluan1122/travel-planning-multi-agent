@@ -1,0 +1,2199 @@
+{
+  "at": "2026-10-22T18:17:20.220359+00:00",
+  "catalog_checks": [
+    {
+      "id": "vn:current:01",
+      "name": "Hà Nội",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:04",
+      "name": "Cao Bằng",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:08",
+      "name": "Tuyên Quang",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:11",
+      "name": "Điện Biên",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:12",
+      "name": "Lai Châu",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:14",
+      "name": "Sơn La",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:15",
+      "name": "Lào Cai",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:19",
+      "name": "Thái Nguyên",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:20",
+      "name": "Lạng Sơn",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:22",
+      "name": "Quảng Ninh",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:24",
+      "name": "Bắc Ninh",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:25",
+      "name": "Phú Thọ",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:31",
+      "name": "Hải Phòng",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:33",
+      "name": "Hưng Yên",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:37",
+      "name": "Ninh Bình",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:38",
+      "name": "Thanh Hoá",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:40",
+      "name": "Nghệ An",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:42",
+      "name": "Hà Tĩnh",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:44",
+      "name": "Quảng Trị",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:46",
+      "name": "Huế",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:48",
+      "name": "Đà Nẵng",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:51",
+      "name": "Quảng Ngãi",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:52",
+      "name": "Gia Lai",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:56",
+      "name": "Khánh Hoà",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:66",
+      "name": "Đắk Lắk",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:68",
+      "name": "Lâm Đồng",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:75",
+      "name": "Đồng Nai",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:79",
+      "name": "Hồ Chí Minh",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:80",
+      "name": "Tây Ninh",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:82",
+      "name": "Đồng Tháp",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:86",
+      "name": "Vĩnh Long",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:91",
+      "name": "An Giang",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:92",
+      "name": "Cần Thơ",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:current:96",
+      "name": "Cà Mau",
+      "historical": false,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B88524163723846",
+      "name": "Ha Noi",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B83521686955161",
+      "name": "Hai Phong city",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B96308820470444",
+      "name": "Vinh Phuc",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B68919720940076",
+      "name": "Bac Ninh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B67516045218271",
+      "name": "Hai Duong",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B44494243017525",
+      "name": "Hung Yen",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B12107111916395",
+      "name": "Ha Nam",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B20746110231329",
+      "name": "Nam Dinh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B20616531840607",
+      "name": "Thai Binh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B41574483521441",
+      "name": "Ninh Binh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B2460165200518",
+      "name": "Ha Giang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B1361738734679",
+      "name": "Cao Bang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B42676652118328",
+      "name": "Lao Cai",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B4759892125349",
+      "name": "Bac Kan",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B88361205501198",
+      "name": "Lang Son",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B73616464654527",
+      "name": "Tuyen Quang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B36384395722912",
+      "name": "Yen Bai",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B17233922132357",
+      "name": "Thai Nguyen",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B28646400052348",
+      "name": "Phu Tho",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B62111271042496",
+      "name": "Bac Giang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B81921848301353",
+      "name": "Quang Ninh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B53499237908836",
+      "name": "Lai Chau",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B43959947796344",
+      "name": "Dien Bien",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B468177984494",
+      "name": "Son La",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B6309440870014",
+      "name": "Hoa Binh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B14601182429662",
+      "name": "Thanh Hoa",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B97833110077401",
+      "name": "Nghe An",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B87087531133117",
+      "name": "Ha Tinh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B65693439337447",
+      "name": "Quang Binh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B44896738513023",
+      "name": "Quang Tri",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B45787052577523",
+      "name": "Thua Thien Hue",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B50429603760085",
+      "name": "Da Nang city",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B81090783675893",
+      "name": "Quang Nam",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B75668302912706",
+      "name": "Quang Ngai",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B74203908632215",
+      "name": "Binh Dinh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B98489387811888",
+      "name": "Phu Yen",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B10360554271582",
+      "name": "Khanh Hoa",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B99097564233841",
+      "name": "Kon Tum",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B65944102779481",
+      "name": "Gia Lai",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B27925407123619",
+      "name": "Dak Lak",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B97204404646484",
+      "name": "Dak Nong",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B27972968793997",
+      "name": "Lam Dong",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B30341580753291",
+      "name": "Ho Chi Minh city",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B10372127640352",
+      "name": "Ninh Thuan",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B91533185921664",
+      "name": "Binh Phuoc",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B68831130498504",
+      "name": "Tay Ninh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B72472272151030",
+      "name": "Binh Duong",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B18994607263782",
+      "name": "Dong Nai",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B66755059201060",
+      "name": "Binh Thuan",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B65814596254146",
+      "name": "Ba Ria - Vung Tau",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B70412767084504",
+      "name": "Long An",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B9719971169594",
+      "name": "Dong Thap",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B61647312176937",
+      "name": "An Giang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B92903016018094",
+      "name": "Tien Giang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B40962937393015",
+      "name": "Vinh Long",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B38836907429723",
+      "name": "Ben Tre",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B27465896611770",
+      "name": "Kien Giang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B92937877455266",
+      "name": "Can Tho city",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B83870711995154",
+      "name": "Hau Giang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B54636768110772",
+      "name": "Tra Vinh",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B18522696029042",
+      "name": "Soc Trang",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B25525264729444",
+      "name": "Bac Lieu",
+      "historical": true,
+      "passed": true
+    },
+    {
+      "id": "vn:legacy:80891907B69653549619538",
+      "name": "Ca Mau",
+      "historical": true,
+      "passed": true
+    }
+  ],
+  "live_cases": [
+    {
+      "number": 1,
+      "province": "Hà Nội",
+      "destination": "Hà Nội",
+      "category": "hotel",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 6.58,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": true,
+      "names": [
+        "Khách sạn Cây Xoài",
+        "Tru by Hilton Hanoi Station",
+        "Khách Sạn Mercure",
+        "Khách sạn Mercure Hanoi La Gare",
+        "Lushstay"
+      ],
+      "request_id": "6f9d821c-3ff0-4f7d-8f19-59141b80762c",
+      "resolved_location": {
+        "id": "geonames:1581130",
+        "name": "Hà Nội",
+        "latitude": 21.0245,
+        "longitude": 105.84117,
+        "admin1": "Hanoi",
+        "admin2": "",
+        "feature_code": "PPLC",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1581130/",
+        "fetched_at": "2026-10-22T18:14:01.316137Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 2,
+      "province": "Cao Bằng",
+      "destination": "Cao Bằng",
+      "category": "restaurant",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 3.67,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": true,
+      "names": [
+        "Á Đông BBQ Chicken",
+        "Coffee 89",
+        "Huong Thinh",
+        "Phó Vi Thiêm",
+        "Com Binh Dan"
+      ],
+      "request_id": "640c3cd2-ffbb-4ae6-8d66-db3aae691814",
+      "resolved_location": {
+        "id": "geonames:1586185",
+        "name": "Thành Phố Cao Bằng",
+        "latitude": 22.66568,
+        "longitude": 106.25786,
+        "admin1": "Cao Bằng",
+        "admin2": "Thành Phố Cao Bằng",
+        "feature_code": "PPLA",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1586185/",
+        "fetched_at": "2026-10-22T18:14:07.654963Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 3,
+      "province": "Tuyên Quang",
+      "destination": "Đồng Văn",
+      "category": "attraction",
+      "outcome": "needs_manual_choice",
+      "elapsed_s": 2.22,
+      "records": 0,
+      "status": "needs_location",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "options": [
+        {
+          "id": "geonames:1582468",
+          "name": "Đồng Van",
+          "admin1": "Tuyen Quang",
+          "admin2": "Huyện Sơn Dương"
+        },
+        {
+          "id": "geonames:1582469",
+          "name": "Đồng Văn",
+          "admin1": "Tuyen Quang",
+          "admin2": "Huyện Sơn Dương"
+        },
+        {
+          "id": "geonames:1582470",
+          "name": "Ðồng Văn",
+          "admin1": "Tuyen Quang",
+          "admin2": "Huyện Sơn Dương"
+        },
+        {
+          "id": "geonames:1582471",
+          "name": "Dồng Vãn",
+          "admin1": "Hanoi",
+          "admin2": "Huyện Mỹ Đức"
+        },
+        {
+          "id": "geonames:1582472",
+          "name": "Đồng Vân",
+          "admin1": "Ninh Binh",
+          "admin2": "Thành Phố Nam Định"
+        },
+        {
+          "id": "geonames:1582473",
+          "name": "Đồng Van",
+          "admin1": "Thanh Hóa",
+          "admin2": "Huyện Như Thanh"
+        },
+        {
+          "id": "geonames:1582474",
+          "name": "Dong Van",
+          "admin1": "Tỉnh Nghệ An",
+          "admin2": "Huyện Tân Kỳ"
+        },
+        {
+          "id": "geonames:1582475",
+          "name": "Đồng Văn",
+          "admin1": "Tỉnh Nghệ An",
+          "admin2": "Huyện Yên Thành"
+        },
+        {
+          "id": "geonames:1582476",
+          "name": "Đong Văn",
+          "admin1": "Tỉnh Nghệ An",
+          "admin2": "Thành Phố Vinh"
+        },
+        {
+          "id": "geonames:8200878",
+          "name": "Đồng Văn",
+          "admin1": "Phu Tho",
+          "admin2": "Huyện Sông Lô"
+        },
+        {
+          "id": "geonames:8311845",
+          "name": "Đông Van",
+          "admin1": "Thai Nguyen",
+          "admin2": "Huyện Ngân Sơn"
+        },
+        {
+          "id": "geonames:8554686",
+          "name": "Đồng Văn",
+          "admin1": "Ninh Binh",
+          "admin2": "Huyện Nghĩa Hưng"
+        },
+        {
+          "id": "geonames:9867426",
+          "name": "Đồng Vân",
+          "admin1": "Bac Ninh",
+          "admin2": "Huyện Tân Yên"
+        },
+        {
+          "id": "geonames:10178391",
+          "name": "Đồng Văn",
+          "admin1": "Tỉnh Nghệ An",
+          "admin2": "Huyện Quỳnh Lưu"
+        },
+        {
+          "id": "geonames:10178429",
+          "name": "Đồng Văn",
+          "admin1": "Tỉnh Nghệ An",
+          "admin2": "Huyện Quỳnh Lưu"
+        },
+        {
+          "id": "geonames:10201310",
+          "name": "Đồng Văn",
+          "admin1": "Tỉnh Nghệ An",
+          "admin2": "Huyện Thanh Chương"
+        },
+        {
+          "id": "geonames:10354185",
+          "name": "Đồng Văn",
+          "admin1": "Hà Tĩnh",
+          "admin2": "Huyện Hương Khê"
+        },
+        {
+          "id": "geonames:10357295",
+          "name": "Đông Vân",
+          "admin1": "Hà Tĩnh",
+          "admin2": "Huyện Cẩm Xuyên"
+        },
+        {
+          "id": "geonames:1582467",
+          "name": "Thị Trấn Đồng Văn",
+          "admin1": "Tuyen Quang",
+          "admin2": "Huyện Đồng Văn"
+        },
+        {
+          "id": "geonames:1582466",
+          "name": "Đong Vang",
+          "admin1": "Quảng Ninh",
+          "admin2": "Huyện Hoành Bồ"
+        }
+      ],
+      "names": [],
+      "request_id": "77a4a0f3-3c69-43b8-8c47-fecaa1911bb7",
+      "resolved_location": null
+    },
+    {
+      "number": 4,
+      "province": "Lào Cai",
+      "destination": "Sa Pa",
+      "category": "hotel",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 5.2,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": true,
+      "names": [
+        "Nha nghi hoi nga",
+        "A Lử Homestay",
+        "Sapa Warm Hotel",
+        "Fancy Sapa Hostel 2",
+        "Himalaya Hostel"
+      ],
+      "request_id": "e4dfd849-1913-435f-935b-b22c75e67f3a",
+      "resolved_location": {
+        "id": "geonames:1568043",
+        "name": "Sa Pa",
+        "latitude": 22.34023,
+        "longitude": 103.84415,
+        "admin1": "Lao Cai",
+        "admin2": "Huyện Sa Pa",
+        "feature_code": "PPL",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1568043/",
+        "fetched_at": "2026-10-22T18:14:15.818627Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 5,
+      "province": "Điện Biên",
+      "destination": "Điện Biên Phủ",
+      "category": "restaurant",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 5.77,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Sông Hồng Restaurant",
+        "vụ ân restaurant",
+        "Không gian Cafe",
+        "Nhà hàng Ngọc Mai",
+        "Yen Ninh"
+      ],
+      "request_id": "86266675-1f90-4fbb-aec8-8a2f9f8d2ed4",
+      "resolved_location": {
+        "id": "geonames:1583477",
+        "name": "Điện Biên Phủ",
+        "latitude": 21.38602,
+        "longitude": 103.02301,
+        "admin1": "Tỉnh Ðiện Biên",
+        "admin2": "Thành Phố Điện Biên Phủ",
+        "feature_code": "PPLA",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1583477/",
+        "fetched_at": "2026-10-22T18:14:20.252730Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 6,
+      "province": "Lai Châu",
+      "destination": "Lai Châu",
+      "category": "attraction",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 4.25,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": true,
+      "names": [
+        "Công viên 1-6",
+        "Công viên Ao cá Bác Hồ",
+        "Công viên Hồ Thuỷ Sơn",
+        "Bảo tàng dân tộc tỉnh Lai Châu",
+        "Tượng đài Bác Hồ với nhân dân các dân tộc tỉnh Lai Châu"
+      ],
+      "request_id": "1d4666b3-5dd2-4de2-b4f7-014364f0749d",
+      "resolved_location": {
+        "id": "geonames:8456741",
+        "name": "Lai Châu",
+        "latitude": 22.39644,
+        "longitude": 103.45824,
+        "admin1": "Lai Châu",
+        "admin2": "Thành phố Lai Châu",
+        "feature_code": "PPLA",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/8456741/",
+        "fetched_at": "2026-10-22T18:14:25.284494Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 7,
+      "province": "Sơn La",
+      "destination": "Mộc Châu",
+      "category": "hotel",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 5.2,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "So Do nha nghi",
+        "Thanh Binh Hotel",
+        "Moc Chau Town",
+        "nha nghi sơn mến",
+        "Huong Sen Hotel"
+      ],
+      "request_id": "fa9ba412-2239-4a59-9918-945c39d575be",
+      "resolved_location": {
+        "id": "geonames:1574561",
+        "name": "Mộc Châu",
+        "latitude": 20.85199,
+        "longitude": 104.62177,
+        "admin1": "Sơn La",
+        "admin2": "Huyện Mộc Châu",
+        "feature_code": "PPLA2",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1574561/",
+        "fetched_at": "2026-10-22T18:14:30.328156Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 8,
+      "province": "Thái Nguyên",
+      "destination": "Bắc Kạn",
+      "category": "restaurant",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 4.83,
+      "records": 4,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": true,
+      "names": [
+        "Nga Cầu",
+        "Quán Tuân Bép",
+        "T.A Coffee Lab",
+        "Phở Lý"
+      ],
+      "request_id": "2d5c94c2-6df8-4c13-bd21-1de7252a8722",
+      "resolved_location": {
+        "id": "geonames:1591538",
+        "name": "Bắc Kạn",
+        "latitude": 22.14701,
+        "longitude": 105.83481,
+        "admin1": "Thai Nguyen",
+        "admin2": "Thị Xã Bắc Kạn",
+        "feature_code": "PPLA2",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1591538/",
+        "fetched_at": "2026-10-22T18:14:35.325516Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 9,
+      "province": "Lạng Sơn",
+      "destination": "Lạng Sơn",
+      "category": "attraction",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 6.69,
+      "records": 1,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": true,
+      "names": [
+        "Động Tam Thanh"
+      ],
+      "request_id": "7b6b67b6-3b7b-4490-87bf-04ae204efc4d",
+      "resolved_location": {
+        "id": "geonames:1576633",
+        "name": "Thành Phố Lạng Sơn",
+        "latitude": 21.85264,
+        "longitude": 106.76101,
+        "admin1": "Lạng Sơn",
+        "admin2": "Thành Phố Lạng Sơn",
+        "feature_code": "PPLA",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1576633/",
+        "fetched_at": "2026-10-22T18:14:40.344621Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 10,
+      "province": "Quảng Ninh",
+      "destination": "Hạ Long",
+      "category": "hotel",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 4.66,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": true,
+      "names": [
+        "Halong Boutique Hotel",
+        "The Almin Hotel",
+        "Lea House",
+        "deja vu house",
+        "Hùng vùòng"
+      ],
+      "request_id": "c8036ef8-f3d4-483f-983c-d4ccb83c2fd4",
+      "resolved_location": {
+        "id": "geonames:1580410",
+        "name": "Thành Phố Hạ Long",
+        "latitude": 20.95045,
+        "longitude": 107.07336,
+        "admin1": "Quảng Ninh",
+        "admin2": "Thành Phố Hạ Long",
+        "feature_code": "PPLA",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1580410/",
+        "fetched_at": "2026-10-22T18:14:45.637356Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 11,
+      "province": "Phú Thọ",
+      "destination": "Tam Đảo",
+      "category": "restaurant",
+      "outcome": "no_indexed_results",
+      "elapsed_s": 3.98,
+      "records": 0,
+      "status": "no_results",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [],
+      "request_id": "4e87e351-cb39-4366-964d-971fb43775f4",
+      "resolved_location": {
+        "id": "geonames:1567178",
+        "name": "Tam Đảo",
+        "latitude": 21.39324,
+        "longitude": 105.61441,
+        "admin1": "Phu Tho",
+        "admin2": "Huyện Tam Đảo",
+        "feature_code": "PPLA2",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1567178/",
+        "fetched_at": "2026-10-22T18:14:50.706466Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 12,
+      "province": "Bắc Ninh",
+      "destination": "Bắc Giang",
+      "category": "attraction",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 5.8,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Công viên Ngô Gia Tự",
+        "Công viên Ngô Gia Tự",
+        "Bảo tàng Bắc Ninh số 1",
+        "Khuôn viên Nguyễn Du",
+        "Khuôn viên 19/8"
+      ],
+      "request_id": "efd77084-fd9c-42d3-9e4a-7e284a28efdb",
+      "resolved_location": {
+        "id": "geonames:1591527",
+        "name": "Bắc Giang",
+        "latitude": 21.27307,
+        "longitude": 106.1946,
+        "admin1": "Bac Ninh",
+        "admin2": "Thành phố Bắc Giang",
+        "feature_code": "PPLA2",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1591527/",
+        "fetched_at": "2026-10-22T18:14:55.635558Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 13,
+      "province": "Hải Phòng",
+      "destination": "Cát Bà",
+      "category": "hotel",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 10.88,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Ubytovani cat ba",
+        "May Hostel",
+        "Cat Ba backpackers hostel",
+        "Chu Long",
+        "Nhật Anh Hotel 2"
+      ],
+      "request_id": "7a28b1ef-0ffc-459c-8bfe-6328225bb523",
+      "resolved_location": {
+        "id": "geonames:1586052",
+        "name": "Cát Bà",
+        "latitude": 20.72779,
+        "longitude": 107.04819,
+        "admin1": "Hai Phong",
+        "admin2": "Huyện Cát Hải",
+        "feature_code": "PPL",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1586052/",
+        "fetched_at": "2026-10-22T18:15:00.619961Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 14,
+      "province": "Hưng Yên",
+      "destination": "Thái Bình",
+      "category": "restaurant",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 6.91,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": true,
+      "names": [
+        "Indie coffee",
+        "MAY STEAK BISTRO AND COFFE",
+        "cà phê nét xưa",
+        "Loi Song Moi",
+        "Vegetarian Reataurant"
+      ],
+      "request_id": "309b4692-f59f-43bf-a88e-f8043fecb58d",
+      "resolved_location": {
+        "id": "geonames:1566346",
+        "name": "Thành Phố Thái Bình",
+        "latitude": 20.45,
+        "longitude": 106.34002,
+        "admin1": "Hung Yen",
+        "admin2": "Thành Phố Thái Bình",
+        "feature_code": "PPLA2",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1566346/",
+        "fetched_at": "2026-10-22T18:15:12.129252Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 15,
+      "province": "Ninh Bình",
+      "destination": "Tràng An",
+      "category": "attraction",
+      "outcome": "geographic_mismatch",
+      "elapsed_s": 3.72,
+      "records": 0,
+      "status": "no_results",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [],
+      "request_id": "1783a68c-9e91-46cf-8edf-e88c6d04d9e3",
+      "resolved_location": {
+        "id": "geonames:9871516",
+        "name": "Tràng An",
+        "latitude": 21.20106,
+        "longitude": 106.20681,
+        "admin1": "Bac Ninh",
+        "admin2": "Huyện Yên Dũng",
+        "feature_code": "PPL",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/9871516/",
+        "fetched_at": "2026-10-22T18:15:17.877359Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 16,
+      "province": "Thanh Hóa",
+      "destination": "Sầm Sơn",
+      "category": "hotel",
+      "outcome": "geographic_mismatch",
+      "elapsed_s": 5.81,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Khách Sạn Hoa Hồng 1",
+        "Khách sạn Thuỳ Dương 3",
+        "Khách sạn Lê Lợi",
+        "Doanh Nghiệp Tư Nhân Khách Sạn Và Du Lịch Hoàng Long",
+        "Thai Lan Hotel"
+      ],
+      "request_id": "20db56be-3502-4779-9f6a-5bed1b2bb9ee",
+      "resolved_location": {
+        "id": "geonames:1568142",
+        "name": "Sầm Sơn",
+        "latitude": 19.73333,
+        "longitude": 105.9,
+        "admin1": "Thanh Hóa",
+        "admin2": "Thị Xã Sầm Sơn",
+        "feature_code": "PPL",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1568142/",
+        "fetched_at": "2026-10-22T18:15:24.931448Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 17,
+      "province": "Nghệ An",
+      "destination": "Cửa Lò",
+      "category": "restaurant",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 5.33,
+      "records": 2,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Cafe Boom",
+        "Xôi"
+      ],
+      "request_id": "e7c6fbd7-529d-4186-95ac-c6c7d29932b6",
+      "resolved_location": {
+        "id": "geonames:1584601",
+        "name": "Cửa Lô",
+        "latitude": 18.81667,
+        "longitude": 105.71667,
+        "admin1": "Tỉnh Nghệ An",
+        "admin2": "Thị Xã Cửa Lò",
+        "feature_code": "PPL",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1584601/",
+        "fetched_at": "2026-10-22T18:15:28.318065Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 18,
+      "province": "Hà Tĩnh",
+      "destination": "Thiên Cầm",
+      "category": "attraction",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 5.2,
+      "records": 1,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Bãi biển Thiên Cầm"
+      ],
+      "request_id": "528b9dc5-34e6-4446-b6b1-c9a458a62f7e",
+      "resolved_location": {
+        "id": "geonames:13645257",
+        "name": "Thiên Cầm",
+        "latitude": 18.27836,
+        "longitude": 106.07867,
+        "admin1": "Hà Tĩnh",
+        "admin2": "Huyện Cẩm Xuyên",
+        "feature_code": "PPLA2",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/13645257/",
+        "fetched_at": "2026-10-22T18:15:33.359809Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 19,
+      "province": "Quảng Trị",
+      "destination": "Phong Nha",
+      "category": "hotel",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 4.0,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Hui's Homestay",
+        "Phong Nha Rice Field Homestay & Restaurant",
+        "Serenity by the lake",
+        "Ngoc's Garden House",
+        "Co Cuc Hotel"
+      ],
+      "request_id": "e4a231ab-302b-47f0-a233-7f1837d137a5",
+      "resolved_location": {
+        "id": "geonames:1570838",
+        "name": "Phong Nha",
+        "latitude": 17.60025,
+        "longitude": 106.32099,
+        "admin1": "Quang Tri",
+        "admin2": "Huyện Bố Trạch",
+        "feature_code": "PPL",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1570838/",
+        "fetched_at": "2026-10-22T18:15:38.355614Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 20,
+      "province": "Huế",
+      "destination": "Huế",
+      "category": "restaurant",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 7.3,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": true,
+      "names": [
+        "Lago Coffee House",
+        "tan.",
+        "Bún bò Huế Kim Đồng",
+        "Nhà Quìn Coffee Roastery",
+        "Yên Tea Caffe"
+      ],
+      "request_id": "510b756d-4cc9-4e1b-bd2a-60ed991d9876",
+      "resolved_location": {
+        "id": "geonames:1580240",
+        "name": "Huế",
+        "latitude": 16.4619,
+        "longitude": 107.59546,
+        "admin1": "Thừa Thiên Huế",
+        "admin2": "Thành Phố Huế",
+        "feature_code": "PPLA",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1580240/",
+        "fetched_at": "2026-10-22T18:15:43.309840Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 21,
+      "province": "Đà Nẵng",
+      "destination": "Hội An",
+      "category": "attraction",
+      "outcome": "needs_manual_choice",
+      "elapsed_s": 0.86,
+      "records": 0,
+      "status": "needs_location",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "options": [
+        {
+          "id": "geonames:1580541",
+          "name": "Hội An",
+          "admin1": "Đà Nẵng",
+          "admin2": "Thành Phố Hội An"
+        },
+        {
+          "id": "geonames:1565533",
+          "name": "Thôn Hội Yên",
+          "admin1": "Quang Tri",
+          "admin2": "Huyện Hải Lăng"
+        },
+        {
+          "id": "geonames:1580537",
+          "name": "Hội An",
+          "admin1": "Quang Ngai",
+          "admin2": "Huyện Đức Phổ"
+        },
+        {
+          "id": "geonames:1580542",
+          "name": "Hội An",
+          "admin1": "Đà Nẵng",
+          "admin2": "Huyện Tiên Phước"
+        },
+        {
+          "id": "geonames:1586501",
+          "name": "Cái Tầu Thượng",
+          "admin1": "An Giang",
+          "admin2": "Huyện Chợ Mới"
+        },
+        {
+          "id": "geonames:8637653",
+          "name": "Hội An",
+          "admin1": "Hà Tĩnh",
+          "admin2": "Huyện Nghi Xuân"
+        },
+        {
+          "id": "geonames:9292256",
+          "name": "Hội An",
+          "admin1": "Vinh Long",
+          "admin2": "Huyện Cầu Kè"
+        },
+        {
+          "id": "geonames:1580539",
+          "name": "Hội An Đông",
+          "admin1": "Dong Thap",
+          "admin2": "Huyện Lấp Vò"
+        },
+        {
+          "id": "geonames:1580538",
+          "name": "Hội An Thượng",
+          "admin1": "Đà Nẵng",
+          "admin2": "Huyện Hòa Vang"
+        }
+      ],
+      "names": [],
+      "request_id": "8ba96322-e192-4b4e-be90-d5129d7a3f94",
+      "resolved_location": null
+    },
+    {
+      "number": 22,
+      "province": "Quảng Ngãi",
+      "destination": "Lý Sơn",
+      "category": "hotel",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 6.7,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Mường Thanh Hotel",
+        "Khách Sạn Hiệp Sĩ Lý Sơn",
+        "Khách sạn Lý Sơn",
+        "Central Hotel",
+        "Đại Dương Hotel"
+      ],
+      "request_id": "ad93020e-d64e-4b19-af65-580aa22e9cf6",
+      "resolved_location": {
+        "id": "geonames:8673396",
+        "name": "Lý Sơn",
+        "latitude": 15.37198,
+        "longitude": 109.11891,
+        "admin1": "Quang Ngai",
+        "admin2": "Huyện Lý Sơn",
+        "feature_code": "PPLA2",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/8673396/",
+        "fetched_at": "2026-10-22T18:15:51.817432Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 23,
+      "province": "Khánh Hòa",
+      "destination": "Nha Trang",
+      "category": "restaurant",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 3.81,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "4 Mua - juice bar and snacks",
+        "Au Lac",
+        "chuon chuon",
+        "Luận 20 restaurant",
+        "smile"
+      ],
+      "request_id": "6903a9c1-ed1d-4c64-850f-3ae1977f2caa",
+      "resolved_location": {
+        "id": "geonames:1572151",
+        "name": "Nha Trang",
+        "latitude": 12.24507,
+        "longitude": 109.19432,
+        "admin1": "Khanh Hoa",
+        "admin2": "Thành Phố Nha Trang",
+        "feature_code": "PPLA",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1572151/",
+        "fetched_at": "2026-10-22T18:15:56.885466Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 24,
+      "province": "Gia Lai",
+      "destination": "Quy Nhơn",
+      "category": "attraction",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 4.91,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Tượng đài Quang Trung - Nguyễn Huệ",
+        "BẢO TÀNG TƯ NHÂN GỐM CỔ GÒ SÀNH VIJAYA - CHAMPA - BÌNH ĐỊNH",
+        "công viên Đống Đa",
+        "Bảo Tàng Tổng Hợp Bình Định",
+        "Công viên Hữu Nghị"
+      ],
+      "request_id": "847fa711-153b-4b2d-84b5-c4a1fe2d4046",
+      "resolved_location": {
+        "id": "geonames:1568574",
+        "name": "Quy Nhơn",
+        "latitude": 13.77648,
+        "longitude": 109.22367,
+        "admin1": "Gia Lai",
+        "admin2": "Huyện Phù Cát",
+        "feature_code": "PPLA",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1568574/",
+        "fetched_at": "2026-10-22T18:16:01.919761Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 25,
+      "province": "Đắk Lắk",
+      "destination": "Tuy Hòa",
+      "category": "hotel",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 7.66,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": true,
+      "names": [
+        "Khách sạn Công Đoàn",
+        "A1",
+        "Long Beach",
+        "Coast Homestay",
+        "Santini Hotel"
+      ],
+      "request_id": "0c55c0bb-91eb-4f0b-ad5c-ec8fc88591f2",
+      "resolved_location": {
+        "id": "geonames:1563281",
+        "name": "Thành phố Tuy Hòa",
+        "latitude": 13.09546,
+        "longitude": 109.32094,
+        "admin1": "Dak Lak",
+        "admin2": "Thành Phố Tuy Hòa",
+        "feature_code": "PPLA",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1563281/",
+        "fetched_at": "2026-10-22T18:16:06.939398Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 26,
+      "province": "Lâm Đồng",
+      "destination": "Đà Lạt",
+      "category": "restaurant",
+      "outcome": "needs_manual_choice",
+      "elapsed_s": 0.88,
+      "records": 0,
+      "status": "needs_location",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "options": [
+        {
+          "id": "geonames:1584071",
+          "name": "Ðà Lạt",
+          "admin1": "Lam Dong",
+          "admin2": "Thành Phố Đà Lạt"
+        },
+        {
+          "id": "geonames:1583738",
+          "name": "Đã Tịch",
+          "admin1": "Quang Tri",
+          "admin2": "Huyện Bố Trạch"
+        }
+      ],
+      "names": [],
+      "request_id": "2b6719fa-a0d5-40a0-a330-e20087a6b035",
+      "resolved_location": null
+    },
+    {
+      "number": 27,
+      "province": "Tây Ninh",
+      "destination": "Tây Ninh",
+      "category": "attraction",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 5.77,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Công viên 30 tháng 4",
+        "Di tích Khám đường Tây Ninh",
+        "Công viên Thắng Lợi",
+        "Công viên Thắng Lợi",
+        "Nhà Đốc phủ sứ Nguyễn Văn Kiên"
+      ],
+      "request_id": "d22426a7-4488-4ec7-b5f1-108ac818eac5",
+      "resolved_location": {
+        "id": "geonames:1566559",
+        "name": "Tây Ninh",
+        "latitude": 11.31004,
+        "longitude": 106.09828,
+        "admin1": "Tay Ninh",
+        "admin2": "Thành Phố Tây Ninh",
+        "feature_code": "PPLA",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1566559/",
+        "fetched_at": "2026-10-22T18:16:15.836428Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 28,
+      "province": "Đồng Nai",
+      "destination": "Đồng Xoài",
+      "category": "hotel",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 5.48,
+      "records": 4,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": true,
+      "names": [
+        "Hotel Thai Duong",
+        "Thanh Sang",
+        "Nhà Nghỉ Phúc Hậu",
+        "Hướng Dương"
+      ],
+      "request_id": "6a8b0bfe-54ee-45b4-bc05-c5ca0c59834f",
+      "resolved_location": {
+        "id": "geonames:1582436",
+        "name": "Đồng Xoài",
+        "latitude": 11.53495,
+        "longitude": 106.88324,
+        "admin1": "Dong Nai",
+        "admin2": "Thị Xã Đồng Xoài",
+        "feature_code": "PPLA",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1582436/",
+        "fetched_at": "2026-10-22T18:16:20.811196Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 29,
+      "province": "Hồ Chí Minh",
+      "destination": "Vũng Tàu",
+      "category": "restaurant",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 4.05,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Cơm Hướng Dương",
+        "Ốc 15k",
+        "Manta",
+        "Bún Chả Hà Nội",
+        "Chay Duc Tri Buffet"
+      ],
+      "request_id": "3cbb5b4a-fb4b-471c-81fc-3fb86e6e21b4",
+      "resolved_location": {
+        "id": "geonames:1562414",
+        "name": "Vũng Tàu",
+        "latitude": 10.34599,
+        "longitude": 107.08426,
+        "admin1": "Thành phố Hồ Chí Minh",
+        "admin2": "Thành Phố Vũng Tàu",
+        "feature_code": "PPLA2",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1562414/",
+        "fetched_at": "2026-10-22T18:16:26.296839Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 30,
+      "province": "Vĩnh Long",
+      "destination": "Bến Tre",
+      "category": "attraction",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 6.97,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Công viên tượng đài",
+        "Công viên thiếu nhi",
+        "Công viên đèn",
+        "Công Viên Trần Văn Ơn",
+        "Công viên Trần Văn Ơn"
+      ],
+      "request_id": "a5577f07-e420-4dfc-8519-f96b00954923",
+      "resolved_location": {
+        "id": "geonames:1587976",
+        "name": "Bến Tre",
+        "latitude": 10.24147,
+        "longitude": 106.37585,
+        "admin1": "Vinh Long",
+        "admin2": "Thành Phố Bến Tre",
+        "feature_code": "PPLA",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1587976/",
+        "fetched_at": "2026-10-22T18:16:30.903168Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 31,
+      "province": "Đồng Tháp",
+      "destination": "Mỹ Tho",
+      "category": "hotel",
+      "outcome": "needs_manual_choice",
+      "elapsed_s": 0.84,
+      "records": 0,
+      "status": "needs_location",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "options": [
+        {
+          "id": "geonames:1574023",
+          "name": "Mỹ Tho",
+          "admin1": "Dong Thap",
+          "admin2": "Thành Phố Mỹ Tho"
+        },
+        {
+          "id": "geonames:1574024",
+          "name": "Mỹ Thọ",
+          "admin1": "Dong Thap",
+          "admin2": "Huyện Cao Lãnh"
+        },
+        {
+          "id": "geonames:1561212",
+          "name": "Xóm Mỹ Thọ",
+          "admin1": "Tỉnh Nghệ An",
+          "admin2": "Huyện Quỳnh Lưu"
+        },
+        {
+          "id": "geonames:1561213",
+          "name": "Xóm Mỹ Tho",
+          "admin1": "Hà Tĩnh",
+          "admin2": "Huyện Thạch Hà"
+        },
+        {
+          "id": "geonames:1574017",
+          "name": "Mỹ Thọ",
+          "admin1": "Gia Lai",
+          "admin2": "Huyện Hoài Nhơn"
+        },
+        {
+          "id": "geonames:1574020",
+          "name": "Mỹ Thọ",
+          "admin1": "Ninh Binh",
+          "admin2": "Huyện Bình Lục"
+        },
+        {
+          "id": "geonames:1574021",
+          "name": "Mỹ Thổ",
+          "admin1": "Quang Tri",
+          "admin2": "Huyện Lệ Thủy"
+        },
+        {
+          "id": "geonames:1574022",
+          "name": "Mỹ Thọ",
+          "admin1": "Dong Thap",
+          "admin2": "Huyện Tháp Mười"
+        },
+        {
+          "id": "geonames:8708567",
+          "name": "Mỹ Thọ",
+          "admin1": "Gia Lai",
+          "admin2": "Huyện Phù Mỹ"
+        },
+        {
+          "id": "geonames:10026289",
+          "name": "Mỹ Thọ",
+          "admin1": "Gia Lai",
+          "admin2": "Huyện Phù Mỹ"
+        },
+        {
+          "id": "geonames:1560242",
+          "name": "Mỹ Thôn",
+          "admin1": "Bac Ninh",
+          "admin2": "Huyện Gia Bình"
+        },
+        {
+          "id": "geonames:1574018",
+          "name": "Mỹ Thôn",
+          "admin1": "Phu Tho",
+          "admin2": "Huyện Tam Dương"
+        },
+        {
+          "id": "geonames:1574019",
+          "name": "Mỹ Thôn",
+          "admin1": "Tỉnh Nghệ An",
+          "admin2": "Huyện Hưng Nguyên"
+        },
+        {
+          "id": "geonames:1592858",
+          "name": "Mỹ Thới",
+          "admin1": "Vinh Long",
+          "admin2": "Bình Minh"
+        },
+        {
+          "id": "geonames:1592860",
+          "name": "Mỹ Thới",
+          "admin1": "An Giang",
+          "admin2": "Thoại Sơn"
+        }
+      ],
+      "names": [],
+      "request_id": "93ff9e07-7cd3-470d-b599-66e9581dc4a7",
+      "resolved_location": null
+    },
+    {
+      "number": 32,
+      "province": "An Giang",
+      "destination": "Phú Quốc",
+      "category": "restaurant",
+      "outcome": "needs_manual_choice",
+      "elapsed_s": 2.53,
+      "records": 0,
+      "status": "needs_location",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "options": [
+        {
+          "id": "geonames:8531735",
+          "name": "Phú Quốc",
+          "admin1": "An Giang",
+          "admin2": "Huyện Phú Quốc"
+        },
+        {
+          "id": "geonames:12253704",
+          "name": "Phú Quốc",
+          "admin1": "An Giang",
+          "admin2": "Huyện Phú Quốc"
+        }
+      ],
+      "names": [],
+      "request_id": "cf8a91b5-ca2b-4d5e-a42d-3c439c6aff85",
+      "resolved_location": null
+    },
+    {
+      "number": 33,
+      "province": "Cần Thơ",
+      "destination": "Sóc Trăng",
+      "category": "attraction",
+      "outcome": "needs_manual_choice",
+      "elapsed_s": 2.53,
+      "records": 0,
+      "status": "needs_location",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "options": [
+        {
+          "id": "geonames:1567788",
+          "name": "Sóc Trăng",
+          "admin1": "Cần Thơ",
+          "admin2": "Thành Phố Sóc Trăng"
+        },
+        {
+          "id": "geonames:13423626",
+          "name": "Sóc Trăng",
+          "admin1": "Cần Thơ",
+          "admin2": "Thị Xã Ngã Bảy"
+        }
+      ],
+      "names": [],
+      "request_id": "88044e7a-8fb4-492a-81f3-2c6b6c146c72",
+      "resolved_location": null
+    },
+    {
+      "number": 34,
+      "province": "Cà Mau",
+      "destination": "Bạc Liêu",
+      "category": "hotel",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 5.95,
+      "records": 4,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": true,
+      "names": [
+        "Nhà khách UBND tỉnh Bạc Liêu",
+        "Nhà khách công đoàn",
+        "Nhà nghỉ 255",
+        "Khách sạn Bạc Liêu"
+      ],
+      "request_id": "5d19bae7-991d-41cc-a55f-e7f2dab710a1",
+      "resolved_location": {
+        "id": "geonames:1591474",
+        "name": "Thành Phố Bạc Liêu",
+        "latitude": 9.29414,
+        "longitude": 105.72776,
+        "admin1": "Ca Mau",
+        "admin2": "Thành phố Bạc Liêu",
+        "feature_code": "PPLA2",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/1591474/",
+        "fetched_at": "2026-10-22T18:16:44.047584Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 35,
+      "province": "Đà Nẵng",
+      "destination": "Bà Nà Hills",
+      "category": "restaurant",
+      "outcome": "needs_manual_choice",
+      "elapsed_s": 5.56,
+      "records": 0,
+      "status": "needs_location",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "options": [
+        {
+          "id": "photon:node/5485470021",
+          "name": "Phòng vé cáp treo Bà Nà Hills, Hoà Ninh, Hòa Vang, Đà Nẵng, 베트남",
+          "admin1": "",
+          "admin2": "Đà Nẵng"
+        },
+        {
+          "id": "photon:way/359114064",
+          "name": "Sun World Bà Nà Hills",
+          "admin1": "",
+          "admin2": "Đà Nẵng"
+        }
+      ],
+      "names": [],
+      "request_id": "ed99c1a1-52f2-4f94-9da8-752013e56d0f",
+      "resolved_location": null
+    },
+    {
+      "number": 36,
+      "province": "Lào Cai",
+      "destination": "Fansipan",
+      "category": "attraction",
+      "outcome": "needs_manual_choice",
+      "elapsed_s": 4.98,
+      "records": 0,
+      "status": "needs_location",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "options": [
+        {
+          "id": "photon:node/13282179820",
+          "name": "Đinh Núi Phan Xi Phăng",
+          "admin1": "Lai Châu",
+          "admin2": ""
+        },
+        {
+          "id": "photon:way/693837785",
+          "name": "Fansipan Hotel",
+          "admin1": "",
+          "admin2": "Đà Nẵng"
+        }
+      ],
+      "names": [],
+      "request_id": "9a0bf382-1149-49a7-b691-303a6cf903a6",
+      "resolved_location": null
+    },
+    {
+      "number": 37,
+      "province": "Hồ Chí Minh",
+      "destination": "Côn Đảo",
+      "category": "hotel",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 4.95,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Six Senses Côn Đảo",
+        "KHÁCH SẠN HOÀNG SƠN",
+        "The Secret Con Dao",
+        "Trung Hậu",
+        "Lan Anh's Homestay"
+      ],
+      "request_id": "b55b5dbd-c265-4da7-9f5e-26208103c556",
+      "resolved_location": {
+        "id": "geonames:8555963",
+        "name": "Côn Đảo",
+        "latitude": 8.70287,
+        "longitude": 106.64892,
+        "admin1": "Thành phố Hồ Chí Minh",
+        "admin2": "Huyện Côn Đảo",
+        "feature_code": "PPL",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/8555963/",
+        "fetched_at": "2026-10-22T18:16:59.060680Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 38,
+      "province": "Lâm Đồng",
+      "destination": "Mũi Né",
+      "category": "restaurant",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 4.67,
+      "records": 5,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "coffee moon",
+        "NiNo",
+        "Quán Nhậu Mạnh Cường",
+        "Coffee Nhà Hàng",
+        "Quán 315"
+      ],
+      "request_id": "32d807b6-9b1d-4603-870e-b6dbd8150df4",
+      "resolved_location": {
+        "id": "geonames:7304197",
+        "name": "Mui Ne",
+        "latitude": 10.93314,
+        "longitude": 108.28327,
+        "admin1": "Lam Dong",
+        "admin2": "Thành Phố Phan Thiết",
+        "feature_code": "PPL",
+        "country_code": "VN",
+        "source_url": "https://www.geonames.org/7304197/",
+        "fetched_at": "2026-10-22T18:17:04.119049Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 39,
+      "province": "Đà Nẵng",
+      "destination": "Thánh địa Mỹ Sơn",
+      "category": "attraction",
+      "outcome": "usable_sourced_records",
+      "elapsed_s": 7.61,
+      "records": 2,
+      "status": "success",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "names": [
+        "Thánh địa Mỹ Sơn",
+        "My Son Museum"
+      ],
+      "request_id": "f74527f9-2b47-4431-83a7-286376b6fb4b",
+      "resolved_location": {
+        "id": "photon:way/198804483",
+        "name": "Thánh địa Mỹ Sơn",
+        "latitude": 15.7655202,
+        "longitude": 108.1234531,
+        "admin1": "",
+        "admin2": "Đà Nẵng",
+        "feature_code": "OSM:attraction",
+        "country_code": "VN",
+        "source_url": "https://www.openstreetmap.org/way/198804483",
+        "fetched_at": "2026-10-22T18:17:12.656500Z",
+        "scope": "nearby",
+        "bbox": null,
+        "boundary_version": null,
+        "historical": false,
+        "attribution": null
+      }
+    },
+    {
+      "number": 40,
+      "province": "Ninh Bình",
+      "destination": "Vườn quốc gia Cúc Phương",
+      "category": "hotel",
+      "outcome": "unresolved_locality",
+      "elapsed_s": 4.83,
+      "records": 0,
+      "status": "needs_location",
+      "evidence_errors": [],
+      "selected_by_test": false,
+      "options": [],
+      "names": [],
+      "request_id": "eeb3c1cb-568d-415f-a838-396335a1f7b3",
+      "resolved_location": null
+    }
+  ],
+  "outcomes": {
+    "usable_sourced_records": 28,
+    "needs_manual_choice": 8,
+    "no_indexed_results": 1,
+    "geographic_mismatch": 2,
+    "unresolved_locality": 1
+  },
+  "planned_live_cases": 40,
+  "not_run": 0,
+  "stop_reason": null,
+  "network_requests": {
+    "geocoding-api.open-meteo.com": 40,
+    "photon.komoot.io": 35
+  },
+  "exhaustive": false,
+  "llm_called": false
+}

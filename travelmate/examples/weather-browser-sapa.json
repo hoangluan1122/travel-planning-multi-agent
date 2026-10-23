@@ -1,0 +1,12 @@
+{
+  "location": {
+    "name": "Sa Pa",
+    "province": "Lào Cai",
+    "country_code": "VN",
+    "scope": "locality"
+  },
+  "date": "2026-10-23",
+  "start_time": "08:00",
+  "end_time": "11:00",
+  "timezone": "Asia/Ho_Chi_Minh"
+}

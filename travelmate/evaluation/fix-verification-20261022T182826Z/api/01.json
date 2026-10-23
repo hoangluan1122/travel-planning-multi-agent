@@ -1,0 +1,361 @@
+{
+  "request_id": "df9f5bc3-8f0b-49f8-89c7-3999658b733b",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Tam Đảo",
+  "category": "hotel",
+  "resolved_location": {
+    "id": "photon:node/369491674",
+    "name": "Tam Đảo",
+    "latitude": 21.4559982,
+    "longitude": 105.644466,
+    "admin1": "Phú Thọ",
+    "admin2": "",
+    "feature_code": "OSM:town",
+    "country_code": "VN",
+    "source_url": "https://www.openstreetmap.org/node/369491674",
+    "fetched_at": "2026-10-22T18:28:30.561006Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null,
+    "coordinate_kind": "point"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/10023518293": {
+      "distance_m": 103.51626420742555,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/10023518299": {
+      "distance_m": 131.38828508516244,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/1035046951": {
+      "distance_m": 143.17375608095057,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/10023518304": {
+      "distance_m": 179.6604463921003,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/10023518296": {
+      "distance_m": 204.02682584316423,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 11,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:28:26.477446Z",
+  "completed_at": "2026-10-22T18:28:32.648489Z",
+  "places": [
+    {
+      "id": "osm:node/10023518293",
+      "name": "Camellia Luxury Hotel Tam Đảo",
+      "address": "Quốc lộ 2B, Tam Đảo, Vĩnh Phúc, Việt Nam",
+      "latitude": 21.4565685,
+      "longitude": 105.6452566,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/10023518293",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/10023518293",
+        "latitude": "https://www.openstreetmap.org/node/10023518293",
+        "longitude": "https://www.openstreetmap.org/node/10023518293",
+        "types": "https://www.openstreetmap.org/node/10023518293",
+        "address": "https://www.openstreetmap.org/node/10023518293"
+      }
+    },
+    {
+      "id": "osm:node/10023518299",
+      "name": "Khách sạn Hòa Bình",
+      "address": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "latitude": 21.4550331,
+      "longitude": 105.6451985,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/10023518299",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/10023518299",
+        "latitude": "https://www.openstreetmap.org/node/10023518299",
+        "longitude": "https://www.openstreetmap.org/node/10023518299",
+        "types": "https://www.openstreetmap.org/node/10023518299",
+        "address": "https://www.openstreetmap.org/node/10023518299"
+      }
+    },
+    {
+      "id": "osm:way/1035046951",
+      "name": "Nhà khách Công đoàn Tam Đảo",
+      "address": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "latitude": 21.4554192,
+      "longitude": 105.6432303,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/1035046951",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/1035046951",
+        "latitude": "https://www.openstreetmap.org/way/1035046951",
+        "longitude": "https://www.openstreetmap.org/way/1035046951",
+        "types": "https://www.openstreetmap.org/way/1035046951",
+        "address": "https://www.openstreetmap.org/way/1035046951"
+      }
+    },
+    {
+      "id": "osm:node/10023518304",
+      "name": "Khách sạn Hanvet",
+      "address": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "latitude": 21.4544726,
+      "longitude": 105.6450377,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/10023518304",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/10023518304",
+        "latitude": "https://www.openstreetmap.org/node/10023518304",
+        "longitude": "https://www.openstreetmap.org/node/10023518304",
+        "types": "https://www.openstreetmap.org/node/10023518304",
+        "address": "https://www.openstreetmap.org/node/10023518304"
+      }
+    },
+    {
+      "id": "osm:node/10023518296",
+      "name": "Hotel Anh Minh",
+      "address": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "latitude": 21.45457,
+      "longitude": 105.6457037,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/10023518296",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/10023518296",
+        "latitude": "https://www.openstreetmap.org/node/10023518296",
+        "longitude": "https://www.openstreetmap.org/node/10023518296",
+        "types": "https://www.openstreetmap.org/node/10023518296",
+        "address": "https://www.openstreetmap.org/node/10023518296"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/10023518293",
+      "title": "Camellia Luxury Hotel Tam Đảo",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Vĩnh Phúc, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518293",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10023518299",
+      "title": "Khách sạn Hòa Bình",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518299",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1035046951",
+      "title": "Nhà khách Công đoàn Tam Đảo",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1035046951",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10023518304",
+      "title": "Khách sạn Hanvet",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518304",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10023518296",
+      "title": "Hotel Anh Minh",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518296",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10023518305",
+      "title": "Khách sạn Suối Bạc",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518305",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10023518297",
+      "title": "Khách sạn Anh Đào Tam Đảo",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518297",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1035046953",
+      "title": "Khách sạn Báo Nhân dân",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1035046953",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1035046961",
+      "title": "Khách sạn Mela",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1035046961",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6534831985",
+      "title": "mac tam dao",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6534831985",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4260587991",
+      "title": "Tam Dao Belvedere Resort",
+      "snippet": "Hamlet 2, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4260587991",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:32.646465Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "stay_price",
+    "room_availability",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:26.477446Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:30.562001Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:28:32.648489Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 11
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:28:32.648489Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

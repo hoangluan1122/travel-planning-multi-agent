@@ -1,0 +1,261 @@
+{
+  "request_id": "5d19bae7-991d-41cc-a55f-e7f2dab710a1",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Bạc Liêu",
+  "category": "hotel",
+  "resolved_location": {
+    "id": "geonames:1591474",
+    "name": "Thành Phố Bạc Liêu",
+    "latitude": 9.29414,
+    "longitude": 105.72776,
+    "admin1": "Ca Mau",
+    "admin2": "Thành phố Bạc Liêu",
+    "feature_code": "PPLA2",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1591474/",
+    "fetched_at": "2026-10-22T18:16:44.047584Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:way/225518624": {
+      "distance_m": 451.28823885133494,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=9.29414&limit=50&lon=105.72776&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/225518623": {
+      "distance_m": 511.11565115213625,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=9.29414&limit=50&lon=105.72776&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/225519379": {
+      "distance_m": 642.8042252898223,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=9.29414&limit=50&lon=105.72776&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/225533919": {
+      "distance_m": 1124.4621432724366,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=9.29414&limit=50&lon=105.72776&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 4,
+  "offset": 0,
+  "has_more": false,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:16:44.051589Z",
+  "completed_at": "2026-10-22T18:16:47.507893Z",
+  "places": [
+    {
+      "id": "osm:way/225518624",
+      "name": "Nhà khách UBND tỉnh Bạc Liêu",
+      "address": "Nguyễn Tất Thành, Bạc Liêu, Cà Mau, Việt Nam",
+      "latitude": 9.2922154,
+      "longitude": 105.7241393,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:16:47.507893Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/225518624",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/225518624",
+        "latitude": "https://www.openstreetmap.org/way/225518624",
+        "longitude": "https://www.openstreetmap.org/way/225518624",
+        "types": "https://www.openstreetmap.org/way/225518624",
+        "address": "https://www.openstreetmap.org/way/225518624"
+      }
+    },
+    {
+      "id": "osm:way/225518623",
+      "name": "Nhà khách công đoàn",
+      "address": "Lý Tự Trọng, Bạc Liêu, Cà Mau, Việt Nam",
+      "latitude": 9.2940081,
+      "longitude": 105.7231042,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:16:47.507893Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/225518623",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/225518623",
+        "latitude": "https://www.openstreetmap.org/way/225518623",
+        "longitude": "https://www.openstreetmap.org/way/225518623",
+        "types": "https://www.openstreetmap.org/way/225518623",
+        "address": "https://www.openstreetmap.org/way/225518623"
+      }
+    },
+    {
+      "id": "osm:way/225519379",
+      "name": "Nhà nghỉ 255",
+      "address": "Trần Phú, Bạc Liêu, Cà Mau, Việt Nam",
+      "latitude": 9.2950687,
+      "longitude": 105.7219783,
+      "source": "osm_photon",
+      "types": [
+        "motel"
+      ],
+      "fetched_at": "2026-10-22T18:16:47.507893Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/225519379",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/225519379",
+        "latitude": "https://www.openstreetmap.org/way/225519379",
+        "longitude": "https://www.openstreetmap.org/way/225519379",
+        "types": "https://www.openstreetmap.org/way/225519379",
+        "address": "https://www.openstreetmap.org/way/225519379"
+      }
+    },
+    {
+      "id": "osm:way/225533919",
+      "name": "Khách sạn Bạc Liêu",
+      "address": "Phan Ngọc Hiển, Bạc Liêu, Cà Mau, Việt Nam",
+      "latitude": 9.2848375,
+      "longitude": 105.7237416,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:16:47.507893Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/225533919",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/225533919",
+        "latitude": "https://www.openstreetmap.org/way/225533919",
+        "longitude": "https://www.openstreetmap.org/way/225533919",
+        "types": "https://www.openstreetmap.org/way/225533919",
+        "address": "https://www.openstreetmap.org/way/225533919"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:way/225518624",
+      "title": "Nhà khách UBND tỉnh Bạc Liêu",
+      "snippet": "Nguyễn Tất Thành, Bạc Liêu, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/225518624",
+      "search_url": "https://photon.komoot.io/reverse?lat=9.29414&limit=50&lon=105.72776&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:47.507893Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/225518623",
+      "title": "Nhà khách công đoàn",
+      "snippet": "Lý Tự Trọng, Bạc Liêu, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/225518623",
+      "search_url": "https://photon.komoot.io/reverse?lat=9.29414&limit=50&lon=105.72776&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:47.507893Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/225519379",
+      "title": "Nhà nghỉ 255",
+      "snippet": "Trần Phú, Bạc Liêu, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/225519379",
+      "search_url": "https://photon.komoot.io/reverse?lat=9.29414&limit=50&lon=105.72776&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:47.507893Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/225533919",
+      "title": "Khách sạn Bạc Liêu",
+      "snippet": "Phan Ngọc Hiển, Bạc Liêu, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/225533919",
+      "search_url": "https://photon.komoot.io/reverse?lat=9.29414&limit=50&lon=105.72776&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:47.507893Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "stay_price",
+    "room_availability",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:16:44.051589Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:16:44.051589Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:16:47.507893Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 4
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:16:47.507893Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 4
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

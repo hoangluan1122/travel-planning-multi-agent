@@ -1,0 +1,5 @@
+{
+  "trip":{"destination":"TEST destination","start_date":"2030-01-01","end_date":"2030-01-01","travelers":1,"budget_vnd":"1000000","interests":["museum"]},
+  "places":{"places":[{"id":"fixture-museum","name":"TEST Museum","address":"Fictional fixture","latitude":16,"longitude":108,"source":"fictional_fixture"}],"warnings":["Fictional fixture; not for travel"]},
+  "weather":{"days":[],"warnings":["No forecast supplied"]}
+}

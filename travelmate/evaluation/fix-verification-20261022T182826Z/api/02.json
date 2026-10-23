@@ -1,0 +1,306 @@
+{
+  "request_id": "331f2fcd-effa-4ab9-b146-08ec68ff16f2",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Tam Đảo",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "photon:node/369491674",
+    "name": "Tam Đảo",
+    "latitude": 21.4559982,
+    "longitude": 105.644466,
+    "admin1": "Phú Thọ",
+    "admin2": "",
+    "feature_code": "OSM:town",
+    "country_code": "VN",
+    "source_url": "https://www.openstreetmap.org/node/369491674",
+    "fetched_at": "2026-10-22T18:28:30.561006Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null,
+    "coordinate_kind": "point"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/10023518295": {
+      "distance_m": 38.43010256449729,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/10023518298": {
+      "distance_m": 185.05275058184506,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/7775063209": {
+      "distance_m": 238.1574514609701,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/12023064093": {
+      "distance_m": 412.21105311464345,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/7777202187": {
+      "distance_m": 801.006283438411,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 5,
+  "offset": 0,
+  "has_more": false,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:28:32.666078Z",
+  "completed_at": "2026-10-22T18:28:35.088497Z",
+  "places": [
+    {
+      "id": "osm:node/10023518295",
+      "name": "Rock Cafe Tam Đảo",
+      "address": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "latitude": 21.4561052,
+      "longitude": 105.6441129,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:28:35.087507Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/10023518295",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/10023518295",
+        "latitude": "https://www.openstreetmap.org/node/10023518295",
+        "longitude": "https://www.openstreetmap.org/node/10023518295",
+        "types": "https://www.openstreetmap.org/node/10023518295",
+        "address": "https://www.openstreetmap.org/node/10023518295"
+      }
+    },
+    {
+      "id": "osm:node/10023518298",
+      "name": "Nhà hàng Tuấn Hương Tam Đảo",
+      "address": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "latitude": 21.4546626,
+      "longitude": 105.6455328,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:28:35.087507Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/10023518298",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/10023518298",
+        "latitude": "https://www.openstreetmap.org/node/10023518298",
+        "longitude": "https://www.openstreetmap.org/node/10023518298",
+        "types": "https://www.openstreetmap.org/node/10023518298",
+        "address": "https://www.openstreetmap.org/node/10023518298"
+      }
+    },
+    {
+      "id": "osm:node/7775063209",
+      "name": "Nhà Hàng Phố núi",
+      "address": "Khu1, Tam Đảo, Phú Thọ, Việt Nam",
+      "latitude": 21.4578244,
+      "longitude": 105.6456684,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:28:35.087507Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/7775063209",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/7775063209",
+        "latitude": "https://www.openstreetmap.org/node/7775063209",
+        "longitude": "https://www.openstreetmap.org/node/7775063209",
+        "types": "https://www.openstreetmap.org/node/7775063209",
+        "address": "https://www.openstreetmap.org/node/7775063209"
+      }
+    },
+    {
+      "id": "osm:node/12023064093",
+      "name": "King Cổng Trời",
+      "address": "Quốc lộ 2B, Tam Đảo, Vĩnh Phúc, Việt Nam",
+      "latitude": 21.4555615,
+      "longitude": 105.6405106,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:28:35.087507Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/12023064093",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/12023064093",
+        "latitude": "https://www.openstreetmap.org/node/12023064093",
+        "longitude": "https://www.openstreetmap.org/node/12023064093",
+        "types": "https://www.openstreetmap.org/node/12023064093",
+        "address": "https://www.openstreetmap.org/node/12023064093"
+      }
+    },
+    {
+      "id": "osm:node/7777202187",
+      "name": "Út Hân",
+      "address": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "latitude": 21.4518859,
+      "longitude": 105.6381112,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:28:35.087507Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/7777202187",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/7777202187",
+        "latitude": "https://www.openstreetmap.org/node/7777202187",
+        "longitude": "https://www.openstreetmap.org/node/7777202187",
+        "types": "https://www.openstreetmap.org/node/7777202187",
+        "address": "https://www.openstreetmap.org/node/7777202187"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/10023518295",
+      "title": "Rock Cafe Tam Đảo",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518295",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:35.087507Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10023518298",
+      "title": "Nhà hàng Tuấn Hương Tam Đảo",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518298",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:35.087507Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7775063209",
+      "title": "Nhà Hàng Phố núi",
+      "snippet": "Khu1, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7775063209",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:35.087507Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12023064093",
+      "title": "King Cổng Trời",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Vĩnh Phúc, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12023064093",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:35.087507Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7777202187",
+      "title": "Út Hân",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7777202187",
+      "search_url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:35.087507Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:32.666078Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:32.668083Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:28:35.088497Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 5
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:28:35.088497Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

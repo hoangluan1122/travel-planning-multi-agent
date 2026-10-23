@@ -1,0 +1,631 @@
+{
+  "request_id": "9e0585f6-57d1-4a81-8fec-ad0fd0fbde4a",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Đà Nẵng",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "geonames:1583992",
+    "name": "Đà Nẵng",
+    "latitude": 16.06778,
+    "longitude": 108.22083,
+    "admin1": "Đà Nẵng",
+    "admin2": "",
+    "feature_code": "PPLA",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1583992/",
+    "fetched_at": "2026-10-22T17:45:28.681181Z"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/7518538886": {
+      "distance_m": 48.65766407546629,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:node/14269716101": {
+      "distance_m": 51.14608420355025,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:node/5793917955": {
+      "distance_m": 59.335629779098184,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:node/5684863921": {
+      "distance_m": 77.67769116706475,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    },
+    "osm:node/2988814633": {
+      "distance_m": 94.00588629647767,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "cache_hit": false,
+      "phone": null,
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 43,
+  "offset": 0,
+  "has_more": true,
+  "started_at": "2026-10-22T17:45:28.684199Z",
+  "completed_at": "2026-10-22T17:45:29.855029Z",
+  "places": [
+    {
+      "id": "osm:node/7518538886",
+      "name": "Street food corner",
+      "address": "Đường Phạm Hồng Thái, Hải Châu, Đà Nẵng, Việt Nam",
+      "latitude": 16.0674098,
+      "longitude": 108.2210728,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/7518538886",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/7518538886",
+        "latitude": "https://www.openstreetmap.org/node/7518538886",
+        "longitude": "https://www.openstreetmap.org/node/7518538886",
+        "types": "https://www.openstreetmap.org/node/7518538886",
+        "address": "https://www.openstreetmap.org/node/7518538886"
+      }
+    },
+    {
+      "id": "osm:node/14269716101",
+      "name": "Nem Lụi - Bò Lá Lốt Được Chợ Hàn",
+      "address": "47, Đường Phan Châu Trinh, Hải Châu, Đà Nẵng, Thành Phố Đà Nẵng, Việt Nam",
+      "latitude": 16.0679333,
+      "longitude": 108.2203787,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/14269716101",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/14269716101",
+        "latitude": "https://www.openstreetmap.org/node/14269716101",
+        "longitude": "https://www.openstreetmap.org/node/14269716101",
+        "types": "https://www.openstreetmap.org/node/14269716101",
+        "address": "https://www.openstreetmap.org/node/14269716101"
+      }
+    },
+    {
+      "id": "osm:node/5793917955",
+      "name": "Goom Vegan",
+      "address": "144, Nguyễn Chí Thanh, Hải Châu, Đà Nẵng, Việt Nam",
+      "latitude": 16.067251,
+      "longitude": 108.2209029,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5793917955",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5793917955",
+        "latitude": "https://www.openstreetmap.org/node/5793917955",
+        "longitude": "https://www.openstreetmap.org/node/5793917955",
+        "types": "https://www.openstreetmap.org/node/5793917955",
+        "address": "https://www.openstreetmap.org/node/5793917955"
+      }
+    },
+    {
+      "id": "osm:node/5684863921",
+      "name": "phì lũ",
+      "address": "Đường Nguyễn Chí Thanh, Hải Châu, Đà Nẵng, Việt Nam",
+      "latitude": 16.0670866,
+      "longitude": 108.2207417,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5684863921",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5684863921",
+        "latitude": "https://www.openstreetmap.org/node/5684863921",
+        "longitude": "https://www.openstreetmap.org/node/5684863921",
+        "types": "https://www.openstreetmap.org/node/5684863921",
+        "address": "https://www.openstreetmap.org/node/5684863921"
+      }
+    },
+    {
+      "id": "osm:node/2988814633",
+      "name": "Bánh bèo 291 Nguyễn Chí Thanh",
+      "address": "291, Nguyễn Chí Thanh, Hải Châu, Đà Nẵng, Việt Nam",
+      "latitude": 16.066938,
+      "longitude": 108.220909,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/2988814633",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/2988814633",
+        "latitude": "https://www.openstreetmap.org/node/2988814633",
+        "longitude": "https://www.openstreetmap.org/node/2988814633",
+        "types": "https://www.openstreetmap.org/node/2988814633",
+        "address": "https://www.openstreetmap.org/node/2988814633"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/7518538886",
+      "title": "Street food corner",
+      "snippet": "Đường Phạm Hồng Thái, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7518538886",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/14269716101",
+      "title": "Nem Lụi - Bò Lá Lốt Được Chợ Hàn",
+      "snippet": "47, Đường Phan Châu Trinh, Hải Châu, Đà Nẵng, Thành Phố Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/14269716101",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5793917955",
+      "title": "Goom Vegan",
+      "snippet": "144, Nguyễn Chí Thanh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5793917955",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5684863921",
+      "title": "phì lũ",
+      "snippet": "Đường Nguyễn Chí Thanh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5684863921",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2988814633",
+      "title": "Bánh bèo 291 Nguyễn Chí Thanh",
+      "snippet": "291, Nguyễn Chí Thanh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2988814633",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11665246470",
+      "title": "Trình cà phê",
+      "snippet": "Đường Phạm Hồng Thái, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11665246470",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/729406752",
+      "title": "CaPhe Phuong Nam",
+      "snippet": "Đường Phan Châu Trinh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/729406752",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/729406879",
+      "title": "CaPhe Ngoc Anh",
+      "snippet": "Đường Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/729406879",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5989958289",
+      "title": "Cafe X70",
+      "snippet": "Đường Nguyễn Chí Thanh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5989958289",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4279367889",
+      "title": "LAU & NUONG HA NOI",
+      "snippet": "Đường Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4279367889",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/729406549",
+      "title": "PhoCoffee",
+      "snippet": "Đường Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/729406549",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4279382289",
+      "title": "Quan Com Hue Ngon BBQ",
+      "snippet": "Đường Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4279382289",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4166771189",
+      "title": "Boulevard",
+      "snippet": "77, Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4166771189",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12612220044",
+      "title": "Bánh cuốn Kim Cúc",
+      "snippet": "Đường Nguyễn Chí Thanh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12612220044",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6357894213",
+      "title": "Chè Tâm Ý",
+      "snippet": "Đường Phan Châu Trinh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6357894213",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6357894214",
+      "title": "Lotteria",
+      "snippet": "Đường Phan Châu Trinh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6357894214",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7417163291",
+      "title": "Cơm gà Hồng Ngọc",
+      "snippet": "Đường Nguyễn Chí Thanh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7417163291",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/729406558",
+      "title": "CafeNew Life",
+      "snippet": "Đường Hoàng Diệu, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/729406558",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/729406780",
+      "title": "CafeDiem Nong",
+      "snippet": "Đường Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/729406780",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/729406432",
+      "title": "Ca Phe New Life",
+      "snippet": "Đường Phan Châu Trinh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/729406432",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5920056999",
+      "title": "Cộng Cà Phê",
+      "snippet": "259/15, Nguyễn Chí Thanh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5920056999",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2989007533",
+      "title": "Thiên Ý",
+      "snippet": "Đường Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2989007533",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/729406693",
+      "title": "Cafe9X",
+      "snippet": "Đường Nguyễn Chí Thanh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/729406693",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2989006133",
+      "title": "Neko",
+      "snippet": "43, Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2989006133",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/760598151",
+      "title": "Nam Hin Restaurant(Vietnamese Cuisine) - Han Market",
+      "snippet": "70, Đường Hùng Vương, Hải Châu, Đà Nẵng, Thành phố Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/760598151",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/729406567",
+      "title": "Cafe33",
+      "snippet": "Đường Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/729406567",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6146812885",
+      "title": "Phú Hồng",
+      "snippet": "19, Đường Yên Bái, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6146812885",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/729406888",
+      "title": "CafeQuynh Chi",
+      "snippet": "Đường Trần Bình Trọng, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/729406888",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5484776621",
+      "title": "Phở 29",
+      "snippet": "Đường Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5484776621",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6681015018",
+      "title": "Mr. Banh Mi",
+      "snippet": "37, Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6681015018",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/729406725",
+      "title": "CafeVinh Phuc",
+      "snippet": "Đường Yên Bái, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/729406725",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5947469391",
+      "title": "com ga",
+      "snippet": "Đường Phan Châu Trinh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5947469391",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7076693601",
+      "title": "Bánh Mì Bamidon",
+      "snippet": "Đường Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7076693601",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7095281753",
+      "title": "Hai Cử",
+      "snippet": "Đường Yên Bái, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7095281753",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12603960658",
+      "title": "Sinh Tố Chè Thái A.Bé",
+      "snippet": "101, Thái Phiên, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12603960658",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4541197390",
+      "title": "Mi Total",
+      "snippet": "Đường Nguyễn Chí Thanh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4541197390",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12615820501",
+      "title": "Frog porridge Moppi do",
+      "snippet": "Đường Thái Phiên, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12615820501",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4931152321",
+      "title": "Phú Hồng",
+      "snippet": "19, Yên Bái, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4931152321",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/729406576",
+      "title": "CafeGarden",
+      "snippet": "Đường Thái Phiên, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/729406576",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5977538086",
+      "title": "Bánh xèo, Bún thịt nướng k25/16",
+      "snippet": "Đường Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5977538086",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5922537305",
+      "title": "Golem",
+      "snippet": "Đường Trần Quốc Toản, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5922537305",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/729406684",
+      "title": "Cafe Rex",
+      "snippet": "Đường Pasteur, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/729406684",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5397903222",
+      "title": "Am Thuc Chay Da Nang",
+      "snippet": "Đường Thái Phiên, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5397903222",
+      "search_url": "https://photon.komoot.io/reverse?lat=16.06778&limit=50&lon=108.22083&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=3.0",
+      "fetched_at": "2026-10-22T17:45:29.847036Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T17:45:28.684199Z",
+      "message": "Xác định khu dân cư tại Việt Nam qua GeoNames/Open-Meteo.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T17:45:28.684199Z",
+      "message": "Tra chỉ mục Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T17:45:29.855029Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài bán kính hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 43
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T17:45:29.855029Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ tâm khu dân cư đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

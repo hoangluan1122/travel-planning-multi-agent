@@ -1,0 +1,683 @@
+{
+  "request_id": "3cbb5b4a-fb4b-471c-81fc-3fb86e6e21b4",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Vũng Tàu",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "geonames:1562414",
+    "name": "Vũng Tàu",
+    "latitude": 10.34599,
+    "longitude": 107.08426,
+    "admin1": "Thành phố Hồ Chí Minh",
+    "admin2": "Thành Phố Vũng Tàu",
+    "feature_code": "PPLA2",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1562414/",
+    "fetched_at": "2026-10-22T18:16:26.296839Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/1276258535": {
+      "distance_m": 182.1840579494231,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/7094212669": {
+      "distance_m": 278.47081199168815,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/2640796686": {
+      "distance_m": 294.2072506816465,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/1494639002": {
+      "distance_m": 351.2704888974114,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/13447462301": {
+      "distance_m": 355.5777906933247,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 47,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:16:24.564277Z",
+  "completed_at": "2026-10-22T18:16:28.590430Z",
+  "places": [
+    {
+      "id": "osm:node/1276258535",
+      "name": "Cơm Hướng Dương",
+      "address": "Nam Kỳ Khởi Nghĩa, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "latitude": 10.3474676,
+      "longitude": 107.0849796,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/1276258535",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/1276258535",
+        "latitude": "https://www.openstreetmap.org/node/1276258535",
+        "longitude": "https://www.openstreetmap.org/node/1276258535",
+        "types": "https://www.openstreetmap.org/node/1276258535",
+        "address": "https://www.openstreetmap.org/node/1276258535"
+      }
+    },
+    {
+      "id": "osm:node/7094212669",
+      "name": "Ốc 15k",
+      "address": "Hẻm 22 Nam Kỳ Khởi Nghĩa, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "latitude": 10.3435358,
+      "longitude": 107.0847669,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/7094212669",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/7094212669",
+        "latitude": "https://www.openstreetmap.org/node/7094212669",
+        "longitude": "https://www.openstreetmap.org/node/7094212669",
+        "types": "https://www.openstreetmap.org/node/7094212669",
+        "address": "https://www.openstreetmap.org/node/7094212669"
+      }
+    },
+    {
+      "id": "osm:node/2640796686",
+      "name": "Manta",
+      "address": "Trần Đồng, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "latitude": 10.343923,
+      "longitude": 107.082581,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/2640796686",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/2640796686",
+        "latitude": "https://www.openstreetmap.org/node/2640796686",
+        "longitude": "https://www.openstreetmap.org/node/2640796686",
+        "types": "https://www.openstreetmap.org/node/2640796686",
+        "address": "https://www.openstreetmap.org/node/2640796686"
+      }
+    },
+    {
+      "id": "osm:way/1494639002",
+      "name": "Bún Chả Hà Nội",
+      "address": "49, Trần Đồng, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "latitude": 10.3444415,
+      "longitude": 107.081461,
+      "source": "osm_photon",
+      "types": [
+        "fast_food"
+      ],
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/1494639002",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/1494639002",
+        "latitude": "https://www.openstreetmap.org/way/1494639002",
+        "longitude": "https://www.openstreetmap.org/way/1494639002",
+        "types": "https://www.openstreetmap.org/way/1494639002",
+        "address": "https://www.openstreetmap.org/way/1494639002"
+      }
+    },
+    {
+      "id": "osm:node/13447462301",
+      "name": "Chay Duc Tri Buffet",
+      "address": "Trần Đồng, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "latitude": 10.3442923,
+      "longitude": 107.0815053,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/13447462301",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/13447462301",
+        "latitude": "https://www.openstreetmap.org/node/13447462301",
+        "longitude": "https://www.openstreetmap.org/node/13447462301",
+        "types": "https://www.openstreetmap.org/node/13447462301",
+        "address": "https://www.openstreetmap.org/node/13447462301"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/1276258535",
+      "title": "Cơm Hướng Dương",
+      "snippet": "Nam Kỳ Khởi Nghĩa, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1276258535",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7094212669",
+      "title": "Ốc 15k",
+      "snippet": "Hẻm 22 Nam Kỳ Khởi Nghĩa, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7094212669",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2640796686",
+      "title": "Manta",
+      "snippet": "Trần Đồng, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2640796686",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1494639002",
+      "title": "Bún Chả Hà Nội",
+      "snippet": "49, Trần Đồng, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1494639002",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13447462301",
+      "title": "Chay Duc Tri Buffet",
+      "snippet": "Trần Đồng, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13447462301",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2669581769",
+      "title": "Bánh khọt Bà Hai",
+      "snippet": "42, Trần Đồng, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2669581769",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2647231890",
+      "title": "T&T",
+      "snippet": "Trương Công Định, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2647231890",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2647226636",
+      "title": "Hoa Sen",
+      "snippet": "159, Trương Công Định, Vũng Tàu, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2647226636",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2647226010",
+      "title": "Như Thành",
+      "snippet": "165, Trương Công Định, Vũng Tàu, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2647226010",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2647227967",
+      "title": "Yum Yum",
+      "snippet": "167B, Trương Công Định, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2647227967",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2647224250",
+      "title": "Cafe Sinh Viên",
+      "snippet": "Trương Công Định, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2647224250",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4546479589",
+      "title": "Hun Tiền Nhau",
+      "snippet": "42b, Nguyễn Bỉnh Khiêm, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4546479589",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2647227089",
+      "title": "Lộc An",
+      "snippet": "183, Trương Công Định, Vũng Tàu, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2647227089",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/259528291",
+      "title": "Sao Việt",
+      "snippet": "Hẻm 29 Xô Viết Nghệ Tĩnh, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/259528291",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6154787185",
+      "title": "Quán Cơm Chay Thuận Duyên",
+      "snippet": "166, Nam Kỳ Khởi Nghĩa, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6154787185",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11425585835",
+      "title": "Bò Kho",
+      "snippet": "Lê Lai, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11425585835",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5599563197",
+      "title": "Bánh mì Cây Điệp",
+      "snippet": "Nguyễn Trường Tộ, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5599563197",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2651490473",
+      "title": "Sunrise",
+      "snippet": "30, Nguyễn Du, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2651490473",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12725754874",
+      "title": "Pizza Fox House",
+      "snippet": "Nguyễn Trường Tộ, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12725754874",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5599563199",
+      "title": "Bún chả cá Quy Nhơn",
+      "snippet": "Nguyễn Trường Tộ, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5599563199",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5618803069",
+      "title": "Út Mười",
+      "snippet": "Trương Công Định, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5618803069",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5599563196",
+      "title": "B2B Food & Drink",
+      "snippet": "Nguyễn Trường Tộ, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5599563196",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2651493957",
+      "title": "Bún cá Miền Tây",
+      "snippet": "28, Nguyễn Du, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2651493957",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5599563191",
+      "title": "Quán 78 Lẩu Cá Đuối",
+      "snippet": "Nguyễn Trường Tộ, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5599563191",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4265463793",
+      "title": "Lien hoa vegetarian restaurant",
+      "snippet": "120, Trương Công Định, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4265463793",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11425552827",
+      "title": "Hùng - Hủ Tiếu Mực",
+      "snippet": "Nguyễn Bỉnh Khiêm, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11425552827",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7392769837",
+      "title": "Căn tin Bến xe",
+      "snippet": "Nam Kỳ Khởi Nghĩa, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7392769837",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11425604950",
+      "title": "Cô Nhỏ - Bánh Khọt, Bánh Căn, Bánh Xèo",
+      "snippet": "Nguyễn Bỉnh Khiêm, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11425604950",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5416320121",
+      "title": "Hoa",
+      "snippet": "Thống Nhất, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5416320121",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11425585331",
+      "title": "Quan Su Bin - Bò Lá Lốt",
+      "snippet": "Nguyễn Bỉnh Khiêm, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11425585331",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2669631293",
+      "title": "Quán 66",
+      "snippet": "47, Nguyễn Trường Tộ, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2669631293",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7392769838",
+      "title": "Ngọc Toàn",
+      "snippet": "Nam Kỳ Khởi Nghĩa, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7392769838",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13445853301",
+      "title": "Com Tam Lo Lem",
+      "snippet": "Xô Viết Nghệ Tĩnh, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13445853301",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11417099315",
+      "title": "Bánh Khọt 368 (40k)",
+      "snippet": "Lê Lai, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11417099315",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11430472004",
+      "title": "Highlands Coffee",
+      "snippet": "Hẻm 197 Nam Kỳ Khởi Nghĩa, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11430472004",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4596979691",
+      "title": "6D",
+      "snippet": "Nguyễn Trường Tộ, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4596979691",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7094212662",
+      "title": "Café Góc Phố",
+      "snippet": "Phạm Thế Hiển, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7094212662",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7402224840",
+      "title": "Bụi Trúc",
+      "snippet": "Trương Công Định, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7402224840",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4849853421",
+      "title": "hủ tiếu tùng hung (hủ tiếu chui)",
+      "snippet": "144, Lý Tự Trọng, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4849853421",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5595830470",
+      "title": "Cơm Tấm 67",
+      "snippet": "Lê Lai, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5595830470",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13441830001",
+      "title": "Com 67",
+      "snippet": "Võ Thị Sáu, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13441830001",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10536237909",
+      "title": "Dâu Tây Shop - Ăn Vặt & Sữa Chua",
+      "snippet": "215/5, Xô Viết Nghệ Tĩnh, Vũng Tàu, Thành phố Vũng Tàu, Bà Rịa Vũng Tàu, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10536237909",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11425559028",
+      "title": "Loan Cháo Lòng",
+      "snippet": "Nguyễn Bỉnh Khiêm, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11425559028",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1322055529",
+      "title": "Vegan cafe",
+      "snippet": "Hoàng Hoa Thám, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1322055529",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5618803073",
+      "title": "Café Olivia",
+      "snippet": "10, Lý Thường Kiệt, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5618803073",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13445851401",
+      "title": "Com Chay",
+      "snippet": "Hoàng Hoa Thám, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13445851401",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5621038133",
+      "title": "Cây Me Ngọt",
+      "snippet": "Lý Tự Trọng, Vũng Tàu, Thành phố Hồ Chí Minh, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5621038133",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.34599&limit=50&lon=107.08426&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:28.579422Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:16:24.564277Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:16:26.296839Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:16:28.590430Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 47
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:16:28.590430Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

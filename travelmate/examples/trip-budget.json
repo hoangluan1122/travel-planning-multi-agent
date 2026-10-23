@@ -1,0 +1,32 @@
+{
+  "start_date": "2026-11-06",
+  "end_date": "2026-11-08",
+  "travelers": 2,
+  "persons_per_room": 2,
+  "budget_vnd": "4000000",
+  "budget_scope": "group",
+  "reserve_pct": "10",
+  "expenses": [
+    {
+      "id": "hotel", "label": "Lưu trú 2 đêm", "category": "accommodation",
+      "frequency": "per_night", "selected_option_id": "standard",
+      "options": [
+        {"id":"standard","label":"Phòng A (giả định)","billing_unit":"room","min_unit_price_vnd":"500000","max_unit_price_vnd":"500000","certainty":"estimated","source":"user_supplied_example_not_market_price"},
+        {"id":"economy","label":"Phòng B chấp nhận được (giả định)","billing_unit":"room","min_unit_price_vnd":"400000","max_unit_price_vnd":"400000","certainty":"estimated","source":"user_supplied_example_not_market_price"}
+      ]
+    },
+    {
+      "id":"food","label":"3 bữa mỗi ngày mỗi người","category":"meals",
+      "frequency":"per_day","units_per_occurrence":3,"selected_option_id":"meal",
+      "options":[{"id":"meal","label":"Một bữa (giả định)","billing_unit":"person","min_unit_price_vnd":"100000","max_unit_price_vnd":"100000","certainty":"estimated","source":"user_supplied_example_not_market_price"}]
+    },
+    {
+      "id":"transport","label":"Di chuyển cả đoàn","category":"transport","selected_option_id":"car",
+      "options":[{"id":"car","label":"Chi phí cả đoàn (giả định)","billing_unit":"group","min_unit_price_vnd":"500000","max_unit_price_vnd":"500000","certainty":"estimated","source":"user_supplied_example_not_market_price"}]
+    },
+    {
+      "id":"tickets","label":"Vé tham quan mỗi người","category":"visits","selected_option_id":"ticket",
+      "options":[{"id":"ticket","label":"Một vé (giả định)","billing_unit":"person","min_unit_price_vnd":"200000","max_unit_price_vnd":"200000","certainty":"estimated","source":"user_supplied_example_not_market_price"}]
+    }
+  ]
+}

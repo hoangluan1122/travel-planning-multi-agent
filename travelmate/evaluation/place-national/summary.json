@@ -1,0 +1,58 @@
+[
+  {
+    "destination": "Vĩnh Phúc",
+    "category": "hotel",
+    "status": "success",
+    "candidates": 19,
+    "boundary": "2020",
+    "names": [
+      "Khách sạn Hoàng Qui",
+      "Nhà riêng",
+      "Nha Khách Dầm Vạc",
+      "Vĩnh Yên , Vĩnh Phúc",
+      "Khách sạn Khánh Linh"
+    ]
+  },
+  {
+    "destination": "Đà Nẵng",
+    "category": "attraction",
+    "status": "success",
+    "candidates": 54,
+    "boundary": "2026-03-11",
+    "names": [
+      "Bãi Bìm",
+      "Vòng Xoay 2 Tầng Chu Lai",
+      "Thôn phú Nam",
+      "Quảng trường 24 tháng 3",
+      "Cua Dai"
+    ]
+  },
+  {
+    "destination": "Cà Mau",
+    "category": "restaurant",
+    "status": "success",
+    "candidates": 34,
+    "boundary": "2026-03-11",
+    "names": [
+      "Quán Ốc Ngoại",
+      "Cafe Hương Cau 2",
+      "Cafe Hương Cau 3",
+      "Cà Phê Huỳnh My",
+      "Quán Ăn Rợ"
+    ]
+  },
+  {
+    "destination": "Việt Nam",
+    "category": "hotel",
+    "status": "success",
+    "candidates": 130,
+    "boundary": "2026-03-11",
+    "names": [
+      "L’Amore",
+      "Nhà khách A11",
+      "Nhà khách Thủ Đô",
+      "Khach Sạn Sao Băng",
+      "VernalHome Boutique DaNang"
+    ]
+  }
+]

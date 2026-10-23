@@ -1,0 +1,584 @@
+{
+  "request_id": "640c3cd2-ffbb-4ae6-8d66-db3aae691814",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Cao Bằng",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "geonames:1586185",
+    "name": "Thành Phố Cao Bằng",
+    "latitude": 22.66568,
+    "longitude": 106.25786,
+    "admin1": "Cao Bằng",
+    "admin2": "Thành Phố Cao Bằng",
+    "feature_code": "PPLA",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1586185/",
+    "fetched_at": "2026-10-22T18:14:07.654963Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/11212270538": {
+      "distance_m": 158.2363854496943,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4529821558": {
+      "distance_m": 171.14050926537394,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4688860289": {
+      "distance_m": 183.22322640320527,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/5656120922": {
+      "distance_m": 204.49107183221017,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4985015421": {
+      "distance_m": 204.72114376745628,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 36,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:14:07.660970Z",
+  "completed_at": "2026-10-22T18:14:10.494910Z",
+  "places": [
+    {
+      "id": "osm:node/11212270538",
+      "name": "Á Đông BBQ Chicken",
+      "address": "018, Phố Cũ, Thục Phán, Cao Bằng, Việt Nam",
+      "latitude": 22.6651924,
+      "longitude": 106.2564112,
+      "source": "osm_photon",
+      "types": [
+        "fast_food"
+      ],
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/11212270538",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/11212270538",
+        "latitude": "https://www.openstreetmap.org/node/11212270538",
+        "longitude": "https://www.openstreetmap.org/node/11212270538",
+        "types": "https://www.openstreetmap.org/node/11212270538",
+        "address": "https://www.openstreetmap.org/node/11212270538"
+      }
+    },
+    {
+      "id": "osm:node/4529821558",
+      "name": "Coffee 89",
+      "address": "Phố Hoàng Như, Thục Phán, Cao Bằng, Việt Nam",
+      "latitude": 22.664804,
+      "longitude": 106.2592314,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4529821558",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4529821558",
+        "latitude": "https://www.openstreetmap.org/node/4529821558",
+        "longitude": "https://www.openstreetmap.org/node/4529821558",
+        "types": "https://www.openstreetmap.org/node/4529821558",
+        "address": "https://www.openstreetmap.org/node/4529821558"
+      }
+    },
+    {
+      "id": "osm:node/4688860289",
+      "name": "Huong Thinh",
+      "address": "51, Xuan Truong 51, Thục Phán, Cao Bằng, Việt Nam",
+      "latitude": 22.6671373,
+      "longitude": 106.2570266,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4688860289",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4688860289",
+        "latitude": "https://www.openstreetmap.org/node/4688860289",
+        "longitude": "https://www.openstreetmap.org/node/4688860289",
+        "types": "https://www.openstreetmap.org/node/4688860289",
+        "address": "https://www.openstreetmap.org/node/4688860289"
+      }
+    },
+    {
+      "id": "osm:node/5656120922",
+      "name": "Phó Vi Thiêm",
+      "address": "Phố Bế Văn Đàn, Thục Phán, Cao Bằng, Việt Nam",
+      "latitude": 22.6671825,
+      "longitude": 106.2567108,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5656120922",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5656120922",
+        "latitude": "https://www.openstreetmap.org/node/5656120922",
+        "longitude": "https://www.openstreetmap.org/node/5656120922",
+        "types": "https://www.openstreetmap.org/node/5656120922",
+        "address": "https://www.openstreetmap.org/node/5656120922"
+      }
+    },
+    {
+      "id": "osm:node/4985015421",
+      "name": "Com Binh Dan",
+      "address": "120, Be Van Dan, Thục Phán, Cao Bằng, Việt Nam",
+      "latitude": 22.6638917,
+      "longitude": 106.2573856,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4985015421",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4985015421",
+        "latitude": "https://www.openstreetmap.org/node/4985015421",
+        "longitude": "https://www.openstreetmap.org/node/4985015421",
+        "types": "https://www.openstreetmap.org/node/4985015421",
+        "address": "https://www.openstreetmap.org/node/4985015421"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/11212270538",
+      "title": "Á Đông BBQ Chicken",
+      "snippet": "018, Phố Cũ, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11212270538",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4529821558",
+      "title": "Coffee 89",
+      "snippet": "Phố Hoàng Như, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4529821558",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4688860289",
+      "title": "Huong Thinh",
+      "snippet": "51, Xuan Truong 51, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4688860289",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5656120922",
+      "title": "Phó Vi Thiêm",
+      "snippet": "Phố Bế Văn Đàn, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5656120922",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4985015421",
+      "title": "Com Binh Dan",
+      "snippet": "120, Be Van Dan, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4985015421",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1383800644",
+      "title": "Nhà hàng Ngon",
+      "snippet": "Phố Đàm Quang Trung, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1383800644",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13445388801",
+      "title": "Bánh Mì",
+      "snippet": "Phố Xuân Trường, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13445388801",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4529967714",
+      "title": "Nam Hoa Quán",
+      "snippet": "Phố Nguyễn Du, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4529967714",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13447564503",
+      "title": "Lê La Vegan Restaurant",
+      "snippet": "Phố Hồng Việt, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13447564503",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13124420001",
+      "title": "Phở Bà Nga Béo",
+      "snippet": "Phố Kim Đồng, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13124420001",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5294733024",
+      "title": "Com",
+      "snippet": "Đường Vườn Cam, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5294733024",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12662262233",
+      "title": "Áp Chao Cô Ngân",
+      "snippet": "138, Phố Cũ, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12662262233",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1368278521",
+      "title": "Bánh cuốn Hoa Hồng",
+      "snippet": "Phố Kim Đồng, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1368278521",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4525708689",
+      "title": "Pizza Chi",
+      "snippet": "Đường Vườn Cam, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4525708689",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12857045301",
+      "title": "Cơm Phượt Quán Toan",
+      "snippet": "Đường Vườn Cam, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12857045301",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10677443305",
+      "title": "Gilu Garden",
+      "snippet": "Phố Thầu, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10677443305",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4528239372",
+      "title": "Ban gioc Coffee",
+      "snippet": "Phố Kim Đồng, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4528239372",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10274733710",
+      "title": "La Maison Cafe",
+      "snippet": "Phố Nguyễn Du, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10274733710",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13447426901",
+      "title": "Pha Phin",
+      "snippet": "Phố Hiến Giang, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13447426901",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1368278532",
+      "title": "Highlands Coffee",
+      "snippet": "Phố Nguyễn Du, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1368278532",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5409727821",
+      "title": "Cao bang",
+      "snippet": "Phố Bằng Giang, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5409727821",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4528239368",
+      "title": "Thành Hội",
+      "snippet": "Phố Kim Đồng, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4528239368",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1378058653",
+      "title": "Cafe Than",
+      "snippet": "Phố Thầu, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1378058653",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4528239339",
+      "title": "Café Vườn Phố",
+      "snippet": "Phố Kim Đồng, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4528239339",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10275682109",
+      "title": "Pizza Chi",
+      "snippet": "Phố Hoàng Văn Thụ, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10275682109",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4528239352",
+      "title": "Hùng Trinh BBQ",
+      "snippet": "Phố Kim Đồng, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4528239352",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4757625521",
+      "title": "M-box",
+      "snippet": "Phố Kim Đồng, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4757625521",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4525655091",
+      "title": "Banh My",
+      "snippet": "Phai Khắt – Nà Ngần, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4525655091",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/14197847701",
+      "title": "Thu Hien (Pho, Bun)",
+      "snippet": "25, Phuong Nung Tri Cao, Nùng Trí Cao, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/14197847701",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13124377901",
+      "title": "Bánh cuốn Cô Lan Pháo Đài",
+      "snippet": "QL4, Tân Giang, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13124377901",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13080669603",
+      "title": "Buffet",
+      "snippet": "Võ Nguyên Giáp, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13080669603",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13708545901",
+      "title": "Chay Cao Bang - Lazy Bug (Vegetarian/Vegan)",
+      "snippet": "Đường Đông Khê, Tân Giang, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13708545901",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6807943734",
+      "title": "Nhà Hàng Mười Dê",
+      "snippet": "037 - Tổ 11, Quốc lộ 4A, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6807943734",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7146286285",
+      "title": "Pho nhau than nam",
+      "snippet": "Quốc lộ 3;34, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7146286285",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6328672186",
+      "title": "Đà Điểu",
+      "snippet": "Quốc lộ 3(cũ), Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6328672186",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6393495985",
+      "title": "Chay",
+      "snippet": "Quốc lộ 3;34, Thục Phán, Cao Bằng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6393495985",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.66568&limit=50&lon=106.25786&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:10.491918Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:14:07.660970Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:14:07.660970Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:14:10.494910Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 36
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:14:10.494910Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

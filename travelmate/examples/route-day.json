@@ -1,0 +1,15 @@
+{
+  "origin":{"id":"danang-central-coordinate","latitude":16.0678,"longitude":108.2208},
+  "visits":[
+    {"id":"south-riverside-coordinate","latitude":16.0472,"longitude":108.2244,"duration_minutes":45},
+    {"id":"north-riverside-coordinate","latitude":16.0795,"longitude":108.2240,"duration_minutes":45},
+    {"id":"east-coast-coordinate","latitude":16.0590,"longitude":108.2450,"duration_minutes":45,"opens_minute":660,"closes_minute":840,"fixed_start_minute":720}
+  ],
+  "departure_minute":540,
+  "finish_by_minute":1080,
+  "return_to_origin":true,
+  "travel_buffer_minutes":5,
+  "include_geometry":true,
+  "optimize_order":true,
+  "precedence":[]
+}

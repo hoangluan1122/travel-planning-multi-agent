@@ -1,0 +1,128 @@
+{
+  "request_id": "e129b033-ae60-48f2-86b2-8eed66982865",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Vườn quốc gia Cúc Phương",
+  "category": "hotel",
+  "resolved_location": {
+    "id": "photon:relation/15882261",
+    "name": "Vườn quốc gia Cúc Phương",
+    "latitude": 20.3162835,
+    "longitude": 105.6176593,
+    "admin1": "Tỉnh Ninh Bình",
+    "admin2": "",
+    "feature_code": "OSM:nature_reserve",
+    "country_code": "VN",
+    "source_url": "https://www.openstreetmap.org/relation/15882261",
+    "fetched_at": "2026-10-22T18:28:42.744486Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null,
+    "coordinate_kind": "geometry_center"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:way/152606188": {
+      "distance_m": 4113.492979919176,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 1,
+  "offset": 0,
+  "has_more": false,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:28:37.538521Z",
+  "completed_at": "2026-10-22T18:28:45.016438Z",
+  "places": [
+    {
+      "id": "osm:way/152606188",
+      "name": "Nhà nghỉ ở Bống",
+      "address": "Thousand Year Old Tree Trail, Cúc Phương, Tỉnh Ninh Bình, Việt Nam",
+      "latitude": 20.3482205,
+      "longitude": 105.5977493,
+      "source": "osm_photon",
+      "types": [
+        "guest_house"
+      ],
+      "fetched_at": "2026-10-22T18:28:45.016438Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/152606188",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/152606188",
+        "latitude": "https://www.openstreetmap.org/way/152606188",
+        "longitude": "https://www.openstreetmap.org/way/152606188",
+        "types": "https://www.openstreetmap.org/way/152606188",
+        "address": "https://www.openstreetmap.org/way/152606188"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:way/152606188",
+      "title": "Nhà nghỉ ở Bống",
+      "snippet": "Thousand Year Old Tree Trail, Cúc Phương, Tỉnh Ninh Bình, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/152606188",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:45.016438Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "stay_price",
+    "room_availability",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:37.538521Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:42.744486Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:28:45.016438Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 1
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:28:45.016438Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 1
+    }
+  ],
+  "warnings": [
+    "Điểm tham chiếu là tâm hình học của khu vực theo nguồn, không phải cửa vào. Kết quả chỉ nằm trong bán kính đã chọn quanh tâm này; không bao phủ toàn bộ khu du lịch.",
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "request_id": "d7bce419-a6f8-4450-ae0a-1b5639ca073f",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Vườn quốc gia Cúc Phương",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "photon:relation/15882261",
+    "name": "Vườn quốc gia Cúc Phương",
+    "latitude": 20.3162835,
+    "longitude": 105.6176593,
+    "admin1": "Tỉnh Ninh Bình",
+    "admin2": "",
+    "feature_code": "OSM:nature_reserve",
+    "country_code": "VN",
+    "source_url": "https://www.openstreetmap.org/relation/15882261",
+    "fetched_at": "2026-10-22T18:28:42.744486Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null,
+    "coordinate_kind": "geometry_center"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:way/201095346": {
+      "distance_m": 4125.831532645656,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 1,
+  "offset": 0,
+  "has_more": false,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:28:45.024447Z",
+  "completed_at": "2026-10-22T18:28:47.646192Z",
+  "places": [
+    {
+      "id": "osm:way/201095346",
+      "name": "Căng-tin ở Bống",
+      "address": "Đường rừng Cúc Phương, Cúc Phương, Tỉnh Ninh Bình, Việt Nam",
+      "latitude": 20.3482844,
+      "longitude": 105.5976315,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:28:47.644811Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/201095346",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/201095346",
+        "latitude": "https://www.openstreetmap.org/way/201095346",
+        "longitude": "https://www.openstreetmap.org/way/201095346",
+        "types": "https://www.openstreetmap.org/way/201095346",
+        "address": "https://www.openstreetmap.org/way/201095346"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:way/201095346",
+      "title": "Căng-tin ở Bống",
+      "snippet": "Đường rừng Cúc Phương, Cúc Phương, Tỉnh Ninh Bình, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/201095346",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:47.644811Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:45.024447Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:45.025441Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:28:47.646192Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 1
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:28:47.646192Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 1
+    }
+  ],
+  "warnings": [
+    "Điểm tham chiếu là tâm hình học của khu vực theo nguồn, không phải cửa vào. Kết quả chỉ nằm trong bán kính đã chọn quanh tâm này; không bao phủ toàn bộ khu du lịch.",
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

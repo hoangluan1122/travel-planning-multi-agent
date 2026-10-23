@@ -1,0 +1,439 @@
+{
+  "request_id": "34d48431-e382-4d6b-829f-c98ebc9d2b83",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Vĩnh Phúc",
+  "category": "hotel",
+  "resolved_location": {
+    "id": "vn:legacy:80891907B96308820470444",
+    "name": "Vinh Phuc (khu vực cũ, ranh giới 2020)",
+    "latitude": 21.363973202,
+    "longitude": 105.55772982300002,
+    "admin1": "",
+    "admin2": "",
+    "feature_code": "ADM1",
+    "country_code": "VN",
+    "source_url": "https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/9469f09/releaseData/gbHumanitarian/VNM/ADM1/geoBoundaries-VNM-ADM1_simplified.geojson",
+    "fetched_at": "2026-10-22T17:57:07.933477Z",
+    "scope": "area",
+    "bbox": [
+      105.32256106000001,
+      21.154104299,
+      105.792898586,
+      21.573842105
+    ],
+    "boundary_version": "2020",
+    "historical": true,
+    "attribution": "Government of Viet Nam / HDX, via geoBoundaries gbHumanitarian VNM ADM1; CC BY 3.0 IGO; simplified reference boundaries 2020"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/7178614794": {
+      "distance_m": 6934.017782987021,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.154104299%2C105.792898586%2C21.363973202&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:node/4695234389": {
+      "distance_m": 7103.304342921554,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.154104299%2C105.792898586%2C21.363973202&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:node/5367504221": {
+      "distance_m": 7387.165182404039,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.154104299%2C105.792898586%2C21.363973202&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:node/4558024089": {
+      "distance_m": 7836.1254750191065,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.154104299%2C105.792898586%2C21.363973202&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:node/5240134125": {
+      "distance_m": 7958.852905552697,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.154104299%2C105.792898586%2C21.363973202&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 19,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:05:20.390385Z",
+  "completed_at": "2026-10-22T18:05:30.477701Z",
+  "places": [
+    {
+      "id": "osm:node/7178614794",
+      "name": "Khách sạn Hoàng Qui",
+      "address": "Đường Kim Ngọc, Vĩnh Phúc, Vĩnh Yên, Phú Thọ, Việt Nam",
+      "latitude": 21.3116528,
+      "longitude": 105.5941567,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:05:25.724691Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/7178614794",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/7178614794",
+        "latitude": "https://www.openstreetmap.org/node/7178614794",
+        "longitude": "https://www.openstreetmap.org/node/7178614794",
+        "types": "https://www.openstreetmap.org/node/7178614794",
+        "address": "https://www.openstreetmap.org/node/7178614794"
+      }
+    },
+    {
+      "id": "osm:node/4695234389",
+      "name": "Nhà riêng",
+      "address": "22, Ngõ 1 Yết Kiêu, Vĩnh Phúc, Vĩnh Yên, Phú Thọ, Việt Nam",
+      "latitude": 21.3147302,
+      "longitude": 105.6014188,
+      "source": "osm_photon",
+      "types": [
+        "hostel"
+      ],
+      "fetched_at": "2026-10-22T18:05:25.724691Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4695234389",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4695234389",
+        "latitude": "https://www.openstreetmap.org/node/4695234389",
+        "longitude": "https://www.openstreetmap.org/node/4695234389",
+        "types": "https://www.openstreetmap.org/node/4695234389",
+        "address": "https://www.openstreetmap.org/node/4695234389"
+      }
+    },
+    {
+      "id": "osm:node/5367504221",
+      "name": "Nha Khách Dầm Vạc",
+      "address": "1B, Kim Ngọc, Vĩnh Phúc, Vĩnh Yên, Phú Thọ, Việt Nam",
+      "latitude": 21.3053103,
+      "longitude": 105.5912037,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:05:25.724691Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5367504221",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5367504221",
+        "latitude": "https://www.openstreetmap.org/node/5367504221",
+        "longitude": "https://www.openstreetmap.org/node/5367504221",
+        "types": "https://www.openstreetmap.org/node/5367504221",
+        "address": "https://www.openstreetmap.org/node/5367504221"
+      }
+    },
+    {
+      "id": "osm:node/4558024089",
+      "name": "Vĩnh Yên , Vĩnh Phúc",
+      "address": "Đầm Vạc, Vĩnh Phúc, Vĩnh Yên, Phú Thọ, Việt Nam",
+      "latitude": 21.3021277,
+      "longitude": 105.5940001,
+      "source": "osm_photon",
+      "types": [
+        "hostel"
+      ],
+      "fetched_at": "2026-10-22T18:05:25.724691Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4558024089",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4558024089",
+        "latitude": "https://www.openstreetmap.org/node/4558024089",
+        "longitude": "https://www.openstreetmap.org/node/4558024089",
+        "types": "https://www.openstreetmap.org/node/4558024089",
+        "address": "https://www.openstreetmap.org/node/4558024089"
+      }
+    },
+    {
+      "id": "osm:node/5240134125",
+      "name": "Khách sạn Khánh Linh",
+      "address": "Đường Bao Cơ Khí, Vĩnh Phúc, Vĩnh Yên, Phú Thọ, Việt Nam",
+      "latitude": 21.3063481,
+      "longitude": 105.6033084,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:05:25.724691Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5240134125",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5240134125",
+        "latitude": "https://www.openstreetmap.org/node/5240134125",
+        "longitude": "https://www.openstreetmap.org/node/5240134125",
+        "types": "https://www.openstreetmap.org/node/5240134125",
+        "address": "https://www.openstreetmap.org/node/5240134125"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/7178614794",
+      "title": "Khách sạn Hoàng Qui",
+      "snippet": "Đường Kim Ngọc, Vĩnh Phúc, Vĩnh Yên, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7178614794",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.154104299%2C105.792898586%2C21.363973202&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:25.724691Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4695234389",
+      "title": "Nhà riêng",
+      "snippet": "22, Ngõ 1 Yết Kiêu, Vĩnh Phúc, Vĩnh Yên, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4695234389",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.154104299%2C105.792898586%2C21.363973202&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:25.724691Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5367504221",
+      "title": "Nha Khách Dầm Vạc",
+      "snippet": "1B, Kim Ngọc, Vĩnh Phúc, Vĩnh Yên, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5367504221",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.154104299%2C105.792898586%2C21.363973202&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:25.724691Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4558024089",
+      "title": "Vĩnh Yên , Vĩnh Phúc",
+      "snippet": "Đầm Vạc, Vĩnh Phúc, Vĩnh Yên, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4558024089",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.154104299%2C105.792898586%2C21.363973202&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:25.724691Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5240134125",
+      "title": "Khách sạn Khánh Linh",
+      "snippet": "Đường Bao Cơ Khí, Vĩnh Phúc, Vĩnh Yên, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5240134125",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.154104299%2C105.792898586%2C21.363973202&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:25.724691Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5239164121",
+      "title": "khách sạn Thái Dương",
+      "snippet": "Đầm Vạc, Vĩnh Phúc, Vĩnh Yên, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5239164121",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.154104299%2C105.792898586%2C21.363973202&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:25.724691Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4260587991",
+      "title": "Tam Dao Belvedere Resort",
+      "snippet": "Hamlet 2, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4260587991",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.363973202%2C105.792898586%2C21.573842105&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:30.475702Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1035046961",
+      "title": "Khách sạn Mela",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1035046961",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.363973202%2C105.792898586%2C21.573842105&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:30.475702Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1035046951",
+      "title": "Nhà khách Công đoàn Tam Đảo",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1035046951",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.363973202%2C105.792898586%2C21.573842105&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:30.475702Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10023518305",
+      "title": "Khách sạn Suối Bạc",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518305",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.363973202%2C105.792898586%2C21.573842105&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:30.475702Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10023518304",
+      "title": "Khách sạn Hanvet",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518304",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.363973202%2C105.792898586%2C21.573842105&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:30.475702Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10023518296",
+      "title": "Hotel Anh Minh",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518296",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.363973202%2C105.792898586%2C21.573842105&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:30.475702Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10023518299",
+      "title": "Khách sạn Hòa Bình",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518299",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.363973202%2C105.792898586%2C21.573842105&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:30.475702Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10023518297",
+      "title": "Khách sạn Anh Đào Tam Đảo",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518297",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.363973202%2C105.792898586%2C21.573842105&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:30.475702Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10023518293",
+      "title": "Camellia Luxury Hotel Tam Đảo",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Vĩnh Phúc, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10023518293",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.363973202%2C105.792898586%2C21.573842105&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:30.475702Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1035046953",
+      "title": "Khách sạn Báo Nhân dân",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1035046953",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.363973202%2C105.792898586%2C21.573842105&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:30.475702Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6534831985",
+      "title": "mac tam dao",
+      "snippet": "Quốc lộ 2B, Tam Đảo, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6534831985",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.363973202%2C105.792898586%2C21.573842105&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:30.475702Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4465494190",
+      "title": "Flamingo Đại Lải Resort",
+      "snippet": "Đường Hoàng Hoa Thám, Xuân Hòa, Vĩnh Phúc, Vinh Phuc, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4465494190",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.154104299%2C105.792898586%2C21.363973202&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:25.724691Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4506575392",
+      "title": "Flamingo Đại Lải Resort",
+      "snippet": "Ngọc Quang, Ngọc Thanh, Phúc Yên, Vĩnh Phucs, Xuân Hòa, Phú Thọ, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4506575392",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.55772982300002%2C21.154104299%2C105.792898586%2C21.363973202&countrycode=VN&include=osm.tourism.camp_site%2Cosm.tourism.guest_house%2Cosm.tourism.hostel%2Cosm.tourism.hotel%2Cosm.tourism.motel%2Cosm.tourism.resort&limit=50",
+      "fetched_at": "2026-10-22T18:05:25.724691Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "stay_price",
+    "room_availability",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:05:20.390385Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:05:20.392384Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và các ô bao phủ ranh giới tham chiếu.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:05:30.477701Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 19
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:05:30.477701Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Tìm theo polygon ranh giới tham chiếu, không áp dụng bán kính. Lấy mẫu có giới hạn qua các ô không gian, không phải toàn bộ địa điểm trong vùng.",
+    "Đang tìm khu vực cũ theo ranh giới tham chiếu năm 2020; không phải đơn vị hành chính hiện hành.",
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "request_id": "be9f6b6f-63e3-47df-8186-60e68d0f5d67",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Vườn quốc gia Cúc Phương",
+  "category": "attraction",
+  "resolved_location": {
+    "id": "photon:relation/15882261",
+    "name": "Vườn quốc gia Cúc Phương",
+    "latitude": 20.3162835,
+    "longitude": 105.6176593,
+    "admin1": "Tỉnh Ninh Bình",
+    "admin2": "",
+    "feature_code": "OSM:nature_reserve",
+    "country_code": "VN",
+    "source_url": "https://www.openstreetmap.org/relation/15882261",
+    "fetched_at": "2026-10-22T18:28:42.744486Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null,
+    "coordinate_kind": "geometry_center"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:relation/15882261": {
+      "distance_m": 0.0,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/12767619601": {
+      "distance_m": 2057.111230392346,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/5294733035": {
+      "distance_m": 4779.4859857520805,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/1995508763": {
+      "distance_m": 4984.260083260237,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 4,
+  "offset": 0,
+  "has_more": false,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:28:47.652202Z",
+  "completed_at": "2026-10-22T18:28:50.240475Z",
+  "places": [
+    {
+      "id": "osm:relation/15882261",
+      "name": "Vườn quốc gia Cúc Phương",
+      "address": "Tỉnh Ninh Bình, Việt Nam",
+      "latitude": 20.3162835,
+      "longitude": 105.6176593,
+      "source": "osm_photon",
+      "types": [
+        "national_park"
+      ],
+      "fetched_at": "2026-10-22T18:28:50.239475Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/relation/15882261",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/relation/15882261",
+        "latitude": "https://www.openstreetmap.org/relation/15882261",
+        "longitude": "https://www.openstreetmap.org/relation/15882261",
+        "types": "https://www.openstreetmap.org/relation/15882261",
+        "address": "https://www.openstreetmap.org/relation/15882261"
+      }
+    },
+    {
+      "id": "osm:node/12767619601",
+      "name": "Closed path april 2025",
+      "address": "Đường rừng Cúc Phương, Cúc Phương, Tỉnh Ninh Bình, Việt Nam",
+      "latitude": 20.3196154,
+      "longitude": 105.6370642,
+      "source": "osm_photon",
+      "types": [
+        "attraction"
+      ],
+      "fetched_at": "2026-10-22T18:28:50.239475Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/12767619601",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/12767619601",
+        "latitude": "https://www.openstreetmap.org/node/12767619601",
+        "longitude": "https://www.openstreetmap.org/node/12767619601",
+        "types": "https://www.openstreetmap.org/node/12767619601",
+        "address": "https://www.openstreetmap.org/node/12767619601"
+      }
+    },
+    {
+      "id": "osm:node/5294733035",
+      "name": "Silver Cloudy Peak",
+      "address": "Thousand Year Old Tree Trail, Cúc Phương, Tỉnh Ninh Bình, Việt Nam",
+      "latitude": 20.357441,
+      "longitude": 105.6044421,
+      "source": "osm_photon",
+      "types": [
+        "attraction"
+      ],
+      "fetched_at": "2026-10-22T18:28:50.239475Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5294733035",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5294733035",
+        "latitude": "https://www.openstreetmap.org/node/5294733035",
+        "longitude": "https://www.openstreetmap.org/node/5294733035",
+        "types": "https://www.openstreetmap.org/node/5294733035",
+        "address": "https://www.openstreetmap.org/node/5294733035"
+      }
+    },
+    {
+      "id": "osm:node/1995508763",
+      "name": "Palace Cave",
+      "address": "Thousand Year Old Tree Trail, Cúc Phương, Tỉnh Ninh Bình, Việt Nam",
+      "latitude": 20.3585647,
+      "longitude": 105.6017856,
+      "source": "osm_photon",
+      "types": [
+        "cave_entrance"
+      ],
+      "fetched_at": "2026-10-22T18:28:50.239475Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/1995508763",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/1995508763",
+        "latitude": "https://www.openstreetmap.org/node/1995508763",
+        "longitude": "https://www.openstreetmap.org/node/1995508763",
+        "types": "https://www.openstreetmap.org/node/1995508763",
+        "address": "https://www.openstreetmap.org/node/1995508763"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:relation/15882261",
+      "title": "Vườn quốc gia Cúc Phương",
+      "snippet": "Tỉnh Ninh Bình, Việt Nam",
+      "url": "https://www.openstreetmap.org/relation/15882261",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:50.239475Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12767619601",
+      "title": "Closed path april 2025",
+      "snippet": "Đường rừng Cúc Phương, Cúc Phương, Tỉnh Ninh Bình, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12767619601",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:50.239475Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5294733035",
+      "title": "Silver Cloudy Peak",
+      "snippet": "Thousand Year Old Tree Trail, Cúc Phương, Tỉnh Ninh Bình, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5294733035",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:50.239475Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1995508763",
+      "title": "Palace Cave",
+      "snippet": "Thousand Year Old Tree Trail, Cúc Phương, Tỉnh Ninh Bình, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1995508763",
+      "search_url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:50.239475Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:47.652202Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:47.652202Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:28:50.240475Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 4
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:28:50.240475Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 4
+    }
+  ],
+  "warnings": [
+    "Điểm tham chiếu là tâm hình học của khu vực theo nguồn, không phải cửa vào. Kết quả chỉ nằm trong bán kính đã chọn quanh tâm này; không bao phủ toàn bộ khu du lịch.",
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

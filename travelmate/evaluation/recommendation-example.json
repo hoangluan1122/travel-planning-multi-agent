@@ -1,0 +1,170 @@
+{
+  "places": [
+    {
+      "id": "fixture-museum",
+      "name": "TEST Museum",
+      "address": "Fictional fixture, not a real business",
+      "latitude": 16.0675,
+      "longitude": 108.2202,
+      "source": "fictional_fixture",
+      "types": [
+        "museum"
+      ],
+      "fetched_at": null,
+      "estimated_visit_cost_vnd": null,
+      "source_url": null,
+      "attribution": null,
+      "coordinate_kind": "unspecified",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {}
+    },
+    {
+      "id": "fixture-park",
+      "name": "TEST Park",
+      "address": "Fictional fixture, not a real business",
+      "latitude": 16.075,
+      "longitude": 108.23,
+      "source": "fictional_fixture",
+      "types": [
+        "park"
+      ],
+      "fetched_at": null,
+      "estimated_visit_cost_vnd": null,
+      "source_url": null,
+      "attribution": null,
+      "coordinate_kind": "unspecified",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {}
+    }
+  ],
+  "method": "weighted_evidence_v1",
+  "warnings": [
+    "Điểm 0–100 là độ khớp theo công thức đầu vào, không phải sao cộng đồng hay xác suất hài lòng.",
+    "Bằng chứng và giá do caller cung cấp; công cụ chưa tự xác minh nguồn qua Internet.",
+    "Khoảng cách là đường chim bay; Route cần kiểm tra đường đi và thời gian sau khi chọn điểm."
+  ],
+  "status": "partial",
+  "items": [
+    {
+      "place_id": "fixture-museum",
+      "score": 83.71091954144626,
+      "criteria": [
+        {
+          "criterion": "interests",
+          "value": 1.0,
+          "weight": 0.5,
+          "contribution": 50.0,
+          "evidence_sources": [
+            "fictional_fixture"
+          ],
+          "explanation": "2/2 sở thích khớp taxonomy hoặc bằng chứng được cung cấp."
+        },
+        {
+          "criterion": "proximity",
+          "value": 0.9855459770723131,
+          "weight": 0.2,
+          "contribution": 19.710919541446263,
+          "evidence_sources": [
+            "fictional_fixture"
+          ],
+          "explanation": "Khoảng cách đường chim bay theo tọa độ; không phải quãng đường hay thời gian lái xe."
+        },
+        {
+          "criterion": "affordability",
+          "value": 0.19999999999999996,
+          "weight": 0.2,
+          "contribution": 3.999999999999999,
+          "evidence_sources": [
+            "fictional_price_fixture"
+          ],
+          "explanation": "So mức giá tối đa với trần cùng đơn vị; thiếu giá nhận 0 điểm tiêu chí và giữ cảnh báo."
+        },
+        {
+          "criterion": "weather",
+          "value": 1.0,
+          "weight": 0.1,
+          "contribution": 10.0,
+          "evidence_sources": [
+            "fictional_fixture",
+            "fictional_weather_fixture_not_forecast"
+          ],
+          "explanation": "Ưu tiên có bằng chứng trong nhà khi rủi ro thời tiết cao; không xác nhận an toàn."
+        }
+      ],
+      "matched_interests": [
+        "văn hóa",
+        "yên tĩnh"
+      ],
+      "unresolved_interests": [],
+      "missing_evidence": [],
+      "distance_m": 72.2701146384345,
+      "distance_method": "haversine_straight_line",
+      "is_required": false,
+      "price_unavailable_reason": null
+    },
+    {
+      "place_id": "fixture-park",
+      "score": 34.92886001036358,
+      "criteria": [
+        {
+          "criterion": "interests",
+          "value": 0.0,
+          "weight": 0.5,
+          "contribution": 0.0,
+          "evidence_sources": [],
+          "explanation": "0/2 sở thích khớp taxonomy hoặc bằng chứng được cung cấp."
+        },
+        {
+          "criterion": "proximity",
+          "value": 0.7464430005181791,
+          "weight": 0.2,
+          "contribution": 14.928860010363582,
+          "evidence_sources": [
+            "fictional_fixture"
+          ],
+          "explanation": "Khoảng cách đường chim bay theo tọa độ; không phải quãng đường hay thời gian lái xe."
+        },
+        {
+          "criterion": "affordability",
+          "value": 1.0,
+          "weight": 0.2,
+          "contribution": 20.0,
+          "evidence_sources": [
+            "fictional_price_fixture"
+          ],
+          "explanation": "So mức giá tối đa với trần cùng đơn vị; thiếu giá nhận 0 điểm tiêu chí và giữ cảnh báo."
+        },
+        {
+          "criterion": "weather",
+          "value": 0.0,
+          "weight": 0.1,
+          "contribution": 0.0,
+          "evidence_sources": [
+            "fictional_weather_fixture_not_forecast"
+          ],
+          "explanation": "Ưu tiên có bằng chứng trong nhà khi rủi ro thời tiết cao; không xác nhận an toàn."
+        }
+      ],
+      "matched_interests": [],
+      "unresolved_interests": [
+        "văn hóa",
+        "yên tĩnh"
+      ],
+      "missing_evidence": [
+        "interests",
+        "indoor_weather_suitability"
+      ],
+      "distance_m": 1267.7849974091043,
+      "distance_method": "haversine_straight_line",
+      "is_required": false,
+      "price_unavailable_reason": null
+    }
+  ],
+  "rejected": [],
+  "required_conflicts": [],
+  "evaluated_at": "2026-10-22T13:33:08.931263Z"
+}

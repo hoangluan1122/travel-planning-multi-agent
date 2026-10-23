@@ -1,0 +1,88 @@
+{
+  "status": "sources_found",
+  "query": "hotel Sa Pa official website",
+  "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+official+website",
+  "fetched_at": "2026-10-22T06:20:41.781498Z",
+  "sources": [
+    {
+      "id": "web:d51f0bf7ca477c688fd03dad",
+      "title": "Boutique Luxury | Hotel de la Coupole Sapa - MGallery Collection",
+      "snippet": "With twin beds and the option of an extra adult or child bed, this Sapa hotel room is an elegant retreat for business, leisure or family stays.",
+      "url": "https://mgallery.accor.com/en/hotels/A5V2.html",
+      "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+site%3Amgallery.accor.com%2Fen%2Fhotels%2F",
+      "fetched_at": "2026-10-22T06:20:41.781498Z",
+      "verification": "search_result_only"
+    },
+    {
+      "id": "web:e75304db75d2779b549bbbbd",
+      "title": "Hotel Hôtel de la Coupole - MGallery",
+      "snippet": "Chambres spacieuses de l'hôtel Sapa aux 8ème et 9ème étages idéales pour les familles jusqu'à 4, avec des lits jumeaux et la possibilité d'ajouter des lits supplémentaires ou un berceau.",
+      "url": "https://mgallery.accor.com/fr/hotels/A5V2.html",
+      "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+site%3Amgallery.accor.com%2Fen%2Fhotels%2F",
+      "fetched_at": "2026-10-22T06:20:41.781498Z",
+      "verification": "search_result_only"
+    },
+    {
+      "id": "web:62cdf5512458fccf43b2f49e",
+      "title": "Search Hotels in Sa Pa, Vietnam - Discover Your Stay for ...",
+      "snippet": "Ha Giang Hotel Sapa · Laxsik Ecolodge · Dang Khoa Homestay · Sapaxa Spring Garden Ecolodge · North Star Hotel Sapa · Sapana Mountain Retreat · Tropical Paradise Sapa ...Read more",
+      "url": "https://www.hotels.com/de1641979/hotels-sapa-vietnam/",
+      "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+official+website",
+      "fetched_at": "2026-10-22T06:20:41.781498Z",
+      "verification": "search_result_only"
+    },
+    {
+      "id": "web:8d465b5f1ed4e54f29db67a0",
+      "title": "Hotels in Sa Pa Places to stay in Sa Pa Vietnam 𝗕𝗢𝗢𝗞 ...",
+      "snippet": "Check out best Sa Pa hotel deals and offers on more than 136 hotels in Sa Pa only on MakeMyTrip! Wondering where to book your stay in Sa Pa?Read more",
+      "url": "https://www.makemytrip.com/hotels-international/vietnam/sa_pa-hotels/",
+      "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+official+website",
+      "fetched_at": "2026-10-22T06:20:41.781498Z",
+      "verification": "search_result_only"
+    },
+    {
+      "id": "web:3230fc3b5bae94b61adb9151",
+      "title": "Khách sạn Sa Pa",
+      "snippet": "Những khách sạn phù hợp với gia đình tại Sapa bao gồm: Khu nghĩ dưỡng Ville De Mont Mountain Resort, Sapa Cat Cat Hills Resort & Spa, BB Hotel Sapa, Hanna ...",
+      "url": "https://www.traveloka.com/vi-vn/hotel/vietnam/city/sa-pa-10009950",
+      "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+official+website",
+      "fetched_at": "2026-10-22T06:20:41.781498Z",
+      "verification": "search_result_only"
+    }
+  ],
+  "official_details": [],
+  "places": [
+    {
+      "id": "official:d51f0bf7ca477c688fd03dad",
+      "name": "Hotel de la Coupole Sapa - MGallery Collection",
+      "address": "1, Hoang Lien Street, Sapa District, Lao Cai Province, SAPA, Vietnam",
+      "latitude": 22.334686,
+      "longitude": 103.840433,
+      "source": "official_mgallery_jsonld",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T06:20:45.038699Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://mgallery.accor.com/en/hotels/A5V2.html",
+      "attribution": null,
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": "https://mgallery.accor.com/en/hotels/A5V2.html",
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "address": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "latitude": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "longitude": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "types": "https://mgallery.accor.com/en/hotels/A5V2.html"
+      }
+    }
+  ],
+  "warnings": [
+    "Kết quả tìm kiếm là nguồn ứng viên, chưa xác minh địa danh hoặc loại hình.",
+    "Không dùng giá/snippet làm báo giá hoặc tọa độ; chưa xác minh phòng trống hoặc ảnh.",
+    "Tìm bằng tên địa danh, chưa áp dụng bộ lọc bán kính hoặc location_id.",
+    "Tọa độ do website chính thức công bố; chưa kiểm chứng thực địa hoặc giá/phòng trống."
+  ]
+}

@@ -1,0 +1,630 @@
+{
+  "request_id": "e4dfd849-1913-435f-935b-b22c75e67f3a",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Sa Pa",
+  "category": "hotel",
+  "resolved_location": {
+    "id": "geonames:1568043",
+    "name": "Sa Pa",
+    "latitude": 22.34023,
+    "longitude": 103.84415,
+    "admin1": "Lao Cai",
+    "admin2": "Huyện Sa Pa",
+    "feature_code": "PPL",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1568043/",
+    "fetched_at": "2026-10-22T18:14:15.818627Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/5447154521": {
+      "distance_m": 61.289484600254774,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/13282245157": {
+      "distance_m": 231.88361862497163,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/13282194526": {
+      "distance_m": 261.47470540632213,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/6040604985": {
+      "distance_m": 261.5042374681035,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/7193196886": {
+      "distance_m": 276.7530087247026,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 41,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:14:15.821628Z",
+  "completed_at": "2026-10-22T18:14:17.946989Z",
+  "places": [
+    {
+      "id": "osm:node/5447154521",
+      "name": "Nha nghi hoi nga",
+      "address": "Đường Điện Biên Phủ - Quốc lộ 4D, Sa Pa, Lào Cai, Việt Nam",
+      "latitude": 22.3397635,
+      "longitude": 103.8438326,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5447154521",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5447154521",
+        "latitude": "https://www.openstreetmap.org/node/5447154521",
+        "longitude": "https://www.openstreetmap.org/node/5447154521",
+        "types": "https://www.openstreetmap.org/node/5447154521",
+        "address": "https://www.openstreetmap.org/node/5447154521"
+      }
+    },
+    {
+      "id": "osm:node/13282245157",
+      "name": "A Lử Homestay",
+      "address": "Đường Điện Biên Phủ - Quốc lộ 4D, Sa Pa, Lào Cai, Việt Nam",
+      "latitude": 22.3406302,
+      "longitude": 103.8419373,
+      "source": "osm_photon",
+      "types": [
+        "guest_house"
+      ],
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/13282245157",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/13282245157",
+        "latitude": "https://www.openstreetmap.org/node/13282245157",
+        "longitude": "https://www.openstreetmap.org/node/13282245157",
+        "types": "https://www.openstreetmap.org/node/13282245157",
+        "address": "https://www.openstreetmap.org/node/13282245157"
+      }
+    },
+    {
+      "id": "osm:node/13282194526",
+      "name": "Sapa Warm Hotel",
+      "address": "720, Đường Điện Biên Phủ, Sa Pa, Lào Cai, Việt Nam",
+      "latitude": 22.3407487,
+      "longitude": 103.8416703,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/13282194526",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/13282194526",
+        "latitude": "https://www.openstreetmap.org/node/13282194526",
+        "longitude": "https://www.openstreetmap.org/node/13282194526",
+        "types": "https://www.openstreetmap.org/node/13282194526",
+        "address": "https://www.openstreetmap.org/node/13282194526"
+      }
+    },
+    {
+      "id": "osm:node/6040604985",
+      "name": "Fancy Sapa Hostel 2",
+      "address": "No.26, Hùng Hồ alley, Sa Pa Town, Lào Cai, Việt Nam",
+      "latitude": 22.3380453,
+      "longitude": 103.8432088,
+      "source": "osm_photon",
+      "types": [
+        "hostel"
+      ],
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/6040604985",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/6040604985",
+        "latitude": "https://www.openstreetmap.org/node/6040604985",
+        "longitude": "https://www.openstreetmap.org/node/6040604985",
+        "types": "https://www.openstreetmap.org/node/6040604985",
+        "address": "https://www.openstreetmap.org/node/6040604985"
+      }
+    },
+    {
+      "id": "osm:node/7193196886",
+      "name": "Himalaya Hostel",
+      "address": "Ngõ Hùng Hồ, Sa Pa, Lào Cai, Việt Nam",
+      "latitude": 22.3377528,
+      "longitude": 103.8438894,
+      "source": "osm_photon",
+      "types": [
+        "hostel"
+      ],
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/7193196886",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/7193196886",
+        "latitude": "https://www.openstreetmap.org/node/7193196886",
+        "longitude": "https://www.openstreetmap.org/node/7193196886",
+        "types": "https://www.openstreetmap.org/node/7193196886",
+        "address": "https://www.openstreetmap.org/node/7193196886"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/5447154521",
+      "title": "Nha nghi hoi nga",
+      "snippet": "Đường Điện Biên Phủ - Quốc lộ 4D, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5447154521",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13282245157",
+      "title": "A Lử Homestay",
+      "snippet": "Đường Điện Biên Phủ - Quốc lộ 4D, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13282245157",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13282194526",
+      "title": "Sapa Warm Hotel",
+      "snippet": "720, Đường Điện Biên Phủ, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13282194526",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6040604985",
+      "title": "Fancy Sapa Hostel 2",
+      "snippet": "No.26, Hùng Hồ alley, Sa Pa Town, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6040604985",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7193196886",
+      "title": "Himalaya Hostel",
+      "snippet": "Ngõ Hùng Hồ, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7193196886",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13666989223",
+      "title": "Sapa Jungle Homestay",
+      "snippet": "Ngõ 520 Điện Biên Phủ, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13666989223",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6419224832",
+      "title": "Cuong Phuong Homestay",
+      "snippet": "Ngõ Hùng Hồ, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6419224832",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/989239631",
+      "title": "Sapa Eco-Home - Mountain retreat",
+      "snippet": "75, Xuân Viên, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/989239631",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13276734817",
+      "title": "Sapa Indigo Inn",
+      "snippet": "689B, Đường Điện Biên Phủ, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13276734817",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13276702876",
+      "title": "Green Villa",
+      "snippet": "Đường Điện Biên Phủ, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13276702876",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7241740911",
+      "title": "Sapa Everest Hotel",
+      "snippet": "Đường Điện Biên Phủ - Quốc lộ 4D, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7241740911",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7017188370",
+      "title": "Van Hung Hotel",
+      "snippet": "Phố Hoàng Diệu, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7017188370",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13038546488",
+      "title": "Minh Anh House",
+      "snippet": "Ngõ 520 Điện Biên Phủ, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13038546488",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5672789925",
+      "title": "Saparis Hotel",
+      "snippet": "06, Hoang Dieu, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5672789925",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4934692221",
+      "title": "Sapa Paramount Hotel",
+      "snippet": "07, Hoang Dieu, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4934692221",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3115632667",
+      "title": "Victoria SaPa",
+      "snippet": "Phố Hoàng Diệu, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3115632667",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6829133826",
+      "title": "Freesia Hotel",
+      "snippet": "Ngõ 520 Điện Biên Phủ, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6829133826",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3475113390",
+      "title": "Sapa Legacy Hotel",
+      "snippet": "18, Ngu Chi Son, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3475113390",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/977781119",
+      "title": "North Star Hotel",
+      "snippet": "Phố Lê Văn Tám, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/977781119",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3115632665",
+      "title": "SaPa Panorama",
+      "snippet": "Phố Hoàng Diệu, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3115632665",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3115632664",
+      "title": "SaPa Elite",
+      "snippet": "Phố Hoàng Diệu, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3115632664",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/989239500",
+      "title": "Riverside II Hotel",
+      "snippet": "18, Đường Ngũ Chỉ Sơn, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/989239500",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6263341785",
+      "title": "Nhà Nghỉ Vượng Hà",
+      "snippet": "004, Lê Văn Tám, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6263341785",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/989240435",
+      "title": "Tùng Lâm",
+      "snippet": "49, Xuân Vien, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/989240435",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7060350385",
+      "title": "Sapa O Chau",
+      "snippet": "Phố Lê Văn Tám, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7060350385",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/989239648",
+      "title": "Thanh Son",
+      "snippet": "Xuân Vien, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/989239648",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/989239943",
+      "title": "Anh Tuan",
+      "snippet": "51, Xuân Vien, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/989239943",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7170643914",
+      "title": "May Ho Hotel",
+      "snippet": "Phố Kim Đồng, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7170643914",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/989240357",
+      "title": "Đông Á",
+      "snippet": "Đường Thạch Sơn, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/989240357",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5100630950",
+      "title": "Nhà Ngî Sapatrek",
+      "snippet": "Đường Xuân Viên, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5100630950",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5474499721",
+      "title": "Q Sapa Hotel",
+      "snippet": "Phố Võ Thị Sáu, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5474499721",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1714876169",
+      "title": "Quynh Anh Hotel",
+      "snippet": "Đường Xuân Viên, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1714876169",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/989240263",
+      "title": "Viêt Emotion",
+      "snippet": "17, Xuân Vien, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/989240263",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/989239477",
+      "title": "Việt - Anh",
+      "snippet": "Đường Thạch Sơn, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/989239477",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/989240348",
+      "title": "Quỳnh Mai",
+      "snippet": "10, Đường Thạch Sơn, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/989240348",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/989240239",
+      "title": "Lan Hương",
+      "snippet": "34, Hàm Rồng, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/989240239",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4954109621",
+      "title": "Nhà Nghỉ Đức Nhung",
+      "snippet": "01 phố Kim Đồng, Đường Ngũ Chỉ Sơn, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4954109621",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/989239333",
+      "title": "Thu Hà",
+      "snippet": "28, Đường Thạch Sơn, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/989239333",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4198265989",
+      "title": "Muong Thanh Sapa Hotel",
+      "snippet": "44, Ngu Chi Son Sapa, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4198265989",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3115632663",
+      "title": "Elegance",
+      "snippet": "Phố Hoàng Diệu, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3115632663",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5482532022",
+      "title": "Sweden Hotel",
+      "snippet": "Phố Võ Thị Sáu, Sa Pa, Lào Cai, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5482532022",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.34023&limit=50&lon=103.84415&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:17.940890Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "stay_price",
+    "room_availability",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:14:15.821628Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:14:15.821628Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:14:17.945994Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 41
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:14:17.945994Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

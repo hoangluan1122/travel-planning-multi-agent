@@ -1,0 +1,59 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 15882261,
+        "osm_key": "boundary",
+        "osm_value": "national_park",
+        "type": "other",
+        "name": "Vườn quốc gia Cúc Phương",
+        "state": "Tỉnh Ninh Bình",
+        "country": "Việt Nam",
+        "countrycode": "VN",
+        "extent": [
+          105.4722174,
+          20.3962356,
+          105.73799,
+          20.2361234
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.6176593,
+          20.3162835
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "osm_type": "R",
+        "osm_id": 15882261,
+        "osm_key": "leisure",
+        "osm_value": "nature_reserve",
+        "type": "other",
+        "name": "Vườn quốc gia Cúc Phương",
+        "state": "Tỉnh Ninh Bình",
+        "country": "Việt Nam",
+        "countrycode": "VN",
+        "extent": [
+          105.4722174,
+          20.3962356,
+          105.73799,
+          20.2361234
+        ]
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          105.6176593,
+          20.3162835
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "request_id": "d72fa421-329f-4184-82c5-c2550c31ccae",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Sa Pa",
+  "category": "hotel",
+  "started_at": "2026-10-22T17:18:31.022612Z",
+  "completed_at": "2026-10-22T17:18:42.475454Z",
+  "places": [
+    {
+      "id": "official:d51f0bf7ca477c688fd03dad",
+      "name": "Hotel de la Coupole Sapa - MGallery Collection",
+      "address": "1, Hoang Lien Street, Sapa District, Lao Cai Province, SAPA, Vietnam",
+      "latitude": 22.334686,
+      "longitude": 103.840433,
+      "source": "official_mgallery_jsonld",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T17:18:42.419242Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://mgallery.accor.com/en/hotels/A5V2.html",
+      "attribution": null,
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": "https://mgallery.accor.com/en/hotels/A5V2.html",
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "address": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "latitude": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "longitude": "https://mgallery.accor.com/en/hotels/A5V2.html",
+        "types": "https://mgallery.accor.com/en/hotels/A5V2.html"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "web:d51f0bf7ca477c688fd03dad",
+      "title": "Boutique Luxury | Hotel de la Coupole Sapa - MGallery Collection",
+      "snippet": "With twin beds and the option of an extra adult or child bed, this Sapa hotel room is an elegant retreat for business, leisure or family stays.",
+      "url": "https://mgallery.accor.com/en/hotels/A5V2.html",
+      "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+site%3Amgallery.accor.com%2Fen%2Fhotels%2F",
+      "fetched_at": "2026-10-22T17:18:40.718124Z",
+      "verification": "search_result_only"
+    },
+    {
+      "id": "web:e75304db75d2779b549bbbbd",
+      "title": "Hotel Hôtel de la Coupole - MGallery",
+      "snippet": "Chambres spacieuses de l'hôtel Sapa aux 8ème et 9ème étages idéales pour les familles jusqu'à 4, avec des lits jumeaux et la possibilité d'ajouter des lits supplémentaires ou un berceau.",
+      "url": "https://mgallery.accor.com/fr/hotels/A5V2.html",
+      "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+site%3Amgallery.accor.com%2Fen%2Fhotels%2F",
+      "fetched_at": "2026-10-22T17:18:40.718124Z",
+      "verification": "search_result_only"
+    },
+    {
+      "id": "web:62cdf5512458fccf43b2f49e",
+      "title": "Search Hotels in Sa Pa, Vietnam - Discover Your Stay for ...",
+      "snippet": "Ha Giang Hotel Sapa · Laxsik Ecolodge · Dang Khoa Homestay · Sapaxa Spring Garden Ecolodge · North Star Hotel Sapa · Sapana Mountain Retreat · Tropical Paradise Sapa ...Read more",
+      "url": "https://www.hotels.com/de1641979/hotels-sapa-vietnam/",
+      "search_url": "https://coccoc.com/search?query=hotel+Sa+Pa+official+website",
+      "fetched_at": "2026-10-22T17:18:40.718124Z",
+      "verification": "search_result_only"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "stay_price",
+    "room_availability",
+    "licensed_images",
+    "opening_hours",
+    "needs_verification"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T17:18:31.022612Z",
+      "message": "Tìm nguồn trực tiếp và đọc các website có adapter được hỗ trợ.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T17:18:42.475454Z",
+      "message": "Kiểm tra dữ liệu, URL nguồn, thời điểm lấy và nguồn của từng trường.",
+      "record_count": 1
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T17:18:42.475454Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 1
+    }
+  ],
+  "warnings": [
+    "Kết quả tìm kiếm là nguồn ứng viên, chưa xác minh địa danh hoặc loại hình.",
+    "Không dùng giá/snippet làm báo giá hoặc tọa độ; chưa xác minh phòng trống hoặc ảnh.",
+    "Tìm bằng tên địa danh, chưa áp dụng bộ lọc bán kính hoặc location_id.",
+    "Tọa độ do website chính thức công bố; chưa kiểm chứng thực địa hoặc giá/phòng trống.",
+    "Hiện hỗ trợ đọc chi tiết khách sạn trên MGallery; không đại diện mọi khách sạn trong khu vực.",
+    "Tọa độ do website chính thức công bố, chưa xác minh cửa vào hoặc thực địa.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

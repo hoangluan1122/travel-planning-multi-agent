@@ -1,0 +1,122 @@
+[
+  {
+    "number": 1,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=Tr%C3%A0ng+An",
+    "at": "2026-10-22T18:24:10.939715+00:00",
+    "status": 200,
+    "bytes": 253,
+    "sha256": "f2f59a36894d881d3ec87ff713eee896e3b46020c90ffce31c93b6bd2d87eee1",
+    "content_encoding": "deflate",
+    "elapsed_s": 1.078
+  },
+  {
+    "number": 2,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=Tr%C3%A0ng+An",
+    "at": "2026-10-22T18:24:13.435812+00:00",
+    "status": 200,
+    "bytes": 1084,
+    "sha256": "d00292120233d99bd8de78455b60ec091fb53764d5d38426d635ede52d08686a",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.016
+  },
+  {
+    "number": 3,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=V%C6%B0%E1%BB%9Dn+qu%E1%BB%91c+gia+C%C3%BAc+Ph%C6%B0%C6%A1ng",
+    "at": "2026-10-22T18:24:15.932379+00:00",
+    "status": 200,
+    "bytes": 274,
+    "sha256": "7492c3d37cb3f4ee43074663507fbbbc829b14fbf6241d968dfb4ed3b6b0fbdf",
+    "content_encoding": "deflate",
+    "elapsed_s": 0.859
+  },
+  {
+    "number": 4,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=V%C6%B0%E1%BB%9Dn+qu%E1%BB%91c+gia+C%C3%BAc+Ph%C6%B0%C6%A1ng",
+    "at": "2026-10-22T18:24:18.432983+00:00",
+    "status": 200,
+    "bytes": 344,
+    "sha256": "49fe21c97d4e33abc8018063354be4ab50051541b075d54316fdb64031a7c61f",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.172
+  },
+  {
+    "number": 5,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=Tam+%C4%90%E1%BA%A3o",
+    "at": "2026-10-22T18:24:20.929302+00:00",
+    "status": 200,
+    "bytes": 394,
+    "sha256": "3a3403be83473f603ada742db5537638043e53a8daa82a75b84eaf9201f1bfd7",
+    "content_encoding": "deflate",
+    "elapsed_s": 0.844
+  },
+  {
+    "number": 6,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=Tam+%C4%90%E1%BA%A3o",
+    "at": "2026-10-22T18:24:23.440864+00:00",
+    "status": 200,
+    "bytes": 1001,
+    "sha256": "32b44c2bf466cca3152600febfea3e90f5f9af7bd52968927aab7d1470438fb8",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.031
+  },
+  {
+    "number": 7,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=%C4%90%C3%A0+L%E1%BA%A1t",
+    "at": "2026-10-22T18:24:25.949098+00:00",
+    "status": 200,
+    "bytes": 358,
+    "sha256": "96d6c5ec3fcd77a174c1bb1f28cc748ab72620da67adb3a4b998e02bba86976d",
+    "content_encoding": "deflate",
+    "elapsed_s": 0.812
+  },
+  {
+    "number": 8,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=%C4%90%C3%A0+L%E1%BA%A1t",
+    "at": "2026-10-22T18:24:28.464246+00:00",
+    "status": 200,
+    "bytes": 955,
+    "sha256": "a10326336e39a30750fa8641a1f1d04f9ad6362a9e3ad16f1b7f6d7d4560d525",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.266
+  },
+  {
+    "number": 9,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=Fansipan",
+    "at": "2026-10-22T18:24:30.965054+00:00",
+    "status": 200,
+    "bytes": 41,
+    "sha256": "159359e3831f7e7b6a33e29e33cd514d4623e150316d89a8fc840a1d99d967ae",
+    "content_encoding": "deflate",
+    "elapsed_s": 0.844
+  },
+  {
+    "number": 10,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=Fansipan",
+    "at": "2026-10-22T18:24:33.457694+00:00",
+    "status": 200,
+    "bytes": 933,
+    "sha256": "f11890227f79499ff6275da7d3d1d1467e78ae52e41d54d1cf42d7c2c78cdcb8",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.032
+  },
+  {
+    "number": 11,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=B%C3%A0+N%C3%A0+Hills",
+    "at": "2026-10-22T18:24:35.963862+00:00",
+    "status": 200,
+    "bytes": 40,
+    "sha256": "00b97a2c4acaca473d1f2de77b6769fa1e5413347273e39334974b3109e3eb45",
+    "content_encoding": "deflate",
+    "elapsed_s": 0.875
+  },
+  {
+    "number": 12,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&limit=10&q=B%C3%A0+N%C3%A0+Hills",
+    "at": "2026-10-22T18:24:38.469229+00:00",
+    "status": 200,
+    "bytes": 924,
+    "sha256": "321179c04a3e15a1493212b60176f3d3b9ac1c153a646ae6ae5cb5d6d7cf083c",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.047
+  }
+]

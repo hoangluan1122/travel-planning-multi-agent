@@ -1,0 +1,8 @@
+{
+  "candidates":[
+    {"id":"fixture-museum","name":"TEST Museum","address":"Fictional fixture","latitude":16,"longitude":108,"source":"fictional_fixture","types":["museum"]},
+    {"id":"fixture-park","name":"TEST Park","address":"Fictional fixture","latitude":16,"longitude":108,"source":"fictional_fixture","types":["park"]}
+  ],
+  "interests":["museums"],
+  "limit":1
+}

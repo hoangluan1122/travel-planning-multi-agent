@@ -1,0 +1,12 @@
+[
+  {
+    "destination": "Fansipan",
+    "category": "hotel",
+    "intent": "Trạm cáp treo trên núi, không đồng nhất với đỉnh núi",
+    "radius_m": 10000,
+    "passed": true,
+    "status": "success",
+    "records": 5,
+    "errors": []
+  }
+]

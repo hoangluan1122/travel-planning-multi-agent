@@ -1,0 +1,242 @@
+[
+  {
+    "number": 1,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=Tam+%C4%90%E1%BA%A3o",
+    "at": "2026-10-22T18:28:26.578330+00:00",
+    "status": 200,
+    "bytes": 393,
+    "sha256": "6ebaf91646f5e655f433ae5968a211bd5065cf92be8d0cfe81db852ce8beb15a",
+    "content_encoding": "deflate",
+    "elapsed_s": 1.031
+  },
+  {
+    "number": 2,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&include=osm.aerialway.station%2Cosm.boundary.national_park%2Cosm.historic.castle%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.bay%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.natural.peak%2Cosm.place.city%2Cosm.place.hamlet%2Cosm.place.island%2Cosm.place.locality%2Cosm.place.neighbourhood%2Cosm.place.quarter%2Cosm.place.suburb%2Cosm.place.town%2Cosm.place.village%2Cosm.tourism.attraction%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint&limit=20&q=Tam+%C4%90%E1%BA%A3o",
+    "at": "2026-10-22T18:28:29.080585+00:00",
+    "status": 200,
+    "bytes": 1322,
+    "sha256": "775b0971fd8769b9d6a85af8dd30d2a1128a1b47242aaaea1b15a8148e7649bf",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.469
+  },
+  {
+    "number": 3,
+    "url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+    "at": "2026-10-22T18:28:31.579900+00:00",
+    "status": 200,
+    "bytes": 715,
+    "sha256": "9c3295606e7c9ca8ee636aef43d5d59f8ace1253be233426d629238b97e913dc",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.063
+  },
+  {
+    "number": 4,
+    "url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+    "at": "2026-10-22T18:28:34.089157+00:00",
+    "status": 200,
+    "bytes": 482,
+    "sha256": "d280c1655178b4cf14bbf09214ed506ad58ffe7203bc53e73abdec1f4e109c13",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.0
+  },
+  {
+    "number": 5,
+    "url": "https://photon.komoot.io/reverse?lat=21.4559982&limit=50&lon=105.644466&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+    "at": "2026-10-22T18:28:36.589878+00:00",
+    "status": 200,
+    "bytes": 685,
+    "sha256": "4b89a2826359c1d8496d0bb4d60cceac6a8ba014dbe0dd2186eaa2aa8c07a50c",
+    "content_encoding": "gzip",
+    "elapsed_s": 0.938
+  },
+  {
+    "number": 6,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=V%C6%B0%E1%BB%9Dn+qu%E1%BB%91c+gia+C%C3%BAc+Ph%C6%B0%C6%A1ng",
+    "at": "2026-10-22T18:28:39.128378+00:00",
+    "status": 200,
+    "bytes": 275,
+    "sha256": "25beb2a8265353e7899868f6b7323020f2bd3c77955790b24859b02ac73ce85c",
+    "content_encoding": "deflate",
+    "elapsed_s": 0.86
+  },
+  {
+    "number": 7,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&include=osm.aerialway.station%2Cosm.boundary.national_park%2Cosm.historic.castle%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.bay%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.natural.peak%2Cosm.place.city%2Cosm.place.hamlet%2Cosm.place.island%2Cosm.place.locality%2Cosm.place.neighbourhood%2Cosm.place.quarter%2Cosm.place.suburb%2Cosm.place.town%2Cosm.place.village%2Cosm.tourism.attraction%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint&limit=20&q=V%C6%B0%E1%BB%9Dn+qu%E1%BB%91c+gia+C%C3%BAc+Ph%C6%B0%C6%A1ng",
+    "at": "2026-10-22T18:28:41.609047+00:00",
+    "status": 200,
+    "bytes": 344,
+    "sha256": "49fe21c97d4e33abc8018063354be4ab50051541b075d54316fdb64031a7c61f",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.141
+  },
+  {
+    "number": 8,
+    "url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+    "at": "2026-10-22T18:28:44.106544+00:00",
+    "status": 200,
+    "bytes": 334,
+    "sha256": "f6c960a75e5644865616ecd9c918478c0e7d2c119a588c89fe0b08eec4084756",
+    "content_encoding": "gzip",
+    "elapsed_s": 0.906
+  },
+  {
+    "number": 9,
+    "url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+    "at": "2026-10-22T18:28:46.608000+00:00",
+    "status": 200,
+    "bytes": 334,
+    "sha256": "9efde273a365c8bc8acc45672a2e6e8afe822f08fdc289fce4d30f78b371972b",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.047
+  },
+  {
+    "number": 10,
+    "url": "https://photon.komoot.io/reverse?lat=20.3162835&limit=50&lon=105.6176593&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+    "at": "2026-10-22T18:28:49.112094+00:00",
+    "status": 200,
+    "bytes": 544,
+    "sha256": "f2201622b128bc206bf446f9b8e02d967218be0ca200df88582c43a6f647c662",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.125
+  },
+  {
+    "number": 11,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=%C4%90%C3%A0+L%E1%BA%A1t",
+    "at": "2026-10-22T18:28:51.628964+00:00",
+    "status": 200,
+    "bytes": 357,
+    "sha256": "078b015d549ceddd12575e2f9f9f966e546306aa99669e2207a85b4daaac156a",
+    "content_encoding": "deflate",
+    "elapsed_s": 0.86
+  },
+  {
+    "number": 12,
+    "url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+    "at": "2026-10-22T18:28:54.151882+00:00",
+    "status": 200,
+    "bytes": 2350,
+    "sha256": "f7fec9f8a597b41619af9aa8b5e3741cad51e48f0983db1d97cba0b2f123fb6a",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.0
+  },
+  {
+    "number": 13,
+    "url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+    "at": "2026-10-22T18:28:56.668556+00:00",
+    "status": 200,
+    "bytes": 2264,
+    "sha256": "0463b9165c8f0c84c10ca6082f1970d9f75393a0f3a57f8868154b74924a9814",
+    "content_encoding": "gzip",
+    "elapsed_s": 0.969
+  },
+  {
+    "number": 14,
+    "url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+    "at": "2026-10-22T18:28:59.166967+00:00",
+    "status": 200,
+    "bytes": 2766,
+    "sha256": "18f8658aa240c1f850e9d9bb54e2ce76230b1ecf335f3b249c8aec51bc1f5af9",
+    "content_encoding": "gzip",
+    "elapsed_s": 0.985
+  },
+  {
+    "number": 15,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=B%C3%A0+N%C3%A0+Hills",
+    "at": "2026-10-22T18:29:01.670461+00:00",
+    "status": 200,
+    "bytes": 41,
+    "sha256": "cebada9ff32738828678521161a82848ca359910f9de632bcfc6974d829762bd",
+    "content_encoding": "deflate",
+    "elapsed_s": 0.875
+  },
+  {
+    "number": 16,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&include=osm.aerialway.station%2Cosm.boundary.national_park%2Cosm.historic.castle%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.bay%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.natural.peak%2Cosm.place.city%2Cosm.place.hamlet%2Cosm.place.island%2Cosm.place.locality%2Cosm.place.neighbourhood%2Cosm.place.quarter%2Cosm.place.suburb%2Cosm.place.town%2Cosm.place.village%2Cosm.tourism.attraction%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint&limit=20&q=B%C3%A0+N%C3%A0+Hills",
+    "at": "2026-10-22T18:29:04.179694+00:00",
+    "status": 200,
+    "bytes": 722,
+    "sha256": "19ea6ac0e3478c79aa86342a11ffce23537d6d45ffc3cf1f09150d5aa98e2ec6",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.016
+  },
+  {
+    "number": 17,
+    "url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+    "at": "2026-10-22T18:29:06.689628+00:00",
+    "status": 200,
+    "bytes": 402,
+    "sha256": "6b2a7c25494db882b024fb9b89bbbb19b67b9a8bcddb96740a94ee45b67a3ae7",
+    "content_encoding": "gzip",
+    "elapsed_s": 0.984
+  },
+  {
+    "number": 18,
+    "url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+    "at": "2026-10-22T18:29:09.183161+00:00",
+    "status": 200,
+    "bytes": 711,
+    "sha256": "8d91cbf2eec05c3b4248da52510ab5dfbe574d92cb54b240ceb46cfac6e5c89e",
+    "content_encoding": "gzip",
+    "elapsed_s": 0.922
+  },
+  {
+    "number": 19,
+    "url": "https://photon.komoot.io/reverse?lat=15.9958569&limit=50&lon=107.9890712&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+    "at": "2026-10-22T18:29:11.678334+00:00",
+    "status": 200,
+    "bytes": 676,
+    "sha256": "228383f65bd6889b23c1f4b004c8a98710d760a67006a21ec0ffb50c89fa2616",
+    "content_encoding": "gzip",
+    "elapsed_s": 0.984
+  },
+  {
+    "number": 20,
+    "url": "https://geocoding-api.open-meteo.com/v1/search?count=20&countryCode=VN&format=json&language=vi&name=Fansipan",
+    "at": "2026-10-22T18:29:14.181272+00:00",
+    "status": 200,
+    "bytes": 40,
+    "sha256": "d07e2c741257f0d523166a0d72598743a721f7c06dc97c36c1e7578b706dd9cd",
+    "content_encoding": "deflate",
+    "elapsed_s": 0.875
+  },
+  {
+    "number": 21,
+    "url": "https://photon.komoot.io/api/?countrycode=VN&include=osm.aerialway.station%2Cosm.boundary.national_park%2Cosm.historic.castle%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.bay%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.natural.peak%2Cosm.place.city%2Cosm.place.hamlet%2Cosm.place.island%2Cosm.place.locality%2Cosm.place.neighbourhood%2Cosm.place.quarter%2Cosm.place.suburb%2Cosm.place.town%2Cosm.place.village%2Cosm.tourism.attraction%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint&limit=20&q=Fansipan",
+    "at": "2026-10-22T18:29:16.683525+00:00",
+    "status": 200,
+    "bytes": 480,
+    "sha256": "d6dc05d605b8a4e0ac3fa22dfd5f169f23fceedd261ad0e521d823461d0610db",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.0
+  },
+  {
+    "number": 22,
+    "url": "https://photon.komoot.io/reverse?lat=22.3066106&limit=50&lon=103.7747781&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+    "at": "2026-10-22T18:29:19.183846+00:00",
+    "status": 200,
+    "bytes": 58,
+    "sha256": "6ad0040752139f51ed2b93688d5ff8d445a3f9106b51477731c59f44dfe1d067",
+    "content_encoding": "gzip",
+    "elapsed_s": 0.875
+  },
+  {
+    "number": 23,
+    "url": "https://photon.komoot.io/reverse?lat=22.3066106&limit=50&lon=103.7747781&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+    "at": "2026-10-22T18:29:21.687541+00:00",
+    "status": 200,
+    "bytes": 294,
+    "sha256": "b54a216b89b4c14c29c9b81c3ba0ffd2a6eeb77cf105664051d2c1926d78fee4",
+    "content_encoding": "gzip",
+    "elapsed_s": 0.891
+  },
+  {
+    "number": 24,
+    "url": "https://photon.komoot.io/reverse?lat=22.3066106&limit=50&lon=103.7747781&osm_tag=boundary%3Anational_park&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=natural%3Apeak&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+    "at": "2026-10-22T18:29:24.184923+00:00",
+    "status": 200,
+    "bytes": 403,
+    "sha256": "c8642baa25b2a43fff2f3e2efe0874e0d3dcefe2091bf957b0aefe5e6b8827bd",
+    "content_encoding": "gzip",
+    "elapsed_s": 1.016
+  }
+]

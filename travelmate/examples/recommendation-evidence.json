@@ -1,0 +1,30 @@
+{
+  "candidates": [
+    {"id":"fixture-museum","name":"TEST Museum","address":"Fictional fixture, not a real business","latitude":16.0675,"longitude":108.2202,"source":"fictional_fixture","types":["museum"]},
+    {"id":"fixture-park","name":"TEST Park","address":"Fictional fixture, not a real business","latitude":16.075,"longitude":108.23,"source":"fictional_fixture","types":["park"]},
+    {"id":"fixture-cafe","name":"TEST Cafe","address":"Fictional fixture, not a real business","latitude":16.068,"longitude":108.221,"source":"fictional_fixture","types":["cafe"]}
+  ],
+  "interests":["văn hóa","yên tĩnh"],
+  "limit":2,
+  "context":{
+    "origin":{"latitude":16.0678,"longitude":108.2208},
+    "max_distance_m":5000,
+    "max_price_vnd":"150000",
+    "price_basis":"per_person_visit",
+    "weather_risk":"elevated",
+    "weather_source":"fictional_weather_fixture_not_forecast",
+    "features":{
+      "fixture-museum":[
+        {"feature":"indoor","value":true,"source":"fictional_fixture"},
+        {"feature":"quiet","value":true,"source":"fictional_fixture"}
+      ],
+      "fixture-park":[{"feature":"outdoor","value":true,"source":"fictional_fixture"}],
+      "fixture-cafe":[{"feature":"indoor","value":true,"source":"fictional_fixture"}]
+    },
+    "prices":{
+      "fixture-museum":{"min_vnd":"100000","max_vnd":"120000","basis":"per_person_visit","source":"fictional_price_fixture","observed_at":"2026-10-22T00:00:00Z"},
+      "fixture-park":{"min_vnd":"0","max_vnd":"0","basis":"per_person_visit","source":"fictional_price_fixture","observed_at":"2026-10-22T00:00:00Z"},
+      "fixture-cafe":{"min_vnd":"50000","max_vnd":"80000","basis":"per_person_meal","source":"fictional_price_fixture","observed_at":"2026-10-22T00:00:00Z"}
+    }
+  }
+}

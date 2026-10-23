@@ -1,0 +1,305 @@
+{
+  "request_id": "1d4666b3-5dd2-4de2-b4f7-014364f0749d",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Lai Châu",
+  "category": "attraction",
+  "resolved_location": {
+    "id": "geonames:8456741",
+    "name": "Lai Châu",
+    "latitude": 22.39644,
+    "longitude": 103.45824,
+    "admin1": "Lai Châu",
+    "admin2": "Thành phố Lai Châu",
+    "feature_code": "PPLA",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/8456741/",
+    "fetched_at": "2026-10-22T18:14:25.284494Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:way/705986971": {
+      "distance_m": 136.78115475111795,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.39644&limit=50&lon=103.45824&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/1055051250": {
+      "distance_m": 617.0138910131939,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.39644&limit=50&lon=103.45824&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/705986961": {
+      "distance_m": 1168.3405523108556,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.39644&limit=50&lon=103.45824&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/705445555": {
+      "distance_m": 1478.5385657074944,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.39644&limit=50&lon=103.45824&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/6621347673": {
+      "distance_m": 1552.1630784995596,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.39644&limit=50&lon=103.45824&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 5,
+  "offset": 0,
+  "has_more": false,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:14:25.289597Z",
+  "completed_at": "2026-10-22T18:14:27.994904Z",
+  "places": [
+    {
+      "id": "osm:way/705986971",
+      "name": "Công viên 1-6",
+      "address": "Đoàn Kết, Xéo Làn Than, Lai Châu, Việt Nam",
+      "latitude": 22.3956616,
+      "longitude": 103.4572098,
+      "source": "osm_photon",
+      "types": [
+        "park"
+      ],
+      "fetched_at": "2026-10-22T18:14:27.993908Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/705986971",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/705986971",
+        "latitude": "https://www.openstreetmap.org/way/705986971",
+        "longitude": "https://www.openstreetmap.org/way/705986971",
+        "types": "https://www.openstreetmap.org/way/705986971",
+        "address": "https://www.openstreetmap.org/way/705986971"
+      }
+    },
+    {
+      "id": "osm:way/1055051250",
+      "name": "Công viên Ao cá Bác Hồ",
+      "address": "Tân Phong, Lai Châu, Việt Nam",
+      "latitude": 22.3966891,
+      "longitude": 103.4642356,
+      "source": "osm_photon",
+      "types": [
+        "park"
+      ],
+      "fetched_at": "2026-10-22T18:14:27.993908Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/1055051250",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/1055051250",
+        "latitude": "https://www.openstreetmap.org/way/1055051250",
+        "longitude": "https://www.openstreetmap.org/way/1055051250",
+        "types": "https://www.openstreetmap.org/way/1055051250",
+        "address": "https://www.openstreetmap.org/way/1055051250"
+      }
+    },
+    {
+      "id": "osm:way/705986961",
+      "name": "Công viên Hồ Thuỷ Sơn",
+      "address": "Tân Phong, Lai Châu, Việt Nam",
+      "latitude": 22.3890908,
+      "longitude": 103.4663617,
+      "source": "osm_photon",
+      "types": [
+        "park"
+      ],
+      "fetched_at": "2026-10-22T18:14:27.993908Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/705986961",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/705986961",
+        "latitude": "https://www.openstreetmap.org/way/705986961",
+        "longitude": "https://www.openstreetmap.org/way/705986961",
+        "types": "https://www.openstreetmap.org/way/705986961",
+        "address": "https://www.openstreetmap.org/way/705986961"
+      }
+    },
+    {
+      "id": "osm:way/705445555",
+      "name": "Bảo tàng dân tộc tỉnh Lai Châu",
+      "address": "Đường Trần Phú, Tân Phong, Lai Châu, Việt Nam",
+      "latitude": 22.391559,
+      "longitude": 103.4716174,
+      "source": "osm_photon",
+      "types": [
+        "museum"
+      ],
+      "fetched_at": "2026-10-22T18:14:27.993908Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/705445555",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/705445555",
+        "latitude": "https://www.openstreetmap.org/way/705445555",
+        "longitude": "https://www.openstreetmap.org/way/705445555",
+        "types": "https://www.openstreetmap.org/way/705445555",
+        "address": "https://www.openstreetmap.org/way/705445555"
+      }
+    },
+    {
+      "id": "osm:node/6621347673",
+      "name": "Tượng đài Bác Hồ với nhân dân các dân tộc tỉnh Lai Châu",
+      "address": "Đại lộ Lê Lợi, Tân Phong, Lai Châu, Việt Nam",
+      "latitude": 22.3924058,
+      "longitude": 103.4726933,
+      "source": "osm_photon",
+      "types": [
+        "attraction"
+      ],
+      "fetched_at": "2026-10-22T18:14:27.993908Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/6621347673",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/6621347673",
+        "latitude": "https://www.openstreetmap.org/node/6621347673",
+        "longitude": "https://www.openstreetmap.org/node/6621347673",
+        "types": "https://www.openstreetmap.org/node/6621347673",
+        "address": "https://www.openstreetmap.org/node/6621347673"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:way/705986971",
+      "title": "Công viên 1-6",
+      "snippet": "Đoàn Kết, Xéo Làn Than, Lai Châu, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/705986971",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.39644&limit=50&lon=103.45824&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:27.993908Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1055051250",
+      "title": "Công viên Ao cá Bác Hồ",
+      "snippet": "Tân Phong, Lai Châu, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1055051250",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.39644&limit=50&lon=103.45824&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:27.993908Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/705986961",
+      "title": "Công viên Hồ Thuỷ Sơn",
+      "snippet": "Tân Phong, Lai Châu, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/705986961",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.39644&limit=50&lon=103.45824&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:27.993908Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/705445555",
+      "title": "Bảo tàng dân tộc tỉnh Lai Châu",
+      "snippet": "Đường Trần Phú, Tân Phong, Lai Châu, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/705445555",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.39644&limit=50&lon=103.45824&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:27.993908Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6621347673",
+      "title": "Tượng đài Bác Hồ với nhân dân các dân tộc tỉnh Lai Châu",
+      "snippet": "Đại lộ Lê Lợi, Tân Phong, Lai Châu, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6621347673",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.39644&limit=50&lon=103.45824&osm_tag=historic%3Acastle&osm_tag=historic%3Amemorial&osm_tag=historic%3Amonument&osm_tag=leisure%3Anature_reserve&osm_tag=leisure%3Apark&osm_tag=natural%3Abeach&osm_tag=natural%3Acave_entrance&osm_tag=tourism%3Aaquarium&osm_tag=tourism%3Aattraction&osm_tag=tourism%3Agallery&osm_tag=tourism%3Amuseum&osm_tag=tourism%3Atheme_park&osm_tag=tourism%3Aviewpoint&osm_tag=tourism%3Azoo&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:27.993908Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:14:25.289597Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:14:25.289597Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:14:27.994904Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 5
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:14:27.994904Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

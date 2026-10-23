@@ -1,0 +1,6 @@
+{
+  "trip":{"destination":"TEST Da Nang","start_date":"2030-01-01","end_date":"2030-01-01","travelers":1,"budget_vnd":"1000000","interests":[]},
+  "places":{"places":[{"id":"test-stop","name":"TEST coordinate, not verified attraction","address":"Da Nang coordinate sample","latitude":16.0472,"longitude":108.2244,"source":"coordinate_fixture"}],"warnings":["Not verified attraction data"]},
+  "weather":{"days":[],"warnings":["No forecast"]},
+  "route_days":[{"date":"2030-01-01","origin":{"id":"origin","latitude":16.0678,"longitude":108.2208},"departure_minute":540,"finish_by_minute":1080,"return_to_origin":true,"windows":{}}]
+}

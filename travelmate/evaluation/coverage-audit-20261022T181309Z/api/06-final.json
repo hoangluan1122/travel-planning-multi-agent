@@ -1,0 +1,50 @@
+{
+  "request_id": "55bb2b25-3bbb-499c-8989-32f094cd871e",
+  "status": "source_error",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Lai Châu",
+  "category": "attraction",
+  "resolved_location": null,
+  "location_options": [],
+  "place_metadata": {},
+  "candidate_count": 0,
+  "offset": 0,
+  "has_more": false,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:13:34.078348Z",
+  "completed_at": "2026-10-22T18:13:39.151690Z",
+  "places": [],
+  "sources": [],
+  "search_calls": 0,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:13:34.078348Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "failed",
+      "at": "2026-10-22T18:13:39.151690Z",
+      "message": "Chưa lấy được bản ghi đủ bằng chứng từ nguồn trực tiếp.",
+      "record_count": 0
+    }
+  ],
+  "warnings": [
+    "Agent không hoàn tất được vòng xử lý; không thay bằng dữ liệu demo.",
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

@@ -1,0 +1,137 @@
+[
+  {
+    "destination": "Tam Đảo",
+    "category": "hotel",
+    "intent": "Thị trấn du lịch, không phải điểm hành chính Hợp Châu",
+    "passed": true,
+    "status": "success",
+    "records": 5,
+    "errors": []
+  },
+  {
+    "destination": "Tam Đảo",
+    "category": "restaurant",
+    "intent": "Thị trấn du lịch, không phải điểm hành chính Hợp Châu",
+    "passed": true,
+    "status": "success",
+    "records": 5,
+    "errors": []
+  },
+  {
+    "destination": "Tam Đảo",
+    "category": "attraction",
+    "intent": "Thị trấn du lịch, không phải điểm hành chính Hợp Châu",
+    "passed": true,
+    "status": "success",
+    "records": 5,
+    "errors": []
+  },
+  {
+    "destination": "Vườn quốc gia Cúc Phương",
+    "category": "hotel",
+    "intent": "Tâm khu bảo tồn, không phải cửa vào",
+    "passed": true,
+    "status": "success",
+    "records": 1,
+    "errors": []
+  },
+  {
+    "destination": "Vườn quốc gia Cúc Phương",
+    "category": "restaurant",
+    "intent": "Tâm khu bảo tồn, không phải cửa vào",
+    "passed": true,
+    "status": "success",
+    "records": 1,
+    "errors": []
+  },
+  {
+    "destination": "Vườn quốc gia Cúc Phương",
+    "category": "attraction",
+    "intent": "Tâm khu bảo tồn, không phải cửa vào",
+    "passed": true,
+    "status": "success",
+    "records": 4,
+    "errors": []
+  },
+  {
+    "destination": "Đà Lạt",
+    "category": "hotel",
+    "intent": "Thành phố Đà Lạt, tên nguồn dùng ký tự Ð",
+    "passed": true,
+    "status": "success",
+    "records": 5,
+    "errors": []
+  },
+  {
+    "destination": "Đà Lạt",
+    "category": "restaurant",
+    "intent": "Thành phố Đà Lạt, tên nguồn dùng ký tự Ð",
+    "passed": true,
+    "status": "success",
+    "records": 5,
+    "errors": []
+  },
+  {
+    "destination": "Đà Lạt",
+    "category": "attraction",
+    "intent": "Thành phố Đà Lạt, tên nguồn dùng ký tự Ð",
+    "passed": true,
+    "status": "success",
+    "records": 5,
+    "errors": []
+  },
+  {
+    "destination": "Bà Nà Hills",
+    "category": "hotel",
+    "intent": "Sun World Bà Nà Hills",
+    "passed": true,
+    "status": "success",
+    "records": 4,
+    "errors": []
+  },
+  {
+    "destination": "Bà Nà Hills",
+    "category": "restaurant",
+    "intent": "Sun World Bà Nà Hills",
+    "passed": true,
+    "status": "success",
+    "records": 5,
+    "errors": []
+  },
+  {
+    "destination": "Bà Nà Hills",
+    "category": "attraction",
+    "intent": "Sun World Bà Nà Hills",
+    "passed": true,
+    "status": "success",
+    "records": 5,
+    "errors": []
+  },
+  {
+    "destination": "Fansipan",
+    "category": "hotel",
+    "intent": "Trạm cáp treo trên núi, không đồng nhất với đỉnh núi",
+    "passed": false,
+    "status": "no_results",
+    "records": 0,
+    "errors": []
+  },
+  {
+    "destination": "Fansipan",
+    "category": "restaurant",
+    "intent": "Trạm cáp treo trên núi, không đồng nhất với đỉnh núi",
+    "passed": true,
+    "status": "success",
+    "records": 1,
+    "errors": []
+  },
+  {
+    "destination": "Fansipan",
+    "category": "attraction",
+    "intent": "Trạm cáp treo trên núi, không đồng nhất với đỉnh núi",
+    "passed": true,
+    "status": "success",
+    "records": 2,
+    "errors": []
+  }
+]

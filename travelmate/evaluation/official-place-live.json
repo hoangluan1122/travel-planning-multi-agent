@@ -1,0 +1,22 @@
+{
+  "source_id": "coupole-sapa",
+  "name": "Hotel De La Coupole",
+  "address": "1, Hoang Lien Street Sapa District Lao Cai Province 33000 SAPA",
+  "telephone": "(+84)2143629999",
+  "source_url": "https://www.hoteldelacoupole.com/vi/find-us/",
+  "fetched_at": "2026-10-22T06:12:44.958654Z",
+  "content_sha256": "b57ff607680d2df386a4ec1b0d1f906550878c5eaf021537cd12f7ec1b2d53f6",
+  "field_evidence": {
+    "name": "Hotel De La Coupole",
+    "address": "1, Hoang Lien Street Sapa District Lao Cai Province 33000 SAPA",
+    "telephone": "(+84)2143629999"
+  },
+  "latitude": null,
+  "longitude": null,
+  "price_vnd": null,
+  "warnings": [
+    "Đọc trực tiếp website chính thức; địa chỉ được giữ nguyên theo nguồn.",
+    "Chưa xác minh tọa độ, giá, phòng trống, giờ mở cửa hoặc quyền sử dụng ảnh.",
+    "Đây là đọc chi tiết một nguồn đã cấu hình, không phải tìm kiếm toàn bộ Sa Pa."
+  ]
+}

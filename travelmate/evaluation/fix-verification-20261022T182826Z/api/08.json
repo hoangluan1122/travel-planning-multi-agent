@@ -1,0 +1,675 @@
+{
+  "request_id": "aecdea06-28e2-4cf3-b76b-f1acbed8f8bc",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Đà Lạt",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "geonames:1584071",
+    "name": "Ðà Lạt",
+    "latitude": 11.94646,
+    "longitude": 108.44193,
+    "admin1": "Lam Dong",
+    "admin2": "Thành Phố Đà Lạt",
+    "feature_code": "PPLA",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1584071/",
+    "fetched_at": "2026-10-22T18:28:52.498982Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null,
+    "coordinate_kind": "reference_point"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/5980607285": {
+      "distance_m": 147.95723789242925,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4426130491": {
+      "distance_m": 147.95885307368204,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/6552761486": {
+      "distance_m": 179.64757252754492,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/5865318885": {
+      "distance_m": 191.31633669999275,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/5096900721": {
+      "distance_m": 202.21550786223722,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 46,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:28:55.171597Z",
+  "completed_at": "2026-10-22T18:28:57.640405Z",
+  "places": [
+    {
+      "id": "osm:node/5980607285",
+      "name": "Wood stock",
+      "address": "80, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "latitude": 11.9466549,
+      "longitude": 108.4405846,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5980607285",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5980607285",
+        "latitude": "https://www.openstreetmap.org/node/5980607285",
+        "longitude": "https://www.openstreetmap.org/node/5980607285",
+        "types": "https://www.openstreetmap.org/node/5980607285",
+        "address": "https://www.openstreetmap.org/node/5980607285"
+      }
+    },
+    {
+      "id": "osm:node/4426130491",
+      "name": "Thong Dalat Space",
+      "address": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "latitude": 11.9469104,
+      "longitude": 108.4406502,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4426130491",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4426130491",
+        "latitude": "https://www.openstreetmap.org/node/4426130491",
+        "longitude": "https://www.openstreetmap.org/node/4426130491",
+        "types": "https://www.openstreetmap.org/node/4426130491",
+        "address": "https://www.openstreetmap.org/node/4426130491"
+      }
+    },
+    {
+      "id": "osm:node/6552761486",
+      "name": "Pizza Chorio",
+      "address": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "latitude": 11.9465235,
+      "longitude": 108.4402799,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/6552761486",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/6552761486",
+        "latitude": "https://www.openstreetmap.org/node/6552761486",
+        "longitude": "https://www.openstreetmap.org/node/6552761486",
+        "types": "https://www.openstreetmap.org/node/6552761486",
+        "address": "https://www.openstreetmap.org/node/6552761486"
+      }
+    },
+    {
+      "id": "osm:node/5865318885",
+      "name": "Pizza Chorio",
+      "address": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "latitude": 11.9463981,
+      "longitude": 108.4401725,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5865318885",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5865318885",
+        "latitude": "https://www.openstreetmap.org/node/5865318885",
+        "longitude": "https://www.openstreetmap.org/node/5865318885",
+        "types": "https://www.openstreetmap.org/node/5865318885",
+        "address": "https://www.openstreetmap.org/node/5865318885"
+      }
+    },
+    {
+      "id": "osm:node/5096900721",
+      "name": "Khói BBQ",
+      "address": "115, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "latitude": 11.9473031,
+      "longitude": 108.440283,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/5096900721",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/5096900721",
+        "latitude": "https://www.openstreetmap.org/node/5096900721",
+        "longitude": "https://www.openstreetmap.org/node/5096900721",
+        "types": "https://www.openstreetmap.org/node/5096900721",
+        "address": "https://www.openstreetmap.org/node/5096900721"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/5980607285",
+      "title": "Wood stock",
+      "snippet": "80, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5980607285",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4426130491",
+      "title": "Thong Dalat Space",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4426130491",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6552761486",
+      "title": "Pizza Chorio",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6552761486",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5865318885",
+      "title": "Pizza Chorio",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5865318885",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5096900721",
+      "title": "Khói BBQ",
+      "snippet": "115, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5096900721",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7242652585",
+      "title": "Hoanganhres",
+      "snippet": "H100, Hẻm Nam Kì Khởi Nghĩa, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7242652585",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12762075701",
+      "title": "An Lạc Tâm Chay",
+      "snippet": "104, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12762075701",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13838707901",
+      "title": "Cà Phê Pha Máy",
+      "snippet": "Đinh Tiên Hoàng, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13838707901",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13590798904",
+      "title": "Huong Lam Tua Quan",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13590798904",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7002813687",
+      "title": "chacha Xôt",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7002813687",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13590799008",
+      "title": "pho bat dan",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13590799008",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5532420122",
+      "title": "Biang Bistro",
+      "snippet": "94A, Lý Tự Trọng, Xuân Hương, dalat, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5532420122",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5098407621",
+      "title": "Dìn Ký",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5098407621",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11899746428",
+      "title": "Khách Sạn Dragon King I",
+      "snippet": "67, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11899746428",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4759061757",
+      "title": "Green Café",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4759061757",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4273165397",
+      "title": "V Cafe",
+      "snippet": "1/1, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4273165397",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4281671796",
+      "title": "V Cafe",
+      "snippet": "1/1, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4281671796",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/9643082338",
+      "title": "Cuong - Thien Huong",
+      "snippet": "2c, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/9643082338",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13590799007",
+      "title": "Pho",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13590799007",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13590798903",
+      "title": "Duc Nhat",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13590798903",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4746016823",
+      "title": "Hung Van nem nuong",
+      "snippet": "150, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4746016823",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13895378201",
+      "title": "bean here",
+      "snippet": "Võ Thị Sáu, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13895378201",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13895378101",
+      "title": "Cafe10",
+      "snippet": "Lý Tự Trọng, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13895378101",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13590797512",
+      "title": "Kimoch",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13590797512",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4235241189",
+      "title": "Kho'i BBQ",
+      "snippet": "Hẻm 60 Phan Bội Châu, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4235241189",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13593153109",
+      "title": "indigo",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13593153109",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11840608641",
+      "title": "HongKong Quán",
+      "snippet": "77, Phan Bội Châu, Xuân Hương, dalat, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11840608641",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6518162486",
+      "title": "Kính Chào Quy Khách",
+      "snippet": "Hẻm 29B Phan Bội Châu, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6518162486",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12870097901",
+      "title": "Pétit duong",
+      "snippet": "114, Lý Tự Trọng, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12870097901",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6324846887",
+      "title": "KFC",
+      "snippet": "Phan Bội Châu, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6324846887",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7147596585",
+      "title": "Quan Banh Trang Nuong Minh Chau",
+      "snippet": "180, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7147596585",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7140767290",
+      "title": "Banh mi 36 (10k)",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7140767290",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5963217089",
+      "title": "Com Chay Thanh Dam",
+      "snippet": "97C Nguyen Van Troi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5963217089",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13590797509",
+      "title": "seafood",
+      "snippet": "Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13590797509",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13242226432",
+      "title": "Chay Corner",
+      "snippet": "Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13242226432",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7128210285",
+      "title": "Banh Trang Nuong",
+      "snippet": "Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7128210285",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/14070538493",
+      "title": "H.M Sandwich",
+      "snippet": "Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/14070538493",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13838617601",
+      "title": "Cà Fê Dồi Cù",
+      "snippet": "Trần Quốc Toản, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13838617601",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7147596486",
+      "title": "Bahn Trang Nuong 112 Da Lat",
+      "snippet": "112, Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7147596486",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13050137701",
+      "title": "SaSin",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13050137701",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13590797510",
+      "title": "MAM",
+      "snippet": "Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13590797510",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1239012817",
+      "title": "Thanh Thuỷ",
+      "snippet": "Trần Quốc Toản, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1239012817",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10556474009",
+      "title": "Phi Hieu",
+      "snippet": "103, Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10556474009",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1152319302",
+      "title": "Hương Trà (beer garden cafe)",
+      "snippet": "Lê Thị Hồng Gấm, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1152319302",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12313908010",
+      "title": "Don Chicken",
+      "snippet": "Phan Bội Châu, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12313908010",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4426265593",
+      "title": "Pho nuong ngon",
+      "snippet": "Ánh Sáng, Xuân Hương, Da Lat, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4426265593",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:57.636410Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:55.171597Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:55.171597Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:28:57.640405Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 46
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:28:57.640405Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

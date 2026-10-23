@@ -1,0 +1,260 @@
+{
+  "request_id": "2d5c94c2-6df8-4c13-bd21-1de7252a8722",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Bắc Kạn",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "geonames:1591538",
+    "name": "Bắc Kạn",
+    "latitude": 22.14701,
+    "longitude": 105.83481,
+    "admin1": "Thai Nguyen",
+    "admin2": "Thị Xã Bắc Kạn",
+    "feature_code": "PPLA2",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1591538/",
+    "fetched_at": "2026-10-22T18:14:35.325516Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/12682576521": {
+      "distance_m": 417.4761394585424,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.14701&limit=50&lon=105.83481&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/12682612993": {
+      "distance_m": 419.28399438707993,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.14701&limit=50&lon=105.83481&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/12672590411": {
+      "distance_m": 588.3676399769255,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.14701&limit=50&lon=105.83481&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/12672569532": {
+      "distance_m": 961.8651781198283,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=22.14701&limit=50&lon=105.83481&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 4,
+  "offset": 0,
+  "has_more": false,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:14:35.329520Z",
+  "completed_at": "2026-10-22T18:14:38.034240Z",
+  "places": [
+    {
+      "id": "osm:node/12682576521",
+      "name": "Nga Cầu",
+      "address": "17, Nguyễn Văn Thoát, Đức Xuân, Bắc Kạn, Tỉnh Thái Nguyên, Việt Nam",
+      "latitude": 22.1434534,
+      "longitude": 105.8335115,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:14:38.033239Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/12682576521",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/12682576521",
+        "latitude": "https://www.openstreetmap.org/node/12682576521",
+        "longitude": "https://www.openstreetmap.org/node/12682576521",
+        "types": "https://www.openstreetmap.org/node/12682576521",
+        "address": "https://www.openstreetmap.org/node/12682576521"
+      }
+    },
+    {
+      "id": "osm:node/12682612993",
+      "name": "Quán Tuân Bép",
+      "address": "21, Nguyễn Văn Thoát, Đức Xuân, Bắc Kạn, Tỉnh Thái Nguyên, Việt Nam",
+      "latitude": 22.143405,
+      "longitude": 105.8336164,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:14:38.033239Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/12682612993",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/12682612993",
+        "latitude": "https://www.openstreetmap.org/node/12682612993",
+        "longitude": "https://www.openstreetmap.org/node/12682612993",
+        "types": "https://www.openstreetmap.org/node/12682612993",
+        "address": "https://www.openstreetmap.org/node/12682612993"
+      }
+    },
+    {
+      "id": "osm:node/12672590411",
+      "name": "T.A Coffee Lab",
+      "address": "Thanh Niên, Bắc Kạn, Tỉnh Thái Nguyên, Việt Nam",
+      "latitude": 22.1521207,
+      "longitude": 105.8333301,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:14:38.033239Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/12672590411",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/12672590411",
+        "latitude": "https://www.openstreetmap.org/node/12672590411",
+        "longitude": "https://www.openstreetmap.org/node/12672590411",
+        "types": "https://www.openstreetmap.org/node/12672590411",
+        "address": "https://www.openstreetmap.org/node/12672590411"
+      }
+    },
+    {
+      "id": "osm:node/12672569532",
+      "name": "Phở Lý",
+      "address": "Trường Chinh, Bắc Kạn, Tỉnh Thái Nguyên, Việt Nam",
+      "latitude": 22.13904,
+      "longitude": 105.8311798,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:14:38.033239Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/12672569532",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/12672569532",
+        "latitude": "https://www.openstreetmap.org/node/12672569532",
+        "longitude": "https://www.openstreetmap.org/node/12672569532",
+        "types": "https://www.openstreetmap.org/node/12672569532",
+        "address": "https://www.openstreetmap.org/node/12672569532"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/12682576521",
+      "title": "Nga Cầu",
+      "snippet": "17, Nguyễn Văn Thoát, Đức Xuân, Bắc Kạn, Tỉnh Thái Nguyên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12682576521",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.14701&limit=50&lon=105.83481&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:38.033239Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12682612993",
+      "title": "Quán Tuân Bép",
+      "snippet": "21, Nguyễn Văn Thoát, Đức Xuân, Bắc Kạn, Tỉnh Thái Nguyên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12682612993",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.14701&limit=50&lon=105.83481&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:38.033239Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12672590411",
+      "title": "T.A Coffee Lab",
+      "snippet": "Thanh Niên, Bắc Kạn, Tỉnh Thái Nguyên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12672590411",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.14701&limit=50&lon=105.83481&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:38.033239Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12672569532",
+      "title": "Phở Lý",
+      "snippet": "Trường Chinh, Bắc Kạn, Tỉnh Thái Nguyên, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12672569532",
+      "search_url": "https://photon.komoot.io/reverse?lat=22.14701&limit=50&lon=105.83481&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:14:38.033239Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:14:35.329520Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:14:35.329520Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:14:38.034240Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 4
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:14:38.034240Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 4
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

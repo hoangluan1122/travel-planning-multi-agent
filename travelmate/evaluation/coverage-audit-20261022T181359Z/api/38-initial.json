@@ -1,0 +1,665 @@
+{
+  "request_id": "32d807b6-9b1d-4603-870e-b6dbd8150df4",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Mũi Né",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "geonames:7304197",
+    "name": "Mui Ne",
+    "latitude": 10.93314,
+    "longitude": 108.28327,
+    "admin1": "Lam Dong",
+    "admin2": "Thành Phố Phan Thiết",
+    "feature_code": "PPL",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/7304197/",
+    "fetched_at": "2026-10-22T18:17:04.119049Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/4394363291": {
+      "distance_m": 386.47359412464715,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4819228821": {
+      "distance_m": 397.0095842161616,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/12517889705": {
+      "distance_m": 665.8007983604307,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4540904316": {
+      "distance_m": 801.7669307110532,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4808851621": {
+      "distance_m": 839.454781747088,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 45,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:17:03.075960Z",
+  "completed_at": "2026-10-22T18:17:07.737462Z",
+  "places": [
+    {
+      "id": "osm:node/4394363291",
+      "name": "coffee moon",
+      "address": "356, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "latitude": 10.9349505,
+      "longitude": 108.2862917,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4394363291",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4394363291",
+        "latitude": "https://www.openstreetmap.org/node/4394363291",
+        "longitude": "https://www.openstreetmap.org/node/4394363291",
+        "types": "https://www.openstreetmap.org/node/4394363291",
+        "address": "https://www.openstreetmap.org/node/4394363291"
+      }
+    },
+    {
+      "id": "osm:node/4819228821",
+      "name": "NiNo",
+      "address": "170, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "latitude": 10.9346838,
+      "longitude": 108.2865489,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4819228821",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4819228821",
+        "latitude": "https://www.openstreetmap.org/node/4819228821",
+        "longitude": "https://www.openstreetmap.org/node/4819228821",
+        "types": "https://www.openstreetmap.org/node/4819228821",
+        "address": "https://www.openstreetmap.org/node/4819228821"
+      }
+    },
+    {
+      "id": "osm:node/12517889705",
+      "name": "Quán Nhậu Mạnh Cường",
+      "address": "Hồ Xuân Hương, Mũi Né, Lâm Đồng, Việt Nam",
+      "latitude": 10.9321929,
+      "longitude": 108.2892916,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/12517889705",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/12517889705",
+        "latitude": "https://www.openstreetmap.org/node/12517889705",
+        "longitude": "https://www.openstreetmap.org/node/12517889705",
+        "types": "https://www.openstreetmap.org/node/12517889705",
+        "address": "https://www.openstreetmap.org/node/12517889705"
+      }
+    },
+    {
+      "id": "osm:node/4540904316",
+      "name": "Coffee Nhà Hàng",
+      "address": "Huỳnh Tấn Phát, Mũi Né, Lâm Đồng, Việt Nam",
+      "latitude": 10.9380545,
+      "longitude": 108.2886438,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4540904316",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4540904316",
+        "latitude": "https://www.openstreetmap.org/node/4540904316",
+        "longitude": "https://www.openstreetmap.org/node/4540904316",
+        "types": "https://www.openstreetmap.org/node/4540904316",
+        "address": "https://www.openstreetmap.org/node/4540904316"
+      }
+    },
+    {
+      "id": "osm:node/4808851621",
+      "name": "Quán 315",
+      "address": "Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "latitude": 10.9400924,
+      "longitude": 108.2802732,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4808851621",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4808851621",
+        "latitude": "https://www.openstreetmap.org/node/4808851621",
+        "longitude": "https://www.openstreetmap.org/node/4808851621",
+        "types": "https://www.openstreetmap.org/node/4808851621",
+        "address": "https://www.openstreetmap.org/node/4808851621"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/4394363291",
+      "title": "coffee moon",
+      "snippet": "356, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4394363291",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4819228821",
+      "title": "NiNo",
+      "snippet": "170, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4819228821",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12517889705",
+      "title": "Quán Nhậu Mạnh Cường",
+      "snippet": "Hồ Xuân Hương, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12517889705",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4540904316",
+      "title": "Coffee Nhà Hàng",
+      "snippet": "Huỳnh Tấn Phát, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4540904316",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4808851621",
+      "title": "Quán 315",
+      "snippet": "Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4808851621",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4540904324",
+      "title": "Coffee Nike",
+      "snippet": "Huỳnh Tấn Phát, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4540904324",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13661230102",
+      "title": "Soho Soho",
+      "snippet": "Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13661230102",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5078223440",
+      "title": "biển đông",
+      "snippet": "179, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5078223440",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4510653489",
+      "title": "ăn hải sản",
+      "snippet": "Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4510653489",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5078239522",
+      "title": "làng chài quán",
+      "snippet": "159, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5078239522",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10732522752",
+      "title": "QT coffee tea food",
+      "snippet": "Hồ Xuân Hương, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10732522752",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5116482521",
+      "title": "sang thái",
+      "snippet": "170, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5116482521",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5078206191",
+      "title": "thanh thảo",
+      "snippet": "170A, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5078206191",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4540969535",
+      "title": "Hồng Anh",
+      "snippet": "170, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4540969535",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13657737001",
+      "title": "Com Nhá Cá Gô",
+      "snippet": "Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13657737001",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12517885411",
+      "title": "OPPA Cà viên chiên tóp mõ & My cay",
+      "snippet": "Đường Nguyễn Hữu Thọ, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12517885411",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4540904323",
+      "title": "Café Legend",
+      "snippet": "Huỳnh Tấn Phát, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4540904323",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5096900722",
+      "title": "gia hân",
+      "snippet": "khu phố 15, Huỳnh Tấn Phát, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5096900722",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5078206496",
+      "title": "tuyết trắng",
+      "snippet": "Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5078206496",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5096900925",
+      "title": "resort đại dương",
+      "snippet": "102, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5096900925",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5112909551",
+      "title": "phong cách",
+      "snippet": "Tỉnh lộ 706, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5112909551",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/578731976",
+      "title": "Ba Tai",
+      "snippet": "Đường Nguyễn Hữu Thọ, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/578731976",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12732837771",
+      "title": "Thuy Anh",
+      "snippet": "Đường Nguyễn Hữu Thọ, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12732837771",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13727493879",
+      "title": "Café Blue Lagoon",
+      "snippet": "Đường Nguyễn Hữu Thọ, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13727493879",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/223199425",
+      "title": "Sun Terrace",
+      "snippet": "Đường Nguyễn Hữu Thọ, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/223199425",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5190006821",
+      "title": "Ben Bon",
+      "snippet": "179, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5190006821",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5116469422",
+      "title": "vạn chài mũi né",
+      "snippet": "100A, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5116469422",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5112254721",
+      "title": "anh toàn(đồi cát)",
+      "snippet": "Tỉnh lộ 706, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5112254721",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3768384489",
+      "title": "Rids surf club",
+      "snippet": "DT 716, Mũi Né, Mui Ne, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3768384489",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5112522942",
+      "title": "đồng tháp(đồi cát)",
+      "snippet": "Tỉnh lộ 706, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5112522942",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4496714490",
+      "title": "Thao Nu",
+      "snippet": "76, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4496714490",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5222801424",
+      "title": "Thảo Như",
+      "snippet": "76, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5222801424",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4735550321",
+      "title": "Canh buồm vang7272",
+      "snippet": "72, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4735550321",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/526919507",
+      "title": "Sun And Sand Hotel",
+      "snippet": "45, Huỳnh Thúc Kháng, Mũi Né, Phan Thiết, Bình Thuận, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/526919507",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4650330095",
+      "title": "Nhà Hàng Thanh Lan",
+      "snippet": "58A, Huỳnh Thúc Kháng, Mũi Né, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4650330095",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5119100821",
+      "title": "suối tiên",
+      "snippet": "63, Huỳnh Thúc Kháng, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5119100821",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4735557427",
+      "title": "Nhật nam",
+      "snippet": "Huỳnh Thúc Kháng, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4735557427",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5933102985",
+      "title": "Muine Home",
+      "snippet": "Nguyễn Đình Chiểu, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5933102985",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4794392625",
+      "title": "Hải bang",
+      "snippet": "61a, Huỳnh Thúc Kháng, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4794392625",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3852310930",
+      "title": "Vita Garden Mini-Zoo Cafe",
+      "snippet": "Cầu Rạng, Phan Thiết, Bình Thuận, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3852310930",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6330002487",
+      "title": "Nhat Nam",
+      "snippet": "Huỳnh Thúc Kháng, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6330002487",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5414768925",
+      "title": "Rau Delibakery",
+      "snippet": "Huỳnh Thúc Kháng, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5414768925",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5405023521",
+      "title": "Rau delibakery",
+      "snippet": "Huỳnh Thúc Kháng, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5405023521",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5078322722",
+      "title": "quán việt",
+      "snippet": "45, Huỳnh Thúc Kháng, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5078322722",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/457679913",
+      "title": "cafe",
+      "snippet": "Huỳnh Thúc Kháng, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/457679913",
+      "search_url": "https://photon.komoot.io/reverse?lat=10.93314&limit=50&lon=108.28327&osm_tag=amenity%3Acafe&osm_tag=amenity%3Afast_food&osm_tag=amenity%3Afood_court&osm_tag=amenity%3Arestaurant&radius=5.0",
+      "fetched_at": "2026-10-22T18:17:07.733465Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:17:03.075960Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:17:04.119049Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:17:07.737462Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 45
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:17:07.737462Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

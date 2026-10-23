@@ -1,0 +1,432 @@
+{
+  "request_id": "20db56be-3502-4779-9f6a-5bed1b2bb9ee",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Sầm Sơn",
+  "category": "hotel",
+  "resolved_location": {
+    "id": "geonames:1568142",
+    "name": "Sầm Sơn",
+    "latitude": 19.73333,
+    "longitude": 105.9,
+    "admin1": "Thanh Hóa",
+    "admin2": "Thị Xã Sầm Sơn",
+    "feature_code": "PPL",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1568142/",
+    "fetched_at": "2026-10-22T18:15:24.931448Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/3525262400": {
+      "distance_m": 27.842017055144296,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/3525272164": {
+      "distance_m": 84.24451480963656,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/1008018178": {
+      "distance_m": 88.47806502743077,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/3525270752": {
+      "distance_m": 258.203392088472,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/3525274394": {
+      "distance_m": 302.5691381982778,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 19,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:15:20.738718Z",
+  "completed_at": "2026-10-22T18:15:26.555884Z",
+  "places": [
+    {
+      "id": "osm:node/3525262400",
+      "name": "Khách Sạn Hoa Hồng 1",
+      "address": "Đường Hồ Xuân Hương, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "latitude": 19.7332424,
+      "longitude": 105.9002492,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/3525262400",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/3525262400",
+        "latitude": "https://www.openstreetmap.org/node/3525262400",
+        "longitude": "https://www.openstreetmap.org/node/3525262400",
+        "types": "https://www.openstreetmap.org/node/3525262400",
+        "address": "https://www.openstreetmap.org/node/3525262400"
+      }
+    },
+    {
+      "id": "osm:node/3525272164",
+      "name": "Khách sạn Thuỳ Dương 3",
+      "address": "Đường Lê Hoàn, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "latitude": 19.7339695,
+      "longitude": 105.9004316,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/3525272164",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/3525272164",
+        "latitude": "https://www.openstreetmap.org/node/3525272164",
+        "longitude": "https://www.openstreetmap.org/node/3525272164",
+        "types": "https://www.openstreetmap.org/node/3525272164",
+        "address": "https://www.openstreetmap.org/node/3525272164"
+      }
+    },
+    {
+      "id": "osm:way/1008018178",
+      "name": "Khách sạn Lê Lợi",
+      "address": "Đường Thanh Niên, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "latitude": 19.7338279,
+      "longitude": 105.8993406,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/1008018178",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/1008018178",
+        "latitude": "https://www.openstreetmap.org/way/1008018178",
+        "longitude": "https://www.openstreetmap.org/way/1008018178",
+        "types": "https://www.openstreetmap.org/way/1008018178",
+        "address": "https://www.openstreetmap.org/way/1008018178"
+      }
+    },
+    {
+      "id": "osm:node/3525270752",
+      "name": "Doanh Nghiệp Tư Nhân Khách Sạn Và Du Lịch Hoàng Long",
+      "address": "Đường Tô Hiến Thành, Trường Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "latitude": 19.731263,
+      "longitude": 105.8988759,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/3525270752",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/3525270752",
+        "latitude": "https://www.openstreetmap.org/node/3525270752",
+        "longitude": "https://www.openstreetmap.org/node/3525270752",
+        "types": "https://www.openstreetmap.org/node/3525270752",
+        "address": "https://www.openstreetmap.org/node/3525270752"
+      }
+    },
+    {
+      "id": "osm:node/3525274394",
+      "name": "Thai Lan Hotel",
+      "address": "Đường Tây Sơn, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "latitude": 19.7360498,
+      "longitude": 105.9000883,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/3525274394",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/3525274394",
+        "latitude": "https://www.openstreetmap.org/node/3525274394",
+        "longitude": "https://www.openstreetmap.org/node/3525274394",
+        "types": "https://www.openstreetmap.org/node/3525274394",
+        "address": "https://www.openstreetmap.org/node/3525274394"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/3525262400",
+      "title": "Khách Sạn Hoa Hồng 1",
+      "snippet": "Đường Hồ Xuân Hương, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3525262400",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3525272164",
+      "title": "Khách sạn Thuỳ Dương 3",
+      "snippet": "Đường Lê Hoàn, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3525272164",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1008018178",
+      "title": "Khách sạn Lê Lợi",
+      "snippet": "Đường Thanh Niên, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1008018178",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3525270752",
+      "title": "Doanh Nghiệp Tư Nhân Khách Sạn Và Du Lịch Hoàng Long",
+      "snippet": "Đường Tô Hiến Thành, Trường Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3525270752",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3525274394",
+      "title": "Thai Lan Hotel",
+      "snippet": "Đường Tây Sơn, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3525274394",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1234857568",
+      "title": "Khách sạn Bộ Công Thương",
+      "snippet": "6, Đường Tây Sơn, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1234857568",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3525274500",
+      "title": "Son Thuy Motel",
+      "snippet": "Đường Tây Sơn, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3525274500",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/9611927063",
+      "title": "Khách Sạn Phương Đông",
+      "snippet": "7, Đường Thanh Niên, Bắc Sơn, Thành Phố Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/9611927063",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3525259312",
+      "title": "Công Ty TNHH Thương Mại Và Du Lịch Ngân Hoa",
+      "snippet": "Hồ Xuân Hương, Trường Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3525259312",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3525277291",
+      "title": "Khách sạn Bắc Nam",
+      "snippet": "Ngõ 9 Lê Lai, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3525277291",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3525217160",
+      "title": "Khách sạn bộ Xây Dựng",
+      "snippet": "Phố Lê Lai, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3525217160",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3525277479",
+      "title": "Huong Bien Hotel",
+      "snippet": "Võ Thị Sáu, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3525277479",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3525277488",
+      "title": "Cay Tre Guest House",
+      "snippet": "Phố Mạc Thị Bưởi, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3525277488",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1174484261",
+      "title": "Khách sạn Đường sắt Sầm Sơn",
+      "snippet": "Phố Mạc Thị Bưởi, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1174484261",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3525279803",
+      "title": "Hotel Mai Trang",
+      "snippet": "Đường Nguyễn Văn Cừ, Bắc Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3525279803",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6269114790",
+      "title": "Lach Nam",
+      "snippet": "Hồ Xuân Hương, Trung Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6269114790",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/9965029917",
+      "title": "KS Tài nguyên Môi trường",
+      "snippet": "54, Đường Hồ Xuân Hương, Trung Sơn, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/9965029917",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1005726239",
+      "title": "FLC Grand Hotel Sầm Sơn",
+      "snippet": "Đường Hồ Xuân Hương, Quảng Cư, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1005726239",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1004695925",
+      "title": "FLC Luxury Hotel Sầm Sơn",
+      "snippet": "Đường Hồ Xuân Hương, Quảng Cư, Sầm Sơn, Thanh Hóa, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1004695925",
+      "search_url": "https://photon.komoot.io/reverse?lat=19.73333&limit=50&lon=105.9&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:15:26.552886Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "stay_price",
+    "room_availability",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:20.738718Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:15:24.931448Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:15:26.555884Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 19
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:15:26.555884Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

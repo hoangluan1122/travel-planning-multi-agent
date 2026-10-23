@@ -1,0 +1,495 @@
+{
+  "request_id": "0c55c0bb-91eb-4f0b-ad5c-ec8fc88591f2",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Tuy Hòa",
+  "category": "hotel",
+  "resolved_location": {
+    "id": "geonames:1563281",
+    "name": "Thành phố Tuy Hòa",
+    "latitude": 13.09546,
+    "longitude": 109.32094,
+    "admin1": "Dak Lak",
+    "admin2": "Thành Phố Tuy Hòa",
+    "feature_code": "PPLA",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1563281/",
+    "fetched_at": "2026-10-22T18:16:06.939398Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:way/1272705240": {
+      "distance_m": 117.40085276029258,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/1288835040": {
+      "distance_m": 361.5167640852197,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/1409015738": {
+      "distance_m": 580.7144721205374,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/11396016178": {
+      "distance_m": 675.5476241223593,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/12300668680": {
+      "distance_m": 677.2818474339042,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 26,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:16:06.942496Z",
+  "completed_at": "2026-10-22T18:16:12.405901Z",
+  "places": [
+    {
+      "id": "osm:way/1272705240",
+      "name": "Khách sạn Công Đoàn",
+      "address": "Đường Độc Lập, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "latitude": 13.096439,
+      "longitude": 109.3205341,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/1272705240",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/1272705240",
+        "latitude": "https://www.openstreetmap.org/way/1272705240",
+        "longitude": "https://www.openstreetmap.org/way/1272705240",
+        "types": "https://www.openstreetmap.org/way/1272705240",
+        "address": "https://www.openstreetmap.org/way/1272705240"
+      }
+    },
+    {
+      "id": "osm:way/1288835040",
+      "name": "A1",
+      "address": "Nguyễn Huệ, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "latitude": 13.0965209,
+      "longitude": 109.3177847,
+      "source": "osm_photon",
+      "types": [
+        "guest_house"
+      ],
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/1288835040",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/1288835040",
+        "latitude": "https://www.openstreetmap.org/way/1288835040",
+        "longitude": "https://www.openstreetmap.org/way/1288835040",
+        "types": "https://www.openstreetmap.org/way/1288835040",
+        "address": "https://www.openstreetmap.org/way/1288835040"
+      }
+    },
+    {
+      "id": "osm:node/1409015738",
+      "name": "Long Beach",
+      "address": "Đường Độc Lập, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "latitude": 13.1000448,
+      "longitude": 109.3183724,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/1409015738",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/1409015738",
+        "latitude": "https://www.openstreetmap.org/node/1409015738",
+        "longitude": "https://www.openstreetmap.org/node/1409015738",
+        "types": "https://www.openstreetmap.org/node/1409015738",
+        "address": "https://www.openstreetmap.org/node/1409015738"
+      }
+    },
+    {
+      "id": "osm:node/11396016178",
+      "name": "Coast Homestay",
+      "address": "236, Điện Biên Phủ, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "latitude": 13.0959786,
+      "longitude": 109.3147252,
+      "source": "osm_photon",
+      "types": [
+        "guest_house"
+      ],
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/11396016178",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/11396016178",
+        "latitude": "https://www.openstreetmap.org/node/11396016178",
+        "longitude": "https://www.openstreetmap.org/node/11396016178",
+        "types": "https://www.openstreetmap.org/node/11396016178",
+        "address": "https://www.openstreetmap.org/node/11396016178"
+      }
+    },
+    {
+      "id": "osm:node/12300668680",
+      "name": "Santini Hotel",
+      "address": "05, Nguyễn Văn Cừ, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "latitude": 13.099358,
+      "longitude": 109.3161347,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/12300668680",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/12300668680",
+        "latitude": "https://www.openstreetmap.org/node/12300668680",
+        "longitude": "https://www.openstreetmap.org/node/12300668680",
+        "types": "https://www.openstreetmap.org/node/12300668680",
+        "address": "https://www.openstreetmap.org/node/12300668680"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:way/1272705240",
+      "title": "Khách sạn Công Đoàn",
+      "snippet": "Đường Độc Lập, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1272705240",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1288835040",
+      "title": "A1",
+      "snippet": "Nguyễn Huệ, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1288835040",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1409015738",
+      "title": "Long Beach",
+      "snippet": "Đường Độc Lập, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1409015738",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11396016178",
+      "title": "Coast Homestay",
+      "snippet": "236, Điện Biên Phủ, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11396016178",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12300668680",
+      "title": "Santini Hotel",
+      "snippet": "05, Nguyễn Văn Cừ, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12300668680",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11396243616",
+      "title": "Letters Bà Triệu",
+      "snippet": "Điện Biên Phủ, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11396243616",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4600487590",
+      "title": "Kim Anh",
+      "snippet": "Hùng Vương, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4600487590",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4621663490",
+      "title": "Mắt Kính Quang Ý",
+      "snippet": "Hùng Vương, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4621663490",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4289743489",
+      "title": "Anh Tuấn",
+      "snippet": "Hùng Vương, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4289743489",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4728649389",
+      "title": "Reef Hostel",
+      "snippet": "Lê Hồng Phong, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4728649389",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4700343495",
+      "title": "The Reef Hostel",
+      "snippet": "Lê Hồng Phong, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4700343495",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4693248010",
+      "title": "Da Xanh",
+      "snippet": "Lê Hồng Phong, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4693248010",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2774523313",
+      "title": "Lam Tra",
+      "snippet": "Trần Phú, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2774523313",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2774523385",
+      "title": "Anh Duong",
+      "snippet": "Trần Phú, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2774523385",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6409820085",
+      "title": "Nhà trọ anh ĐÔN",
+      "snippet": "Trần Phú, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6409820085",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4264691190",
+      "title": "Khanh Hoa Hotel",
+      "snippet": "Hùng Vương, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4264691190",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2774523443",
+      "title": "Tay Do",
+      "snippet": "Ngô Văn Sở, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2774523443",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2774523556",
+      "title": "Thuy Tien",
+      "snippet": "Đường Tô Hiến Thành, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2774523556",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2774523505",
+      "title": "Thuy Thien",
+      "snippet": "Đường Tô Hiến Thành, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2774523505",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11394244182",
+      "title": "Nhu Y Hotel",
+      "snippet": "7, Nguyen Cong Tru, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11394244182",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4958459621",
+      "title": "nha nghi",
+      "snippet": "Lê Văn Hưu, Bình Kiến, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4958459621",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6240916786",
+      "title": "Nhá Nghi Sao Anh",
+      "snippet": "Đường Xuân Đài, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6240916786",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5326675621",
+      "title": "Joy House 2",
+      "snippet": "Hùng Vương, Phú Vang, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5326675621",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6235509185",
+      "title": "Nha Minh Homestay right adress",
+      "snippet": "Trương Định, Tuy Hòa, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6235509185",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11374811869",
+      "title": "Green Homestay Tuy Hòa",
+      "snippet": "35 Đường Tân Trào,  Liên Trì, Bình Kiến, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11374811869",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4693248709",
+      "title": "Kahn Hoa",
+      "snippet": "Hùng Vương, Phú Vang, Đắk Lắk, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4693248709",
+      "search_url": "https://photon.komoot.io/reverse?lat=13.09546&limit=50&lon=109.32094&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:16:12.402798Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "stay_price",
+    "room_availability",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:16:06.942496Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:16:06.942496Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:16:12.405901Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 26
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:16:12.405901Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

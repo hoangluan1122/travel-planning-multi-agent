@@ -1,0 +1,752 @@
+{
+  "request_id": "0168a6af-6933-4a1e-95a2-9b2bed06760f",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Đà Nẵng",
+  "category": "attraction",
+  "resolved_location": {
+    "id": "vn:current:48",
+    "name": "Thành phố Đà Nẵng",
+    "latitude": 16.036783,
+    "longitude": 109.972355,
+    "admin1": "",
+    "admin2": "",
+    "feature_code": "ADM1",
+    "country_code": "VN",
+    "source_url": "https://raw.githubusercontent.com/thanglequoc/vietnamese-provinces-database/8b78ba5118715e1fa81769286724db79346abf52/mongodb/gis/mongo_data_vn_province_gis.json",
+    "fetched_at": "2026-10-22T17:57:07.933477Z",
+    "scope": "area",
+    "bbox": [
+      107.208588,
+      14.953287,
+      112.736122,
+      17.120279
+    ],
+    "boundary_version": "2026-03-11",
+    "historical": false,
+    "attribution": "Thang Le Quoc / vietnamese-provinces-database; GIS derived from Bando.com.vn; reference snapshot 2026-03-11"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:way/279353637": {
+      "distance_m": 155569.24567272773,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:way/1348698157": {
+      "distance_m": 159502.04613698873,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:node/9448910486": {
+      "distance_m": 164892.39205435765,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:way/531235869": {
+      "distance_m": 168578.8668221034,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:node/4171964292": {
+      "distance_m": 172394.02767255626,
+      "address_precision": "locality_only",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 54,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:05:30.489704Z",
+  "completed_at": "2026-10-22T18:05:35.421833Z",
+  "places": [
+    {
+      "id": "osm:way/279353637",
+      "name": "Bãi Bìm",
+      "address": "Bai Huong, Đà Nẵng, Việt Nam",
+      "latitude": 15.9370663,
+      "longitude": 108.5206988,
+      "source": "osm_photon",
+      "types": [
+        "beach"
+      ],
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/279353637",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/279353637",
+        "latitude": "https://www.openstreetmap.org/way/279353637",
+        "longitude": "https://www.openstreetmap.org/way/279353637",
+        "types": "https://www.openstreetmap.org/way/279353637",
+        "address": "https://www.openstreetmap.org/way/279353637"
+      }
+    },
+    {
+      "id": "osm:way/1348698157",
+      "name": "Vòng Xoay 2 Tầng Chu Lai",
+      "address": "Núi Thành, Đà Nẵng, Việt Nam",
+      "latitude": 15.4570671,
+      "longitude": 108.6091093,
+      "source": "osm_photon",
+      "types": [
+        "park"
+      ],
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/1348698157",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/1348698157",
+        "latitude": "https://www.openstreetmap.org/way/1348698157",
+        "longitude": "https://www.openstreetmap.org/way/1348698157",
+        "types": "https://www.openstreetmap.org/way/1348698157",
+        "address": "https://www.openstreetmap.org/way/1348698157"
+      }
+    },
+    {
+      "id": "osm:node/9448910486",
+      "name": "Thôn phú Nam",
+      "address": "Đội 12, Quốc lộ 1, Xã Tam Xuân, Núi Thành, Quảng nam, Việt Nam",
+      "latitude": 15.5387773,
+      "longitude": 108.5207988,
+      "source": "osm_photon",
+      "types": [
+        "park"
+      ],
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/9448910486",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/9448910486",
+        "latitude": "https://www.openstreetmap.org/node/9448910486",
+        "longitude": "https://www.openstreetmap.org/node/9448910486",
+        "types": "https://www.openstreetmap.org/node/9448910486",
+        "address": "https://www.openstreetmap.org/node/9448910486"
+      }
+    },
+    {
+      "id": "osm:way/531235869",
+      "name": "Quảng trường 24 tháng 3",
+      "address": "Hùng Vương, Bàn Thạch, Đà Nẵng, Việt Nam",
+      "latitude": 15.5740177,
+      "longitude": 108.4719064,
+      "source": "osm_photon",
+      "types": [
+        "park"
+      ],
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/531235869",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/531235869",
+        "latitude": "https://www.openstreetmap.org/way/531235869",
+        "longitude": "https://www.openstreetmap.org/way/531235869",
+        "types": "https://www.openstreetmap.org/way/531235869",
+        "address": "https://www.openstreetmap.org/way/531235869"
+      }
+    },
+    {
+      "id": "osm:node/4171964292",
+      "name": "Cua Dai",
+      "address": "Hội An Đông, Đà Nẵng, Việt Nam",
+      "latitude": 15.8980583,
+      "longitude": 108.3662256,
+      "source": "osm_photon",
+      "types": [
+        "beach"
+      ],
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4171964292",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4171964292",
+        "latitude": "https://www.openstreetmap.org/node/4171964292",
+        "longitude": "https://www.openstreetmap.org/node/4171964292",
+        "types": "https://www.openstreetmap.org/node/4171964292",
+        "address": "https://www.openstreetmap.org/node/4171964292"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:way/279353637",
+      "title": "Bãi Bìm",
+      "snippet": "Bai Huong, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/279353637",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1348698157",
+      "title": "Vòng Xoay 2 Tầng Chu Lai",
+      "snippet": "Núi Thành, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1348698157",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/9448910486",
+      "title": "Thôn phú Nam",
+      "snippet": "Đội 12, Quốc lộ 1, Xã Tam Xuân, Núi Thành, Quảng nam, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/9448910486",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/531235869",
+      "title": "Quảng trường 24 tháng 3",
+      "snippet": "Hùng Vương, Bàn Thạch, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/531235869",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4171964292",
+      "title": "Cua Dai",
+      "snippet": "Hội An Đông, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4171964292",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12344125229",
+      "title": "Precious Heritage Art Gallery Museum",
+      "snippet": "26, Phan Bội Châu, Hội An, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12344125229",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/565325074",
+      "title": "Tượng Đài Nguyễn Duy Hiệu",
+      "snippet": "Hội An Tây, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/565325074",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/2987298385",
+      "title": "Công Viên Vườn Tượng",
+      "snippet": "Hội An, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/2987298385",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:relation/3938690",
+      "title": "Vườn Tượng An Hội",
+      "snippet": "Hội An, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/relation/3938690",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/565275128",
+      "title": "Bãi Đậu xe",
+      "snippet": "Hội An, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/565275128",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/565586453",
+      "title": "Khu văn hóa thể thao phường Tân An",
+      "snippet": "Hội An Tây, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/565586453",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1330726238",
+      "title": "Bãi biển Bắc",
+      "snippet": "Sơn Trà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1330726238",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13040467529",
+      "title": "Bãi Đá",
+      "snippet": "Sơn Trà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13040467529",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4012510801",
+      "title": "Cây đa cổ thụ",
+      "snippet": "Xã Xuân Phú, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4012510801",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1758586686",
+      "title": "Động Âm Phủ",
+      "snippet": "Đường Huyền Trân Công Chúa, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1758586686",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1758586716",
+      "title": "Van Thong Cave",
+      "snippet": "Đường Huyền Trân Công Chúa, Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1758586716",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:relation/7055216",
+      "title": "Rừng đặc dụng Sơn Trà",
+      "snippet": "Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/relation/7055216",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1115795402",
+      "title": "Công viên Đầm Sen",
+      "snippet": "Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1115795402",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1115788711",
+      "title": "Công viên Ngũ Hành",
+      "snippet": "Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1115788711",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1115791518",
+      "title": "Công viên Cổ Cò",
+      "snippet": "Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1115791518",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1252368755",
+      "title": "Công viên cầu Bờ Quan",
+      "snippet": "Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1252368755",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/780440511",
+      "title": "Son Tra Ocean View Pool & Spa",
+      "snippet": "95, Ngô Quyền, Sơn Trà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/780440511",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1169531150",
+      "title": "Công viên Hói Kiểng",
+      "snippet": "Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1169531150",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/962129079",
+      "title": "Công viên K20",
+      "snippet": "Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/962129079",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/962130353",
+      "title": "Công viên Hồ Nghinh",
+      "snippet": "An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/962130353",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1252486503",
+      "title": "Công viên Bờ Quan",
+      "snippet": "Ngũ Hành Sơn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1252486503",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/962129078",
+      "title": "Công viên An Nhơn",
+      "snippet": "An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/962129078",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/962129077",
+      "title": "Công viên An Nhơn",
+      "snippet": "An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/962129077",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/962129075",
+      "title": "Công viên Hà Thân",
+      "snippet": "An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/962129075",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/962129076",
+      "title": "Công viên An Hải",
+      "snippet": "An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/962129076",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11161070775",
+      "title": "Dragon's Head",
+      "snippet": "Cầu Rồng, An Hải, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11161070775",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1265740821",
+      "title": "Cat Vang Beach",
+      "snippet": "Sơn Trà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1265740821",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/675604354",
+      "title": "Công Viên APEC",
+      "snippet": "Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/675604354",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/302872188",
+      "title": "Bảo tàng Nghệ thuật Điêu khắc Chăm Đà Nẵng",
+      "snippet": "Đường Bạch Đằng, Hòa Cường, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/302872188",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/295178277",
+      "title": "Công viên",
+      "snippet": "Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/295178277",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1254909519",
+      "title": "Công viên Nguyễn Văn Linh",
+      "snippet": "Đường Nguyễn Văn Linh, Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1254909519",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/962134784",
+      "title": "Công viên Lê Cơ",
+      "snippet": "Hòa Cường, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/962134784",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1384911812",
+      "title": "Công viên Như Nguyệt",
+      "snippet": "Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1384911812",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/630377259",
+      "title": "Bãi biển Tiên Sa",
+      "snippet": "Sơn Trà, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/630377259",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1384907056",
+      "title": "Công viên Nam Dương",
+      "snippet": "Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1384907056",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/961973763",
+      "title": "Công viên Đầm Rong",
+      "snippet": "Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/961973763",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/966750005",
+      "title": "Công viên Thanh Niên",
+      "snippet": "Cẩm Lệ, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/966750005",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/961973996",
+      "title": "Công viên Thanh Bình",
+      "snippet": "Hải Châu, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/961973996",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/846695791",
+      "title": "Trung tâm Văn hóa - Thể thao quận Thanh Khê",
+      "snippet": "Đường Hồ Tương, An Khê, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/846695791",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/834422404",
+      "title": "EKOCENTER playground",
+      "snippet": "Thanh Khê, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/834422404",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/962134785",
+      "title": "Quảng trường Tượng Đài",
+      "snippet": "Hòa Khánh, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/962134785",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/508244759",
+      "title": "Bãi Xoan",
+      "snippet": "Hải Vân, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/508244759",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1347307012",
+      "title": "Vòng Xoay Hải Vân",
+      "snippet": "Hải Vân, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1347307012",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/198804483",
+      "title": "Thánh địa Mỹ Sơn",
+      "snippet": "Cầu Thẻ - Mỹ Sơn, Xã Thu Bồn, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/198804483",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:relation/13129586",
+      "title": "Rừng đặc dụng Bà Nà - Núi Chúa",
+      "snippet": "Việt Nam",
+      "url": "https://www.openstreetmap.org/relation/13129586",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C16.036783%2C109.972355%2C17.120279&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:34.302326Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/624211476",
+      "title": "Công viên P'Rao",
+      "snippet": "P'Rao, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/624211476",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:relation/17140360",
+      "title": "Vườn quốc gia Sông Thanh",
+      "snippet": "Việt Nam",
+      "url": "https://www.openstreetmap.org/relation/17140360",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/622734495",
+      "title": "Quảng trường trung tâm Huyện Tây Giang",
+      "snippet": "A Grồng, Đà Nẵng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/622734495",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/622734448",
+      "title": "Công viên Thống Nhất",
+      "snippet": "A Grồng, Đà Nẵng, Quảng Nam, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/622734448",
+      "search_url": "https://photon.komoot.io/api/?bbox=107.208588%2C14.953287%2C109.972355%2C16.036783&countrycode=VN&include=osm.historic.castle%2Cosm.historic.memorial%2Cosm.historic.monument%2Cosm.leisure.nature_reserve%2Cosm.leisure.park%2Cosm.natural.beach%2Cosm.natural.cave_entrance%2Cosm.tourism.aquarium%2Cosm.tourism.attraction%2Cosm.tourism.gallery%2Cosm.tourism.museum%2Cosm.tourism.theme_park%2Cosm.tourism.viewpoint%2Cosm.tourism.zoo&limit=50",
+      "fetched_at": "2026-10-22T18:05:31.579637Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:05:30.489704Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:05:30.491702Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và các ô bao phủ ranh giới tham chiếu.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:05:35.421833Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 54
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:05:35.421833Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Tìm theo polygon ranh giới tham chiếu, không áp dụng bán kính. Lấy mẫu có giới hạn qua các ô không gian, không phải toàn bộ địa điểm trong vùng.",
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

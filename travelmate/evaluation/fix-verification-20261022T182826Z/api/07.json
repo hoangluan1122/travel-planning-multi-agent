@@ -1,0 +1,640 @@
+{
+  "request_id": "8c0984f9-2bc3-44bc-adc2-37a29888fe78",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Đà Lạt",
+  "category": "hotel",
+  "resolved_location": {
+    "id": "geonames:1584071",
+    "name": "Ðà Lạt",
+    "latitude": 11.94646,
+    "longitude": 108.44193,
+    "admin1": "Lam Dong",
+    "admin2": "Thành Phố Đà Lạt",
+    "feature_code": "PPLA",
+    "country_code": "VN",
+    "source_url": "https://www.geonames.org/1584071/",
+    "fetched_at": "2026-10-22T18:28:52.498982Z",
+    "scope": "nearby",
+    "bbox": null,
+    "boundary_version": null,
+    "historical": false,
+    "attribution": null,
+    "coordinate_kind": "reference_point"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/1152312198": {
+      "distance_m": 106.55630356871201,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:way/1303878622": {
+      "distance_m": 181.68933219457355,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/1150963992": {
+      "distance_m": 201.68439047007234,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/1152315580": {
+      "distance_m": 246.2063338609648,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    },
+    "osm:node/4496330890": {
+      "distance_m": 258.6175563771226,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "radius",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 42,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:28:50.246368Z",
+  "completed_at": "2026-10-22T18:28:55.162590Z",
+  "places": [
+    {
+      "id": "osm:node/1152312198",
+      "name": "Golf 1",
+      "address": "Đinh Tiên Hoàng, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "latitude": 11.9457125,
+      "longitude": 108.4425429,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/1152312198",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/1152312198",
+        "latitude": "https://www.openstreetmap.org/node/1152312198",
+        "longitude": "https://www.openstreetmap.org/node/1152312198",
+        "types": "https://www.openstreetmap.org/node/1152312198",
+        "address": "https://www.openstreetmap.org/node/1152312198"
+      }
+    },
+    {
+      "id": "osm:way/1303878622",
+      "name": "Golf Valley Hotel",
+      "address": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "latitude": 11.9474743,
+      "longitude": 108.4406206,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/way/1303878622",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "geometry_center",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/way/1303878622",
+        "latitude": "https://www.openstreetmap.org/way/1303878622",
+        "longitude": "https://www.openstreetmap.org/way/1303878622",
+        "types": "https://www.openstreetmap.org/way/1303878622",
+        "address": "https://www.openstreetmap.org/way/1303878622"
+      }
+    },
+    {
+      "id": "osm:node/1150963992",
+      "name": "Khải Hoàng",
+      "address": "5A, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "latitude": 11.9469993,
+      "longitude": 108.4401599,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/1150963992",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/1150963992",
+        "latitude": "https://www.openstreetmap.org/node/1150963992",
+        "longitude": "https://www.openstreetmap.org/node/1150963992",
+        "types": "https://www.openstreetmap.org/node/1150963992",
+        "address": "https://www.openstreetmap.org/node/1150963992"
+      }
+    },
+    {
+      "id": "osm:node/1152315580",
+      "name": "Thảo Liên",
+      "address": "9A1, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "latitude": 11.9463029,
+      "longitude": 108.4396725,
+      "source": "osm_photon",
+      "types": [
+        "hotel"
+      ],
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/1152315580",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/1152315580",
+        "latitude": "https://www.openstreetmap.org/node/1152315580",
+        "longitude": "https://www.openstreetmap.org/node/1152315580",
+        "types": "https://www.openstreetmap.org/node/1152315580",
+        "address": "https://www.openstreetmap.org/node/1152315580"
+      }
+    },
+    {
+      "id": "osm:node/4496330890",
+      "name": "Phuong huy 3.guest house",
+      "address": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "latitude": 11.9457851,
+      "longitude": 108.439655,
+      "source": "osm_photon",
+      "types": [
+        "hostel"
+      ],
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/4496330890",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/4496330890",
+        "latitude": "https://www.openstreetmap.org/node/4496330890",
+        "longitude": "https://www.openstreetmap.org/node/4496330890",
+        "types": "https://www.openstreetmap.org/node/4496330890",
+        "address": "https://www.openstreetmap.org/node/4496330890"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/1152312198",
+      "title": "Golf 1",
+      "snippet": "Đinh Tiên Hoàng, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1152312198",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1303878622",
+      "title": "Golf Valley Hotel",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1303878622",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1150963992",
+      "title": "Khải Hoàng",
+      "snippet": "5A, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1150963992",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1152315580",
+      "title": "Thảo Liên",
+      "snippet": "9A1, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1152315580",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4496330890",
+      "title": "Phuong huy 3.guest house",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4496330890",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1152312572",
+      "title": "Thúy Trân",
+      "snippet": "4F, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1152312572",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1150942973",
+      "title": "Trung Cang",
+      "snippet": "4A, Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1150942973",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5733874046",
+      "title": "Banyan House",
+      "snippet": "94, Lý Tự Trọng, Xuân Hương, dalat, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5733874046",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/9864008602",
+      "title": "Nature Boutique Hotel",
+      "snippet": "Nguyễn Thị Nghĩa, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/9864008602",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1152351353",
+      "title": "Đại Lợi",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1152351353",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1152347479",
+      "title": "Muong Thanh Holiday Da Lat Hotel",
+      "snippet": "42, Phan Bội Châu, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1152347479",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13895378102",
+      "title": "Be U Hotel",
+      "snippet": "Lý Tự Trọng, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13895378102",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/8403476223",
+      "title": "Xavia hotel dalat",
+      "snippet": "58, Nguyễn Thị Nghĩa, Xuân Hương, Đà lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/8403476223",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/3770188797",
+      "title": "Lan rung",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/3770188797",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13593120401",
+      "title": "Vespa",
+      "snippet": "Nguyễn Thị Nghĩa, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13593120401",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7153023600",
+      "title": "A.M. Memory",
+      "snippet": "Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7153023600",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6436751756",
+      "title": "Nón Lá Guest House",
+      "snippet": "70/18/3, Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6436751756",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13799888704",
+      "title": "Colline Dalat",
+      "snippet": "10, Phan Bội Châu, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13799888704",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1152313446",
+      "title": "Trầm Hương",
+      "snippet": "Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1152313446",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13799893301",
+      "title": "Dalat Center Residence",
+      "snippet": "10, Phan Bội Châu, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13799893301",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7389223186",
+      "title": "khách sạn 110",
+      "snippet": "110, Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7389223186",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1152315678",
+      "title": "Empress",
+      "snippet": "5, Trần Quốc Toản, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1152315678",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4281904201",
+      "title": "Dalat Alan Hostel",
+      "snippet": "Nguyễn Thị Nghĩa, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4281904201",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5022294777",
+      "title": "Lucky D's Hostel",
+      "snippet": "66/6, Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5022294777",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11847022813",
+      "title": "New Sleep in Dalat",
+      "snippet": "Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11847022813",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4203565191",
+      "title": "Dalat Green City Hotel",
+      "snippet": "Phan Đình Phùng, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4203565191",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4685438890",
+      "title": "Trung Nghia Hotel",
+      "snippet": "Hẻm 215 Phan Đình Phùng, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4685438890",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4756184672",
+      "title": "Nha Kim Cuong",
+      "snippet": "191 (79), Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4756184672",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1152317023",
+      "title": "Á Đông",
+      "snippet": "Hẻm 124 Phan Đình Phùng, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1152317023",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/308445218",
+      "title": "Golf 3",
+      "snippet": "4, Lê Thị Hồng Gấm, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/308445218",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4258656291",
+      "title": "My Dream 1",
+      "snippet": "Phan Đình Phùng, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4258656291",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5333005526",
+      "title": "Amour Dalat Hotel",
+      "snippet": "18, Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5333005526",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4590730118",
+      "title": "Vinh Quang Hotel",
+      "snippet": "Dốc Sông Lô, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4590730118",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4689683793",
+      "title": "Trung Nghia Hotel",
+      "snippet": "Phan Đình Phùng, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4689683793",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5386160822",
+      "title": "Da Lat Backpackers Hostel",
+      "snippet": "Nguyễn Văn Trỗi, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5386160822",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/14093883150",
+      "title": "Villa Hotel Anh Trang Đà Lạt",
+      "snippet": "Cư xá Bưu Điện, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/14093883150",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4686774389",
+      "title": "Tuan hung",
+      "snippet": "Hẻm 272 Bùi Thị Xuân, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4686774389",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/14078298501",
+      "title": "Sandals Mimosa Hotel",
+      "snippet": "Phan Đình Phùng, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/14078298501",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1152316816",
+      "title": "Hải Sơn",
+      "snippet": "Lê Đại Hành, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1152316816",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/1392258974",
+      "title": "Ái Nghĩa",
+      "snippet": "Phan Đình Phùng, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/1392258974",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5524508123",
+      "title": "Ks Lê Đại Hành 2",
+      "snippet": "Lê Đại Hành, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5524508123",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4676283392",
+      "title": "Happy Hostel",
+      "snippet": "Mai Hoa Thôn, Xuân Hương, Đà Lạt, Lâm Đồng, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4676283392",
+      "search_url": "https://photon.komoot.io/reverse?lat=11.94646&limit=50&lon=108.44193&osm_tag=tourism%3Acamp_site&osm_tag=tourism%3Aguest_house&osm_tag=tourism%3Ahostel&osm_tag=tourism%3Ahotel&osm_tag=tourism%3Amotel&osm_tag=tourism%3Aresort&radius=5.0",
+      "fetched_at": "2026-10-22T18:28:55.158595Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "stay_price",
+    "room_availability",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:50.246368Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:28:52.498982Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và bán kính đã chọn.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:28:55.162590Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 42
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:28:55.162590Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}

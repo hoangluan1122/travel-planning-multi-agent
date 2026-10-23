@@ -1,0 +1,572 @@
+{
+  "request_id": "b18019dc-1960-45c6-98d5-4b1cca790844",
+  "status": "success",
+  "execution_mode": "tool_workflow",
+  "data_origin": "live_network",
+  "destination": "Cà Mau",
+  "category": "restaurant",
+  "resolved_location": {
+    "id": "vn:current:96",
+    "name": "Tỉnh Cà Mau",
+    "latitude": 9.025642999999999,
+    "longitude": 105.189573,
+    "admin1": "",
+    "admin2": "",
+    "feature_code": "ADM1",
+    "country_code": "VN",
+    "source_url": "https://raw.githubusercontent.com/thanglequoc/vietnamese-provinces-database/8b78ba5118715e1fa81769286724db79346abf52/mongodb/gis/mongo_data_vn_province_gis.json",
+    "fetched_at": "2026-10-22T17:57:07.933477Z",
+    "scope": "area",
+    "bbox": [
+      104.520498,
+      8.413653,
+      105.858648,
+      9.637633
+    ],
+    "boundary_version": "2026-03-11",
+    "historical": false,
+    "attribution": "Thang Le Quoc / vietnamese-provinces-database; GIS derived from Bando.com.vn; reference snapshot 2026-03-11"
+  },
+  "location_options": [],
+  "place_metadata": {
+    "osm:node/13957789701": {
+      "distance_m": 3012.33036744539,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=105.189573%2C8.413653%2C105.858648%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:node/10928122300": {
+      "distance_m": 3023.636559788469,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=105.189573%2C8.413653%2C105.858648%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:node/10928122299": {
+      "distance_m": 3082.9722688321485,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=105.189573%2C8.413653%2C105.858648%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:node/13957746101": {
+      "distance_m": 3116.775004008561,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=105.189573%2C8.413653%2C105.858648%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    },
+    "osm:node/10928131013": {
+      "distance_m": 3199.216267154085,
+      "address_precision": "street",
+      "retrieval_url": "https://photon.komoot.io/api/?bbox=105.189573%2C8.413653%2C105.858648%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "cache_hit": false,
+      "phone": null,
+      "coverage_partial": false,
+      "spatial_filter": "reference_polygon",
+      "secondary_sources": []
+    }
+  },
+  "candidate_count": 34,
+  "offset": 0,
+  "has_more": true,
+  "retrieval_exhaustive": false,
+  "started_at": "2026-10-22T18:05:35.442496Z",
+  "completed_at": "2026-10-22T18:05:43.943215Z",
+  "places": [
+    {
+      "id": "osm:node/13957789701",
+      "name": "Quán Ốc Ngoại",
+      "address": "Khóm 4, Nguyễn Tạo, Đầm Dơi, Cà Mau, Việt Nam",
+      "latitude": 8.9994174,
+      "longitude": 105.1964487,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:05:40.604227Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/13957789701",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/13957789701",
+        "latitude": "https://www.openstreetmap.org/node/13957789701",
+        "longitude": "https://www.openstreetmap.org/node/13957789701",
+        "types": "https://www.openstreetmap.org/node/13957789701",
+        "address": "https://www.openstreetmap.org/node/13957789701"
+      }
+    },
+    {
+      "id": "osm:node/10928122300",
+      "name": "Cafe Hương Cau 2",
+      "address": "Nguyễn Tạo, Đầm Dơi, Cà Mau, Việt Nam",
+      "latitude": 8.9993395,
+      "longitude": 105.1965543,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:05:40.604227Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/10928122300",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/10928122300",
+        "latitude": "https://www.openstreetmap.org/node/10928122300",
+        "longitude": "https://www.openstreetmap.org/node/10928122300",
+        "types": "https://www.openstreetmap.org/node/10928122300",
+        "address": "https://www.openstreetmap.org/node/10928122300"
+      }
+    },
+    {
+      "id": "osm:node/10928122299",
+      "name": "Cafe Hương Cau 3",
+      "address": "Nguyễn Tạo, Đầm Dơi, Cà Mau, Việt Nam",
+      "latitude": 8.998785,
+      "longitude": 105.1965416,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:05:40.604227Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/10928122299",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/10928122299",
+        "latitude": "https://www.openstreetmap.org/node/10928122299",
+        "longitude": "https://www.openstreetmap.org/node/10928122299",
+        "types": "https://www.openstreetmap.org/node/10928122299",
+        "address": "https://www.openstreetmap.org/node/10928122299"
+      }
+    },
+    {
+      "id": "osm:node/13957746101",
+      "name": "Cà Phê Huỳnh My",
+      "address": "Đường số 6, Đầm Dơi, Cà Mau, Việt Nam",
+      "latitude": 8.9986112,
+      "longitude": 105.1970787,
+      "source": "osm_photon",
+      "types": [
+        "cafe"
+      ],
+      "fetched_at": "2026-10-22T18:05:40.604227Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/13957746101",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/13957746101",
+        "latitude": "https://www.openstreetmap.org/node/13957746101",
+        "longitude": "https://www.openstreetmap.org/node/13957746101",
+        "types": "https://www.openstreetmap.org/node/13957746101",
+        "address": "https://www.openstreetmap.org/node/13957746101"
+      }
+    },
+    {
+      "id": "osm:node/10928131013",
+      "name": "Quán Ăn Rợ",
+      "address": "Đường tỉnh 988, Đầm Dơi, Cà Mau, Việt Nam",
+      "latitude": 8.9972745,
+      "longitude": 105.1944301,
+      "source": "osm_photon",
+      "types": [
+        "restaurant"
+      ],
+      "fetched_at": "2026-10-22T18:05:40.604227Z",
+      "estimated_visit_cost_vnd": null,
+      "source_url": "https://www.openstreetmap.org/node/10928131013",
+      "attribution": "© OpenStreetMap contributors — ODbL, https://www.openstreetmap.org/copyright",
+      "coordinate_kind": "point",
+      "opening_hours_raw": null,
+      "website_url": null,
+      "image_reference": null,
+      "field_sources": {
+        "name": "https://www.openstreetmap.org/node/10928131013",
+        "latitude": "https://www.openstreetmap.org/node/10928131013",
+        "longitude": "https://www.openstreetmap.org/node/10928131013",
+        "types": "https://www.openstreetmap.org/node/10928131013",
+        "address": "https://www.openstreetmap.org/node/10928131013"
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "osm:node/13957789701",
+      "title": "Quán Ốc Ngoại",
+      "snippet": "Khóm 4, Nguyễn Tạo, Đầm Dơi, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13957789701",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C8.413653%2C105.858648%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:40.604227Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10928122300",
+      "title": "Cafe Hương Cau 2",
+      "snippet": "Nguyễn Tạo, Đầm Dơi, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10928122300",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C8.413653%2C105.858648%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:40.604227Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10928122299",
+      "title": "Cafe Hương Cau 3",
+      "snippet": "Nguyễn Tạo, Đầm Dơi, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10928122299",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C8.413653%2C105.858648%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:40.604227Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13957746101",
+      "title": "Cà Phê Huỳnh My",
+      "snippet": "Đường số 6, Đầm Dơi, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13957746101",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C8.413653%2C105.858648%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:40.604227Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10928131013",
+      "title": "Quán Ăn Rợ",
+      "snippet": "Đường tỉnh 988, Đầm Dơi, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10928131013",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C8.413653%2C105.858648%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:40.604227Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10928131014",
+      "title": "Cà Phê Đông Âu",
+      "snippet": "Đường tỉnh 988, Đầm Dơi, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10928131014",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C8.413653%2C105.858648%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:40.604227Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/10928131015",
+      "title": "Cà Phê Diễm Quyên",
+      "snippet": "Đường tỉnh 988, Đầm Dơi, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/10928131015",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C8.413653%2C105.858648%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:40.604227Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12766792404",
+      "title": "118",
+      "snippet": "Hải Thượng Lãn Ông, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12766792404",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C9.025642999999999%2C105.189573%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:41.590619Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4516891589",
+      "title": "Gà Rán 28",
+      "snippet": "28, Lý Thường Kiệt, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4516891589",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C9.025642999999999%2C105.189573%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:41.590619Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4908542199",
+      "title": "Lotteria",
+      "snippet": "Trần Hưng Đạo, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4908542199",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C9.025642999999999%2C105.189573%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:41.590619Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/12604003837",
+      "title": "Phở Hùng",
+      "snippet": "Bùi Thị Trường, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/12604003837",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C9.025642999999999%2C105.189573%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:41.590619Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4163316690",
+      "title": "Bánh Tầm Cari Cay",
+      "snippet": "Lý Bôn, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4163316690",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C9.025642999999999%2C105.189573%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:41.590619Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4184997390",
+      "title": "Triều Phát",
+      "snippet": "14, Phan Đình Phùng, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4184997390",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C9.025642999999999%2C105.189573%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:41.590619Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/8783903154",
+      "title": "Tiệm bánh An's Cake",
+      "snippet": "265, Nguyễn Trãi, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/8783903154",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C9.025642999999999%2C105.189573%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:41.590619Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13763207901",
+      "title": "ÁNH TUYẾT",
+      "snippet": "Quốc lộ 1, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13763207901",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C8.413653%2C105.189573%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:37.508925Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5267686522",
+      "title": "Cfe Thiên Lý",
+      "snippet": "Quốc lộ 1, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5267686522",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C9.025642999999999%2C105.858648%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:43.935114Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1228794107",
+      "title": "Căn Tin Restaurant",
+      "snippet": "Đường tỉnh 985C, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1228794107",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C9.025642999999999%2C105.189573%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:41.590619Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1228794106",
+      "title": "Căn Tin Restaurant",
+      "snippet": "Đường tỉnh 985C, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1228794106",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C9.025642999999999%2C105.189573%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:41.590619Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/1228794105",
+      "title": "Căn Tin Restaurant",
+      "snippet": "Đường tỉnh 985C, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/1228794105",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C9.025642999999999%2C105.189573%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:41.590619Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/5271464422",
+      "title": "Cfe Phương Loan",
+      "snippet": "229, Trùm Thuật A, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/5271464422",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C9.025642999999999%2C105.189573%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:41.590619Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6469593492",
+      "title": "Mỹ Ngân",
+      "snippet": "Quốc lộ 1, Giá Rai, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6469593492",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C9.025642999999999%2C105.858648%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:43.935114Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6081358587",
+      "title": "Quán ăn Mỹ Ngân 2",
+      "snippet": "Quốc lộ 1, Giá Rai, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6081358587",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C9.025642999999999%2C105.858648%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:43.935114Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/13994021668",
+      "title": "Thố Chill Đá Bạc",
+      "snippet": "Kênh Mới, Khánh Bình Tây, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/13994021668",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C9.025642999999999%2C105.189573%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:41.590619Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6276446018",
+      "title": "Thuận Thảo",
+      "snippet": "Đường Hồ Chí Minh, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6276446018",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C8.413653%2C105.189573%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:37.508925Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4728591989",
+      "title": "TrungLinh2011",
+      "snippet": "Ninh Bình, Bạc Liêu, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4728591989",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C9.025642999999999%2C105.858648%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:43.935114Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11002690871",
+      "title": "Lạc Dining",
+      "snippet": "152a/4, Nguyễn Đình Chiểu, Thành phố Bạc Liêu, bạc liêu, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11002690871",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C9.025642999999999%2C105.858648%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:43.935114Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:way/225533918",
+      "title": "Nhà hàng, khách sạn Công tử Bạc Liêu",
+      "snippet": "Phan Ngọc Hiển, Bạc Liêu, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/way/225533918",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C9.025642999999999%2C105.858648%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:43.935114Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4162328889",
+      "title": "Bún Bò Cay ÁNH NGUYỆT",
+      "snippet": "Cao Văn Lầu, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4162328889",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C9.025642999999999%2C105.858648%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:43.935114Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/4162304391",
+      "title": "Bún bò cay ÁNH NGUYỆT",
+      "snippet": "Cao Văn Lầu, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/4162304391",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C9.025642999999999%2C105.858648%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:43.935114Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7074125895",
+      "title": "BUMO's Bakery",
+      "snippet": "208/5, Hùng Vương, Bạc Liêu, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7074125895",
+      "search_url": "https://photon.komoot.io/api/?bbox=105.189573%2C9.025642999999999%2C105.858648%2C9.637633&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:43.935114Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6427444316",
+      "title": "Quán nhậu Ba Hào",
+      "snippet": "Đường Hồ Chí Minh, Đất Mũi, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6427444316",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C8.413653%2C105.189573%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:37.508925Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/6427444118",
+      "title": "Quán cafe Huỳnh Nga",
+      "snippet": "Đường Hồ Chí Minh, Đất Mũi, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/6427444118",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C8.413653%2C105.189573%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:37.508925Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/7983371618",
+      "title": "Hoàng Hôn",
+      "snippet": "Đường Hồ Chí Minh, Đất Mũi, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/7983371618",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C8.413653%2C105.189573%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:37.508925Z",
+      "verification": "structured_source_record"
+    },
+    {
+      "id": "osm:node/11394190344",
+      "title": "Ba Lượng",
+      "snippet": "Đường Hồ Chí Minh, Đất Mũi, Cà Mau, Việt Nam",
+      "url": "https://www.openstreetmap.org/node/11394190344",
+      "search_url": "https://photon.komoot.io/api/?bbox=104.520498%2C8.413653%2C105.189573%2C9.025642999999999&countrycode=VN&include=osm.amenity.cafe%2Cosm.amenity.fast_food%2Cosm.amenity.food_court%2Cosm.amenity.restaurant&limit=50",
+      "fetched_at": "2026-10-22T18:05:37.508925Z",
+      "verification": "structured_source_record"
+    }
+  ],
+  "search_calls": 1,
+  "detail_calls": 0,
+  "requirements_verified": false,
+  "missing_fields": [
+    "licensed_images",
+    "operating_status",
+    "needs_verification",
+    "visit_or_meal_price",
+    "opening_hours"
+  ],
+  "trace": [
+    {
+      "step": "search",
+      "at": "2026-10-22T18:05:35.442496Z",
+      "message": "Phân giải phạm vi Việt Nam: danh mục ranh giới có phiên bản hoặc công cụ địa danh.",
+      "record_count": 0
+    },
+    {
+      "step": "search",
+      "at": "2026-10-22T18:05:35.446481Z",
+      "message": "Tra Photon/OSM theo loại địa điểm và các ô bao phủ ranh giới tham chiếu.",
+      "record_count": 0
+    },
+    {
+      "step": "validate",
+      "at": "2026-10-22T18:05:43.943215Z",
+      "message": "Loại bản ghi thiếu tên, sai loại, ngoài phạm vi hoặc trùng; giữ tọa độ riêng và nguồn OSM.",
+      "record_count": 34
+    },
+    {
+      "step": "complete",
+      "at": "2026-10-22T18:05:43.943215Z",
+      "message": "Đã tạo các bản ghi Place có nguồn để hiển thị và xuất JSON.",
+      "record_count": 5
+    }
+  ],
+  "warnings": [
+    "Tìm theo polygon ranh giới tham chiếu, không áp dụng bán kính. Lấy mẫu có giới hạn qua các ô không gian, không phải toàn bộ địa điểm trong vùng.",
+    "Dữ liệu cộng đồng OpenStreetMap qua Photon; chỉ mục có thể thiếu hoặc chậm cập nhật, không phải danh sách đầy đủ hay xác nhận đang mở cửa.",
+    "Khoảng cách đường chim bay tính từ điểm tham chiếu của phạm vi đã chọn, không phải tuyến đường di chuyển. Tọa độ hình học không đảm bảo là cửa vào.",
+    "Chưa xác minh giá theo ngày, phòng trống, ảnh có quyền sử dụng, giờ mở cửa hoặc các nhu cầu riêng.",
+    "Phiên này chạy workflow công cụ xác định, không gọi LLM."
+  ]
+}
