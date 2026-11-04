@@ -5,7 +5,7 @@ from typing import Literal
 
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import Field, SecretStr
+from pydantic import AliasChoices, Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from .agents import AgentError
@@ -24,6 +24,9 @@ class PlaceSettings(BaseSettings):
     travelmate_agent_timeout: float = Field(default=60, gt=0, le=180)
     place_provider: Literal["osm", "google", "browser"] = "osm"
     overpass_url: str = "https://overpass-api.de/api/interpreter"
+    agent_engine: Literal["adk", "maf"] = Field(
+        default="adk", validation_alias=AliasChoices("agent_engine", "planner_engine")
+    )
 
 
 def create_app(settings=None, assistant=None):
@@ -65,6 +68,15 @@ def create_app(settings=None, assistant=None):
         client = None
         try:
             active = assistant
+            if active is None and settings.agent_engine == "maf":
+                from .maf_clients import maf_gemini_client_factory
+
+                async with maf_gemini_client_factory(
+                    settings.google_api_key.get_secret_value(), settings.gemini_model
+                ) as factory:
+                    return await PlaceAssistant(factory, provider, engine="maf").run(
+                        data, Context(), timeout=settings.travelmate_agent_timeout
+                    )
             if active is None:
                 from google.adk.models import Gemini
                 from google.genai import Client

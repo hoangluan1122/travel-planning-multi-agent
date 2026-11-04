@@ -46,7 +46,7 @@ function render(data) {
   if (data.status === 'needs_location' && data.location_options?.length) $('radius').disabled = data.location_options.every(p => p.scope !== 'nearby');
   $('pagination').hidden = !(data.has_more || data.offset > 0);
   $('previous').disabled = data.offset === 0; $('next').disabled = !data.has_more;
-  $('run-info').textContent = `Mã yêu cầu: ${data.request_id} · ${stamp(data.completed_at)} · ${data.execution_mode === 'adk_llm' ? 'ADK + LLM' : 'Workflow công cụ, không gọi LLM'}`;
+  $('run-info').textContent = `Mã yêu cầu: ${data.request_id} · ${stamp(data.completed_at)} · ${data.execution_mode === 'adk_llm' ? 'ADK + LLM' : data.execution_mode === 'maf_llm' ? 'MAF + LLM' : 'Workflow công cụ, không gọi LLM'}`;
   $('trace').replaceChildren(...(data.trace || []).map(event => node('li', `${event.message} (${event.record_count} bản ghi)`)));
   $('warnings').replaceChildren(...(data.warnings || []).map(warning => node('li', warning)));
   $('json').textContent = JSON.stringify(data, null, 2);
@@ -59,7 +59,7 @@ function render(data) {
 async function connect() {
   try {
     const r = await fetch('/health'); if (!r.ok) throw new Error('health'); const data = await r.json();
-    $('engine').textContent = data.mode === 'adk_llm' ? 'Dữ liệu thật · ADK + LLM' : 'Dữ liệu thật · Workflow công cụ';
+    $('engine').textContent = data.mode === 'adk_llm' ? 'Dữ liệu thật · ADK + LLM' : data.mode === 'maf_llm' ? 'Dữ liệu thật · MAF + LLM' : 'Dữ liệu thật · Workflow công cụ';
     $('token-field').hidden = !data.token_required;
     const regionResponse = await fetch('/api/v1/places/regions');
     if (regionResponse.ok) {

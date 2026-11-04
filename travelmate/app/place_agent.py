@@ -1,7 +1,6 @@
 """Standalone Place Agent. No orchestration, booking or cross-user memory."""
 
 import logging
-from contextlib import aclosing
 from typing import Literal, Protocol
 from uuid import UUID
 
@@ -11,6 +10,7 @@ from .agents import AgentError, BaseAgent
 from .browser_places import BrowserPlaceResult, BrowserPlaceTool
 from .models import Context, Model, Place, PlaceResult, PlaceSearchRequest
 from .place_locations import LocationCandidate, LocationChoiceRequired
+from .tool_loop import ToolLoop, run_tool_loop
 
 logger = logging.getLogger(__name__)
 
@@ -43,22 +43,19 @@ class PlaceAssistant(BaseAgent[PlaceAgentInput, PlaceAgentOutput]):
     input_schema = PlaceAgentInput
     output_schema = PlaceAgentOutput
 
-    def __init__(self, model_factory, provider: PlaceProvider | None, max_llm_calls=10, web_tool=None):
+    def __init__(
+        self, model_factory, provider: PlaceProvider | None, max_llm_calls=10, web_tool=None, engine="adk"
+    ):
+        """engine "adk": model_factory returns an ADK model; "maf": a MAF chat client."""
         if max_llm_calls < 1:
             raise ValueError("max_llm_calls must be positive")
         self.model_factory = model_factory
+        self.engine = engine
         self.provider = provider
         self.max_llm_calls = max_llm_calls
         self.web_tool = web_tool or BrowserPlaceTool()
 
     async def execute(self, data: PlaceAgentInput, context: Context):
-        from google.adk.agents import LlmAgent
-        from google.adk.agents.invocation_context import LlmCallsLimitExceededError
-        from google.adk.agents.run_config import RunConfig
-        from google.adk.runners import Runner
-        from google.adk.sessions import InMemorySessionService
-        from google.genai import types
-
         evidence: dict[str, Place] = {}
         warnings = [
             "Đây là ứng viên từ nguồn tìm kiếm, chưa xác nhận đáp ứng mọi nhu cầu.",
@@ -198,9 +195,8 @@ class PlaceAssistant(BaseAgent[PlaceAgentInput, PlaceAgentOutput]):
                 )
                 return {"accepted": True, "status": status}
 
-        agent = LlmAgent(
+        loop = ToolLoop(
             name=self.name,
-            model=self.model_factory(),
             instruction=(
                 "You are a place discovery assistant, not a trip planner. "
                 "Use search_places to find candidates for the supplied destination and category. "
@@ -218,30 +214,12 @@ class PlaceAssistant(BaseAgent[PlaceAgentInput, PlaceAgentOutput]):
                 "these are source leads, not coordinate-verified places."
             ),
             tools=[search_places, get_place_details, submit_places],
+            message=data.model_dump_json(),
+            max_llm_calls=self.max_llm_calls,
+            budget_message="Place model-call budget exceeded",
+            is_done=lambda: accepted is not None,
         )
-        sessions = InMemorySessionService()
-        session_id = str(context.request_id)
-        await sessions.create_session(app_name="place_agent", user_id="request", session_id=session_id)
-        runner = Runner(agent=agent, app_name="place_agent", session_service=sessions)
-        try:
-            async with aclosing(
-                runner.run_async(
-                    user_id="request",
-                    session_id=session_id,
-                    new_message=types.Content(role="user", parts=[types.Part(text=data.model_dump_json())]),
-                    run_config=RunConfig(max_llm_calls=self.max_llm_calls),
-                )
-            ) as events:
-                async for _ in events:
-                    if accepted is not None:
-                        return accepted
+        await run_tool_loop(self.engine, self.model_factory, loop, context)
+        if accepted is None:
             raise AgentError("Place agent ended without validated output")
-        except LlmCallsLimitExceededError:
-            raise AgentError("Place model-call budget exceeded") from None
-        finally:
-            try:
-                await runner.close()
-            finally:
-                await sessions.delete_session(
-                    app_name="place_agent", user_id="request", session_id=session_id
-                )
+        return accepted

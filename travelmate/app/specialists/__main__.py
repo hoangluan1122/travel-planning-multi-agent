@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Literal
 from uuid import UUID
 
-from pydantic import SecretStr
+from pydantic import AliasChoices, Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from ..models import Context, PlannerInput
@@ -25,7 +25,9 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     google_api_key: SecretStr = SecretStr("")
     gemini_model: str = "gemini-3.5-flash-lite"
-    planner_engine: Literal["adk", "maf"] = "adk"
+    agent_engine: Literal["adk", "maf"] = Field(
+        default="adk", validation_alias=AliasChoices("agent_engine", "planner_engine")
+    )
 
 
 def write_result(args, result):
@@ -37,71 +39,43 @@ def write_result(args, result):
 
 async def run(args):
     raw = args.input.read_text(encoding="utf-8-sig")
-    client = None
-    try:
-        settings = Settings()
-        if args.agent in {"planner", "routed-planner"} and settings.planner_engine == "maf":
-            from ..maf_adapter import MafPlanner
-            from ..maf_clients import maf_gemini_client_factory
+    settings = Settings()
+    if args.agent in {"recommendation", "planner", "routed-planner"}:
+        from ..adk_adapter import AdkPlanner
+        from ..maf_adapter import MafPlanner
+        from ..specialist_api import agent_model_factory
 
-            if not settings.google_api_key.get_secret_value():
-                raise ValueError("Configure GOOGLE_API_KEY in .env locally")
-            async with maf_gemini_client_factory(
-                settings.google_api_key.get_secret_value(), settings.gemini_model
-            ) as factory:
-                agent, schema = (
-                    (RoutedPlannerSpecialist(factory, planner_cls=MafPlanner), RoutedPlannerInput)
-                    if args.agent == "routed-planner"
-                    else (PlannerSpecialist(factory, MafPlanner), PlannerInput)
-                )
-                result = await agent.run(schema.model_validate_json(raw), Context(), timeout=60)
-            write_result(args, result)
-            return
-        if args.agent in {"recommendation", "planner", "routed-planner"}:
-            from google.adk.models import Gemini
-            from google.genai import Client
-
-            if not settings.google_api_key.get_secret_value():
-                raise ValueError("Configure GOOGLE_API_KEY in .env locally")
-            client = Client(api_key=settings.google_api_key.get_secret_value())
-
-            class RequestGemini(Gemini):
-                @property
-                def api_client(self):
-                    return client
-
-            def factory():
-                return RequestGemini(model=settings.gemini_model)
-
-            agent, schema = (
-                (RecommendationSpecialist(factory), RecommendationRequest)
-                if args.agent == "recommendation"
-                else (PlannerSpecialist(factory), PlannerInput)
-            )
-            if args.agent == "routed-planner":
-                agent, schema = RoutedPlannerSpecialist(factory), RoutedPlannerInput
-        elif args.agent == "budget":
-            agent, schema = BudgetSpecialist(), BudgetRequest
-        elif args.agent == "trip-budget":
-            agent, schema = TripBudgetSpecialist(), TripBudgetRequest
-        elif args.agent == "recommendation-score":
-            agent, schema = RecommendationRanker(), RecommendationRequest
-        elif args.agent == "weather":
-            agent, schema = WeatherSpecialist(), WeatherRequest
-        elif args.agent == "route":
-            agent, schema = RouteSpecialist(), RouteRequest
-        else:
-            if args.user is None:
-                raise ValueError("Memory requires --user UUID for the local test identity")
-            agent, schema = MemorySpecialist(args.memory_db, args.user), MemoryRequest
-        result = await agent.run(schema.model_validate_json(raw), Context(), timeout=60)
+        if not settings.google_api_key.get_secret_value():
+            raise ValueError("Configure GOOGLE_API_KEY in .env locally")
+        engine = settings.agent_engine
+        planner_cls = MafPlanner if engine == "maf" else AdkPlanner
+        async with agent_model_factory(settings, engine) as factory:
+            if args.agent == "recommendation":
+                agent, schema = RecommendationSpecialist(factory, engine=engine), RecommendationRequest
+            elif args.agent == "routed-planner":
+                agent, schema = RoutedPlannerSpecialist(factory, planner_cls=planner_cls), RoutedPlannerInput
+            else:
+                agent, schema = PlannerSpecialist(factory, planner_cls), PlannerInput
+            result = await agent.run(schema.model_validate_json(raw), Context(), timeout=60)
         write_result(args, result)
-    finally:
-        if client is not None:
-            try:
-                await client.aio.aclose()
-            finally:
-                client.close()
+        return
+    if args.agent == "budget":
+        agent, schema = BudgetSpecialist(), BudgetRequest
+    elif args.agent == "trip-budget":
+        agent, schema = TripBudgetSpecialist(), TripBudgetRequest
+    elif args.agent == "recommendation-score":
+        agent, schema = RecommendationRanker(), RecommendationRequest
+    elif args.agent == "weather":
+        agent, schema = WeatherSpecialist(), WeatherRequest
+    elif args.agent == "route":
+        agent, schema = RouteSpecialist(), RouteRequest
+    else:
+        if args.user is None:
+            raise ValueError("Memory requires --user UUID for the local test identity")
+        agent, schema = MemorySpecialist(args.memory_db, args.user), MemoryRequest
+    result = await agent.run(schema.model_validate_json(raw), Context(), timeout=60)
+    write_result(args, result)
+
 
 
 def main():

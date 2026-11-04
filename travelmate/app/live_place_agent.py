@@ -64,7 +64,7 @@ class LivePlaceReport(Model):
     status: Literal[
         "success", "partial", "no_results", "needs_location", "source_error", "blocked", "timeout"
     ]
-    execution_mode: Literal["tool_workflow", "adk_llm"]
+    execution_mode: Literal["tool_workflow", "adk_llm", "maf_llm"]
     data_origin: Literal["live_network"] = "live_network"
     destination: str
     category: Literal["hotel", "restaurant", "attraction"] = "hotel"
@@ -310,8 +310,10 @@ class GeoGroundedProvider:
 class LivePlaceAgent(BaseAgent[LivePlaceRequest, LivePlaceReport]):
     name, input_schema, output_schema = "live_place_agent", LivePlaceRequest, LivePlaceReport
 
-    def __init__(self, *, model_factory=None, web_tool=None, reader=None, geo_service=None):
+    def __init__(self, *, model_factory=None, web_tool=None, reader=None, geo_service=None, engine="adk"):
+        """engine selects the LLM runtime when model_factory is set: adk or maf."""
         self.model_factory = model_factory
+        self.engine = engine
         self.web_tool = web_tool
         self.reader = reader or StructuredHotelReader()
         self.geo_service = geo_service or GeoPlaceService()
@@ -323,13 +325,13 @@ class LivePlaceAgent(BaseAgent[LivePlaceRequest, LivePlaceReport]):
             if self.web_tool is not None
             else GeoGroundedProvider(data, self.geo_service)
         )
-        mode = "adk_llm" if self.model_factory else "tool_workflow"
+        mode = f"{self.engine}_llm" if self.model_factory else "tool_workflow"
         selected, failure = [], "source_error"
         try:
             if isinstance(provider, GeoGroundedProvider):
                 await provider.resolve()
             if self.model_factory:
-                agent = PlaceAssistant(self.model_factory, provider, max_llm_calls=8)
+                agent = PlaceAssistant(self.model_factory, provider, max_llm_calls=8, engine=self.engine)
                 output = await agent.run(
                     PlaceAgentInput(
                         destination=data.destination,

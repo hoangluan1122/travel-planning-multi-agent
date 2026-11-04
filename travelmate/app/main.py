@@ -6,6 +6,7 @@ from fastapi import Depends, FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.staticfiles import StaticFiles
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from .adk_adapter import AdkPlanner
@@ -32,11 +33,13 @@ class Settings(BaseSettings):
     google_api_key: str = ""
     google_maps_api_key: str = ""
     gemini_model: str = "gemini-3.5-flash-lite"
-    planner_engine: Literal["adk", "maf"] = "adk"
+    agent_engine: Literal["adk", "maf"] = Field(
+        default="adk", validation_alias=AliasChoices("agent_engine", "planner_engine")
+    )
 
 
 def live_planner(settings):
-    if settings.planner_engine == "maf":
+    if settings.agent_engine == "maf":
         from .maf_adapter import MafPlanner
         from .maf_clients import maf_gemini_client
 
