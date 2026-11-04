@@ -61,17 +61,26 @@ def unique_plausible(places):
     return out
 
 
+def attraction_rank(place):
+    """Lower is a stronger sight: kind, heritage words in the name, generic centres last."""
+    name = place.name.casefold() + " "
+    base = min(ATTRACTION_RANK.get(t, 2) for t in place.types or ["?"])
+    if any(word in name for word in HERITAGE_WORDS):
+        base -= 2
+    if any(word in name for word in GENERIC_WORDS):
+        base += 3  # a museum-tagged "centre" ranks with parks, after monuments
+    return base
+
+
+def rank_candidates(places, category):
+    """Drop junk/duplicate names; for sights, landmarks first (stable within a rank)."""
+    places = unique_plausible(places)
+    return sorted(places, key=attraction_rank) if category == "attraction" else places
+
+
 def pick_attractions(places, limit, max_parks, max_per_kind=5):
     """Landmarks first, but no single kind (e.g. museums) fills the whole list."""
-    def rank(place):
-        name = place.name.casefold() + " "
-        base = min(ATTRACTION_RANK.get(t, 2) for t in place.types or ["?"])
-        if any(word in name for word in HERITAGE_WORDS):
-            base -= 2
-        if any(word in name for word in GENERIC_WORDS):
-            base += 3  # a museum-tagged "centre" ranks with parks, after monuments
-        return base
-
+    rank = attraction_rank
     out, counts = [], {}
     for place in sorted(unique_plausible(places), key=rank):
         kind = place.types[0] if place.types else "?"

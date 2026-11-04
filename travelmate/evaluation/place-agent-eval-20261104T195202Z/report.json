@@ -1,0 +1,288 @@
+{
+  "summary": {
+    "adk": {
+      "runs": 6,
+      "success": 5,
+      "success_rate": 0.833,
+      "avg_places": 4.0,
+      "all_grounded": true,
+      "broad_first_rate": 0.333,
+      "needs_match_rate": 0.667,
+      "needs_hit_share": 0.417,
+      "median_ms": 4016,
+      "statuses": {
+        "partial": 5,
+        "source_error": 1
+      }
+    },
+    "maf": {
+      "runs": 6,
+      "success": 5,
+      "success_rate": 0.833,
+      "avg_places": 3.67,
+      "all_grounded": true,
+      "broad_first_rate": 0.333,
+      "needs_match_rate": 0.667,
+      "needs_hit_share": 0.455,
+      "median_ms": 2647,
+      "statuses": {
+        "partial": 5,
+        "source_error": 1
+      }
+    }
+  },
+  "runs": [
+    {
+      "case": "hoian-chay",
+      "engine": "adk",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 4,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        ""
+      ],
+      "place_names": [
+        "Chao",
+        "Ganesh Indian Restaurant",
+        "BBQ Nuong Khoi Hoi An",
+        "3 Ngon"
+      ],
+      "needs_hits": 0,
+      "duration_ms": 10891
+    },
+    {
+      "case": "hoian-chay",
+      "engine": "maf",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 4,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        ""
+      ],
+      "place_names": [
+        "Chao",
+        "Ganesh Indian Restaurant",
+        "BBQ Nuong Khoi Hoi An",
+        "3 Ngon"
+      ],
+      "needs_hits": 0,
+      "duration_ms": 3186
+    },
+    {
+      "case": "hoian-chay",
+      "engine": "adk",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        "restaurant"
+      ],
+      "place_names": [
+        "Quáng Chay Diệu Hoa",
+        "Chao",
+        "Ganesh Indian Restaurant",
+        "Maharaja Indian Restaurant Hoi An",
+        "Annien"
+      ],
+      "needs_hits": 1,
+      "duration_ms": 4985
+    },
+    {
+      "case": "hoian-chay",
+      "engine": "maf",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        "restaurant"
+      ],
+      "place_names": [
+        "Quáng Chay Diệu Hoa",
+        "Chao",
+        "Ganesh Indian Restaurant",
+        "Maharaja Indian Restaurant Hoi An",
+        "Annien"
+      ],
+      "needs_hits": 1,
+      "duration_ms": 3031
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "adk",
+      "chosen_location": "Thành phố Huế",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Hoàng Thành Huế",
+        "Kinh thành Huế",
+        "Điện Thái Hòa",
+        "Tử Cấm Thành",
+        "Nha Trung Bay Nong Cu"
+      ],
+      "needs_hits": 3,
+      "duration_ms": 7687
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "maf",
+      "chosen_location": "Thành phố Huế",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Hoàng Thành Huế",
+        "Nha Trung Bay Nong Cu",
+        "Kinh thành Huế",
+        "Điện Thái Hòa",
+        "Tử Cấm Thành"
+      ],
+      "needs_hits": 3,
+      "duration_ms": 2718
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "adk",
+      "chosen_location": "Thành phố Huế",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Hoàng Thành Huế",
+        "Kinh thành Huế",
+        "Điện Thái Hòa",
+        "Tử Cấm Thành",
+        "Nha Trung Bay Nong Cu"
+      ],
+      "needs_hits": 3,
+      "duration_ms": 2125
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "maf",
+      "chosen_location": "Thành phố Huế",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Hoàng Thành Huế",
+        "Kinh thành Huế",
+        "Điện Thái Hòa",
+        "Tử Cấm Thành",
+        "Nha Trung Bay Nong Cu"
+      ],
+      "needs_hits": 3,
+      "duration_ms": 2577
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "adk",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        "Hải sản"
+      ],
+      "place_names": [
+        "Hải sản Năm Đảnh",
+        "Hải Sản Ốc 68",
+        "Hai San",
+        "Dac San Hoi An",
+        "Khách sạn Hội Phố"
+      ],
+      "needs_hits": 3,
+      "duration_ms": 3047
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "maf",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "partial",
+      "places": 3,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        "Hải sản"
+      ],
+      "place_names": [
+        "Hải sản Năm Đảnh",
+        "Hải Sản Ốc 68",
+        "Hai San"
+      ],
+      "needs_hits": 3,
+      "duration_ms": 1702
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "adk",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 0,
+      "detail_calls": 0,
+      "keywords": [],
+      "place_names": [],
+      "needs_hits": 0,
+      "duration_ms": 297
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "maf",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        "Hải sản"
+      ],
+      "place_names": [],
+      "needs_hits": 0,
+      "duration_ms": 875
+    }
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "created_at": "2026-11-04T19:52:02.114554+00:00"
+}

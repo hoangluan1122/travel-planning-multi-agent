@@ -1,0 +1,10 @@
+[
+  {"id": "hoian-chay", "destination": "Hội An", "category": "restaurant", "needs": "Muốn ăn chay", "limit": 5,
+   "expect_any": ["chay", "vegan", "vegetarian"]},
+  {"id": "sapa-hotel", "destination": "Sa Pa", "category": "hotel", "needs": "Gần trung tâm thị trấn", "limit": 5},
+  {"id": "dalat-sights", "destination": "Đà Lạt", "category": "attraction", "needs": "", "limit": 5},
+  {"id": "hue-heritage", "destination": "Huế", "category": "attraction", "needs": "Thích di tích, bảo tàng", "limit": 5,
+   "expect_any": ["bảo tàng", "museum", "lăng", "hoàng thành", "đại nội", "điện", "di tích", "chùa", "kinh thành", "citadel"]},
+  {"id": "danang-seafood", "destination": "Đà Nẵng", "category": "restaurant", "needs": "Hải sản", "limit": 5,
+   "expect_any": ["hải sản", "seafood", "ốc", "hai san"]}
+]
