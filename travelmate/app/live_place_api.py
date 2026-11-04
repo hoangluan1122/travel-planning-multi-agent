@@ -15,6 +15,7 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 from .geo_places import GeoPlaceService
 from .live_place_agent import LivePlaceAgent, LivePlaceReport, LivePlaceRequest
 from .models import Context
+from .telemetry import configure_telemetry
 from .vietnam_regions import load_catalog
 
 UI = Path(__file__).resolve().parent.parent / "frontend" / "place-agent-live"
@@ -26,10 +27,13 @@ class LivePlaceSettings(BaseSettings):
     google_api_key: SecretStr = SecretStr("")
     gemini_model: str = "gemini-3.5-flash-lite"
     travelmate_api_token: SecretStr = SecretStr("")
+    # OpenTelemetry traces: off, console, or otlp (OTEL_EXPORTER_OTLP_ENDPOINT); needs --extra maf
+    travelmate_telemetry: Literal["off", "console", "otlp"] = "off"
 
 
 def create_app(settings=None, agent=None):
     settings = settings or LivePlaceSettings()
+    configure_telemetry(settings.travelmate_telemetry, "travelmate-live-place")
     if (
         settings.live_place_mode in {"adk_llm", "maf_llm"}
         and not settings.google_api_key.get_secret_value()

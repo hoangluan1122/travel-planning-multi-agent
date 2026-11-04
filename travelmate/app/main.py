@@ -24,6 +24,7 @@ from .agents import (
 from .models import PlaceResult, PlaceSearchRequest, PlanResponse, TripRequest
 from .orchestrator import Orchestrator
 from .providers import DemoProvider, LiveProvider
+from .telemetry import configure_telemetry
 
 
 class Settings(BaseSettings):
@@ -43,6 +44,8 @@ class Settings(BaseSettings):
     # requests cannot choose whose memory is read. Unset = request interests only.
     travelmate_memory_user: UUID | None = None
     travelmate_memory_db: Path = Path("agent-memory.sqlite3")
+    # OpenTelemetry traces: off, console, or otlp (OTEL_EXPORTER_OTLP_ENDPOINT); needs --extra maf
+    travelmate_telemetry: Literal["off", "console", "otlp"] = "off"
 
 
 def memory_store(settings):
@@ -64,6 +67,7 @@ def live_planner(settings):
 
 def create_app(settings=None, orchestrator=None, provider=None):
     settings = settings or Settings()
+    configure_telemetry(settings.travelmate_telemetry, "travelmate-api")
     if settings.travelmate_mode == "live":
         if not all([settings.google_api_key, settings.google_maps_api_key, settings.travelmate_api_token]):
             raise ValueError("Live mode requires Gemini key, Maps key and an API token")

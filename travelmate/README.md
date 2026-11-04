@@ -84,6 +84,24 @@ trình đọc sở thích đã lưu của danh tính đó, gộp sau sở thích
 - **Không chặn kế hoạch:** memory hết hạn, đã xóa hoặc không đọc được thì chỉ dùng sở thích
   trong request, kèm cảnh báo.
 
+## Trace và so sánh engine
+
+**Trace (OpenTelemetry).** Đặt `TRAVELMATE_TELEMETRY=console` (in ra terminal) hoặc `otlp`
+(gửi tới `OTEL_EXPORTER_OTLP_ENDPOINT`, ví dụ Jaeger hoặc Aspire Dashboard); cần extra `maf`.
+Mỗi lần agent chạy có một span `agent <tên>` kèm `request_id` và kết quả; span của MAF
+(`invoke_agent`, `chat`, `execute_tool`) nằm lồng bên trong, nên một request là một trace.
+Không xuất nội dung prompt, tham số hay kết quả tool: chế độ sensitive luôn tắt.
+
+**So sánh ADK và MAF trên Gemini thật** (tốn token, cần `GOOGLE_API_KEY`):
+
+```powershell
+uv sync --extra dev --extra ai --extra maf
+uv run python scripts/compare_engines.py --runs 3
+```
+
+Script cho cả hai engine lập lịch cùng đầu vào qua cùng submit gate, rồi ghi tỷ lệ được chấp
+nhận, loại lỗi và thời gian vào `evaluation/engine-comparison-<UTC>/`.
+
 ## Cấu trúc
 
 - `app/`: API, schema, agent, provider và công cụ.

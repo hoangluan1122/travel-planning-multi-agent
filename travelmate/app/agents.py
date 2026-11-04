@@ -23,6 +23,7 @@ from .models import (
     TripRequest,
     WeatherResult,
 )
+from .telemetry import agent_span, set_outcome
 
 InputT = TypeVar("InputT", bound=BaseModel)
 OutputT = TypeVar("OutputT", bound=BaseModel)
@@ -49,28 +50,33 @@ class BaseAgent(ABC, Generic[InputT, OutputT]):
         request_context = Context.model_validate(context.model_dump())
         started = time.monotonic()
         outcome = "failed"
-        try:
-            async with asyncio.timeout(timeout):
-                result = await self.execute(validated, request_context)
-                output = self.output_schema.model_validate(
-                    result.model_dump() if isinstance(result, BaseModel) else result
-                )
-            outcome = "success"
-            return output
-        except asyncio.CancelledError:
-            outcome = "cancelled"
-            raise
-        except TimeoutError:
-            outcome = "timeout"
-            raise
-        finally:
-            logger.info(
-                "agent_run agent=%s request=%s outcome=%s duration_ms=%d",
-                self.name,
-                request_context.request_id,
-                outcome,
-                int((time.monotonic() - started) * 1000),
-            )
+        with agent_span(self.name, request_context.request_id) as span:
+            try:
+                async with asyncio.timeout(timeout):
+                    result = await self.execute(validated, request_context)
+                    output = self.output_schema.model_validate(
+                        result.model_dump() if isinstance(result, BaseModel) else result
+                    )
+                outcome = "success"
+                return output
+            except asyncio.CancelledError:
+                outcome = "cancelled"
+                raise
+            except TimeoutError:
+                outcome = "timeout"
+                raise
+            finally:
+                set_outcome(span, outcome)
+                self._log_run(request_context, outcome, started)
+
+    def _log_run(self, request_context, outcome, started):
+        logger.info(
+            "agent_run agent=%s request=%s outcome=%s duration_ms=%d",
+            self.name,
+            request_context.request_id,
+            outcome,
+            int((time.monotonic() - started) * 1000),
+        )
 
     @abstractmethod
     async def execute(self, data: InputT, context: Context) -> OutputT:
