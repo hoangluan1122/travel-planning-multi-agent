@@ -18,21 +18,35 @@
   document.head.append(style);
   const banner = document.createElement('div');
   banner.className = 'api-banner';
-  banner.innerHTML = '<span id="api-health" role="status">Đang kiểm tra kết nối backend…</span><details><summary>Cấu hình kết nối</summary><label>Token truy cập backend (nếu được yêu cầu) <input type="password" id="api-token" autocomplete="off"></label><button id="token-save" type="button">Áp dụng</button><small> Token chỉ lưu trong phiên tab này. Không nhập API key Gemini tại đây.</small></details>';
+  banner.innerHTML = '<span id="api-health" role="status">Đang kiểm tra kết nối backend…</span><details><summary>Cấu hình kết nối</summary><label>Token truy cập backend (nếu được yêu cầu) <input type="password" id="api-token" autocomplete="off"></label><button id="token-save" type="button">Áp dụng</button><small> Token được lưu trên trình duyệt này (mọi tab). Dán đúng giá trị TRAVELMATE_API_TOKEN, không nhập API key Gemini tại đây.</small></details>';
   document.querySelector('header').after(banner);
-  document.querySelector('#api-token').value = read('tm-token','');
-  document.querySelector('#token-save').onclick = () => {save('tm-token',document.querySelector('#api-token').value.trim());document.querySelector('#api-health').textContent='Đã áp dụng token. Bạn có thể thử lại yêu cầu.'};
+  // Accept a pasted .env line or a quoted value; keep the token for every tab on this browser.
+  const cleanToken = value => value.trim().replace(/^TRAVELMATE_API_TOKEN\s*=\s*/i,'').replace(/^["']+|["']+$/g,'').trim();
+  const readToken = () => {try {return JSON.parse(localStorage.getItem('tm-token')) || read('tm-token','')} catch {return read('tm-token','')}};
+  const tokenInput = document.querySelector('#api-token');
+  tokenInput.value = readToken();
+  const applyToken = () => {
+    const token = cleanToken(tokenInput.value);
+    tokenInput.value = token;
+    try {localStorage.setItem('tm-token', JSON.stringify(token))} catch {}
+    save('tm-token', token);
+    document.querySelector('#api-health').textContent = token ? `Đã lưu token (${token.length} ký tự). Bạn có thể thử lại yêu cầu.` : 'Đã xoá token.';
+  };
+  document.querySelector('#token-save').onclick = applyToken;
+  tokenInput.addEventListener('change', applyToken);
+  tokenInput.addEventListener('keydown', e => {if(e.key==='Enter'){e.preventDefault();applyToken()}});
   fetch('/health').then(r=>{if(!r.ok)throw Error();return r.json()}).then(h=>{
     document.querySelector('#api-health').textContent = `Backend đã kết nối · ${h.mode==='demo'?'DEMO — dữ liệu giả lập, không phải địa điểm thật':`LIVE — ${h.place_provider==='open_data'?'OpenStreetMap + Open-Meteo':'Google Places'} · lịch do Gemini lập (${(h.agent_engine||'adk').toUpperCase()})`}${h.token_required?' · Yêu cầu token truy cập':''}`;
   }).catch(()=>{document.querySelector('#api-health').textContent='Không kết nối được backend. Hãy chạy ứng dụng qua máy chủ FastAPI.'});
 
   async function api(path, data, signal) {
     const headers = {'Content-Type':'application/json'};
-    const token = read('tm-token','');
+    const token = readToken();
     if(token) headers.Authorization = `Bearer ${token}`;
     const response = await fetch(path,{method:'POST',headers,body:JSON.stringify(data),signal});
     const body = await response.json().catch(()=>({}));
     if (!response.ok) {
+      if(response.status===401) {const details=document.querySelector('.api-banner details');if(details)details.open=true;tokenInput.focus()}
       if(response.status===401) throw Error('Token truy cập không đúng hoặc còn thiếu. Mở Cấu hình kết nối để nhập lại.');
       if(response.status===422) throw Error('Thông tin chưa hợp lệ: '+(Array.isArray(body.detail)?body.detail.map(e=>`${e.loc.slice(1).join('.')}: ${e.msg}`).join('; '):'Kiểm tra lại biểu mẫu.'));
       throw Error(response.status===504?'Quá thời gian xử lý. Vui lòng thử lại.':body.detail || `Backend trả lỗi ${response.status}`);
