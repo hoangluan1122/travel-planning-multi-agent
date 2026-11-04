@@ -53,6 +53,22 @@ MAF mặc định trả lỗi tool về cho model, gọi thêm một lượt khi
 chỉ dừng sớm khi tín hiệu đến từ middleware. `app/tool_loop.py` xử lý cả ba để ngân sách
 tool, ngân sách gọi model và điểm dừng sau khi chấp nhận giống hệt ADK.
 
+### Orchestrator dạng MAF Workflow
+
+API lịch trình (`app.main`) có hai cách điều phối, chọn bằng `TRAVELMATE_ORCHESTRATOR`:
+`classic` (mặc định, `app/orchestrator.py`) hoặc `workflow` (`app/workflow_orchestrator.py`).
+Bản workflow là đồ thị executor của MAF:
+
+```text
+memory ──► place ───┐
+      └──► weather ─┴─► recommendation ─► planner ─► validate ─► budget ─► PlanResponse
+```
+
+`place` và `weather` chạy song song (fan-out), `recommendation` chờ cả hai (fan-in). Hai
+bản dùng chung quy tắc từng bước (`checked_places`, `checked_weather`, `validate_draft`,
+`plan_response`), nên cho cùng kết quả và cùng lỗi với cùng đầu vào. Bản workflow nhận
+`checkpoint_storage` tùy chọn để lưu checkpoint sau mỗi superstep.
+
 ## Cấu trúc
 
 - `app/`: API, schema, agent, provider và công cụ.

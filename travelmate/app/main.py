@@ -36,6 +36,8 @@ class Settings(BaseSettings):
     agent_engine: Literal["adk", "maf"] = Field(
         default="adk", validation_alias=AliasChoices("agent_engine", "planner_engine")
     )
+    # classic: asyncio pipeline in app/orchestrator.py; workflow: MAF Workflow graph (needs --extra maf)
+    travelmate_orchestrator: Literal["classic", "workflow"] = "classic"
 
 
 def live_planner(settings):
@@ -73,7 +75,17 @@ def create_app(settings=None, orchestrator=None, provider=None):
             BudgetAgent(),
         ]:
             registry.register(agent)
-        orchestrator = Orchestrator(registry, settings.travelmate_mode, settings.travelmate_agent_timeout)
+        if settings.travelmate_orchestrator == "workflow":
+            try:
+                import agent_framework  # noqa: F401
+            except ImportError:
+                raise ValueError("TRAVELMATE_ORCHESTRATOR=workflow requires the maf extra") from None
+            from .workflow_orchestrator import WorkflowOrchestrator
+
+            orchestrator_cls = WorkflowOrchestrator
+        else:
+            orchestrator_cls = Orchestrator
+        orchestrator = orchestrator_cls(registry, settings.travelmate_mode, settings.travelmate_agent_timeout)
     app = FastAPI(title="TravelMate API", version="0.1.0")
     bearer = HTTPBearer(auto_error=False)
 
