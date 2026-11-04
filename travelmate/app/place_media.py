@@ -7,6 +7,7 @@ the endpoint cannot be used to spend the key on arbitrary requests.
 """
 
 import asyncio
+import math
 import re
 import time
 import unicodedata
@@ -39,56 +40,151 @@ def titles_match(place_name, title):
     return bool(a and b) and (a in b or b in a)
 
 
+GENERIC_TOKENS = {"hue", "hoi", "lat", "nang", "viet", "nam", "vietnam", "city", "thanh", "pho", "quan",
+                  "nha", "hang", "cafe", "coffee", "restaurant", "hotel", "khach", "san", "the", "and"}
+EARTH_KM = 6371.0
+
+
+def distance_km(lat1, lon1, lat2, lon2):
+    p1, p2 = math.radians(lat1), math.radians(lat2)
+    dp, dl = p2 - p1, math.radians(lon2 - lon1)
+    a = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
+    return 2 * EARTH_KM * math.asin(math.sqrt(a))
+
+
+def name_tokens(name):
+    return {t for t in re.split(r"[^a-z0-9]+", plain(name)) if len(t) >= 4 and t not in GENERIC_TOKENS}
+
+
+def strip_html(text):
+    return " ".join(re.sub(r"<[^>]+>", " ", text or "").split())
+
+
 class WikipediaImages:
-    def __init__(self, transport=None, lang="vi", limit=24, concurrency=3, timeout=8):
+    """Free photos for places, tried in order of confidence; never fails a search.
+
+    1. Wikipedia article whose title matches the place name (sights only).
+    2. Wikidata item with a matching label and coordinates within 1.5 km, using its image.
+    3. Wikimedia Commons file taken within 150 m whose title shares a distinctive word
+       with the place name.
+    Commons photos carry the author and licence from the file's metadata.
+    """
+
+    def __init__(self, transport=None, lang="vi", limit=30, concurrency=6, timeout=6, deadline_s=12):
         self.transport, self.lang, self.limit = transport, lang, limit
         self.semaphore = asyncio.Semaphore(concurrency)
-        self.timeout = timeout
+        self.timeout, self.deadline_s = timeout, deadline_s
         self.cache = {}
 
-    async def lookup(self, client, name):
-        if name in self.cache:
-            return self.cache[name]
+    async def get(self, client, url, params):
         async with self.semaphore:
-            response = await client.get(
-                f"https://{self.lang}.wikipedia.org/w/api.php",
-                params={
-                    "action": "query", "format": "json", "formatversion": "2", "generator": "search",
-                    "gsrsearch": name, "gsrlimit": "1", "gsrnamespace": "0",
-                    "prop": "pageimages|info", "piprop": "thumbnail", "pithumbsize": "800", "inprop": "url",
-                },
-            )
+            response = await client.get(url, params={"format": "json", "formatversion": "2", **params})
             response.raise_for_status()
-        pages = response.json().get("query", {}).get("pages", [])
+            return response.json()
+
+    async def wikipedia(self, client, place):
+        data = await self.get(client, f"https://{self.lang}.wikipedia.org/w/api.php", {
+            "action": "query", "generator": "search", "gsrsearch": place.name, "gsrlimit": "1",
+            "gsrnamespace": "0", "prop": "pageimages|info", "piprop": "thumbnail", "pithumbsize": "800",
+            "inprop": "url",
+        })
+        pages = data.get("query", {}).get("pages", [])
+        if not pages:
+            return None
+        page = pages[0]
+        thumb = (page.get("thumbnail") or {}).get("source", "")
+        if not (is_wikimedia_image(thumb) and titles_match(place.name, page.get("title", ""))):
+            return None
+        return PlacePhoto(
+            url=thumb,
+            attribution=f"Ảnh: Wikipedia — {page['title']} (giấy phép xem tại trang ảnh)",
+            source_url=page.get("fullurl"),
+        )
+
+    async def commons_file(self, client, title):
+        data = await self.get(client, "https://commons.wikimedia.org/w/api.php", {
+            "action": "query", "titles": title, "prop": "imageinfo", "iiprop": "url|extmetadata",
+            "iiurlwidth": "800",
+        })
+        pages = data.get("query", {}).get("pages", [])
+        info = ((pages[0].get("imageinfo") or [None])[0]) if pages else None
+        if not info or not is_wikimedia_image(info.get("thumburl", "")):
+            return None
+        meta = info.get("extmetadata") or {}
+        author = strip_html((meta.get("Artist") or {}).get("value", ""))[:120] or "tác giả trên Commons"
+        licence = strip_html((meta.get("LicenseShortName") or {}).get("value", ""))[:60] or "xem trang ảnh"
+        return PlacePhoto(
+            url=info["thumburl"],
+            attribution=f"Ảnh: {author} — {licence}, Wikimedia Commons",
+            source_url=info.get("descriptionurl"),
+        )
+
+    async def wikidata(self, client, place):
+        found = await self.get(client, "https://www.wikidata.org/w/api.php", {
+            "action": "wbsearchentities", "search": place.name, "language": self.lang, "uselang": self.lang,
+            "type": "item", "limit": "3",
+        })
+        ids = [item["id"] for item in found.get("search", []) if titles_match(place.name, item.get("label", ""))]
+        if not ids:
+            return None
+        entities = await self.get(client, "https://www.wikidata.org/w/api.php", {
+            "action": "wbgetentities", "ids": "|".join(ids), "props": "claims",
+        })
+        for ident in ids:
+            claims = (entities.get("entities", {}).get(ident) or {}).get("claims", {})
+            try:
+                coord = claims["P625"][0]["mainsnak"]["datavalue"]["value"]
+                image = claims["P18"][0]["mainsnak"]["datavalue"]["value"]
+            except (KeyError, IndexError, TypeError):
+                continue
+            if distance_km(place.latitude, place.longitude, coord["latitude"], coord["longitude"]) <= 1.5:
+                return await self.commons_file(client, f"File:{image}")
+        return None
+
+    async def commons_nearby(self, client, place):
+        tokens = name_tokens(place.name)
+        if not tokens:
+            return None
+        data = await self.get(client, "https://commons.wikimedia.org/w/api.php", {
+            "action": "query", "list": "geosearch", "gscoord": f"{place.latitude}|{place.longitude}",
+            "gsradius": "150", "gsnamespace": "6", "gslimit": "10",
+        })
+        for hit in data.get("query", {}).get("geosearch", []):
+            if tokens & name_tokens(hit.get("title", "")):
+                return await self.commons_file(client, hit["title"])
+        return None
+
+    async def find(self, client, place):
+        if place.id in self.cache:
+            return self.cache[place.id]
+        sources = ([self.wikipedia] if PHOTO_KINDS & set(place.types) else []) + [self.wikidata, self.commons_nearby]
         photo = None
-        if pages:
-            page = pages[0]
-            thumb = (page.get("thumbnail") or {}).get("source", "")
-            if is_wikimedia_image(thumb) and titles_match(name, page.get("title", "")):
-                photo = PlacePhoto(
-                    url=thumb,
-                    attribution=f"Ảnh: Wikipedia — {page['title']} (giấy phép xem tại trang ảnh)",
-                    source_url=page.get("fullurl"),
-                )
-        self.cache[name] = photo
+        for source in sources:
+            try:
+                photo = await source(client, place)
+            except (httpx.HTTPError, ValueError, KeyError, TypeError):
+                photo = None
+            if photo:
+                break
+        self.cache[place.id] = photo
         return photo
 
     async def enrich(self, places):
-        """Return places with a Wikipedia photo added where one clearly matches; never fails."""
-        wanted = [p for p in places if p.photo is None and PHOTO_KINDS & set(p.types)][: self.limit]
+        """Return places with a free photo added where one clearly matches, within a time budget."""
+        wanted = [p for p in places if p.photo is None][: self.limit]
         if not wanted:
             return places
         found = {}
-        try:
-            async with httpx.AsyncClient(
-                timeout=self.timeout, transport=self.transport, headers={"User-Agent": USER_AGENT}
-            ) as client:
-                results = await asyncio.gather(*(self.lookup(client, p.name) for p in wanted), return_exceptions=True)
-        except httpx.HTTPError:
-            return places
-        for place, result in zip(wanted, results, strict=True):
-            if isinstance(result, PlacePhoto):
-                found[place.id] = result
+        async with httpx.AsyncClient(
+            timeout=self.timeout, transport=self.transport, headers={"User-Agent": USER_AGENT}
+        ) as client:
+            tasks = {asyncio.create_task(self.find(client, p)): p for p in wanted}
+            done, pending = await asyncio.wait(tasks, timeout=self.deadline_s)
+            for task in pending:
+                task.cancel()
+            for task in done:
+                if not task.cancelled() and task.exception() is None and task.result():
+                    found[tasks[task].id] = task.result()
         return [p.model_copy(update={"photo": found[p.id]}) if p.id in found else p for p in places]
 
 

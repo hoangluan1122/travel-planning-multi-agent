@@ -7,6 +7,7 @@ from pydantic import ValidationError
 
 from .agents import AgentError
 from .models import Place, PlacePhoto, PlaceResult, PlaceSearchRequest, PriceRange, WeatherDay, WeatherResult
+from .ticket_prices import apply_tickets
 
 
 class DemoProvider:
@@ -126,7 +127,7 @@ class LiveProvider:
             "Mức giá (₫–₫₫₫₫) và khoảng giá là của Google cho mỗi người, có thể đã cũ; "
             "chưa có giá phòng khách sạn theo đêm."
         )
-        return PlaceResult(places=places, warnings=warnings, stays=stays)
+        return PlaceResult(places=apply_tickets(places, trip.destination), warnings=warnings, stays=stays)
 
     async def search_places(self, query: PlaceSearchRequest):
         try:

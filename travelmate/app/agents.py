@@ -212,6 +212,8 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
         total = Decimal("0")
         low = high = Decimal("0")
         basis = []
+        tickets_seen = set()
+        ranged = False  # only show an estimate when some cost is a range, not just known fees
         unknown = ["Lưu trú", "Ăn uống", "Di chuyển"]
         for day in data.draft.days:
             for activity in day.activities:
@@ -219,6 +221,24 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
                 if place.estimated_visit_cost_vnd is not None:
                     total += place.estimated_visit_cost_vnd * data.trip.travelers
                     continue
+                ticket = place.ticket
+                if ticket:
+                    # One ticket per group per trip (e.g. a single Imperial City ticket).
+                    if ticket.group_id in tickets_seen:
+                        continue
+                    tickets_seen.add(ticket.group_id)
+                    if ticket.adult_vnd is not None:
+                        total += ticket.adult_vnd * data.trip.travelers
+                        basis.append(f"{ticket.label}: {ticket.adult_vnd:,.0f} ₫/người lớn (bảng giá vé có nguồn)")
+                        continue
+                    if ticket.low_vnd is not None or ticket.high_vnd is not None:
+                        start = ticket.low_vnd if ticket.low_vnd is not None else ticket.high_vnd
+                        end = ticket.high_vnd if ticket.high_vnd is not None else ticket.low_vnd
+                        low += start * data.trip.travelers
+                        high += end * data.trip.travelers
+                        ranged = True
+                        basis.append(f"{ticket.label}: {start:,.0f}–{end:,.0f} ₫/người (bảng giá vé có nguồn)")
+                        continue
                 span = place.price_range
                 if span and (span.low_vnd is not None or span.high_vnd is not None):
                     # A source price range per person; an estimate, never added to known costs.
@@ -226,6 +246,7 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
                     end = span.high_vnd if span.high_vnd is not None else span.low_vnd
                     low += start * data.trip.travelers
                     high += end * data.trip.travelers
+                    ranged = True
                     basis.append(f"{place.name}: {start:,.0f}–{end:,.0f} ₫/người ({day.date.isoformat()})")
                 else:
                     unknown.append(f"Chi phí tại {place.name} ({day.date.isoformat()})")
@@ -234,7 +255,7 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
             known_subtotal=total,
             unknown_items=unknown,
             status=status,
-            estimated_low_vnd=total + low if basis else None,
-            estimated_high_vnd=total + high if basis else None,
+            estimated_low_vnd=total + low if ranged else None,
+            estimated_high_vnd=total + high if ranged else None,
             estimate_basis=basis,
         )

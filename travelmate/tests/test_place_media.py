@@ -76,3 +76,60 @@ async def test_google_photo_proxy_serves_only_issued_names_and_hides_the_key():
     assert seen[0].headers["X-Goog-Api-Key"] == "secret-key"
     await proxy.resolve("places/ChIJabc/photos/AXyz-1_2")
     assert len(seen) == 1  # cached
+
+
+def router(routes):
+    """MockTransport answering by host + action, recording every request."""
+    seen = []
+
+    def handler(request):
+        seen.append(request)
+        key = (request.url.host, request.url.params.get("action"), request.url.params.get("list"))
+        for (host, action, lst), body in routes.items():
+            if key == (host, action, lst):
+                return httpx.Response(200, json=body(request) if callable(body) else body)
+        return httpx.Response(200, json={})
+
+    return httpx.MockTransport(handler), seen
+
+
+COMMONS_INFO = {"query": {"pages": [{"imageinfo": [{
+    "thumburl": "https://upload.wikimedia.org/thumb/x.jpg", "descriptionurl": "https://commons.wikimedia.org/wiki/File:X.jpg",
+    "extmetadata": {"Artist": {"value": "<a href='u'>Nguyễn A</a>"}, "LicenseShortName": {"value": "CC BY-SA 4.0"}},
+}]}]}}
+
+
+def wikidata_routes(lat):
+    return {
+        ("www.wikidata.org", "wbsearchentities", None): {"search": [{"id": "Q1", "label": "Chùa Thiên Mụ"}]},
+        ("www.wikidata.org", "wbgetentities", None): {"entities": {"Q1": {"claims": {
+            "P625": [{"mainsnak": {"datavalue": {"value": {"latitude": lat, "longitude": 107.0}}}}],
+            "P18": [{"mainsnak": {"datavalue": {"value": "X.jpg"}}}],
+        }}}},
+        ("commons.wikimedia.org", "query", None): COMMONS_INFO,
+    }
+
+
+@pytest.mark.asyncio
+async def test_wikidata_image_needs_matching_label_and_nearby_coordinates():
+    near, _ = router(wikidata_routes(16.0))
+    out = await WikipediaImages(transport=near).enrich([place("w", "Chùa Thiên Mụ", ["restaurant"])])
+    assert out[0].photo.url == "https://upload.wikimedia.org/thumb/x.jpg"
+    assert "Nguyễn A" in out[0].photo.attribution and "CC BY-SA 4.0" in out[0].photo.attribution
+    far, _ = router(wikidata_routes(17.0))  # ~110 km away: a different place with the same name
+    assert (await WikipediaImages(transport=far).enrich([place("w", "Chùa Thiên Mụ", ["restaurant"])]))[0].photo is None
+
+
+@pytest.mark.asyncio
+async def test_commons_nearby_needs_a_distinctive_shared_word():
+    def geo(titles):
+        return {
+            ("commons.wikimedia.org", "query", "geosearch"): {"query": {"geosearch": [{"title": t} for t in titles]}},
+            ("commons.wikimedia.org", "query", None): COMMONS_INFO,
+        }
+
+    match, _ = router(geo(["File:Street in Hue.jpg", "File:Thong Dalat Space interior.jpg"]))
+    out = await WikipediaImages(transport=match).enrich([place("c", "Thong Dalat Space", ["cafe"])])
+    assert out[0].photo is not None
+    generic, _ = router(geo(["File:Cafe in Hue city.jpg"]))  # only generic words shared
+    assert (await WikipediaImages(transport=generic).enrich([place("c", "Hue Cafe", ["cafe"])]))[0].photo is None

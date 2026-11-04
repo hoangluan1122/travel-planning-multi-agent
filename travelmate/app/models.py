@@ -73,6 +73,19 @@ class PriceRange(Model):
     high_vnd: Decimal | None = Field(default=None, ge=0)
 
 
+class TicketInfo(Model):
+    """Entrance fee from the curated, cited table in app/data/ticket_prices.json."""
+
+    group_id: ShortText  # one ticket can cover several places (e.g. the whole Imperial City)
+    label: str = Field(max_length=300)
+    adult_vnd: Decimal | None = Field(default=None, ge=0)
+    low_vnd: Decimal | None = Field(default=None, ge=0)
+    high_vnd: Decimal | None = Field(default=None, ge=0)
+    note: str | None = Field(default=None, max_length=300)
+    sources: list[str] = Field(default_factory=list, max_length=5)
+    checked: date
+
+
 class Place(Model):
     id: ShortText
     name: ShortText
@@ -96,6 +109,7 @@ class Place(Model):
     price_level: Literal["free", "inexpensive", "moderate", "expensive", "very_expensive"] | None = None
     price_range: PriceRange | None = None
     maps_url: str | None = Field(default=None, max_length=2000)
+    ticket: TicketInfo | None = None
 
 
 class PlaceResult(Model):

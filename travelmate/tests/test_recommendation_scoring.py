@@ -53,6 +53,7 @@ async def test_score_breakdown_facts_and_price_basis_are_auditable():
         "price_level": None,
         "price_range": None,
         "maps_url": None,
+        "ticket": None,
     }
     data["limit"] = 3
     third = next(i for i in (await rank(data)).items if i.place_id == "fixture-cafe")
@@ -194,7 +195,7 @@ async def test_real_source_snapshot_does_not_invent_price_or_family_suitability(
     assert report.items[0].matched_interests == ["khách sạn"]
     assert report.items[0].unresolved_interests == ["gia đình"]
     # The snapshot predates the photo/price/rating fields; those stay unset for this source.
-    added = {"photo", "rating", "rating_count", "price_level", "price_range", "maps_url"}
+    added = {"photo", "rating", "rating_count", "price_level", "price_range", "maps_url", "ticket"}
     dumped = report.places[0].model_dump(mode="json")
     assert all(dumped[key] is None for key in added)
     assert {k: v for k, v in dumped.items() if k not in added} == places[0]

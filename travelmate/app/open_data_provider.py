@@ -13,6 +13,7 @@ from .agents import AgentError
 from .geo_places import GeoPlaceService, LocalityChoiceRequired
 from .models import Context, PlaceResult, WeatherDay, WeatherResult
 from .place_media import WikipediaImages
+from .ticket_prices import apply_tickets
 
 SOURCE_NOTE = (
     "Địa điểm từ OpenStreetMap qua Photon (dữ liệu cộng đồng, ODbL); có thể thiếu hoặc cũ, "
@@ -145,6 +146,7 @@ class OpenDataProvider:
             places.extend(pick(found))
         places.extend(await self.heritage_sites(location, places))
         places = await self.images.enrich(places) if self.images else places
+        places = apply_tickets(places, trip.destination)
         stays = await self.stays(location)
         if failures == len(self.pickers):
             raise AgentError("Nguồn địa điểm không phản hồi")
