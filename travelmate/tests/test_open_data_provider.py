@@ -10,7 +10,7 @@ from app.agents import AgentError
 from app.geo_places import Locality, LocalityChoiceRequired
 from app.main import Settings, create_app
 from app.models import Place, PlaceSearchRequest, TripRequest
-from app.open_data_provider import OpenDataProvider
+from app.open_data_provider import OpenDataProvider, pick_attractions, pick_food, plausible_name
 from app.specialists.weather import ForecastDay, WeatherReport
 
 
@@ -21,8 +21,11 @@ def locality(name="Hội An", admin1="Đà Nẵng", ident="geonames:1"):
     )
 
 
-def place(ident, types):
-    return Place(id=ident, name=ident, address="addr", latitude=15.88, longitude=108.33, source="osm", types=types)
+def place(ident, types, name=None):
+    return Place(
+        id=ident, name=name or ident.title(), address="addr", latitude=15.88, longitude=108.33,
+        source="osm", types=types,
+    )
 
 
 class FakeGeo:
@@ -70,11 +73,47 @@ def trip():
 @pytest.mark.asyncio
 async def test_search_merges_capped_categories_with_source_note():
     geo = FakeGeo()
-    result = await OpenDataProvider(geo=geo, attractions=3, restaurants=2).search(trip())
+    result = await OpenDataProvider(geo=geo, attractions=3, meals=2, cafes=0).search(trip())
     assert [p.id for p in result.places] == [
         "attraction-0", "attraction-1", "attraction-2", "restaurant-0", "restaurant-1",
     ]
     assert any("OpenStreetMap" in w for w in result.warnings)
+
+
+@pytest.mark.parametrize(
+    "name,ok",
+    [
+        ("Hoàng Thành Huế", True), ("3 Ngon", True), ("Nina's Cafe", True),
+        ("illegal entrance to palace, climb over", False), ("tan.", False), ("Chè", False),
+        ("Street Food - " + "bánh xèo, " * 10, False),
+    ],
+)
+def test_plausible_name_drops_osm_notes_and_fragments(name, ok):
+    assert plausible_name(name) is ok
+
+
+def test_attractions_prefer_heritage_cap_kinds_and_dedupe():
+    nearest_first = [
+        place("p1", ["park"], "Công viên A"), place("p2", ["park"], "Công viên B"),
+        place("p3", ["park"], "Công viên C"), place("c1", ["museum"], "Trung tâm Thanh thiếu nhi"),
+        place("m1", ["museum"], "Bảo tàng Cổ vật"), place("m1b", ["museum"], "bảo tàng cổ vật"),
+        place("h1", ["attraction"], "Hoàng Thành Huế"), place("x1", ["attraction"], "illegal entrance, climb over"),
+        place("s1", ["monument"], "Tượng đài X"),
+    ]
+    picked = [p.id for p in pick_attractions(nearest_first, limit=6, max_parks=2)]
+    assert picked[:2] == ["m1", "h1"]  # heritage names first, nearest order kept within a rank
+    assert "x1" not in picked and "m1b" not in picked  # junk and duplicate dropped
+    assert sum(p.startswith("p") for p in picked) == 2  # park cap
+    assert picked.index("c1") > picked.index("s1")  # generic centres rank after monuments
+    many_museums = [place(f"m{i}", ["museum"], f"Bảo tàng {i}") for i in range(8)]
+    assert len(pick_attractions(many_museums, limit=8, max_parks=2)) == 5  # per-kind cap
+
+
+def test_food_splits_meals_and_cafes():
+    found = [place(f"c{i}", ["cafe"], f"Cafe {i}") for i in range(4)] + [
+        place("r1", ["restaurant"], "Quán Bún"), place("f1", ["fast_food"], "Bánh Mì"),
+    ]
+    assert [p.id for p in pick_food(found, meals=5, cafes=2)] == ["r1", "f1", "c0", "c1"]
 
 
 @pytest.mark.asyncio

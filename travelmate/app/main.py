@@ -1,3 +1,4 @@
+import logging
 import secrets
 from pathlib import Path
 from typing import Literal
@@ -26,6 +27,7 @@ from .orchestrator import Orchestrator
 from .providers import DemoProvider, LiveProvider
 from .telemetry import configure_telemetry
 
+logger = logging.getLogger(__name__)
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
@@ -157,8 +159,15 @@ def create_app(settings=None, orchestrator=None, provider=None):
             raise HTTPException(504, "Agent processing timed out") from None
         except AgentError as exc:
             raise HTTPException(502, str(exc)) from None
-        except Exception:
-            # Never expose provider URLs containing keys, prompts or stack traces.
+        except Exception as exc:
+            # Never expose provider URLs containing keys, prompts or stack traces; log the type
+            # (and the root cause's type) so operators can tell a provider outage from a bug.
+            root = exc
+            while root.__cause__ is not None or root.__context__ is not None:
+                root = root.__cause__ or root.__context__
+            logger.warning(
+                "plan_preview outcome=failed error_type=%s root_type=%s", type(exc).__name__, type(root).__name__
+            )
             raise HTTPException(502, "Planning failed; check provider configuration and retry") from None
 
     @app.get("/", include_in_schema=False)

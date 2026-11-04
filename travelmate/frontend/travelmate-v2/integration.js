@@ -77,6 +77,7 @@
     ['start','end'].forEach(n=>{form.elements[n].min=today;form.elements[n].value=today});
     form.elements.people.max=50;form.elements.budget.min=1;form.elements.notes.maxLength=1500;
     if(previous){for(const [name,key] of Object.entries({destination:'destination',start:'start_date',end:'end_date',people:'travelers',budget:'budget_vnd',notes:'notes'}))form.elements[name].value=previous[key]??''}
+    if(previous&&Array.isArray(previous.interests))form.querySelectorAll('[name=interests]').forEach(box=>box.checked=previous.interests.includes(box.value));
     form.addEventListener('submit',e=>{
       e.preventDefault();e.stopImmediatePropagation();
       const f=new FormData(form);

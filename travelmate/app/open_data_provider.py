@@ -18,16 +18,91 @@ SOURCE_NOTE = (
     "chưa xác minh giờ mở cửa, giá hay tình trạng hoạt động."
 )
 LOCALITY_TTL_S = 600
+# Lower ranks first. Within a rank the source's distance order is kept, so landmarks beat
+# the nearest park or statue without leaving the search radius.
+ATTRACTION_RANK = {
+    "museum": 0, "castle": 0, "attraction": 1, "gallery": 1, "viewpoint": 1,
+    "monument": 2, "zoo": 2, "theme_park": 2, "aquarium": 2, "beach": 2, "cave_entrance": 2,
+    "peak": 2, "national_park": 2, "nature_reserve": 2, "memorial": 3, "park": 3,
+}
+MEAL_TYPES = {"restaurant", "food_court", "fast_food"}
+# Photon gives no popularity signal (no wikidata, landmarks are plain nodes), so Vietnamese
+# heritage words in the name stand in for "this is a sight", and generic centres rank later.
+HERITAGE_WORDS = (
+    "bảo tàng", "hoàng thành", "kinh thành", "tử cấm", "điện ", "lăng ", "chùa", "đền ", "đình ",
+    "cung ", "thành cổ", "phố cổ", "nhà thờ", "tháp ", "hội quán", "di tích", "museum", "citadel",
+    "pagoda", "temple", "tomb", "cathedral",
+)
+GENERIC_WORDS = ("trung tâm", "centre", "center", "nhà văn hóa")
+
+
+def plausible_name(name):
+    """Drop OSM records whose name is a note or a fragment, not a place name.
+
+    Real names start with a capital letter or a digit ("3 Ngon"); notes such as
+    "illegal entrance to palace, climb over" or fragments like "tan." do not.
+    """
+    name = name.strip()
+    letters = sum(ch.isalpha() for ch in name)
+    first = next((ch for ch in name if ch.isalnum()), "")
+    return 4 <= letters and len(name) <= 70 and (first.isdigit() or first.isupper())
+
+
+def unique_plausible(places):
+    seen, out = set(), []
+    for place in places:
+        key = " ".join(place.name.casefold().split())
+        if key in seen or not plausible_name(place.name):
+            continue
+        seen.add(key)
+        out.append(place)
+    return out
+
+
+def pick_attractions(places, limit, max_parks, max_per_kind=5):
+    """Landmarks first, but no single kind (e.g. museums) fills the whole list."""
+    def rank(place):
+        name = place.name.casefold() + " "
+        base = min(ATTRACTION_RANK.get(t, 2) for t in place.types or ["?"])
+        if any(word in name for word in HERITAGE_WORDS):
+            base -= 2
+        if any(word in name for word in GENERIC_WORDS):
+            base += 3  # a museum-tagged "centre" ranks with parks, after monuments
+        return base
+
+    out, counts = [], {}
+    for place in sorted(unique_plausible(places), key=rank):
+        kind = place.types[0] if place.types else "?"
+        cap = max_parks if kind == "park" else max_per_kind
+        if counts.get(kind, 0) >= cap:
+            continue
+        counts[kind] = counts.get(kind, 0) + 1
+        out.append(place)
+        if len(out) == limit:
+            break
+    return out
+
+
+def pick_food(places, meals, cafes):
+    places = unique_plausible(places)
+    meal = [p for p in places if MEAL_TYPES & set(p.types)][:meals]
+    cafe = [p for p in places if "cafe" in p.types and p not in meal][:cafes]
+    return meal + cafe
 
 
 class OpenDataProvider:
     """Implements search(trip), forecast(trip) and search_places(query) like the other providers."""
 
-    def __init__(self, geo=None, weather=None, radius_m=5000, attractions=8, restaurants=4):
+    def __init__(
+        self, geo=None, weather=None, radius_m=5000, attractions=12, meals=5, cafes=2, max_parks=2
+    ):
         self.geo = geo or GeoPlaceService()
         self.weather = weather  # a WeatherSpecialist; created lazily
         self.radius_m = radius_m
-        self.limits = {"attraction": attractions, "restaurant": restaurants}
+        self.pickers = {
+            "attraction": lambda found: pick_attractions(found, attractions, max_parks),
+            "restaurant": lambda found: pick_food(found, meals, cafes),
+        }
         self._localities = {}
         self._lock = asyncio.Lock()
 
@@ -56,14 +131,14 @@ class OpenDataProvider:
     async def search(self, trip):
         location, warnings = await self.locate(trip.destination)
         places, failures = [], 0
-        for category, limit in self.limits.items():
+        for category, pick in self.pickers.items():
             try:
                 found, _, _ = await self.geo.discover(location, category, self.radius_m)
             except AgentError:
                 failures += 1
                 continue
-            places.extend(found[:limit])
-        if failures == len(self.limits):
+            places.extend(pick(found))
+        if failures == len(self.pickers):
             raise AgentError("Nguồn địa điểm không phản hồi")
         if failures:
             warnings.append("Một nhóm địa điểm không tải được; danh sách có thể thiếu.")
@@ -74,7 +149,7 @@ class OpenDataProvider:
     async def search_places(self, query):
         location, warnings = await self.locate(query.destination)
         found, _, _ = await self.geo.discover(location, query.category, query.radius_m, query.keyword)
-        return PlaceResult(places=found[: query.limit], warnings=warnings + [SOURCE_NOTE])
+        return PlaceResult(places=unique_plausible(found)[: query.limit], warnings=warnings + [SOURCE_NOTE])
 
     async def forecast(self, trip):
         from .specialists.weather import WeatherRequest, WeatherSpecialist
