@@ -60,5 +60,8 @@ Tốn token Gemini và gọi Photon/OSM thật.
 | `place-agent-eval-20261104T195202Z` | Lọc tên rác + ưu tiên di tích cho Place Agent; thêm thước đo "đúng nhu cầu"; quy tắc xếp theo nhu cầu | Huế: Hoàng Thành, Kinh thành, Điện Thái Hòa, Tử Cấm Thành trên cả hai engine. Hội An chay: vẫn 0–1/5 quán chay |
 | `place-agent-eval-20261104T195411Z` | Mỗi lượt tìm trả 15–20 ứng viên cho LLM chọn (trước: đúng 5 gần nhất) | Hội An chay: ADK 4/5 quán chay (Quán Chay Diệu Hoa, Minh Hien Vegetarian, V vegan…), MAF đưa quán chay lên đầu nhưng chỉ nộp 2–3. Giữa lượt chạy Photon ngừng phản hồi: các ca sau là `source_error` (agent báo đúng là lỗi nguồn); số liệu các ca đó không dùng được. Đã thêm `--pause` giữa các lượt |
 
-Việc còn lại để đánh giá chắc hơn: chạy lại toàn bộ với `--pause` khi nguồn ổn định, nhiều lượt hơn
-(`--runs 3`), và xem vì sao MAF hay nộp ít địa điểm hơn giới hạn.
+| `place-agent-eval-20261104T200249Z` | Chạy lại đầy đủ, 2 lượt mỗi ca, nghỉ 10 giây, nguồn ổn định | **ADK 10/10, MAF 10/10** thành công; mọi địa điểm có nguồn; **mọi ca có tiêu chí đều có ít nhất một địa điểm đúng nhu cầu**; tỷ lệ địa điểm đúng nhu cầu 78% (ADK) / 73% (MAF). Đà Nẵng hải sản 5/5 cả bốn lượt; Đà Lạt: Ga Đà Lạt, Dinh III, Crazy House, Bảo tàng Lâm Đồng; Huế: Hoàng Thành, Điện Thái Hòa, Tử Cấm Thành hoặc các bảo tàng. Hội An chay còn dao động: 1/3 đến 4/4 (ADK), 1/2 đến 1/5 (MAF). Trung vị: ADK 3,8 s, MAF 2,2 s |
+
+Hạn chế còn lại: thước đo "đúng nhu cầu" chỉ dựa trên từ trong tên địa điểm (một quán chay
+tên "An Niệm" sẽ không được tính); ca ăn chay dao động giữa các lượt; MAF đôi khi nộp ít hơn
+giới hạn khi ít ứng viên khớp nhu cầu.

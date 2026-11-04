@@ -1,0 +1,468 @@
+{
+  "summary": {
+    "adk": {
+      "runs": 10,
+      "success": 10,
+      "success_rate": 1.0,
+      "avg_places": 4.7,
+      "all_grounded": true,
+      "broad_first_rate": 0.6,
+      "needs_match_rate": 1.0,
+      "needs_hit_share": 0.778,
+      "median_ms": 3773,
+      "statuses": {
+        "partial": 8,
+        "success": 2
+      }
+    },
+    "maf": {
+      "runs": 10,
+      "success": 10,
+      "success_rate": 1.0,
+      "avg_places": 4.6,
+      "all_grounded": true,
+      "broad_first_rate": 0.5,
+      "needs_match_rate": 1.0,
+      "needs_hit_share": 0.731,
+      "median_ms": 2179,
+      "statuses": {
+        "partial": 8,
+        "success": 2
+      }
+    }
+  },
+  "runs": [
+    {
+      "case": "hoian-chay",
+      "engine": "adk",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 3,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        ""
+      ],
+      "place_names": [
+        "Chao",
+        "Quáng Chay Diệu Hoa",
+        "An Niem"
+      ],
+      "needs_hits": 1,
+      "duration_ms": 12280
+    },
+    {
+      "case": "hoian-chay",
+      "engine": "maf",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        ""
+      ],
+      "place_names": [
+        "Quáng Chay Diệu Hoa",
+        "An Niem",
+        "Chao",
+        "Annien",
+        "Ganesh Indian Restaurant"
+      ],
+      "needs_hits": 1,
+      "duration_ms": 2796
+    },
+    {
+      "case": "hoian-chay",
+      "engine": "adk",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 4,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        "restaurant"
+      ],
+      "place_names": [
+        "Minh Hien Vegetarian Restaurant",
+        "V vegan cafe & restaurant",
+        "Vegan Restaurant, very cheap!",
+        "Quáng Chay Diệu Hoa"
+      ],
+      "needs_hits": 4,
+      "duration_ms": 4546
+    },
+    {
+      "case": "hoian-chay",
+      "engine": "maf",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 2,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        ""
+      ],
+      "place_names": [
+        "Quáng Chay Diệu Hoa",
+        "An Niem"
+      ],
+      "needs_hits": 1,
+      "duration_ms": 4046
+    },
+    {
+      "case": "sapa-hotel",
+      "engine": "adk",
+      "chosen_location": "Sa Pa, Lao Cai",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Sapa Warm Hotel",
+        "Sapa Everest Hotel",
+        "Sapa Paramount Hotel",
+        "Van Hung Hotel",
+        "Sapa Eco-Home - Mountain retreat"
+      ],
+      "duration_ms": 4796
+    },
+    {
+      "case": "sapa-hotel",
+      "engine": "maf",
+      "chosen_location": "Sa Pa, Lao Cai",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Sapa Warm Hotel",
+        "Sapa Everest Hotel",
+        "Van Hung Hotel",
+        "Sapa Paramount Hotel",
+        "Nha nghi hoi nga"
+      ],
+      "duration_ms": 2156
+    },
+    {
+      "case": "sapa-hotel",
+      "engine": "adk",
+      "chosen_location": "Sa Pa, Lao Cai",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Sapa Warm Hotel",
+        "Sapa Everest Hotel",
+        "Sapa Paramount Hotel",
+        "Van Hung Hotel",
+        "Sapa Eco-Home - Mountain retreat"
+      ],
+      "duration_ms": 2593
+    },
+    {
+      "case": "sapa-hotel",
+      "engine": "maf",
+      "chosen_location": "Sa Pa, Lao Cai",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Sapa Warm Hotel",
+        "Sapa Everest Hotel",
+        "Van Hung Hotel",
+        "Sapa Paramount Hotel",
+        "Sapa Eco-Home - Mountain retreat"
+      ],
+      "duration_ms": 1733
+    },
+    {
+      "case": "dalat-sights",
+      "engine": "adk",
+      "chosen_location": "Ðà Lạt, Lam Dong",
+      "status": "success",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Ga Đà Lạt",
+        "Dinh III Bảo Đại",
+        "Crazy House",
+        "Bảo Tàng Lâm Đồng",
+        "Museum Madam De Dalat"
+      ],
+      "duration_ms": 12656
+    },
+    {
+      "case": "dalat-sights",
+      "engine": "maf",
+      "chosen_location": "Ðà Lạt, Lam Dong",
+      "status": "success",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Ga Đà Lạt",
+        "Dinh III Bảo Đại",
+        "Crazy House",
+        "Bảo Tàng Lâm Đồng",
+        "Museum Madam De Dalat"
+      ],
+      "duration_ms": 1875
+    },
+    {
+      "case": "dalat-sights",
+      "engine": "adk",
+      "chosen_location": "Ðà Lạt, Lam Dong",
+      "status": "success",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Ga Đà Lạt",
+        "Dinh III Bảo Đại",
+        "Crazy House",
+        "Bảo Tàng Lâm Đồng",
+        "Museum Madam De Dalat"
+      ],
+      "duration_ms": 2671
+    },
+    {
+      "case": "dalat-sights",
+      "engine": "maf",
+      "chosen_location": "Ðà Lạt, Lam Dong",
+      "status": "success",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Ga Đà Lạt",
+        "Dinh III Bảo Đại",
+        "Crazy House",
+        "Bảo Tàng Lâm Đồng",
+        "Museum Madam De Dalat"
+      ],
+      "duration_ms": 2141
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "adk",
+      "chosen_location": "Thành phố Huế",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Hoàng Thành Huế",
+        "Kinh thành Huế",
+        "Điện Thái Hòa",
+        "Tử Cấm Thành",
+        "Nha Trung Bay Nong Cu"
+      ],
+      "needs_hits": 3,
+      "duration_ms": 8062
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "maf",
+      "chosen_location": "Thành phố Huế",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Hoàng Thành Huế",
+        "Kinh thành Huế",
+        "Điện Thái Hòa",
+        "Tử Cấm Thành",
+        "Nha Trung Bay Nong Cu"
+      ],
+      "needs_hits": 3,
+      "duration_ms": 2203
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "adk",
+      "chosen_location": "Thành phố Huế",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Hoàng Thành Huế",
+        "Kinh thành Huế",
+        "Điện Thái Hòa",
+        "Tử Cấm Thành",
+        "Nha Trung Bay Nong Cu"
+      ],
+      "needs_hits": 3,
+      "duration_ms": 2203
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "maf",
+      "chosen_location": "Thành phố Huế",
+      "status": "partial",
+      "places": 4,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "bảo tàng",
+        "di tích"
+      ],
+      "place_names": [
+        "Bảo tàng Cổ vật Cung đình Huế",
+        "Bảo tàng Hồ Chí Minh",
+        "Di tích Nhà Lưu niệm Chủ tịch Hồ Chí Minh",
+        "Làng cổ Phước Tích"
+      ],
+      "needs_hits": 4,
+      "duration_ms": 4718
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "adk",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        "Hải sản"
+      ],
+      "place_names": [
+        "Hải sản Năm Đảnh",
+        "Hải Sản Ốc 68",
+        "Quan Phuoc Thai - Hai san tuoi song tu chon",
+        "Nhà hàng hải sản Bé Anh",
+        "NĂM RẢNH HẢI SẢN"
+      ],
+      "needs_hits": 5,
+      "duration_ms": 3000
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "maf",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        "hải sản"
+      ],
+      "place_names": [
+        "Hải sản Năm Đảnh",
+        "NĂM RẢNH HẢI SẢN",
+        "Nhà hàng hải sản Bé Anh",
+        "Quan Phuoc Thai - Hai san tuoi song tu chon",
+        "Hải Sản Ốc 68"
+      ],
+      "needs_hits": 5,
+      "duration_ms": 3468
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "adk",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        "hải sản"
+      ],
+      "place_names": [
+        "Hải sản Năm Đảnh",
+        "Hải Sản Ốc 68",
+        "Quan Phuoc Thai - Hai san tuoi song tu chon",
+        "Nhà hàng hải sản Bé Anh",
+        "NĂM RẢNH HẢI SẢN"
+      ],
+      "needs_hits": 5,
+      "duration_ms": 2264
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "maf",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        "hải sản"
+      ],
+      "place_names": [
+        "Hải sản Năm Đảnh",
+        "Hải Sản Ốc 68",
+        "Quan Phuoc Thai - Hai san tuoi song tu chon",
+        "Nhà hàng hải sản Bé Anh",
+        "NĂM RẢNH HẢI SẢN"
+      ],
+      "needs_hits": 5,
+      "duration_ms": 1843
+    }
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "created_at": "2026-11-04T20:02:49.582036+00:00"
+}
