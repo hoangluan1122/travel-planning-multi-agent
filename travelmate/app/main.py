@@ -7,7 +7,7 @@ from fastapi import Depends, FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.staticfiles import StaticFiles
-from pydantic import AliasChoices, Field
+from pydantic import AliasChoices, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from .adk_adapter import AdkPlanner
@@ -46,6 +46,12 @@ class Settings(BaseSettings):
     travelmate_memory_db: Path = Path("agent-memory.sqlite3")
     # OpenTelemetry traces: off, console, or otlp (OTEL_EXPORTER_OTLP_ENDPOINT); needs --extra maf
     travelmate_telemetry: Literal["off", "console", "otlp"] = "off"
+
+    @field_validator("travelmate_memory_user", mode="before")
+    @classmethod
+    def blank_memory_user_is_unset(cls, value):
+        # .env.example ships TRAVELMATE_MEMORY_USER= empty; that means "not configured".
+        return None if isinstance(value, str) and not value.strip() else value
 
 
 def memory_store(settings):
