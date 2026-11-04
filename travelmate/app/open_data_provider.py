@@ -12,6 +12,7 @@ import time
 from .agents import AgentError
 from .geo_places import GeoPlaceService, LocalityChoiceRequired
 from .models import Context, PlaceResult, WeatherDay, WeatherResult
+from .place_media import WikipediaImages
 
 SOURCE_NOTE = (
     "Địa điểm từ OpenStreetMap qua Photon (dữ liệu cộng đồng, ODbL); có thể thiếu hoặc cũ, "
@@ -21,7 +22,7 @@ LOCALITY_TTL_S = 600
 # Lower ranks first. Within a rank the source's distance order is kept, so landmarks beat
 # the nearest park or statue without leaving the search radius.
 ATTRACTION_RANK = {
-    "museum": 0, "castle": 0, "attraction": 1, "gallery": 1, "viewpoint": 1,
+    "museum": 0, "castle": 0, "tomb": 0, "temple": 0, "archaeological_site": 1, "attraction": 1, "gallery": 1, "viewpoint": 1,
     "monument": 2, "zoo": 2, "theme_park": 2, "aquarium": 2, "beach": 2, "cave_entrance": 2,
     "peak": 2, "national_park": 2, "nature_reserve": 2, "memorial": 3, "park": 3,
 }
@@ -94,11 +95,15 @@ class OpenDataProvider:
     """Implements search(trip), forecast(trip) and search_places(query) like the other providers."""
 
     def __init__(
-        self, geo=None, weather=None, radius_m=5000, attractions=12, meals=5, cafes=2, max_parks=2
+        self, geo=None, weather=None, radius_m=5000, attractions=12, meals=5, cafes=2, max_parks=2,
+        heritage_radius_m=15000, heritage=8, stays=5, images=None,
     ):
         self.geo = geo or GeoPlaceService()
         self.weather = weather  # a WeatherSpecialist; created lazily
         self.radius_m = radius_m
+        self.heritage_radius_m, self.heritage = heritage_radius_m, heritage
+        self.stay_limit = stays
+        self.images = images if images is not None else WikipediaImages()
         self.pickers = {
             "attraction": lambda found: pick_attractions(found, attractions, max_parks),
             "restaurant": lambda found: pick_food(found, meals, cafes),
@@ -138,13 +143,40 @@ class OpenDataProvider:
                 failures += 1
                 continue
             places.extend(pick(found))
+        places.extend(await self.heritage_sites(location, places))
+        places = await self.images.enrich(places) if self.images else places
+        stays = await self.stays(location)
         if failures == len(self.pickers):
             raise AgentError("Nguồn địa điểm không phản hồi")
         if failures:
             warnings.append("Một nhóm địa điểm không tải được; danh sách có thể thiếu.")
         if not places:
             warnings.append(f"Không thấy địa điểm trong bán kính {self.radius_m // 1000} km quanh trung tâm.")
-        return PlaceResult(places=places, warnings=warnings + [SOURCE_NOTE])
+        return PlaceResult(places=places, warnings=warnings + [SOURCE_NOTE], stays=stays)
+
+    async def stays(self, location):
+        """Nearby accommodation from OSM: names and locations only, no nightly prices."""
+        if not self.stay_limit:
+            return []
+        try:
+            found, _, _ = await self.geo.discover(location, "hotel", self.radius_m)
+        except AgentError:
+            return []
+        return unique_plausible(found)[: self.stay_limit]
+
+    async def heritage_sites(self, location, already):
+        """Royal tombs and historic temples often lie outside the city-centre radius."""
+        if not self.heritage:
+            return []
+        try:
+            found, _, _ = await self.geo.discover(location, "heritage", self.heritage_radius_m)
+        except AgentError:
+            return []  # optional extra; the main lists already succeeded or failed on their own
+        taken = {" ".join(p.name.casefold().split()) for p in already}
+        fresh = [p for p in unique_plausible(found) if " ".join(p.name.casefold().split()) not in taken]
+        # Named sites ("Lăng Tự Đức") before unnamed-looking ones; distance order within each.
+        fresh.sort(key=lambda p: not any(w in p.name.casefold() + " " for w in HERITAGE_WORDS))
+        return fresh[: self.heritage]
 
     async def search_places(self, query):
         location, warnings = await self.locate(query.destination)

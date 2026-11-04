@@ -105,7 +105,8 @@ class WorkflowOrchestrator:
             result = await run("budget", BudgetInput(trip=state.trip, draft=state.draft, places=state.ranked))
             await ctx.yield_output(
                 plan_response(
-                    context, self.mode, state.draft, state.ranked, state.weather, result, state.memory
+                    context, self.mode, state.draft, state.ranked, state.weather, result, state.memory,
+                    state.places.stays,
                 )
             )
 

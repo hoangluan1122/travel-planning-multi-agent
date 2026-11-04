@@ -30,6 +30,9 @@ TAGS = {
         "tourism:camp_site",
     },
     "restaurant": {"amenity:restaurant", "amenity:cafe", "amenity:food_court", "amenity:fast_food"},
+    # Tombs, historic temples and archaeological sites (e.g. Hue's royal tombs). Kept apart
+    # from "attraction" so itinerary search can look for them in a wider radius.
+    "heritage": {"historic:tomb", "historic:temple", "historic:archaeological_site"},
     "attraction": {
         "tourism:attraction",
         "tourism:viewpoint",

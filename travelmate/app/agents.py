@@ -210,13 +210,31 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
     async def execute(self, data, context):
         places = {p.id: p for p in data.places.places}
         total = Decimal("0")
+        low = high = Decimal("0")
+        basis = []
         unknown = ["Lưu trú", "Ăn uống", "Di chuyển"]
         for day in data.draft.days:
             for activity in day.activities:
                 place = places[activity.place_id]
-                if place.estimated_visit_cost_vnd is None:
-                    unknown.append(f"Chi phí tại {place.name} ({day.date.isoformat()})")
-                else:
+                if place.estimated_visit_cost_vnd is not None:
                     total += place.estimated_visit_cost_vnd * data.trip.travelers
+                    continue
+                span = place.price_range
+                if span and (span.low_vnd is not None or span.high_vnd is not None):
+                    # A source price range per person; an estimate, never added to known costs.
+                    start = span.low_vnd if span.low_vnd is not None else span.high_vnd
+                    end = span.high_vnd if span.high_vnd is not None else span.low_vnd
+                    low += start * data.trip.travelers
+                    high += end * data.trip.travelers
+                    basis.append(f"{place.name}: {start:,.0f}–{end:,.0f} ₫/người ({day.date.isoformat()})")
+                else:
+                    unknown.append(f"Chi phí tại {place.name} ({day.date.isoformat()})")
         status = "over_budget" if total > data.trip.budget_vnd else "incomplete"
-        return BudgetResult(known_subtotal=total, unknown_items=unknown, status=status)
+        return BudgetResult(
+            known_subtotal=total,
+            unknown_items=unknown,
+            status=status,
+            estimated_low_vnd=total + low if basis else None,
+            estimated_high_vnd=total + high if basis else None,
+            estimate_basis=basis,
+        )

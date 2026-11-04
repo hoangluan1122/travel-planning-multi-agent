@@ -1,11 +1,12 @@
 from datetime import UTC, date, datetime, timedelta
+from decimal import Decimal
 from urllib.parse import quote
 
 import httpx
 from pydantic import ValidationError
 
 from .agents import AgentError
-from .models import Place, PlaceResult, PlaceSearchRequest, WeatherDay, WeatherResult
+from .models import Place, PlacePhoto, PlaceResult, PlaceSearchRequest, PriceRange, WeatherDay, WeatherResult
 
 
 class DemoProvider:
@@ -34,35 +35,114 @@ class DemoProvider:
         return WeatherResult(warnings=["DEMO: chưa gọi dịch vụ thời tiết."])
 
 
+GOOGLE_FIELDS = ",".join(
+    "places." + field
+    for field in [
+        "id", "displayName", "formattedAddress", "location", "types", "rating", "userRatingCount",
+        "priceLevel", "priceRange", "photos", "regularOpeningHours.weekdayDescriptions",
+        "googleMapsUri", "websiteUri",
+    ]
+)
+GOOGLE_PRICE_LEVELS = {
+    "PRICE_LEVEL_FREE": "free",
+    "PRICE_LEVEL_INEXPENSIVE": "inexpensive",
+    "PRICE_LEVEL_MODERATE": "moderate",
+    "PRICE_LEVEL_EXPENSIVE": "expensive",
+    "PRICE_LEVEL_VERY_EXPENSIVE": "very_expensive",
+}
+LABELS = {"attraction": "Tourist attractions", "hotel": "Hotels", "restaurant": "Restaurants"}
+
+
+def google_money(value):
+    """Google Money {currencyCode, units, nanos} to a VND Decimal; other currencies are ignored."""
+    if not isinstance(value, dict) or value.get("currencyCode") != "VND":
+        return None
+    return Decimal(str(value.get("units") or 0))
+
+
+def parse_google_place(item, fetched_at, photos=None):
+    """Build a Place from a Places API (New) record; facts come only from the record."""
+    range_raw = item.get("priceRange") or {}
+    low, high = google_money(range_raw.get("startPrice")), google_money(range_raw.get("endPrice"))
+    photo = None
+    for raw in item.get("photos") or []:
+        url = photos.register(raw.get("name", "")) if photos else None
+        if url:
+            authors = ", ".join(a.get("displayName", "") for a in raw.get("authorAttributions") or [] if a.get("displayName"))
+            photo = PlacePhoto(
+                url=url,
+                attribution=f"Ảnh: {authors or 'người dùng Google'} qua Google Maps",
+                source_url=(raw.get("authorAttributions") or [{}])[0].get("uri"),
+            )
+            break
+    hours = (item.get("regularOpeningHours") or {}).get("weekdayDescriptions") or []
+    return Place(
+        id=item["id"],
+        name=item["displayName"]["text"],
+        address=item.get("formattedAddress", ""),
+        latitude=item["location"]["latitude"],
+        longitude=item["location"]["longitude"],
+        source="google_places",
+        types=item.get("types", []),
+        fetched_at=fetched_at,
+        rating=item.get("rating"),
+        rating_count=item.get("userRatingCount"),
+        price_level=GOOGLE_PRICE_LEVELS.get(item.get("priceLevel")),
+        price_range=PriceRange(low_vnd=low, high_vnd=high) if (low is not None or high is not None) else None,
+        opening_hours_raw="; ".join(hours)[:2000] or None,
+        maps_url=item.get("googleMapsUri"),
+        website_url=item.get("websiteUri"),
+        attribution="Google Maps",
+        photo=photo,
+    )
+
+
 class LiveProvider:
-    def __init__(self, maps_key: str, transport=None):
+    """Google Places API (New) for places, photos, ratings and price ranges; Open-Meteo weather."""
+
+    def __init__(self, maps_key: str, transport=None, photos=None, attractions=12, restaurants=8, hotels=5):
         self.maps_key = maps_key
         self.transport = transport
+        self.photos = photos  # a GooglePhotoProxy; without one, photos are not exposed
+        self.limits = {"attraction": attractions, "restaurant": restaurants, "hotel": hotels}
 
     async def search(self, trip):
-        return await self.search_places(PlaceSearchRequest(destination=trip.destination))
+        results = {}
+        for category, limit in self.limits.items():
+            if limit:
+                results[category] = await self.search_places(
+                    PlaceSearchRequest(destination=trip.destination, category=category, limit=limit)
+                )
+        main = [results[c] for c in ("attraction", "restaurant") if c in results]
+        places, seen = [], set()
+        for result in main:
+            for place in result.places:
+                if place.id not in seen:
+                    seen.add(place.id)
+                    places.append(place)
+        stays = results["hotel"].places if "hotel" in results else []
+        warnings = list(dict.fromkeys(w for r in results.values() for w in r.warnings))
+        warnings.append(
+            "Mức giá (₫–₫₫₫₫) và khoảng giá là của Google cho mỗi người, có thể đã cũ; "
+            "chưa có giá phòng khách sạn theo đêm."
+        )
+        return PlaceResult(places=places, warnings=warnings, stays=stays)
 
     async def search_places(self, query: PlaceSearchRequest):
-        labels = {"attraction": "Tourist attractions", "hotel": "Hotels", "restaurant": "Restaurants"}
         try:
             async with httpx.AsyncClient(timeout=15, transport=self.transport) as client:
                 response = await client.post(
                     "https://places.googleapis.com/v1/places:searchText",
-                    headers={
-                        "X-Goog-Api-Key": self.maps_key,
-                        "X-Goog-FieldMask": (
-                            "places.id,places.displayName,places.formattedAddress,"
-                            "places.location,places.types"
-                        ),
-                    },
+                    headers={"X-Goog-Api-Key": self.maps_key, "X-Goog-FieldMask": GOOGLE_FIELDS},
                     json={
                         "textQuery": (
-                            f"{labels[query.category]}"
+                            f"{LABELS[query.category]}"
                             f"{' ' + query.keyword.strip() if query.keyword.strip() else ''}"
                             f" in {query.destination}"
                         ),
                         "pageSize": query.limit,
                         "languageCode": "vi",
+                        "regionCode": "VN",
                     },
                 )
                 response.raise_for_status()
@@ -74,23 +154,14 @@ class LiveProvider:
         except (httpx.HTTPError, ValueError, AttributeError):
             raise AgentError("Place service unavailable or returned invalid data") from None
         places, seen = [], set()
-        warnings = ["Giá, tình trạng phòng, giờ mở cửa và tuyến di chuyển chưa xác minh."]
+        warnings = ["Giờ mở cửa và giá lấy từ Google Maps; hãy kiểm tra lại trước khi đi."]
         fetched_at = datetime.now(UTC)
         for item in raw[: query.limit]:
             try:
-                place = Place(
-                    id=item["id"],
-                    name=item["displayName"]["text"],
-                    address=item.get("formattedAddress", ""),
-                    latitude=item["location"]["latitude"],
-                    longitude=item["location"]["longitude"],
-                    source="google_places",
-                    types=item.get("types", []),
-                    fetched_at=fetched_at,
-                )
+                place = parse_google_place(item, fetched_at, self.photos)
                 if not place.id.strip() or not place.name.strip():
                     raise ValueError("Empty identity")
-            except (KeyError, TypeError, ValueError, ValidationError):
+            except (KeyError, TypeError, ValueError, ValidationError, ArithmeticError):
                 warnings.append("Bỏ qua một địa điểm có dữ liệu không hợp lệ.")
                 continue
             if place.id not in seen:

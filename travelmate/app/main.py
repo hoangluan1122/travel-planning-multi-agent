@@ -24,6 +24,7 @@ from .agents import (
 )
 from .models import PlaceResult, PlaceSearchRequest, PlanResponse, TripRequest
 from .orchestrator import Orchestrator
+from .place_media import GooglePhotoProxy
 from .providers import DemoProvider, LiveProvider
 from .telemetry import configure_telemetry
 
@@ -88,6 +89,7 @@ def create_app(settings=None, orchestrator=None, provider=None):
         import os
 
         os.environ["GOOGLE_API_KEY"] = settings.google_api_key
+    photos = None
     if provider is None:
         if settings.travelmate_mode == "demo":
             provider = DemoProvider()
@@ -96,7 +98,8 @@ def create_app(settings=None, orchestrator=None, provider=None):
 
             provider = OpenDataProvider()
         else:
-            provider = LiveProvider(settings.google_maps_api_key)
+            photos = GooglePhotoProxy(settings.google_maps_api_key)
+            provider = LiveProvider(settings.google_maps_api_key, photos=photos)
     if orchestrator is None:
         registry = Registry()
         for agent in [
@@ -128,6 +131,20 @@ def create_app(settings=None, orchestrator=None, provider=None):
             or not secrets.compare_digest(credentials.credentials, settings.travelmate_api_token)
         ):
             raise HTTPException(401, "Invalid API token")
+
+    @app.get("/api/v1/places/photo", include_in_schema=False)
+    async def place_photo(ref: str):
+        # No bearer token: <img> tags cannot send one. Only photo names this server returned
+        # in a search are resolved, so the key cannot be spent on arbitrary requests.
+        if photos is None:
+            raise HTTPException(404, "Photos are not enabled")
+        try:
+            uri = await photos.resolve(ref)
+        except Exception:
+            raise HTTPException(502, "Photo unavailable") from None
+        if uri is None:
+            raise HTTPException(404, "Unknown photo")
+        return RedirectResponse(uri, status_code=302, headers={"Cache-Control": "private, max-age=3000"})
 
     @app.get("/health")
     async def health():

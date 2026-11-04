@@ -73,7 +73,7 @@ def trip():
 @pytest.mark.asyncio
 async def test_search_merges_capped_categories_with_source_note():
     geo = FakeGeo()
-    result = await OpenDataProvider(geo=geo, attractions=3, meals=2, cafes=0).search(trip())
+    result = await OpenDataProvider(images=False, geo=geo, attractions=3, meals=2, cafes=0, heritage=0).search(trip())
     assert [p.id for p in result.places] == [
         "attraction-0", "attraction-1", "attraction-2", "restaurant-0", "restaurant-1",
     ]
@@ -118,7 +118,7 @@ def test_food_splits_meals_and_cafes():
 
 @pytest.mark.asyncio
 async def test_ambiguous_destination_uses_top_match_and_says_so():
-    result = await OpenDataProvider(geo=FakeGeo(ambiguous=True)).search(trip())
+    result = await OpenDataProvider(images=False, geo=FakeGeo(ambiguous=True)).search(trip())
     assert result.places
     assert any("khớp 2 địa danh" in w and "Đà Nẵng" in w for w in result.warnings)
 
@@ -126,15 +126,15 @@ async def test_ambiguous_destination_uses_top_match_and_says_so():
 @pytest.mark.asyncio
 async def test_unknown_destination_is_an_error():
     with pytest.raises(AgentError, match="Không tìm thấy địa danh"):
-        await OpenDataProvider(geo=FakeGeo(empty=True)).search(trip())
+        await OpenDataProvider(images=False, geo=FakeGeo(empty=True)).search(trip())
 
 
 @pytest.mark.asyncio
 async def test_one_failed_category_is_partial_all_failed_is_error():
-    partial = await OpenDataProvider(geo=FakeGeo(broken={"restaurant"})).search(trip())
+    partial = await OpenDataProvider(images=False, geo=FakeGeo(broken={"restaurant"})).search(trip())
     assert partial.places and any("không tải được" in w for w in partial.warnings)
     with pytest.raises(AgentError, match="không phản hồi"):
-        await OpenDataProvider(geo=FakeGeo(broken={"restaurant", "attraction"})).search(trip())
+        await OpenDataProvider(images=False, geo=FakeGeo(broken={"restaurant", "attraction"})).search(trip())
 
 
 @pytest.mark.asyncio
@@ -142,7 +142,7 @@ async def test_locality_is_resolved_once_for_search_and_forecast():
     import asyncio
 
     geo = FakeGeo()
-    provider = OpenDataProvider(geo=geo, weather=FakeWeather())
+    provider = OpenDataProvider(images=False, geo=geo, weather=FakeWeather())
     await asyncio.gather(provider.search(trip()), provider.forecast(trip()))
     assert geo.resolves == 1
 
@@ -151,7 +151,7 @@ async def test_locality_is_resolved_once_for_search_and_forecast():
 async def test_forecast_maps_days_rain_risk_and_missing_dates():
     weather = FakeWeather()
     t = trip()
-    result = await OpenDataProvider(geo=FakeGeo(), weather=weather).forecast(t)
+    result = await OpenDataProvider(images=False, geo=FakeGeo(), weather=weather).forecast(t)
     assert weather.requests[0].latitude == 15.88
     assert [d.weather_code for d in result.days] == [63]
     text = " ".join(result.warnings)
@@ -161,7 +161,7 @@ async def test_forecast_maps_days_rain_risk_and_missing_dates():
 @pytest.mark.asyncio
 async def test_search_places_passes_keyword_radius_and_limit():
     geo = FakeGeo()
-    result = await OpenDataProvider(geo=geo).search_places(
+    result = await OpenDataProvider(images=False, geo=geo).search_places(
         PlaceSearchRequest(destination="Hội An", category="restaurant", keyword="chay", limit=4, radius_m=2000)
     )
     assert len(result.places) == 4
@@ -198,7 +198,7 @@ def test_open_data_plan_end_to_end_with_fakes():
     )
     from app.orchestrator import Orchestrator
 
-    provider = OpenDataProvider(geo=FakeGeo(), weather=FakeWeather())
+    provider = OpenDataProvider(images=False, geo=FakeGeo(), weather=FakeWeather())
     registry = Registry()
     for agent in [MemoryAgent(), PlaceAgent(provider), WeatherAgent(provider), RecommendationAgent(),
                   PlannerAgent(), BudgetAgent()]:
@@ -209,3 +209,43 @@ def test_open_data_plan_end_to_end_with_fakes():
     assert result.mode == "live" and result.draft.days
     assert result.weather.days[0].weather_code == 63
     assert date.fromisoformat(str(result.draft.days[0].date)) >= date.today() - timedelta(days=1)
+
+
+class HeritageGeo(FakeGeo):
+    def __init__(self, heritage_broken=False):
+        super().__init__()
+        self.heritage_broken = heritage_broken
+
+    async def discover(self, location, category, radius_m, keyword=""):
+        self.discovered.append((category, radius_m, keyword))
+        if category == "heritage":
+            if self.heritage_broken:
+                raise AgentError("down")
+            return [
+                place("t0", ["tomb"], "Nguyên Phức Tộc"), place("t1", ["tomb"], "Lăng Tự Đức"),
+                place("dup", ["museum"], "Attraction-0"), place("t2", ["tomb"], "Lăng Khải Định"),
+            ], {}, 0
+        return await super().discover(location, category, radius_m, keyword)
+
+
+@pytest.mark.asyncio
+async def test_heritage_sites_come_from_a_wider_radius_named_first_and_deduped():
+    geo = HeritageGeo()
+    result = await OpenDataProvider(images=False, geo=geo, heritage=2, heritage_radius_m=15000).search(trip())
+    assert ("heritage", 15000, "") in geo.discovered
+    ids = [p.id for p in result.places]
+    assert ids[-2:] == ["t1", "t2"]  # "Lăng ..." before the unnamed-looking site
+    assert "dup" not in ids  # same name as an attraction already picked
+
+
+@pytest.mark.asyncio
+async def test_heritage_failure_does_not_fail_the_search():
+    result = await OpenDataProvider(images=False, geo=HeritageGeo(heritage_broken=True)).search(trip())
+    assert result.places and not any(p.types == ["tomb"] for p in result.places)
+
+
+@pytest.mark.asyncio
+async def test_osm_stays_are_returned_apart_from_activities():
+    result = await OpenDataProvider(images=False, geo=FakeGeo(), stays=3).search(trip())
+    assert [p.id for p in result.stays] == ["hotel-0", "hotel-1", "hotel-2"]
+    assert not any(p.id.startswith("hotel") for p in result.places)
