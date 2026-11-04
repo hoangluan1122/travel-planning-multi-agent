@@ -4,6 +4,7 @@ import argparse
 import asyncio
 import sys
 from pathlib import Path
+from typing import Literal
 from uuid import UUID
 
 from pydantic import SecretStr
@@ -24,17 +25,42 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     google_api_key: SecretStr = SecretStr("")
     gemini_model: str = "gemini-3.5-flash-lite"
+    planner_engine: Literal["adk", "maf"] = "adk"
+
+
+def write_result(args, result):
+    if args.output:
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(result.model_dump_json(indent=2), encoding="utf-8")
+    print(result.model_dump_json(indent=2))
 
 
 async def run(args):
     raw = args.input.read_text(encoding="utf-8-sig")
     client = None
     try:
+        settings = Settings()
+        if args.agent in {"planner", "routed-planner"} and settings.planner_engine == "maf":
+            from ..maf_adapter import MafPlanner
+            from ..maf_clients import maf_gemini_client_factory
+
+            if not settings.google_api_key.get_secret_value():
+                raise ValueError("Configure GOOGLE_API_KEY in .env locally")
+            async with maf_gemini_client_factory(
+                settings.google_api_key.get_secret_value(), settings.gemini_model
+            ) as factory:
+                agent, schema = (
+                    (RoutedPlannerSpecialist(factory, planner_cls=MafPlanner), RoutedPlannerInput)
+                    if args.agent == "routed-planner"
+                    else (PlannerSpecialist(factory, MafPlanner), PlannerInput)
+                )
+                result = await agent.run(schema.model_validate_json(raw), Context(), timeout=60)
+            write_result(args, result)
+            return
         if args.agent in {"recommendation", "planner", "routed-planner"}:
             from google.adk.models import Gemini
             from google.genai import Client
 
-            settings = Settings()
             if not settings.google_api_key.get_secret_value():
                 raise ValueError("Configure GOOGLE_API_KEY in .env locally")
             client = Client(api_key=settings.google_api_key.get_secret_value())
@@ -69,10 +95,7 @@ async def run(args):
                 raise ValueError("Memory requires --user UUID for the local test identity")
             agent, schema = MemorySpecialist(args.memory_db, args.user), MemoryRequest
         result = await agent.run(schema.model_validate_json(raw), Context(), timeout=60)
-        if args.output:
-            args.output.parent.mkdir(parents=True, exist_ok=True)
-            args.output.write_text(result.model_dump_json(indent=2), encoding="utf-8")
-        print(result.model_dump_json(indent=2))
+        write_result(args, result)
     finally:
         if client is not None:
             try:

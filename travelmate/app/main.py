@@ -32,6 +32,16 @@ class Settings(BaseSettings):
     google_api_key: str = ""
     google_maps_api_key: str = ""
     gemini_model: str = "gemini-3.5-flash-lite"
+    planner_engine: Literal["adk", "maf"] = "adk"
+
+
+def live_planner(settings):
+    if settings.planner_engine == "maf":
+        from .maf_adapter import MafPlanner
+        from .maf_clients import maf_gemini_client
+
+        return MafPlanner(lambda: maf_gemini_client(settings.google_api_key, settings.gemini_model))
+    return AdkPlanner(settings.gemini_model)
 
 
 def create_app(settings=None, orchestrator=None, provider=None):
@@ -56,7 +66,7 @@ def create_app(settings=None, orchestrator=None, provider=None):
             PlaceAgent(provider),
             WeatherAgent(provider),
             RecommendationAgent(),
-            PlannerAgent(AdkPlanner(settings.gemini_model) if settings.travelmate_mode == "live" else None),
+            PlannerAgent(live_planner(settings) if settings.travelmate_mode == "live" else None),
             BudgetAgent(),
         ]:
             registry.register(agent)

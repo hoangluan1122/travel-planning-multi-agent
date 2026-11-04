@@ -9,6 +9,7 @@ import logging
 import secrets
 from contextlib import asynccontextmanager
 from pathlib import Path
+from typing import Literal
 from uuid import UUID
 
 from fastapi import Depends, FastAPI, HTTPException, Response
@@ -16,9 +17,11 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from .adk_adapter import AdkPlanner
 from .agents import AgentError
 from .browser_places import BrowserPlaceResult, BrowserPlaceTool
 from .browser_weather import BrowserWeatherRequest, BrowserWeatherResult, BrowserWeatherTool
+from .maf_adapter import MafPlanner
 from .models import Context, Draft, PlaceSearchRequest, PlannerInput
 from .official_place import OfficialPlaceEvidence, OfficialPlaceRequest, OfficialPlaceTool
 from .osm_places import OSMLocationTool, OSMPlaceProvider, OSMSearchTool
@@ -51,6 +54,8 @@ class SpecialistSettings(BaseSettings):
     travelmate_api_token: SecretStr = SecretStr("")
     google_api_key: SecretStr = SecretStr("")
     gemini_model: str = "gemini-3.5-flash-lite"
+    # Engine for planner and routed_planner. Recommendation stays on ADK until ported.
+    planner_engine: Literal["adk", "maf"] = "adk"
     specialist_timeout: float = Field(default=60, gt=0, le=180)
     specialist_concurrency: int = Field(default=2, ge=1, le=8)
     specialist_memory_user: UUID | None = None
@@ -83,6 +88,22 @@ async def gemini_factory(settings):
             await client.aio.aclose()
         finally:
             client.close()
+
+
+@asynccontextmanager
+async def maf_gemini_factory(settings):
+    if not settings.google_api_key.get_secret_value():
+        raise HTTPException(503, "Configure GOOGLE_API_KEY on the server")
+    try:
+        import agent_framework.gemini  # noqa: F401
+    except ImportError:
+        raise HTTPException(503, "Install the maf dependency extra on the server") from None
+    from .maf_clients import maf_gemini_client_factory
+
+    async with maf_gemini_client_factory(
+        settings.google_api_key.get_secret_value(), settings.gemini_model
+    ) as factory:
+        yield factory
 
 
 def create_app(settings=None, overrides=None):
@@ -139,13 +160,17 @@ def create_app(settings=None, overrides=None):
                             settings.specialist_memory_db, settings.specialist_memory_user
                         )
                     else:
-                        async with gemini_factory(settings) as factory:
+                        use_maf = settings.planner_engine == "maf" and name in {"planner", "routed_planner"}
+                        llm_factory = maf_gemini_factory if use_maf else gemini_factory
+                        planner_cls = MafPlanner if use_maf else AdkPlanner
+                        async with llm_factory(settings) as factory:
                             if name == "routed_planner":
-                                return await RoutedPlannerSpecialist(factory, roads).run(
-                                    data, context, settings.specialist_timeout
-                                )
-                            cls = PlannerSpecialist if name == "planner" else RecommendationSpecialist
-                            return await cls(factory).run(data, context, settings.specialist_timeout)
+                                agent = RoutedPlannerSpecialist(factory, roads, planner_cls)
+                            elif name == "planner":
+                                agent = PlannerSpecialist(factory, planner_cls)
+                            else:
+                                agent = RecommendationSpecialist(factory)
+                            return await agent.run(data, context, settings.specialist_timeout)
                     return await agent.run(data, context, settings.specialist_timeout)
             except HTTPException:
                 raise
