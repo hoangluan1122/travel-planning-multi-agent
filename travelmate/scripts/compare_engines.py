@@ -26,6 +26,8 @@ from app.specialist_api import SpecialistSettings, gemini_factory, maf_gemini_fa
 
 
 async def main(args):
+    # Windows consoles default to cp1252, which cannot print the Vietnamese report.
+    sys.stdout.reconfigure(encoding="utf-8")
     settings = SpecialistSettings(travelmate_api_token="unused-by-this-script")
     if not settings.google_api_key.get_secret_value():
         raise SystemExit("Configure GOOGLE_API_KEY in .env first")
