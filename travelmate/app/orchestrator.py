@@ -65,10 +65,12 @@ class Orchestrator:
         places = checked_places(results[0])
         weather = checked_weather(results[1])
         ranked = await run("recommendation", RecommendationInput(places=places, preferences=memory))
-        draft = await run("planner", PlannerInput(trip=trip, places=ranked, weather=weather))
+        draft = await run(
+            "planner", PlannerInput(trip=trip, places=ranked, weather=weather, preferences=memory)
+        )
         validate_draft(trip, draft, ranked)
         budget = await run("budget", BudgetInput(trip=trip, draft=draft, places=ranked))
-        return plan_response(context, self.mode, draft, ranked, weather, budget)
+        return plan_response(context, self.mode, draft, ranked, weather, budget, memory)
 
 
 # Step rules shared by Orchestrator and WorkflowOrchestrator, so both produce the same
@@ -93,7 +95,7 @@ def checked_weather(result):
     return result
 
 
-def plan_response(context, mode, draft, ranked, weather, budget):
+def plan_response(context, mode, draft, ranked, weather, budget, memory=None):
     return PlanResponse(
         request_id=context.request_id,
         mode=mode,
@@ -101,7 +103,8 @@ def plan_response(context, mode, draft, ranked, weather, budget):
         places=ranked.places,
         weather=weather,
         budget=budget,
-        warnings=ranked.warnings
+        warnings=(memory.warnings if memory else [])
+        + ranked.warnings
         + weather.warnings
         + [
             "Bản nháp: chưa kiểm tra giờ mở cửa hoặc tính khả thi của tuyến di chuyển.",

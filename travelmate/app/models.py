@@ -54,7 +54,8 @@ class PlaceSearchRequest(Model):
 
 class Preferences(Model):
     interests: list[str]
-    source: str = "current_request_only"
+    source: Literal["current_request_only", "request_and_saved_memory"] = "current_request_only"
+    warnings: list[str] = Field(default_factory=list)
 
 
 class Place(Model):
@@ -128,6 +129,9 @@ class PlannerInput(Model):
     places: PlaceResult
     weather: WeatherResult
     constraints: "ScheduleConstraints" = Field(default_factory=lambda: ScheduleConstraints())
+    # Merged request + saved interests. Reaches the LLM only as inspect_trip data, never
+    # as prompt instructions, so saved text cannot act as a command.
+    preferences: Preferences | None = None
 
     @model_validator(mode="after")
     def consistent_evidence(self):

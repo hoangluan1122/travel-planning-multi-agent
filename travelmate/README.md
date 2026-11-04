@@ -69,6 +69,21 @@ bản dùng chung quy tắc từng bước (`checked_places`, `checked_weather`,
 `plan_response`), nên cho cùng kết quả và cùng lỗi với cùng đầu vào. Bản workflow nhận
 `checkpoint_storage` tùy chọn để lưu checkpoint sau mỗi superstep.
 
+## Sở thích đã lưu trong luồng lập lịch
+
+Khi đặt `TRAVELMATE_MEMORY_USER` (UUID do host xác thực) và `TRAVELMATE_MEMORY_DB`, API lịch
+trình đọc sở thích đã lưu của danh tính đó, gộp sau sở thích trong request (bỏ trùng, tối đa
+20), dùng cho xếp hạng gợi ý và đưa cho planner. Response có cảnh báo liệt kê sở thích đã dùng.
+
+- **Chỉ đọc:** luồng lập lịch không bao giờ ghi memory. Lưu/xóa đi qua memory specialist
+  (`/api/v1/agents/memory`), bắt buộc `confirmed=true`.
+- **Không chọn danh tính từ request:** host cấu hình danh tính; request không thể đọc memory
+  của người khác.
+- **Là dữ liệu, không phải chỉ thị:** sở thích đến planner LLM qua kết quả `inspect_trip`, không
+  được chèn vào system prompt, nên nội dung đã lưu không thể đóng vai lệnh (memory poisoning).
+- **Không chặn kế hoạch:** memory hết hạn, đã xóa hoặc không đọc được thì chỉ dùng sở thích
+  trong request, kèm cảnh báo.
+
 ## Cấu trúc
 
 - `app/`: API, schema, agent, provider và công cụ.

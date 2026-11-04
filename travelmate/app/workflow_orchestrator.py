@@ -88,7 +88,10 @@ class WorkflowOrchestrator:
         @executor(id="planner")
         async def planner(state: PlanState, ctx: WorkflowContext[PlanState]) -> None:
             draft = await run(
-                "planner", PlannerInput(trip=state.trip, places=state.ranked, weather=state.weather)
+                "planner",
+                PlannerInput(
+                    trip=state.trip, places=state.ranked, weather=state.weather, preferences=state.memory
+                ),
             )
             await ctx.send_message(replace(state, draft=draft))
 
@@ -101,7 +104,9 @@ class WorkflowOrchestrator:
         async def budget(state: PlanState, ctx: WorkflowContext[Never, object]) -> None:
             result = await run("budget", BudgetInput(trip=state.trip, draft=state.draft, places=state.ranked))
             await ctx.yield_output(
-                plan_response(context, self.mode, state.draft, state.ranked, state.weather, result)
+                plan_response(
+                    context, self.mode, state.draft, state.ranked, state.weather, result, state.memory
+                )
             )
 
         return (

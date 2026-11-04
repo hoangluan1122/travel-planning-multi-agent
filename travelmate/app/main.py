@@ -1,6 +1,7 @@
 import secrets
 from pathlib import Path
 from typing import Literal
+from uuid import UUID
 
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
@@ -38,6 +39,18 @@ class Settings(BaseSettings):
     )
     # classic: asyncio pipeline in app/orchestrator.py; workflow: MAF Workflow graph (needs --extra maf)
     travelmate_orchestrator: Literal["classic", "workflow"] = "classic"
+    # Saved preferences for planning (read-only). The host binds one authenticated identity;
+    # requests cannot choose whose memory is read. Unset = request interests only.
+    travelmate_memory_user: UUID | None = None
+    travelmate_memory_db: Path = Path("agent-memory.sqlite3")
+
+
+def memory_store(settings):
+    if settings.travelmate_memory_user is None:
+        return None
+    from .specialists.memory import MemorySpecialist
+
+    return MemorySpecialist(settings.travelmate_memory_db, settings.travelmate_memory_user)
 
 
 def live_planner(settings):
@@ -67,7 +80,7 @@ def create_app(settings=None, orchestrator=None, provider=None):
     if orchestrator is None:
         registry = Registry()
         for agent in [
-            MemoryAgent(),
+            MemoryAgent(memory_store(settings)),
             PlaceAgent(provider),
             WeatherAgent(provider),
             RecommendationAgent(),
