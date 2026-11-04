@@ -59,31 +59,52 @@ class Orchestrator:
 
         memory = await run("memory", trip)
         results = await asyncio.gather(run("place", trip), run("weather", trip), return_exceptions=True)
-        places, weather = results
         for result in results:
             if isinstance(result, asyncio.CancelledError):
                 raise result
-        if isinstance(places, TimeoutError):
-            raise places
-        if isinstance(places, BaseException):
-            raise AgentError("Place lookup failed; no reliable candidates available") from places
-        if isinstance(weather, BaseException):
-            weather = WeatherResult(warnings=["Tra cứu thời tiết thất bại; chưa xác minh thời tiết."])
+        places = checked_places(results[0])
+        weather = checked_weather(results[1])
         ranked = await run("recommendation", RecommendationInput(places=places, preferences=memory))
         draft = await run("planner", PlannerInput(trip=trip, places=ranked, weather=weather))
         validate_draft(trip, draft, ranked)
         budget = await run("budget", BudgetInput(trip=trip, draft=draft, places=ranked))
-        return PlanResponse(
-            request_id=context.request_id,
-            mode=self.mode,
-            draft=draft,
-            places=ranked.places,
-            weather=weather,
-            budget=budget,
-            warnings=ranked.warnings
-            + weather.warnings
-            + [
-                "Bản nháp: chưa kiểm tra giờ mở cửa hoặc tính khả thi của tuyến di chuyển.",
-                "Chi phí chưa bao gồm đầy đủ lưu trú, ăn uống và di chuyển.",
-            ],
-        )
+        return plan_response(context, self.mode, draft, ranked, weather, budget)
+
+
+# Step rules shared by Orchestrator and WorkflowOrchestrator, so both produce the same
+# result and the same errors for the same inputs.
+
+
+def checked_places(result):
+    """Place lookup is required: any failure stops the plan."""
+    if isinstance(result, (asyncio.CancelledError, TimeoutError)):
+        raise result
+    if isinstance(result, BaseException):
+        raise AgentError("Place lookup failed; no reliable candidates available") from result
+    return result
+
+
+def checked_weather(result):
+    """Weather is optional: a failure becomes an explicit unverified-weather warning."""
+    if isinstance(result, asyncio.CancelledError):
+        raise result
+    if isinstance(result, BaseException):
+        return WeatherResult(warnings=["Tra cứu thời tiết thất bại; chưa xác minh thời tiết."])
+    return result
+
+
+def plan_response(context, mode, draft, ranked, weather, budget):
+    return PlanResponse(
+        request_id=context.request_id,
+        mode=mode,
+        draft=draft,
+        places=ranked.places,
+        weather=weather,
+        budget=budget,
+        warnings=ranked.warnings
+        + weather.warnings
+        + [
+            "Bản nháp: chưa kiểm tra giờ mở cửa hoặc tính khả thi của tuyến di chuyển.",
+            "Chi phí chưa bao gồm đầy đủ lưu trú, ăn uống và di chuyển.",
+        ],
+    )
