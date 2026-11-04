@@ -224,3 +224,12 @@ def test_api_without_identity_uses_request_only(tmp_path):
         response = client.post("/api/v1/plans/preview", json=payload())
     assert response.status_code == 200
     assert not any("sở thích đã lưu" in w for w in response.json()["warnings"])
+
+
+def test_blank_memory_user_from_env_file_means_unset(monkeypatch):
+    # .env.example ships TRAVELMATE_MEMORY_USER= empty; the app must still start.
+    monkeypatch.setenv("TRAVELMATE_MEMORY_USER", "")
+    settings = Settings(_env_file=None)
+    assert settings.travelmate_memory_user is None
+    with TestClient(create_app(settings)) as client:
+        assert client.get("/health").status_code == 200
