@@ -35,6 +35,20 @@ uv run uvicorn app.main:create_app --factory --reload --host 127.0.0.1 --port 80
 Mở http://127.0.0.1:8000/docs. `.env.example` mặc định `TRAVELMATE_MODE=demo`:
 endpoint demo dùng dữ liệu giả lập có nhãn. Cấu hình `live` cần khóa API tương ứng.
 
+## Engine planner: ADK hoặc Microsoft Agent Framework
+
+Planner chạy được bằng Google ADK (mặc định) hoặc Microsoft Agent Framework (MAF),
+cùng một bộ tool và cùng submit gate (`app/planner_tools.py`). Để dùng MAF:
+
+```powershell
+uv sync --extra dev --extra ai --extra browser --extra maf
+```
+
+rồi đặt `PLANNER_ENGINE=maf` trong `.env`. Áp dụng cho `planner`, `routed_planner`
+và planner của API lịch trình; Recommendation và Place Agent vẫn chạy ADK.
+MAF mặc định trả lỗi tool về cho model và gọi thêm một lượt khi chạm giới hạn vòng lặp;
+`app/maf_adapter.py` chặn cả hai để ngân sách gọi model/submit vẫn là giới hạn cứng.
+
 ## Cấu trúc
 
 - `app/`: API, schema, agent, provider và công cụ.

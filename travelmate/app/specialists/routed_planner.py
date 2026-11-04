@@ -5,6 +5,7 @@ from typing import Annotated, Literal
 
 from pydantic import Field, model_validator
 
+from ..adk_adapter import AdkPlanner
 from ..agents import AgentError, BaseAgent
 from ..models import Draft, Model, PlannerInput
 from .planner import PlannerSpecialist
@@ -151,12 +152,13 @@ async def route_draft(data: RoutedPlannerInput, draft: Draft, provider):
 class RoutedPlannerSpecialist(BaseAgent[RoutedPlannerInput, RoutedPlan]):
     name, input_schema, output_schema = "routed_planner", RoutedPlannerInput, RoutedPlan
 
-    def __init__(self, model_factory, provider=None):
+    def __init__(self, model_factory, provider=None, planner_cls=AdkPlanner):
         self.model_factory, self.provider = model_factory, provider or OSRMProvider()
+        self.planner_cls = planner_cls
 
     async def execute(self, data, context):
         plain = PlannerInput(
             trip=data.trip, places=data.places, weather=data.weather, constraints=data.constraints
         )
-        draft = await PlannerSpecialist(self.model_factory).execute(plain, context)
+        draft = await PlannerSpecialist(self.model_factory, self.planner_cls).execute(plain, context)
         return await route_draft(data, draft, self.provider)
