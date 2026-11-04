@@ -1,0 +1,103 @@
+"""Keyless live provider for the itinerary API.
+
+Places come from Photon/OpenStreetMap around a GeoNames/Open-Meteo locality, weather
+from the Open-Meteo forecast. No API key is needed; only the LLM planner needs one.
+Coverage is community data, not an exhaustive or verified list, and the responses
+say so.
+"""
+
+import asyncio
+import time
+
+from .agents import AgentError
+from .geo_places import GeoPlaceService, LocalityChoiceRequired
+from .models import Context, PlaceResult, WeatherDay, WeatherResult
+
+SOURCE_NOTE = (
+    "Địa điểm từ OpenStreetMap qua Photon (dữ liệu cộng đồng, ODbL); có thể thiếu hoặc cũ, "
+    "chưa xác minh giờ mở cửa, giá hay tình trạng hoạt động."
+)
+LOCALITY_TTL_S = 600
+
+
+class OpenDataProvider:
+    """Implements search(trip), forecast(trip) and search_places(query) like the other providers."""
+
+    def __init__(self, geo=None, weather=None, radius_m=5000, attractions=8, restaurants=4):
+        self.geo = geo or GeoPlaceService()
+        self.weather = weather  # a WeatherSpecialist; created lazily
+        self.radius_m = radius_m
+        self.limits = {"attraction": attractions, "restaurant": restaurants}
+        self._localities = {}
+        self._lock = asyncio.Lock()
+
+    async def locate(self, destination):
+        """Resolve a destination to one locality, picking the top match when ambiguous."""
+        key = destination.casefold().strip()
+        async with self._lock:
+            cached = self._localities.get(key)
+            if cached and time.monotonic() - cached[0] < LOCALITY_TTL_S:
+                return cached[1], list(cached[2])
+            notes = []
+            try:
+                location = await self.geo.resolve(destination, None, "nearby")
+            except LocalityChoiceRequired as exc:
+                if not exc.choices:
+                    raise AgentError(f"Không tìm thấy địa danh “{destination}” ở Việt Nam") from None
+                location = exc.choices[0]
+                where = ", ".join(part for part in [location.name, location.admin1] if part)
+                notes.append(
+                    f"“{destination}” khớp {len(exc.choices)} địa danh; đang dùng {where}. "
+                    "Ghi rõ tỉnh/thành nếu đây không phải nơi bạn muốn."
+                )
+            self._localities[key] = (time.monotonic(), location, notes)
+            return location, list(notes)
+
+    async def search(self, trip):
+        location, warnings = await self.locate(trip.destination)
+        places, failures = [], 0
+        for category, limit in self.limits.items():
+            try:
+                found, _, _ = await self.geo.discover(location, category, self.radius_m)
+            except AgentError:
+                failures += 1
+                continue
+            places.extend(found[:limit])
+        if failures == len(self.limits):
+            raise AgentError("Nguồn địa điểm không phản hồi")
+        if failures:
+            warnings.append("Một nhóm địa điểm không tải được; danh sách có thể thiếu.")
+        if not places:
+            warnings.append(f"Không thấy địa điểm trong bán kính {self.radius_m // 1000} km quanh trung tâm.")
+        return PlaceResult(places=places, warnings=warnings + [SOURCE_NOTE])
+
+    async def search_places(self, query):
+        location, warnings = await self.locate(query.destination)
+        found, _, _ = await self.geo.discover(location, query.category, query.radius_m, query.keyword)
+        return PlaceResult(places=found[: query.limit], warnings=warnings + [SOURCE_NOTE])
+
+    async def forecast(self, trip):
+        from .specialists.weather import WeatherRequest, WeatherSpecialist
+
+        location, _ = await self.locate(trip.destination)
+        weather = self.weather or WeatherSpecialist()
+        report = await weather.run(
+            WeatherRequest(
+                latitude=location.latitude,
+                longitude=location.longitude,
+                start_date=trip.start_date,
+                end_date=trip.end_date,
+            ),
+            Context(),
+        )
+        days = [WeatherDay(date=d.date, weather_code=d.weather_code) for d in report.days if d.weather_code is not None]
+        warnings = list(report.warnings)
+        for d in report.days:
+            if d.outdoor_risk == "elevated":
+                chance = f" ({d.precipitation_probability}% khả năng mưa)" if d.precipitation_probability is not None else ""
+                warnings.append(f"{d.date.isoformat()}: thời tiết có thể không thuận cho hoạt động ngoài trời{chance}.")
+        if report.missing_dates:
+            warnings.append(
+                "Chưa có dự báo cho: " + ", ".join(day.isoformat() for day in report.missing_dates) + "."
+            )
+        return WeatherResult(days=days, warnings=warnings + ["Thời tiết: dự báo Open-Meteo."])

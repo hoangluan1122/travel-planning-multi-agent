@@ -6,6 +6,10 @@
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const money = value => Number(value).toLocaleString('vi-VN') + ' ₫';
   const time = value => `${String(Math.floor(value / 60)).padStart(2,'0')}:${String(value % 60).padStart(2,'0')}`;
+  const wmo = code => code==null?null:code===0?'☀️ Trời quang':code<=2?'🌤️ Ít mây':code===3?'☁️ Nhiều mây':code<=48?'🌫️ Sương mù':code<=57?'🌦️ Mưa phùn':code<=67?'🌧️ Mưa':code<=77?'❄️ Tuyết':code<=82?'🌧️ Mưa rào':code<=86?'❄️ Mưa tuyết':'⛈️ Dông';
+  const kinds = {museum:'Bảo tàng',gallery:'Phòng trưng bày',attraction:'Điểm tham quan',viewpoint:'Điểm ngắm cảnh',park:'Công viên',beach:'Bãi biển',restaurant:'Nhà hàng',cafe:'Quán cà phê',fast_food:'Đồ ăn nhanh',food_court:'Khu ẩm thực',hotel:'Khách sạn'};
+  const kind = p => (p?.types||[]).map(t=>kinds[t]).find(Boolean)||'';
+  const mapLink = p => p&&Number.isFinite(p.latitude)?`<a href="https://www.openstreetmap.org/?mlat=${p.latitude}&mlon=${p.longitude}#map=17/${p.latitude}/${p.longitude}" target="_blank" rel="noopener noreferrer">Xem trên bản đồ ↗</a>`:'';
   const read = (key, fallback) => {try {return JSON.parse(sessionStorage.getItem(key)) ?? fallback} catch {return fallback}};
   const save = (key, value) => sessionStorage.setItem(key, JSON.stringify(value));
   const link = (view, text) => `<a class="button outline" href="?view=${view}">${text}</a>`;
@@ -19,7 +23,7 @@
   document.querySelector('#api-token').value = read('tm-token','');
   document.querySelector('#token-save').onclick = () => {save('tm-token',document.querySelector('#api-token').value.trim());document.querySelector('#api-health').textContent='Đã áp dụng token. Bạn có thể thử lại yêu cầu.'};
   fetch('/health').then(r=>{if(!r.ok)throw Error();return r.json()}).then(h=>{
-    document.querySelector('#api-health').textContent = `Backend đã kết nối · ${h.mode==='demo'?'DEMO — dữ liệu giả lập, không phải địa điểm thật':'LIVE — sử dụng nhà cung cấp trực tiếp'}${h.token_required?' · Yêu cầu token truy cập':''}`;
+    document.querySelector('#api-health').textContent = `Backend đã kết nối · ${h.mode==='demo'?'DEMO — dữ liệu giả lập, không phải địa điểm thật':`LIVE — ${h.place_provider==='open_data'?'OpenStreetMap + Open-Meteo':'Google Places'} · lịch do Gemini lập (${(h.agent_engine||'adk').toUpperCase()})`}${h.token_required?' · Yêu cầu token truy cập':''}`;
   }).catch(()=>{document.querySelector('#api-health').textContent='Không kết nối được backend. Hãy chạy ứng dụng qua máy chủ FastAPI.'});
 
   async function api(path, data, signal) {
@@ -92,12 +96,12 @@
     const day=result.draft.days[dayIndex];
     const heading=`<div class="eyebrow">${result.mode==='demo'?'DEMO · DỮ LIỆU GIẢ LẬP':'BẢN PHÁC THẢO · CHƯA XÁC MINH'}</div><h1>${esc(request.destination)}</h1><p>${esc(request.start_date)} → ${esc(request.end_date)} · ${request.travelers} người · Ngân sách ${money(request.budget_vnd)}</p><p class="api-meta">Mã yêu cầu: ${esc(result.request_id)}</p>`;
     if(route==='plan'){
-      render(heading+warnings([...result.warnings,...result.weather.warnings])+budget(result.budget)+`<div class="api-grid">${result.draft.days.map((d,i)=>`<article class="api-card"><div class="eyebrow">NGÀY ${i+1} · ${esc(d.date)}</div><h3>${d.activities.length} hoạt động</h3><p>${d.activities.map(a=>esc(places.get(a.place_id)?.name||a.place_id)).join(' → ')}</p>${link(`day&id=${encodeURIComponent(result.request_id)}&day=${i}`,'Xem chi tiết ngày →')}</article>`).join('')}</div><div class="api-actions">${link('create','Tạo kế hoạch mới')}${link('saved','Kế hoạch trong phiên')}</div>`);
+      render(heading+warnings([...result.warnings,...result.weather.warnings])+budget(result.budget)+`<div class="api-grid">${result.draft.days.map((d,i)=>`<article class="api-card"><div class="eyebrow">NGÀY ${i+1} · ${esc(d.date)}</div><h3>${d.activities.length} hoạt động</h3>${(w=>w?`<p>${wmo(w.weather_code)}</p>`:'')(result.weather.days.find(w=>w.date===d.date))}<p>${d.activities.map(a=>esc(places.get(a.place_id)?.name||a.place_id)).join(' → ')}</p>${link(`day&id=${encodeURIComponent(result.request_id)}&day=${i}`,'Xem chi tiết ngày →')}</article>`).join('')}</div><div class="api-actions">${link('create','Tạo kế hoạch mới')}${link('saved','Kế hoạch trong phiên')}</div>`);
     } else if(day){
       const weather=result.weather.days.find(w=>w.date===day.date);
-      render(heading+`<div class="api-actions">${link(`plan&id=${encodeURIComponent(result.request_id)}`,'← Tổng quan')}${result.draft.days.map((d,i)=>link(`day&id=${encodeURIComponent(result.request_id)}&day=${i}`,`Ngày ${i+1}`)).join('')}</div><h2>Ngày ${dayIndex+1} · ${esc(day.date)}</h2><p>${weather?`Mã thời tiết WMO: ${weather.weather_code}`:'Chưa có dự báo thời tiết cho ngày này.'}</p>`+day.activities.map(a=>{
+      render(heading+`<div class="api-actions">${link(`plan&id=${encodeURIComponent(result.request_id)}`,'← Tổng quan')}${result.draft.days.map((d,i)=>link(`day&id=${encodeURIComponent(result.request_id)}&day=${i}`,`Ngày ${i+1}`)).join('')}</div><h2>Ngày ${dayIndex+1} · ${esc(day.date)}</h2><p>${weather?`Dự báo: ${wmo(weather.weather_code)}`:'Chưa có dự báo thời tiết cho ngày này.'}</p>`+day.activities.map(a=>{
         const p=places.get(a.place_id);
-        return `<article class="api-card"><div class="eyebrow">${time(a.start_minute)} — ${time(a.end_minute)}</div><h3>${esc(p?.name||a.place_id)}</h3><p>${esc(p?.address||'Chưa có địa chỉ')}</p><p>${p?.estimated_visit_cost_vnd==null?'Chưa có giá tham khảo':money(p.estimated_visit_cost_vnd)}</p><p class="api-meta">Nguồn: ${esc(p?.source||'Chưa xác định')} · Chưa có ảnh địa điểm từ API.</p></article>`;
+        return `<article class="api-card"><div class="eyebrow">${time(a.start_minute)} — ${time(a.end_minute)}</div><h3>${esc(p?.name||a.place_id)}</h3>${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}<p>${esc(p?.address||'Chưa có địa chỉ')}</p><p>${mapLink(p)}</p><p>${p?.estimated_visit_cost_vnd==null?'Chưa có giá tham khảo':money(p.estimated_visit_cost_vnd)}</p><p class="api-meta">Nguồn: ${esc(p?.attribution||p?.source||'Chưa xác định')} · Chưa có ảnh địa điểm từ API.</p></article>`;
       }).join('')+warnings(result.warnings));
     }else empty();
   }
@@ -107,7 +111,7 @@
     main.querySelector('form').onsubmit=async e=>{
       e.preventDefault();const button=e.target.querySelector('button'),status=main.querySelector('#search-status'),results=main.querySelector('#api-results');
       button.disabled=true;status.textContent='Đang tìm địa điểm…';results.replaceChildren();
-      try{const f=new FormData(e.target);const data=await api('/api/v1/places/search',{destination:f.get('destination'),category:f.get('category'),keyword:f.get('keyword'),limit:12});status.textContent=`Tìm thấy ${data.places.length} địa điểm.`;results.innerHTML=warnings(data.warnings)+data.places.map(p=>`<article class="api-card"><h3>${esc(p.name)}</h3><p>${esc(p.address)}</p><p class="api-meta">Nguồn: ${esc(p.source)}</p><p>${p.estimated_visit_cost_vnd==null?'Chưa có giá tham khảo':money(p.estimated_visit_cost_vnd)}</p></article>`).join('')}
+      try{const f=new FormData(e.target);const data=await api('/api/v1/places/search',{destination:f.get('destination'),category:f.get('category'),keyword:f.get('keyword'),limit:12});status.textContent=`Tìm thấy ${data.places.length} địa điểm.`;results.innerHTML=warnings(data.warnings)+data.places.map(p=>`<article class="api-card"><h3>${esc(p.name)}</h3>${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}<p>${esc(p.address)}</p><p>${mapLink(p)}</p><p class="api-meta">Nguồn: ${esc(p.attribution||p.source)}</p><p>${p.estimated_visit_cost_vnd==null?'Chưa có giá tham khảo':money(p.estimated_visit_cost_vnd)}</p></article>`).join('')}
       catch(error){status.textContent=error.message}finally{button.disabled=false}
     };
   }

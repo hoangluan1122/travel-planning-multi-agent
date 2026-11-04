@@ -210,13 +210,13 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
     async def execute(self, data, context):
         places = {p.id: p for p in data.places.places}
         total = Decimal("0")
-        unknown = ["Accommodation", "Meals", "Transport"]
+        unknown = ["Lưu trú", "Ăn uống", "Di chuyển"]
         for day in data.draft.days:
             for activity in day.activities:
-                cost = places[activity.place_id].estimated_visit_cost_vnd
-                if cost is None:
-                    unknown.append(f"Visit: {activity.place_id} on {day.date}")
+                place = places[activity.place_id]
+                if place.estimated_visit_cost_vnd is None:
+                    unknown.append(f"Chi phí tại {place.name} ({day.date.isoformat()})")
                 else:
-                    total += cost * data.trip.travelers
+                    total += place.estimated_visit_cost_vnd * data.trip.travelers
         status = "over_budget" if total > data.trip.budget_vnd else "incomplete"
         return BudgetResult(known_subtotal=total, unknown_items=unknown, status=status)
