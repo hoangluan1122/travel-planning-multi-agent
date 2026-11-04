@@ -18,11 +18,16 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from app.adk_adapter import AdkPlanner  # noqa: E402
 from app.engine_comparison import compare, markdown  # noqa: E402
-from app.maf_adapter import MafPlanner  # noqa: E402
 from app.models import PlannerInput  # noqa: E402
 from app.specialist_api import SpecialistSettings, gemini_factory, maf_gemini_factory  # noqa: E402
+from app.specialists.recommendation import RecommendationRequest  # noqa: E402
+
+
+def load_case(path):
+    """A file with "trip" is a planner case; one with "candidates" a recommendation case."""
+    raw = path.read_text("utf-8-sig")
+    return (PlannerInput if '"trip"' in raw else RecommendationRequest).model_validate_json(raw)
 
 
 async def main(args):
@@ -31,11 +36,11 @@ async def main(args):
     settings = SpecialistSettings(travelmate_api_token="unused-by-this-script")
     if not settings.google_api_key.get_secret_value():
         raise SystemExit("Configure GOOGLE_API_KEY in .env first")
-    cases = {path.stem: PlannerInput.model_validate_json(path.read_text("utf-8-sig")) for path in args.input}
+    cases = {path.stem: load_case(path) for path in args.input}
     async with gemini_factory(settings) as adk_factory, maf_gemini_factory(settings) as maf_factory:
         report = await compare(
             cases,
-            {"adk": (AdkPlanner, adk_factory), "maf": (MafPlanner, maf_factory)},
+            {"adk": adk_factory, "maf": maf_factory},
             runs=args.runs,
             timeout=args.timeout,
         )
@@ -53,5 +58,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--runs", type=int, default=3)
     parser.add_argument("--timeout", type=float, default=90)
-    parser.add_argument("--input", type=Path, nargs="+", default=[ROOT / "examples" / "planner.json"])
+    parser.add_argument(
+        "--input",
+        type=Path,
+        nargs="+",
+        default=[ROOT / "examples" / "planner.json", *sorted((ROOT / "examples" / "compare").glob("*.json"))],
+    )
     asyncio.run(main(parser.parse_args()))

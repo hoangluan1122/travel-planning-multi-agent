@@ -1,0 +1,83 @@
+{
+ "candidates": [
+  {
+   "id": "p-museum",
+   "name": "TEST Museum of Trade Ceramics",
+   "address": "Fictional fixture, Hoi An",
+   "latitude": 15.877,
+   "longitude": 108.329,
+   "source": "fictional_fixture",
+   "types": [
+    "museum"
+   ]
+  },
+  {
+   "id": "p-market",
+   "name": "TEST Central Market",
+   "address": "Fictional fixture, Hoi An",
+   "latitude": 15.8768,
+   "longitude": 108.3305,
+   "source": "fictional_fixture",
+   "types": [
+    "market",
+    "food"
+   ]
+  },
+  {
+   "id": "p-bridge",
+   "name": "TEST Covered Bridge",
+   "address": "Fictional fixture, Hoi An",
+   "latitude": 15.8772,
+   "longitude": 108.326,
+   "source": "fictional_fixture",
+   "types": [
+    "attraction"
+   ]
+  },
+  {
+   "id": "p-beach",
+   "name": "TEST An Bang Beach",
+   "address": "Fictional fixture, Hoi An",
+   "latitude": 15.913,
+   "longitude": 108.342,
+   "source": "fictional_fixture",
+   "types": [
+    "beach"
+   ]
+  },
+  {
+   "id": "p-village",
+   "name": "TEST Pottery Village",
+   "address": "Fictional fixture, Hoi An",
+   "latitude": 15.882,
+   "longitude": 108.306,
+   "source": "fictional_fixture",
+   "types": [
+    "museum",
+    "craft"
+   ]
+  },
+  {
+   "id": "p-casino",
+   "name": "TEST Casino",
+   "address": "Fictional fixture, Hoi An",
+   "latitude": 15.9,
+   "longitude": 108.35,
+   "source": "fictional_fixture",
+   "types": [
+    "casino"
+   ]
+  }
+ ],
+ "interests": [
+  "museum",
+  "food"
+ ],
+ "limit": 3,
+ "required_place_ids": [
+  "p-market"
+ ],
+ "excluded_place_ids": [
+  "p-casino"
+ ]
+}
