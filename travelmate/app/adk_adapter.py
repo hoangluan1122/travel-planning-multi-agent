@@ -1,59 +1,41 @@
-import logging
-from contextlib import aclosing
-
 from .agents import AgentError
 from .planner_tools import PLANNER_INSTRUCTION, make_planner_tools
+from .tool_loop import ToolLoop, run_tool_loop
 
-logger = logging.getLogger(__name__)
 
+class _Planner:
+    """Request-isolated planner tool loop; only validated submissions are accepted."""
 
-class AdkPlanner:
-    """Request-isolated ADK tool loop; only validated submissions are accepted."""
+    engine = "adk"
 
-    def __init__(self, model, max_llm_calls=8, max_submissions=3):
+    def __init__(self, model_factory, max_llm_calls=8, max_submissions=3):
         if max_llm_calls < 1 or max_submissions < 1:
             raise ValueError("Agent limits must be positive")
-        self.model = model
+        self.model_factory = model_factory
         self.max_llm_calls = max_llm_calls
         self.max_submissions = max_submissions
 
     async def plan(self, data, context):
-        from google.adk.agents import LlmAgent
-        from google.adk.agents.invocation_context import LlmCallsLimitExceededError
-        from google.adk.agents.run_config import RunConfig
-        from google.adk.runners import Runner
-        from google.adk.sessions import InMemorySessionService
-        from google.genai import types
-
         state, inspect_trip, submit_itinerary = make_planner_tools(data, context, self.max_submissions)
-
-        agent = LlmAgent(
+        loop = ToolLoop(
             name="travelmate_planner",
-            model=self.model,
             instruction=PLANNER_INSTRUCTION,
             tools=[inspect_trip, submit_itinerary],
+            message="Plan using tools.",
+            max_llm_calls=self.max_llm_calls,
+            budget_message="Planner model-call budget exceeded",
+            is_done=lambda: state.accepted is not None,
         )
-        sessions = InMemorySessionService()
-        session_id = str(context.request_id)
-        await sessions.create_session(app_name="travelmate", user_id="request", session_id=session_id)
-        runner = Runner(agent=agent, app_name="travelmate", session_service=sessions)
-        try:
-            async with aclosing(
-                runner.run_async(
-                    user_id="request",
-                    session_id=session_id,
-                    new_message=types.Content(role="user", parts=[types.Part(text="Plan using tools.")]),
-                    run_config=RunConfig(max_llm_calls=self.max_llm_calls),
-                )
-            ) as events:
-                async for event in events:
-                    if state.accepted is not None:
-                        return state.accepted
+        await run_tool_loop(self.engine, self.model_factory, loop, context)
+        if state.accepted is None:
             raise AgentError("Planner ended without a validated itinerary")
-        except LlmCallsLimitExceededError:
-            raise AgentError("Planner model-call budget exceeded") from None
-        finally:
-            try:
-                await runner.close()
-            finally:
-                await sessions.delete_session(app_name="travelmate", user_id="request", session_id=session_id)
+        return state.accepted
+
+
+class AdkPlanner(_Planner):
+    """ADK engine. Takes an ADK model instance or model name (not a factory)."""
+
+    engine = "adk"
+
+    def __init__(self, model, max_llm_calls=8, max_submissions=3):
+        super().__init__(lambda: model, max_llm_calls, max_submissions)

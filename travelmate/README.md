@@ -35,19 +35,23 @@ uv run uvicorn app.main:create_app --factory --reload --host 127.0.0.1 --port 80
 Mở http://127.0.0.1:8000/docs. `.env.example` mặc định `TRAVELMATE_MODE=demo`:
 endpoint demo dùng dữ liệu giả lập có nhãn. Cấu hình `live` cần khóa API tương ứng.
 
-## Engine planner: ADK hoặc Microsoft Agent Framework
+## Engine agent: ADK hoặc Microsoft Agent Framework
 
-Planner chạy được bằng Google ADK (mặc định) hoặc Microsoft Agent Framework (MAF),
-cùng một bộ tool và cùng submit gate (`app/planner_tools.py`). Để dùng MAF:
+Các agent dùng LLM (planner, routed planner, recommendation, Place Agent) chạy được bằng
+Google ADK (mặc định) hoặc Microsoft Agent Framework (MAF). Mỗi agent định nghĩa tool và
+điều kiện chấp nhận một lần; `app/tool_loop.py` chạy vòng lặp đó trên engine được chọn.
+Để dùng MAF:
 
 ```powershell
 uv sync --extra dev --extra ai --extra browser --extra maf
 ```
 
-rồi đặt `PLANNER_ENGINE=maf` trong `.env`. Áp dụng cho `planner`, `routed_planner`
-và planner của API lịch trình; Recommendation và Place Agent vẫn chạy ADK.
-MAF mặc định trả lỗi tool về cho model và gọi thêm một lượt khi chạm giới hạn vòng lặp;
-`app/maf_adapter.py` chặn cả hai để ngân sách gọi model/submit vẫn là giới hạn cứng.
+rồi đặt `AGENT_ENGINE=maf` trong `.env` (`PLANNER_ENGINE` cũ vẫn được nhận). Giao diện
+Place Agent dữ liệu thật dùng `LIVE_PLACE_MODE=maf_llm`.
+
+MAF mặc định trả lỗi tool về cho model, gọi thêm một lượt khi chạm giới hạn vòng lặp và
+chỉ dừng sớm khi tín hiệu đến từ middleware. `app/tool_loop.py` xử lý cả ba để ngân sách
+tool, ngân sách gọi model và điểm dừng sau khi chấp nhận giống hệt ADK.
 
 ## Cấu trúc
 

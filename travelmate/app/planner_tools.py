@@ -36,12 +36,11 @@ class PlannerToolState:
         self.submissions = 0
 
 
-def make_planner_tools(data, context, max_submissions, budget_error=AgentError):
+def make_planner_tools(data, context, max_submissions):
     """Build request-scoped tool closures over fresh state.
 
-    budget_error builds the exception raised when a budget is exhausted. It must abort
-    the run in the engine using it; an engine that feeds tool errors back to the model
-    needs a fail-closed exception type here.
+    Budget breaches raise AgentError; app/tool_loop.py makes that abort the run in
+    both engines.
     """
     from .orchestrator import validate_draft
 
@@ -53,7 +52,7 @@ def make_planner_tools(data, context, max_submissions, budget_error=AgentError):
         """
         state.reads += 1
         if state.reads > MAX_EVIDENCE_READS:
-            raise budget_error("Planner evidence-read budget exceeded")
+            raise AgentError("Planner evidence-read budget exceeded")
         logger.info("agent_tool request_id=%s tool=inspect_trip", context.request_id)
         return data.model_dump(mode="json")
 
@@ -67,7 +66,7 @@ def make_planner_tools(data, context, max_submissions, budget_error=AgentError):
         """
         state.submissions += 1
         if state.submissions > max_submissions:
-            raise budget_error("Planner submission budget exceeded")
+            raise AgentError("Planner submission budget exceeded")
         if state.accepted is not None:
             return {"accepted": True}
         if state.reads == 0:

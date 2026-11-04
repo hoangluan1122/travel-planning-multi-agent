@@ -14,7 +14,7 @@ from uuid import UUID
 
 from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import Field, SecretStr
+from pydantic import AliasChoices, Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from .adk_adapter import AdkPlanner
@@ -54,8 +54,11 @@ class SpecialistSettings(BaseSettings):
     travelmate_api_token: SecretStr = SecretStr("")
     google_api_key: SecretStr = SecretStr("")
     gemini_model: str = "gemini-3.5-flash-lite"
-    # Engine for planner and routed_planner. Recommendation stays on ADK until ported.
-    planner_engine: Literal["adk", "maf"] = "adk"
+    # LLM runtime for planner, routed_planner and recommendation. PLANNER_ENGINE is the
+    # name used before recommendation was ported and is still accepted.
+    agent_engine: Literal["adk", "maf"] = Field(
+        default="adk", validation_alias=AliasChoices("agent_engine", "planner_engine")
+    )
     specialist_timeout: float = Field(default=60, gt=0, le=180)
     specialist_concurrency: int = Field(default=2, ge=1, le=8)
     specialist_memory_user: UUID | None = None
@@ -104,6 +107,11 @@ async def maf_gemini_factory(settings):
         settings.google_api_key.get_secret_value(), settings.gemini_model
     ) as factory:
         yield factory
+
+
+def agent_model_factory(settings, engine):
+    """Context manager yielding a per-call model factory for the given engine."""
+    return maf_gemini_factory(settings) if engine == "maf" else gemini_factory(settings)
 
 
 def create_app(settings=None, overrides=None):
@@ -160,16 +168,15 @@ def create_app(settings=None, overrides=None):
                             settings.specialist_memory_db, settings.specialist_memory_user
                         )
                     else:
-                        use_maf = settings.planner_engine == "maf" and name in {"planner", "routed_planner"}
-                        llm_factory = maf_gemini_factory if use_maf else gemini_factory
-                        planner_cls = MafPlanner if use_maf else AdkPlanner
-                        async with llm_factory(settings) as factory:
+                        engine = settings.agent_engine
+                        planner_cls = MafPlanner if engine == "maf" else AdkPlanner
+                        async with agent_model_factory(settings, engine) as factory:
                             if name == "routed_planner":
                                 agent = RoutedPlannerSpecialist(factory, roads, planner_cls)
                             elif name == "planner":
                                 agent = PlannerSpecialist(factory, planner_cls)
                             else:
-                                agent = RecommendationSpecialist(factory)
+                                agent = RecommendationSpecialist(factory, engine=engine)
                             return await agent.run(data, context, settings.specialist_timeout)
                     return await agent.run(data, context, settings.specialist_timeout)
             except HTTPException:
