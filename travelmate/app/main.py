@@ -22,6 +22,7 @@ from .agents import (
     Registry,
     WeatherAgent,
 )
+from .chat import ChatRequest, ChatResponse
 from .models import PlaceResult, PlaceSearchRequest, PlanResponse, TripRequest
 from .orchestrator import Orchestrator
 from .place_media import GooglePhotoProxy
@@ -82,6 +83,19 @@ def planning_agent(settings):
     return PlanningAgent(lambda: settings.gemini_model, "adk")
 
 
+def concierge_agent(settings):
+    """LLM concierge for the chat in live mode; demo mode routes by keywords."""
+    if settings.travelmate_mode != "live":
+        return None
+    from .chat import ConciergeAgent
+
+    if settings.agent_engine == "maf":
+        from .maf_clients import maf_gemini_client
+
+        return ConciergeAgent(lambda: maf_gemini_client(settings.google_api_key, settings.gemini_model), "maf")
+    return ConciergeAgent(lambda: settings.gemini_model, "adk")
+
+
 def live_planner(settings):
     if settings.agent_engine == "maf":
         from .maf_adapter import MafPlanner
@@ -91,7 +105,7 @@ def live_planner(settings):
     return AdkPlanner(settings.gemini_model)
 
 
-def create_app(settings=None, orchestrator=None, provider=None):
+def create_app(settings=None, orchestrator=None, provider=None, chat=None):
     settings = settings or Settings()
     configure_telemetry(settings.travelmate_telemetry, "travelmate-api")
     if settings.travelmate_mode == "live":
@@ -144,6 +158,10 @@ def create_app(settings=None, orchestrator=None, provider=None):
             )
         else:
             orchestrator = orchestrator_cls(registry, settings.travelmate_mode, settings.travelmate_agent_timeout)
+    if chat is None:
+        from .chat import ChatService
+
+        chat = ChatService(orchestrator, provider, concierge_agent(settings), settings.travelmate_agent_timeout)
     app = FastAPI(title="TravelMate API", version="0.1.0")
     bearer = HTTPBearer(auto_error=False)
 
@@ -208,6 +226,16 @@ def create_app(settings=None, orchestrator=None, provider=None):
                 "plan_preview outcome=failed error_type=%s root_type=%s", type(exc).__name__, type(root).__name__
             )
             raise HTTPException(502, "Planning failed; check provider configuration and retry") from None
+
+    @app.post("/api/v1/chat", response_model=ChatResponse, dependencies=[Depends(authorize)])
+    async def chat_turn(data: ChatRequest):
+        # Specialist failures become a chat reply; anything else must not leak details.
+        try:
+            session, reply = await chat.handle(data.session_id, data.message)
+        except Exception as exc:
+            logger.warning("chat outcome=failed error_type=%s", type(exc).__name__)
+            raise HTTPException(502, "Chat failed; retry shortly") from None
+        return ChatResponse(session_id=session.id, reply=reply, active_agent=session.active_agent)
 
     @app.get("/", include_in_schema=False)
     async def frontend():

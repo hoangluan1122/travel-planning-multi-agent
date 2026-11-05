@@ -41,6 +41,12 @@ tên trùng (ví dụ "Hội An") tự chọn địa danh khớp nhất và báo
 tuyến đường thật giữa các điểm, lưu trú, đặt chỗ hay tài khoản người dùng; lịch có thể lặp
 lại quán ăn khi nguồn có ít lựa chọn.
 
+## Trợ lý AI (Multi-Agent, hand-off)
+
+Màn hình **Trợ lý AI** (`?view=chat`) gọi `POST /api/v1/chat`: một trợ lý điều phối đọc câu hỏi
+rồi chuyển cho chuyên gia địa điểm, lịch trình, chi phí hoặc thời tiết, nhớ thông tin chuyến đi
+qua các lượt. Chi tiết và kết quả chạy thật: [`docs/multi-agent.md`](../docs/multi-agent.md).
+
 ## Place Agent — dữ liệu thật
 
 ```powershell

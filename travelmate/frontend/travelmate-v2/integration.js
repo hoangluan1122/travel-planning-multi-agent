@@ -39,6 +39,7 @@
   const link = (view, text) => `<a class="button outline" href="?view=${view}">${text}</a>`;
   const style = document.createElement('style');
   style.textContent = '.api-photo{margin:-24px -24px 16px;overflow:hidden;border-radius:20px 20px 0 0}.api-photo img{display:block;width:100%;height:220px;object-fit:cover}.api-photo figcaption{font-size:11px;color:#667;padding:6px 24px 0}.api-thumb{margin:-24px -24px 12px;overflow:hidden;border-radius:20px 20px 0 0}.api-thumb img{display:block;width:100%;height:140px;object-fit:cover}.api-thumb figcaption{display:none}.api-rating{color:#b26a00;font-weight:600}.api-hours summary{cursor:pointer}.api-banner{padding:12px 5%;background:#eef1ff;font-size:13px}.api-banner input{max-width:240px;padding:8px}.api-card{padding:24px;margin:16px 0;border:1px solid #e1e5ee;border-radius:20px;background:white;overflow-wrap:anywhere}.api-actions{display:flex;gap:12px;flex-wrap:wrap}.api-warning{padding:16px;background:#fff5dc;border-radius:12px;margin:12px 0}.api-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px}.api-error{color:#a32424}.api-card h3{margin:12px 0}.api-card p{margin:12px 0}.api-meta{color:#647084;font-size:13px}.api-banner summary{cursor:pointer}';
+  style.textContent += '.chat-log{display:flex;flex-direction:column;gap:12px;max-height:60vh;overflow:auto;padding:8px 0;margin:16px 0}.chat-msg{max-width:min(760px,92%);padding:14px 18px;border-radius:18px}.chat-msg p{margin:4px 0}.chat-msg.user{align-self:flex-end;background:#16302b;color:#fff}.chat-msg.bot{align-self:flex-start;background:#f3f1ea}.chat-agent{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:#16302b;color:#fff;border-radius:999px;padding:3px 10px;margin-bottom:4px}.chat-form{display:flex;gap:8px}.chat-form input{flex:1;padding:12px 16px;border-radius:999px;border:1px solid #ccc;font:inherit}.chat-places{margin-top:10px}.chat-place h4{margin:4px 0}';
   document.head.append(style);
   const banner = document.createElement('div');
   banner.className = 'api-banner';
@@ -159,8 +160,34 @@
       catch(error){status.textContent=error.message}finally{button.disabled=false}
     };
   }
+  if(route==='chat'){
+    // Multi-agent chat: the concierge hands each message to one specialist; the badge shows who answered and why.
+    const badges={concierge:'Trợ lý điều phối',place_finder:'Chuyên gia địa điểm',trip_planner:'Chuyên gia lịch trình',budget_advisor:'Chuyên gia chi phí',weather_advisor:'Chuyên gia thời tiết'};
+    const state=read('tm-chat',{session_id:null,messages:[]});
+    const main=render(`<h1>Trợ lý AI.</h1><p>Một trợ lý điều phối đọc câu hỏi rồi chuyển cho đúng chuyên gia: địa điểm, lịch trình, chi phí hoặc thời tiết. Thông tin chuyến đi được nhớ qua các lượt.</p><div id="tm-chat-log" class="chat-log" aria-live="polite"></div><form id="tm-chat-form" class="chat-form"><input name="message" required maxlength="1000" autocomplete="off" placeholder="Ví dụ: tìm quán chay ở Huế"><button class="button dark">Gửi</button></form><div class="api-actions"><button type="button" class="button outline" id="tm-chat-reset">Cuộc trò chuyện mới</button>${['Tìm quán chay ở Huế','Lên lịch đi Huế 2 ngày, 2 người, 5 triệu','Thời tiết Huế thế nào?','Chi phí bao nhiêu?'].map(t=>`<button type="button" class="button outline chat-suggest">${esc(t)}</button>`).join('')}</div>`);
+    const log=main.querySelector('#tm-chat-log'),form=main.querySelector('#tm-chat-form'),input=form.querySelector('input'),button=form.querySelector('button');
+    const placeCard=p=>`<article class="api-card chat-place">${photo(p,'api-thumb')}<h4>${esc(p.name)}</h4>${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}<p>${esc(p.address||'')}</p><p>${esc(price(p))}</p><p>${placeLinks(p)}</p></article>`;
+    const bubble=m=>m.role==='user'?`<div class="chat-msg user"><p>${esc(m.text)}</p></div>`:`<div class="chat-msg bot"><div class="chat-agent">${esc(badges[m.agent]||m.agent||'Trợ lý')}</div>${m.reason?`<p class="api-meta">Vì sao chọn: ${esc(m.reason)}</p>`:''}<p>${esc(m.text)}</p>${m.places?.length?`<div class="api-grid chat-places">${m.places.slice(0,6).map(placeCard).join('')}</div>`:''}${m.plan_id?`<p>${link(`plan&id=${encodeURIComponent(m.plan_id)}`,'Mở lịch trình đầy đủ →')}</p>`:''}</div>`;
+    const draw=()=>{log.innerHTML=state.messages.map(bubble).join('')||'<p class="api-meta">Hãy bắt đầu bằng một câu hỏi.</p>';log.scrollTop=log.scrollHeight};
+    const send=async text=>{
+      state.messages.push({role:'user',text});draw();button.disabled=true;input.value='';
+      const waiting=document.createElement('p');waiting.className='api-meta';waiting.textContent='Đang chuyển cho chuyên gia phù hợp… (lập lịch có thể mất 1–2 phút)';log.append(waiting);
+      try{
+        const r=await api('/api/v1/chat',{session_id:state.session_id,message:text});
+        state.session_id=r.session_id;
+        const m={role:'assistant',agent:r.reply.agent,reason:r.reply.reason,text:r.reply.text,places:r.reply.places};
+        if(r.reply.plan&&r.reply.trip){save('tm-plans',[{request:r.reply.trip,result:r.reply.plan},...records()].slice(0,20));save('tm-current',r.reply.plan.request_id);m.plan_id=r.reply.plan.request_id}
+        state.messages.push(m);
+      }catch(error){state.messages.push({role:'assistant',agent:'concierge',text:error.message})}
+      finally{save('tm-chat',{...state,messages:state.messages.slice(-40)});button.disabled=false;draw();input.focus()}
+    };
+    form.onsubmit=e=>{e.preventDefault();const t=input.value.trim();if(t)send(t)};
+    main.querySelectorAll('.chat-suggest').forEach(b=>b.onclick=()=>{if(!button.disabled)send(b.textContent)});
+    main.querySelector('#tm-chat-reset').onclick=()=>{state.session_id=null;state.messages=[];save('tm-chat',state);draw()};
+    draw();
+  }
   // Remaining designs are explicitly previews, not simulated authenticated features.
-  if(['chat','login','signup','forgot','profile','review','edit','favorites','place','admin','admin-users','admin-places','moderation'].includes(route)){
+  if(['login','signup','forgot','profile','review','edit','favorites','place','admin','admin-users','admin-places','moderation'].includes(route)){
     render(`<h1>Màn hình đang chờ<br>kết nối nghiệp vụ.</h1><p>Backend hiện cung cấp API tìm địa điểm và tạo lịch trình. Chức năng ${esc(window.travelmateRoutes?.[route]||route)} chưa có API tương ứng.</p><div class="api-actions">${link('create','Tạo chuyến đi')}${link('explore','Tìm địa điểm')}${link('saved','Xem kế hoạch')}</div>`);
   }
 })();
