@@ -123,8 +123,7 @@ def plan_response(context, mode, draft, ranked, weather, budget, memory=None, st
         warnings=(memory.warnings if memory else [])
         + ranked.warnings
         + weather.warnings
-        + [
-            "Bản nháp: chưa kiểm tra giờ mở cửa hoặc tính khả thi của tuyến di chuyển.",
-            "Chi phí chưa bao gồm đầy đủ lưu trú, ăn uống và di chuyển.",
-        ],
+        + ["Bản nháp: chưa kiểm tra giờ mở cửa hoặc tính khả thi của tuyến di chuyển."]
+        # Lodging/food/transport are estimated from the reference table; warn only when they are not.
+        + ([] if budget.total_high_vnd is not None else ["Chi phí chưa bao gồm đầy đủ lưu trú, ăn uống và di chuyển."]),
     )
