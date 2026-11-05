@@ -1,35 +1,855 @@
 {
   "checked": "2026-11-05",
-  "about": "Reference entrance fees for well-known sights, transcribed from the cited press/official pages. Adult fee per visit unless stated. Update by hand when fees change; prices not found in a source are left out rather than guessed.",
+  "about": "Reference entrance fees for well-known sights, transcribed from the cited press/official/travel-guide pages. Adult fee per visit unless stated; 0 means free entry. Update by hand when fees change; prices not found in a source are left out rather than guessed.",
   "tickets": [
     {
       "id": "hue-dai-noi",
-      "cities": ["huế", "hue", "thuận hóa"],
-      "names": ["hoàng thành huế", "đại nội", "imperial city", "kinh thành huế", "tử cấm thành", "forbidden purple city", "điện thái hòa", "ngọ môn", "thế miếu", "hiển lâm các", "duyệt thị đường", "điện cần chánh", "điện kiến trung", "phủ nội vụ", "đông khuyết đài", "tây khuyết đài"],
+      "cities": [
+        "huế",
+        "hue",
+        "thuận hóa"
+      ],
+      "names": [
+        "hoàng thành huế",
+        "đại nội",
+        "imperial city",
+        "kinh thành huế",
+        "tử cấm thành",
+        "forbidden purple city",
+        "điện thái hòa",
+        "ngọ môn",
+        "thế miếu",
+        "hiển lâm các",
+        "duyệt thị đường",
+        "điện cần chánh",
+        "điện kiến trung",
+        "phủ nội vụ",
+        "đông khuyết đài",
+        "tây khuyết đài"
+      ],
       "label": "Vé Đại Nội Huế (một vé cho cả khu)",
       "adult_vnd": 200000,
       "child_note": "Trẻ 7–12 tuổi 40.000 ₫",
-      "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm", "https://baoquocte.vn/hue-mo-rong-doi-tuong-mien-giam-phi-tham-quan-di-tich-lich-su-van-hoa-tu-nam-2026-340581.html"]
+      "sources": [
+        "https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm",
+        "https://baoquocte.vn/hue-mo-rong-doi-tuong-mien-giam-phi-tham-quan-di-tich-lich-su-van-hoa-tu-nam-2026-340581.html"
+      ]
     },
-    {"id": "hue-minh-mang", "cities": ["huế", "hue"], "names": ["lăng minh mạng", "minh mang tomb", "tomb of minh mang", "hiếu lăng"], "label": "Vé lăng Minh Mạng", "adult_vnd": 150000, "child_note": "Trẻ 7–12 tuổi 30.000 ₫", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
-    {"id": "hue-tu-duc", "cities": ["huế", "hue"], "names": ["lăng tự đức", "tu duc tomb", "tomb of tu duc", "khiêm lăng"], "label": "Vé lăng Tự Đức", "adult_vnd": 150000, "child_note": "Trẻ 7–12 tuổi 30.000 ₫", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
-    {"id": "hue-khai-dinh", "cities": ["huế", "hue"], "names": ["lăng khải định", "khai dinh", "tomb of khai dinh", "ứng lăng"], "label": "Vé lăng Khải Định", "adult_vnd": 150000, "child_note": "Trẻ 7–12 tuổi 30.000 ₫", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
-    {"id": "hue-gia-long", "cities": ["huế", "hue"], "names": ["lăng gia long", "gia long tomb", "thiên thọ lăng"], "label": "Vé lăng Gia Long", "adult_vnd": 150000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
-    {"id": "hue-dong-khanh", "cities": ["huế", "hue"], "names": ["lăng đồng khánh", "dong khanh tomb", "tư lăng"], "label": "Vé lăng Đồng Khánh", "adult_vnd": 100000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
-    {"id": "hue-thieu-tri", "cities": ["huế", "hue"], "names": ["lăng thiệu trị", "thieu tri tomb", "xương lăng"], "label": "Vé lăng Thiệu Trị", "adult_vnd": 50000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
-    {"id": "hue-bao-tang-co-vat", "cities": ["huế", "hue"], "names": ["bảo tàng cổ vật cung đình", "museum of royal antiquities", "royal antiquities"], "label": "Vé Bảo tàng Cổ vật Cung đình Huế", "adult_vnd": 50000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
-    {"id": "hue-an-dinh", "cities": ["huế", "hue"], "names": ["cung an định", "an dinh palace"], "label": "Vé cung An Định", "adult_vnd": 50000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
-    {"id": "hue-nam-giao", "cities": ["huế", "hue"], "names": ["đàn nam giao", "nam giao"], "label": "Vé đàn Nam Giao", "adult_vnd": 50000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
-    {"id": "hue-hon-chen", "cities": ["huế", "hue"], "names": ["điện hòn chén", "hon chen temple"], "label": "Vé điện Hòn Chén", "adult_vnd": 50000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
+    {
+      "id": "hue-minh-mang",
+      "cities": [
+        "huế",
+        "hue"
+      ],
+      "names": [
+        "lăng minh mạng",
+        "minh mang tomb",
+        "tomb of minh mang",
+        "hiếu lăng"
+      ],
+      "label": "Vé lăng Minh Mạng",
+      "adult_vnd": 150000,
+      "child_note": "Trẻ 7–12 tuổi 30.000 ₫",
+      "sources": [
+        "https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"
+      ]
+    },
+    {
+      "id": "hue-tu-duc",
+      "cities": [
+        "huế",
+        "hue"
+      ],
+      "names": [
+        "lăng tự đức",
+        "tu duc tomb",
+        "tomb of tu duc",
+        "khiêm lăng"
+      ],
+      "label": "Vé lăng Tự Đức",
+      "adult_vnd": 150000,
+      "child_note": "Trẻ 7–12 tuổi 30.000 ₫",
+      "sources": [
+        "https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"
+      ]
+    },
+    {
+      "id": "hue-khai-dinh",
+      "cities": [
+        "huế",
+        "hue"
+      ],
+      "names": [
+        "lăng khải định",
+        "khai dinh",
+        "tomb of khai dinh",
+        "ứng lăng"
+      ],
+      "label": "Vé lăng Khải Định",
+      "adult_vnd": 150000,
+      "child_note": "Trẻ 7–12 tuổi 30.000 ₫",
+      "sources": [
+        "https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"
+      ]
+    },
+    {
+      "id": "hue-gia-long",
+      "cities": [
+        "huế",
+        "hue"
+      ],
+      "names": [
+        "lăng gia long",
+        "gia long tomb",
+        "thiên thọ lăng"
+      ],
+      "label": "Vé lăng Gia Long",
+      "adult_vnd": 150000,
+      "child_note": "Trẻ em miễn phí",
+      "sources": [
+        "https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"
+      ]
+    },
+    {
+      "id": "hue-dong-khanh",
+      "cities": [
+        "huế",
+        "hue"
+      ],
+      "names": [
+        "lăng đồng khánh",
+        "dong khanh tomb",
+        "tư lăng"
+      ],
+      "label": "Vé lăng Đồng Khánh",
+      "adult_vnd": 100000,
+      "child_note": "Trẻ em miễn phí",
+      "sources": [
+        "https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"
+      ]
+    },
+    {
+      "id": "hue-thieu-tri",
+      "cities": [
+        "huế",
+        "hue"
+      ],
+      "names": [
+        "lăng thiệu trị",
+        "thieu tri tomb",
+        "xương lăng"
+      ],
+      "label": "Vé lăng Thiệu Trị",
+      "adult_vnd": 50000,
+      "child_note": "Trẻ em miễn phí",
+      "sources": [
+        "https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"
+      ]
+    },
+    {
+      "id": "hue-bao-tang-co-vat",
+      "cities": [
+        "huế",
+        "hue"
+      ],
+      "names": [
+        "bảo tàng cổ vật cung đình",
+        "museum of royal antiquities",
+        "royal antiquities"
+      ],
+      "label": "Vé Bảo tàng Cổ vật Cung đình Huế",
+      "adult_vnd": 50000,
+      "child_note": "Trẻ em miễn phí",
+      "sources": [
+        "https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"
+      ]
+    },
+    {
+      "id": "hue-an-dinh",
+      "cities": [
+        "huế",
+        "hue"
+      ],
+      "names": [
+        "cung an định",
+        "an dinh palace"
+      ],
+      "label": "Vé cung An Định",
+      "adult_vnd": 50000,
+      "child_note": "Trẻ em miễn phí",
+      "sources": [
+        "https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"
+      ]
+    },
+    {
+      "id": "hue-nam-giao",
+      "cities": [
+        "huế",
+        "hue"
+      ],
+      "names": [
+        "đàn nam giao",
+        "nam giao"
+      ],
+      "label": "Vé đàn Nam Giao",
+      "adult_vnd": 50000,
+      "child_note": "Trẻ em miễn phí",
+      "sources": [
+        "https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"
+      ]
+    },
+    {
+      "id": "hue-hon-chen",
+      "cities": [
+        "huế",
+        "hue"
+      ],
+      "names": [
+        "điện hòn chén",
+        "hon chen temple"
+      ],
+      "label": "Vé điện Hòn Chén",
+      "adult_vnd": 50000,
+      "child_note": "Trẻ em miễn phí",
+      "sources": [
+        "https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"
+      ]
+    },
     {
       "id": "hoian-old-town",
-      "cities": ["hội an", "hoi an"],
-      "names": ["hội quán phước kiến", "phuc kien assembly", "bảo tàng hội an", "chùa cầu", "japanese covered bridge", "hội quán quảng đông", "hội quán triều châu", "nhà cổ tấn ký", "nhà cổ phùng hưng", "nhà cổ đức an", "miếu quan công", "bảo tàng gốm sứ mậu dịch", "bảo tàng văn hóa sa huỳnh", "bảo tàng văn hóa dân gian"],
+      "cities": [
+        "hội an",
+        "hoi an"
+      ],
+      "names": [
+        "hội quán phước kiến",
+        "phuc kien assembly",
+        "bảo tàng hội an",
+        "chùa cầu",
+        "japanese covered bridge",
+        "hội quán quảng đông",
+        "hội quán triều châu",
+        "nhà cổ tấn ký",
+        "nhà cổ phùng hưng",
+        "nhà cổ đức an",
+        "miếu quan công",
+        "bảo tàng gốm sứ mậu dịch",
+        "bảo tàng văn hóa sa huỳnh",
+        "bảo tàng văn hóa dân gian"
+      ],
       "label": "Vé tham quan phố cổ Hội An (mua một lần, dùng tối đa 3 ngày)",
       "low_vnd": 80000,
       "high_vnd": 120000,
       "child_note": "Nguồn ghi hai mức 80.000 ₫ và 120.000 ₫, không nêu rõ đối tượng",
-      "sources": ["https://danangfantasticity.com/en/tin-tuc/cap-nhat-ve-tham-quan-khu-pho-co-hoi-an-2026"]
+      "sources": [
+        "https://danangfantasticity.com/en/tin-tuc/cap-nhat-ve-tham-quan-khu-pho-co-hoi-an-2026"
+      ]
+    },
+    {
+      "id": "hn-van-mieu",
+      "cities": [
+        "hà nội",
+        "ha noi",
+        "hanoi"
+      ],
+      "names": [
+        "văn miếu",
+        "quốc tử giám",
+        "temple of literature",
+        "khuê văn các"
+      ],
+      "label": "Vé Văn Miếu – Quốc Tử Giám",
+      "adult_vnd": 45000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/visiting-hanoi-the-complete-travel-guide-to-vietnam-s-capital"
+      ]
+    },
+    {
+      "id": "hn-hoa-lo",
+      "cities": [
+        "hà nội",
+        "ha noi",
+        "hanoi"
+      ],
+      "names": [
+        "hỏa lò",
+        "hoả lò",
+        "hoa lo prison"
+      ],
+      "label": "Vé Di tích Nhà tù Hỏa Lò",
+      "adult_vnd": 50000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/visiting-hanoi-the-complete-travel-guide-to-vietnam-s-capital"
+      ]
+    },
+    {
+      "id": "hn-ngoc-son",
+      "cities": [
+        "hà nội",
+        "ha noi",
+        "hanoi"
+      ],
+      "names": [
+        "đền ngọc sơn",
+        "ngoc son temple"
+      ],
+      "label": "Vé đền Ngọc Sơn",
+      "adult_vnd": 30000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/visiting-hanoi-the-complete-travel-guide-to-vietnam-s-capital"
+      ]
+    },
+    {
+      "id": "hn-lang-bac",
+      "cities": [
+        "hà nội",
+        "ha noi",
+        "hanoi"
+      ],
+      "names": [
+        "lăng chủ tịch hồ chí minh",
+        "lăng bác",
+        "ho chi minh mausoleum"
+      ],
+      "label": "Lăng Chủ tịch Hồ Chí Minh (miễn phí)",
+      "adult_vnd": 0,
+      "sources": [
+        "https://www.vietnamtourism.com/en/visiting-hanoi-the-complete-travel-guide-to-vietnam-s-capital"
+      ]
+    },
+    {
+      "id": "hn-mua-roi",
+      "cities": [
+        "hà nội",
+        "ha noi",
+        "hanoi"
+      ],
+      "names": [
+        "múa rối nước thăng long",
+        "nhà hát múa rối thăng long",
+        "thang long water puppet"
+      ],
+      "label": "Vé múa rối nước Thăng Long",
+      "low_vnd": 125000,
+      "high_vnd": 250000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/visiting-hanoi-the-complete-travel-guide-to-vietnam-s-capital"
+      ]
+    },
+    {
+      "id": "sg-dinh-doc-lap",
+      "cities": [
+        "hồ chí minh",
+        "ho chi minh",
+        "sài gòn",
+        "saigon",
+        "tp.hcm",
+        "tphcm"
+      ],
+      "names": [
+        "dinh độc lập",
+        "hội trường thống nhất",
+        "independence palace",
+        "reunification palace"
+      ],
+      "label": "Vé Dinh Độc Lập",
+      "adult_vnd": 65000,
+      "child_note": "Trẻ 6–15 tuổi 25.000 ₫",
+      "sources": [
+        "https://www.vietnamtourism.com/en/independence-palace-in-ho-chi-minh-city-tickets-opening-hours-and-what-to-see"
+      ]
+    },
+    {
+      "id": "sg-chung-tich",
+      "cities": [
+        "hồ chí minh",
+        "ho chi minh",
+        "sài gòn",
+        "saigon",
+        "tp.hcm",
+        "tphcm"
+      ],
+      "names": [
+        "bảo tàng chứng tích chiến tranh",
+        "war remnants museum"
+      ],
+      "label": "Vé Bảo tàng Chứng tích Chiến tranh",
+      "adult_vnd": 40000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/ho-chi-minh-city-travel-costs-what-to-budget-per-day-in-2026"
+      ]
+    },
+    {
+      "id": "sg-lich-su",
+      "cities": [
+        "hồ chí minh",
+        "ho chi minh",
+        "sài gòn",
+        "saigon",
+        "tp.hcm",
+        "tphcm"
+      ],
+      "names": [
+        "bảo tàng lịch sử",
+        "museum of vietnamese history"
+      ],
+      "label": "Vé Bảo tàng Lịch sử TP.HCM",
+      "adult_vnd": 30000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/ho-chi-minh-city-travel-costs-what-to-budget-per-day-in-2026"
+      ]
+    },
+    {
+      "id": "sg-my-thuat",
+      "cities": [
+        "hồ chí minh",
+        "ho chi minh",
+        "sài gòn",
+        "saigon",
+        "tp.hcm",
+        "tphcm"
+      ],
+      "names": [
+        "bảo tàng mỹ thuật",
+        "fine arts museum"
+      ],
+      "label": "Vé Bảo tàng Mỹ thuật TP.HCM",
+      "adult_vnd": 30000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/ho-chi-minh-city-travel-costs-what-to-budget-per-day-in-2026"
+      ]
+    },
+    {
+      "id": "dn-ba-na",
+      "cities": [
+        "đà nẵng",
+        "da nang",
+        "danang",
+        "quảng nam",
+        "duy xuyên"
+      ],
+      "names": [
+        "bà nà",
+        "ba na hills",
+        "cầu vàng",
+        "golden bridge",
+        "sun world ba na"
+      ],
+      "label": "Vé Sun World Bà Nà Hills (gồm cáp treo)",
+      "adult_vnd": 900000,
+      "child_note": "Trẻ cao 1–1,4 m 750.000 ₫",
+      "sources": [
+        "https://www.vietnamtourism.com/en/ba-na-hills-and-the-golden-bridge-tickets-cable-car-and-what-is-actually-included"
+      ]
+    },
+    {
+      "id": "dn-ngu-hanh-son",
+      "cities": [
+        "đà nẵng",
+        "da nang",
+        "danang",
+        "quảng nam",
+        "duy xuyên"
+      ],
+      "names": [
+        "ngũ hành sơn",
+        "thủy sơn",
+        "marble mountains"
+      ],
+      "label": "Vé Ngũ Hành Sơn (Thủy Sơn)",
+      "adult_vnd": 40000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/da-nang-things-to-do-beaches-bridges-and-the-mountains-behind-the-city"
+      ]
+    },
+    {
+      "id": "dn-my-son",
+      "cities": [
+        "đà nẵng",
+        "da nang",
+        "danang",
+        "quảng nam",
+        "duy xuyên"
+      ],
+      "names": [
+        "mỹ sơn",
+        "my son sanctuary"
+      ],
+      "label": "Vé Khu đền tháp Mỹ Sơn (gồm xe điện)",
+      "adult_vnd": 150000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/da-nang-things-to-do-beaches-bridges-and-the-mountains-behind-the-city"
+      ]
+    },
+    {
+      "id": "nt-vinwonders",
+      "cities": [
+        "nha trang",
+        "khánh hòa",
+        "khanh hoa"
+      ],
+      "names": [
+        "vinwonders nha trang",
+        "vinpearl nha trang"
+      ],
+      "label": "Vé VinWonders Nha Trang (gồm cáp treo)",
+      "adult_vnd": 880000,
+      "sources": [
+        "https://www.vietnamtourism.com/vi/nha-trang-tiet-kiem-chi-phi-thuc-te-moi-ngay-nam-2026"
+      ]
+    },
+    {
+      "id": "nt-ponagar",
+      "cities": [
+        "nha trang",
+        "khánh hòa",
+        "khanh hoa"
+      ],
+      "names": [
+        "tháp bà ponagar",
+        "ponagar",
+        "po nagar"
+      ],
+      "label": "Vé Tháp Bà Ponagar",
+      "adult_vnd": 30000,
+      "sources": [
+        "https://www.vietnamtourism.com/vi/nha-trang-tiet-kiem-chi-phi-thuc-te-moi-ngay-nam-2026"
+      ]
+    },
+    {
+      "id": "nt-tam-bun",
+      "cities": [
+        "nha trang",
+        "khánh hòa",
+        "khanh hoa"
+      ],
+      "names": [
+        "suối khoáng nóng tháp bà",
+        "tắm bùn tháp bà",
+        "thap ba hot spring"
+      ],
+      "label": "Tắm bùn Suối khoáng nóng Tháp Bà",
+      "adult_vnd": 150000,
+      "sources": [
+        "https://www.vietnamtourism.com/vi/nha-trang-tiet-kiem-chi-phi-thuc-te-moi-ngay-nam-2026"
+      ]
+    },
+    {
+      "id": "nt-long-son",
+      "cities": [
+        "nha trang",
+        "khánh hòa",
+        "khanh hoa"
+      ],
+      "names": [
+        "chùa long sơn",
+        "long son pagoda"
+      ],
+      "label": "Chùa Long Sơn (miễn phí)",
+      "adult_vnd": 0,
+      "sources": [
+        "https://www.vietnamtourism.com/vi/nha-trang-tiet-kiem-chi-phi-thuc-te-moi-ngay-nam-2026"
+      ]
+    },
+    {
+      "id": "sp-fansipan",
+      "cities": [
+        "sa pa",
+        "sapa",
+        "lào cai",
+        "lao cai"
+      ],
+      "names": [
+        "fansipan",
+        "phan xi păng",
+        "sun world fansipan"
+      ],
+      "label": "Vé cáp treo Fansipan",
+      "adult_vnd": 750000,
+      "child_note": "Trẻ cao 1–1,3 m 550.000 ₫",
+      "sources": [
+        "https://www.vietnamtourism.com/en/visiting-sapa-complete-travel-guide-to-vietnam-s-mountain-paradise"
+      ]
+    },
+    {
+      "id": "sp-cat-cat",
+      "cities": [
+        "sa pa",
+        "sapa",
+        "lào cai",
+        "lao cai"
+      ],
+      "names": [
+        "bản cát cát",
+        "cát cát",
+        "cat cat village"
+      ],
+      "label": "Vé bản Cát Cát",
+      "adult_vnd": 150000,
+      "child_note": "Trẻ cao 1–1,3 m 70.000 ₫",
+      "sources": [
+        "https://www.vietnamtourism.com/en/visiting-sapa-complete-travel-guide-to-vietnam-s-mountain-paradise"
+      ]
+    },
+    {
+      "id": "sp-ham-rong",
+      "cities": [
+        "sa pa",
+        "sapa",
+        "lào cai",
+        "lao cai"
+      ],
+      "names": [
+        "hàm rồng",
+        "ham rong"
+      ],
+      "label": "Vé núi Hàm Rồng",
+      "adult_vnd": 70000,
+      "child_note": "Trẻ cao 1–1,3 m 30.000 ₫",
+      "sources": [
+        "https://www.vietnamtourism.com/en/visiting-sapa-complete-travel-guide-to-vietnam-s-mountain-paradise"
+      ]
+    },
+    {
+      "id": "pq-hon-thom",
+      "cities": [
+        "phú quốc",
+        "phu quoc",
+        "kiên giang",
+        "an giang"
+      ],
+      "names": [
+        "hòn thơm",
+        "hon thom",
+        "cáp treo hòn thơm",
+        "sun world hon thom"
+      ],
+      "label": "Vé cáp treo Hòn Thơm (khứ hồi, gồm công viên)",
+      "low_vnd": 650000,
+      "high_vnd": 880000,
+      "child_note": "Hai nguồn ghi 650.000 ₫ và 880.000 ₫",
+      "sources": [
+        "https://www.vietnamtourism.com/en/hon-thom-cable-car-in-phu-quoc-tickets-prices",
+        "https://www.vietnamtourism.com/en/phu-quoc-daily-budget-hotels-food-and-boat-trips-priced-out"
+      ]
+    },
+    {
+      "id": "pq-vinwonders",
+      "cities": [
+        "phú quốc",
+        "phu quoc",
+        "kiên giang",
+        "an giang"
+      ],
+      "names": [
+        "vinwonders phú quốc",
+        "vinwonders phu quoc"
+      ],
+      "label": "Vé VinWonders Phú Quốc",
+      "adult_vnd": 880000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/phu-quoc-daily-budget-hotels-food-and-boat-trips-priced-out"
+      ]
+    },
+    {
+      "id": "pq-safari",
+      "cities": [
+        "phú quốc",
+        "phu quoc",
+        "kiên giang",
+        "an giang"
+      ],
+      "names": [
+        "vinpearl safari",
+        "safari phú quốc"
+      ],
+      "label": "Vé Vinpearl Safari Phú Quốc",
+      "adult_vnd": 700000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/phu-quoc-daily-budget-hotels-food-and-boat-trips-priced-out"
+      ]
+    },
+    {
+      "id": "nb-trang-an",
+      "cities": [
+        "ninh bình",
+        "ninh binh",
+        "tam cốc",
+        "tràng an",
+        "hoa lư"
+      ],
+      "names": [
+        "tràng an",
+        "trang an"
+      ],
+      "label": "Vé thuyền Tràng An",
+      "low_vnd": 200000,
+      "high_vnd": 250000,
+      "child_note": "Nguồn ghi 200.000–250.000 ₫; trẻ dưới 1,3 m 120.000 ₫",
+      "sources": [
+        "https://www.vietnamtourism.com/en/ninh-binh-in-2-days-the-only-itinerary-you-need-2025",
+        "https://www.vietnamtourism.com/pt/passeios-de-barco-em-trang-an-o-guia-completo-pelas-vias"
+      ]
+    },
+    {
+      "id": "nb-tam-coc",
+      "cities": [
+        "ninh bình",
+        "ninh binh",
+        "tam cốc",
+        "tràng an",
+        "hoa lư"
+      ],
+      "names": [
+        "tam cốc",
+        "tam coc"
+      ],
+      "label": "Vé thuyền Tam Cốc",
+      "adult_vnd": 200000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/ninh-binh-in-2-days-the-only-itinerary-you-need-2025"
+      ]
+    },
+    {
+      "id": "nb-hang-mua",
+      "cities": [
+        "ninh bình",
+        "ninh binh",
+        "tam cốc",
+        "tràng an",
+        "hoa lư"
+      ],
+      "names": [
+        "hang múa",
+        "mua cave"
+      ],
+      "label": "Vé Hang Múa",
+      "adult_vnd": 150000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/ninh-binh-in-2-days-the-only-itinerary-you-need-2025"
+      ]
+    },
+    {
+      "id": "nb-hoa-lu",
+      "cities": [
+        "ninh bình",
+        "ninh binh",
+        "tam cốc",
+        "tràng an",
+        "hoa lư"
+      ],
+      "names": [
+        "cố đô hoa lư",
+        "đền vua đinh",
+        "đền vua lê",
+        "hoa lu ancient capital"
+      ],
+      "label": "Vé Cố đô Hoa Lư",
+      "adult_vnd": 150000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/ninh-binh-in-2-days-the-only-itinerary-you-need-2025"
+      ]
+    },
+    {
+      "id": "nb-bich-dong",
+      "cities": [
+        "ninh bình",
+        "ninh binh",
+        "tam cốc",
+        "tràng an",
+        "hoa lư"
+      ],
+      "names": [
+        "bích động",
+        "bich dong"
+      ],
+      "label": "Chùa Bích Động (miễn phí)",
+      "adult_vnd": 0,
+      "sources": [
+        "https://www.vietnamtourism.com/en/ninh-binh-in-2-days-the-only-itinerary-you-need-2025"
+      ]
+    },
+    {
+      "id": "pn-phong-nha",
+      "cities": [
+        "phong nha",
+        "quảng bình",
+        "quang binh",
+        "quảng trị",
+        "quang tri",
+        "bố trạch"
+      ],
+      "names": [
+        "động phong nha",
+        "phong nha cave"
+      ],
+      "label": "Vé động Phong Nha (gồm ghế thuyền 55.000 ₫)",
+      "adult_vnd": 205000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/phong-nha-ke-bang-national-park-tickets-complete-2026-price-guide-and-cave-selection"
+      ]
+    },
+    {
+      "id": "pn-thien-duong",
+      "cities": [
+        "phong nha",
+        "quảng bình",
+        "quang binh",
+        "quảng trị",
+        "quang tri",
+        "bố trạch"
+      ],
+      "names": [
+        "động thiên đường",
+        "paradise cave"
+      ],
+      "label": "Vé động Thiên Đường",
+      "adult_vnd": 250000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/phong-nha-ke-bang-national-park-tickets-complete-2026-price-guide-and-cave-selection"
+      ]
+    },
+    {
+      "id": "pn-hang-toi",
+      "cities": [
+        "phong nha",
+        "quảng bình",
+        "quang binh",
+        "quảng trị",
+        "quang tri",
+        "bố trạch"
+      ],
+      "names": [
+        "hang tối",
+        "dark cave"
+      ],
+      "label": "Vé Hang Tối (gồm hoạt động và đồ bảo hộ)",
+      "adult_vnd": 350000,
+      "sources": [
+        "https://www.vietnamtourism.com/en/phong-nha-ke-bang-national-park-tickets-complete-2026-price-guide-and-cave-selection"
+      ]
+    },
+    {
+      "id": "hl-day-cruise",
+      "cities": [
+        "hạ long",
+        "ha long",
+        "halong",
+        "quảng ninh",
+        "quang ninh"
+      ],
+      "names": [
+        "vịnh hạ long",
+        "ha long bay",
+        "halong bay"
+      ],
+      "label": "Tour du thuyền trong ngày vịnh Hạ Long",
+      "low_vnd": 800000,
+      "high_vnd": 1500000,
+      "child_note": "Giá tour trọn ngày, không phải vé lẻ",
+      "sources": [
+        "https://www.vietnamtourism.com/en/where-to-stay-in-ha-long-bay-cruises-versus-land-hotels"
+      ]
     }
   ]
 }

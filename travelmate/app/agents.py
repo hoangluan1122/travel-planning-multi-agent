@@ -235,6 +235,7 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
         known = Decimal("0")  # sourced fixed fees (tickets, demo visit costs)
         ticket_low = ticket_high = Decimal("0")
         food_low = food_high = Decimal("0")
+        other_low = other_high = Decimal("0")  # non-food places with a source price range
         basis, food_basis, paid = [], [], []
         tickets_seen = set()
         unknown_places = []
@@ -255,8 +256,11 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
                     tickets_seen.add(ticket.group_id)
                     if ticket.adult_vnd is not None:
                         known += ticket.adult_vnd * people
-                        paid.append((ticket.label, ticket.adult_vnd * people, place.id))
-                        basis.append(f"{ticket.label}: {ticket.adult_vnd:,.0f} ₫/người lớn (bảng giá vé có nguồn)")
+                        if ticket.adult_vnd:
+                            paid.append((ticket.label, ticket.adult_vnd * people, place.id))
+                            basis.append(f"{ticket.label}: {ticket.adult_vnd:,.0f} ₫/người lớn (bảng giá vé có nguồn)")
+                        else:
+                            basis.append(f"{ticket.label}: miễn phí (bảng giá vé có nguồn)")
                         continue
                     if ticket.low_vnd is not None or ticket.high_vnd is not None:
                         start = ticket.low_vnd if ticket.low_vnd is not None else ticket.high_vnd
@@ -271,9 +275,15 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
                     # A source price range per person; an estimate, never added to known costs.
                     start = span.low_vnd if span.low_vnd is not None else span.high_vnd
                     end = span.high_vnd if span.high_vnd is not None else span.low_vnd
-                    food_low += start * people
-                    food_high += end * people
-                    food_basis.append(f"{place.name}: {start:,.0f}–{end:,.0f} ₫/người ({day.date.isoformat()})")
+                    entry = f"{place.name}: {start:,.0f}–{end:,.0f} ₫/người ({day.date.isoformat()})"
+                    if FOOD_TYPES & set(place.types):
+                        food_low += start * people
+                        food_high += end * people
+                        food_basis.append(entry)
+                    else:  # a paid activity with a price range: never part of the daily food cost
+                        other_low += start * people
+                        other_high += end * people
+                        basis.append(entry)
                 else:
                     unknown_places.append((place, f"Chi phí tại {place.name} ({day.date.isoformat()})"))
 
@@ -293,8 +303,10 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
         covered = set()
 
         def reference_line(part, item, style_name, low, high, detail):
+            # A city without its own figure for this part uses the country-wide level; say so.
+            scope = "mức chung toàn quốc, " if item.get("national") else ""
             return BudgetLine(category=part, label=PART_LABELS[part], low_vnd=low, high_vnd=high, kind="reference",
-                              detail=f"{detail}; mức {STYLES[style_name].lower()}: {item['note']}",
+                              detail=f"{detail}; {scope}mức {STYLES[style_name].lower()}: {item['note']}",
                               sources=item["sources"][:5])
 
         def reference_parts(style_name):
@@ -337,10 +349,13 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
             elif part in parts:
                 lines.append(parts[part])
                 covered.add(part)
-        if "food" not in covered and food_high:
-            # No daily food reference: the restaurants' own price ranges are the best we have.
-            lines.append(BudgetLine(category="places", label="Quán ăn trong lịch", low_vnd=food_low,
-                                    high_vnd=food_high, kind="sourced", detail=f"{people} người, khoảng giá nguồn"))
+        place_low, place_high = other_low, other_high
+        if "food" not in covered:
+            # No daily food cost: the restaurants' own price ranges are the best we have.
+            place_low, place_high = place_low + food_low, place_high + food_high
+        if place_high:
+            lines.append(BudgetLine(category="places", label="Địa điểm có khoảng giá", low_vnd=place_low,
+                                    high_vnd=place_high, kind="sourced", detail=f"{people} người, khoảng giá nguồn"))
         if "food" not in covered:
             basis.extend(food_basis)
         elif food_basis:
@@ -349,7 +364,7 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
         unknown = [label for part, label in COVERED.items() if part not in covered]
         unknown += [label for place, label in unknown_places
                     if not ("food" in covered and FOOD_TYPES & set(place.types))]
-        ranged = bool(ticket_high or food_high)
+        ranged = bool(ticket_high or food_high or other_high)
         complete = {"lodging", "food", "transport"} <= covered
         total_low = sum((line.low_vnd for line in lines), Decimal("0"))
         total_high = sum((line.high_vnd for line in lines), Decimal("0"))
@@ -369,8 +384,10 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
             known_subtotal=known,
             unknown_items=unknown,
             status=status,
-            estimated_low_vnd=total_low if has_estimate else (known + ticket_low + food_low if ranged else None),
-            estimated_high_vnd=total_high if has_estimate else (known + ticket_high + food_high if ranged else None),
+            estimated_low_vnd=total_low if has_estimate else (
+                known + ticket_low + food_low + other_low if ranged else None),
+            estimated_high_vnd=total_high if has_estimate else (
+                known + ticket_high + food_high + other_high if ranged else None),
             estimate_basis=basis,
             travel_style=style,
             budget_vnd=cap,
@@ -381,6 +398,7 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
             verdict=verdict,
             savings=savings,
             reference_checked=checked if city else None,
+            reference_area=city["label"] if city else None,
         )
 
     @staticmethod

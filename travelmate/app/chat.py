@@ -537,6 +537,10 @@ def budget_text(b, trip=None):
             f"{tip.label} (bớt tới {money(tip.saving_vnd)})" for tip in b.savings[:3]) + "."
     if any(line.kind == "reference" for line in b.lines):
         text += " Lưu trú, ăn uống, đi lại là giá tham khảo có nguồn, không phải báo giá."
+        national = [line.label.lower() for line in b.lines if "mức chung toàn quốc" in line.detail]
+        if national:
+            where = f" cho {trip.destination}" if trip else ""
+            text += f" Khoản {', '.join(national)} dùng mức chung toàn quốc vì chưa có giá riêng{where}."
     return text
 
 

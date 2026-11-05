@@ -45,8 +45,11 @@ Tất cả màn hình trong thiết kế đã nối với backend thật. Không
   - Khi sát hoặc vượt: gợi ý tiết kiệm kèm số tiền bớt được (hạ mức chi tiêu, chỉ hạ chỗ ở, bỏ một điểm
     có vé). Chỉ gợi ý thay bằng địa điểm mà nguồn ghi là miễn phí. Không gợi ý nào tự áp dụng.
   - Chi phí bạn tự nhập thay cho giá tham khảo của khoản đó.
-  - Thành phố chưa có trong bảng (hiện có Huế, Hội An): lưu trú, ăn uống, đi lại ghi “chưa tính được”,
-    không đoán.
+  - Giá riêng cho 11 điểm đến: Huế, Hội An, Hà Nội, TP.HCM, Đà Nẵng, Nha Trang, Đà Lạt, Sa Pa, Phú Quốc,
+    Hạ Long, Ninh Bình. Khoản nào thành phố chưa có số riêng, và mọi nơi khác, dùng **mức chung toàn
+    quốc**; câu trả lời và bảng chi phí ghi rõ khoản nào dùng mức chung.
+  - Vé tham quan có nguồn cho hơn 40 địa danh (Đại Nội, Văn Miếu, Dinh Độc Lập, Bà Nà, Fansipan, Tràng An,
+    động Phong Nha, VinWonders…); nơi miễn phí ghi “miễn phí”.
   - Trợ lý AI trả lời “có đủ không”, “tốn bao nhiêu” và câu hỏi “nếu…”: giá phòng mỗi đêm
     (“khách sạn 500k/đêm”), số người, mức chi tiêu, ngân sách khác. Đây là tính thử, lịch đã lưu không đổi.
 - **Địa điểm:** được ghi nhận khi xuất hiện trong tìm kiếm, lịch trình hoặc Trợ lý AI. Địa điểm bị ẩn

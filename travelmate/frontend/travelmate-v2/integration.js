@@ -17,7 +17,7 @@
   const price = p => {
     if (p?.estimated_visit_cost_vnd != null) return `Giá tham khảo: ${vnd(p.estimated_visit_cost_vnd)}`;
     const t = p?.ticket;
-    if (t) return `${t.label}: ${t.adult_vnd != null ? vnd(t.adult_vnd) + '/người lớn' : `${vnd(t.low_vnd ?? t.high_vnd)} – ${vnd(t.high_vnd ?? t.low_vnd)}`}${t.note ? ' · ' + t.note : ''}`;
+    if (t) return `${t.label}: ${t.adult_vnd != null ? (Number(t.adult_vnd) === 0 ? 'miễn phí' : vnd(t.adult_vnd) + '/người lớn') : `${vnd(t.low_vnd ?? t.high_vnd)} – ${vnd(t.high_vnd ?? t.low_vnd)}`}${t.note ? ' · ' + t.note : ''}`;
     const r = p?.price_range, lo = r?.low_vnd, hi = r?.high_vnd;
     const range = lo != null || hi != null ? (lo != null && hi != null ? `${vnd(lo)} – ${vnd(hi)}` : vnd(lo ?? hi)) + '/người' : '';
     const level = p?.price_level ? levels[p.price_level] : '';
