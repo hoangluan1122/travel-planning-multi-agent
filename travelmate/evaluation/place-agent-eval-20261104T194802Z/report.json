@@ -1,0 +1,237 @@
+{
+  "summary": {
+    "adk": {
+      "runs": 5,
+      "success": 5,
+      "success_rate": 1.0,
+      "avg_places": 4.0,
+      "all_grounded": true,
+      "broad_first_rate": 0.4,
+      "median_ms": 6062,
+      "statuses": {
+        "partial": 4,
+        "success": 1
+      }
+    },
+    "maf": {
+      "runs": 5,
+      "success": 5,
+      "success_rate": 1.0,
+      "avg_places": 4.2,
+      "all_grounded": true,
+      "broad_first_rate": 0.6,
+      "median_ms": 3141,
+      "statuses": {
+        "partial": 4,
+        "success": 1
+      }
+    }
+  },
+  "runs": [
+    {
+      "case": "hoian-chay",
+      "engine": "adk",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 4,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        ""
+      ],
+      "place_names": [
+        "Chao",
+        "Ganesh Indian Restaurant",
+        "BBQ Nuong Khoi Hoi An",
+        "3 Ngon"
+      ],
+      "duration_ms": 10266
+    },
+    {
+      "case": "hoian-chay",
+      "engine": "maf",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        "restaurant"
+      ],
+      "place_names": [
+        "Quáng Chay Diệu Hoa",
+        "Chao",
+        "Annien",
+        "Ganesh Indian Restaurant",
+        "Maharaja Indian Restaurant Hoi An"
+      ],
+      "duration_ms": 4875
+    },
+    {
+      "case": "sapa-hotel",
+      "engine": "adk",
+      "chosen_location": "Sa Pa, Lao Cai",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        "hotel"
+      ],
+      "place_names": [
+        "Sapa Warm Hotel",
+        "Sapa Everest Hotel",
+        "Saparis Hotel",
+        "Sapa Paramount Hotel",
+        "Freesia Hotel"
+      ],
+      "duration_ms": 6062
+    },
+    {
+      "case": "sapa-hotel",
+      "engine": "maf",
+      "chosen_location": "Sa Pa, Lao Cai",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Sapa Warm Hotel",
+        "Nha nghi hoi nga",
+        "A Lử Homestay",
+        "Fancy Sapa Hostel 2",
+        "Himalaya Hostel"
+      ],
+      "duration_ms": 3546
+    },
+    {
+      "case": "dalat-sights",
+      "engine": "adk",
+      "chosen_location": "Ðà Lạt, Lam Dong",
+      "status": "success",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Công viên Golf Valley",
+        "Đồi Cù",
+        "Đồi Tỉnh Trưởng",
+        "3D World",
+        "Công viên Nguyễn Lương Bằng"
+      ],
+      "duration_ms": 5282
+    },
+    {
+      "case": "dalat-sights",
+      "engine": "maf",
+      "chosen_location": "Ðà Lạt, Lam Dong",
+      "status": "success",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Công viên Golf Valley",
+        "Đồi Cù",
+        "Đồi Tỉnh Trưởng",
+        "3D World",
+        "Công viên Nguyễn Lương Bằng"
+      ],
+      "duration_ms": 1906
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "adk",
+      "chosen_location": "Thành phố Huế",
+      "status": "partial",
+      "places": 3,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Ho Thuy Tien",
+        "Hồ Sơn Thọ",
+        "Bi Đình"
+      ],
+      "duration_ms": 6389
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "maf",
+      "chosen_location": "Thành phố Huế",
+      "status": "partial",
+      "places": 3,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Bi Đình",
+        "Hồ Sơn Thọ",
+        "Ho Thuy Tien"
+      ],
+      "duration_ms": 2312
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "adk",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "partial",
+      "places": 3,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        "Hải sản"
+      ],
+      "place_names": [
+        "Hải sản Năm Đảnh",
+        "Hải Sản Ốc 68",
+        "Hai San"
+      ],
+      "duration_ms": 3281
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "maf",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "partial",
+      "places": 3,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        "hải sản"
+      ],
+      "place_names": [
+        "Hải sản Năm Đảnh",
+        "Hải Sản Ốc 68",
+        "Hai San"
+      ],
+      "duration_ms": 3141
+    }
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "created_at": "2026-11-04T19:48:02.629945+00:00"
+}

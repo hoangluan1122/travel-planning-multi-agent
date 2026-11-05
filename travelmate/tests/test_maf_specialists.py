@@ -80,7 +80,7 @@ async def test_place_plain_text_not_accepted():
 async def test_place_search_budget_aborts_run():
     provider = Provider()
     with pytest.raises(AgentError, match="search budget"):
-        await maf_assistant(provider, [call("search_places", keyword="")] * 5).run(
+        await maf_assistant(provider, [call("search_places", keyword=k) for k in ["", "a", "b", "c", "d"]]).run(
             PlaceAgentInput(destination="Hanoi"), Context()
         )
     assert provider.searches == 3

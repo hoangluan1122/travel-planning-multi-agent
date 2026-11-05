@@ -1,0 +1,373 @@
+{
+  "summary": {
+    "adk": {
+      "runs": 10,
+      "success": 4,
+      "success_rate": 0.4,
+      "avg_places": 2.0,
+      "all_grounded": true,
+      "broad_first_rate": 0.4,
+      "needs_match_rate": 0.333,
+      "needs_hit_share": 0.8,
+      "median_ms": 2281,
+      "statuses": {
+        "partial": 4,
+        "source_error": 6
+      }
+    },
+    "maf": {
+      "runs": 10,
+      "success": 3,
+      "success_rate": 0.3,
+      "avg_places": 1.0,
+      "all_grounded": true,
+      "broad_first_rate": 0.3,
+      "needs_match_rate": 0.333,
+      "needs_hit_share": 0.4,
+      "median_ms": 640,
+      "statuses": {
+        "partial": 3,
+        "source_error": 7
+      }
+    }
+  },
+  "runs": [
+    {
+      "case": "hoian-chay",
+      "engine": "adk",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        "restaurant"
+      ],
+      "place_names": [
+        "Quáng Chay Diệu Hoa",
+        "Minh Hien Vegetarian Restaurant",
+        "V vegan cafe & restaurant",
+        "Vegan Restaurant, very cheap!",
+        "Chao"
+      ],
+      "needs_hits": 4,
+      "duration_ms": 9187
+    },
+    {
+      "case": "hoian-chay",
+      "engine": "maf",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 3,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        ""
+      ],
+      "place_names": [
+        "Quáng Chay Diệu Hoa",
+        "An Niem",
+        "Chao"
+      ],
+      "needs_hits": 1,
+      "duration_ms": 4093
+    },
+    {
+      "case": "hoian-chay",
+      "engine": "adk",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        "restaurant"
+      ],
+      "place_names": [
+        "Quáng Chay Diệu Hoa",
+        "Minh Hien Vegetarian Restaurant",
+        "V vegan cafe & restaurant",
+        "Vegan Restaurant, very cheap!",
+        "Chao"
+      ],
+      "needs_hits": 4,
+      "duration_ms": 3672
+    },
+    {
+      "case": "hoian-chay",
+      "engine": "maf",
+      "chosen_location": "Hội An, Đà Nẵng",
+      "status": "partial",
+      "places": 2,
+      "grounded": true,
+      "search_calls": 2,
+      "detail_calls": 0,
+      "keywords": [
+        "chay",
+        ""
+      ],
+      "place_names": [
+        "Quáng Chay Diệu Hoa",
+        "An Niem"
+      ],
+      "needs_hits": 1,
+      "duration_ms": 2452
+    },
+    {
+      "case": "sapa-hotel",
+      "engine": "adk",
+      "chosen_location": "Sa Pa, Lao Cai",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Sapa Warm Hotel",
+        "Sapa Everest Hotel",
+        "Sapa Eco-Home - Mountain retreat",
+        "Van Hung Hotel",
+        "Sapa Paramount Hotel"
+      ],
+      "duration_ms": 6422
+    },
+    {
+      "case": "sapa-hotel",
+      "engine": "maf",
+      "chosen_location": "Sa Pa, Lao Cai",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Sapa Warm Hotel",
+        "Sapa Everest Hotel",
+        "Sapa Eco-Home - Mountain retreat",
+        "Van Hung Hotel",
+        "Sapa Paramount Hotel"
+      ],
+      "duration_ms": 1687
+    },
+    {
+      "case": "sapa-hotel",
+      "engine": "adk",
+      "chosen_location": "Sa Pa, Lao Cai",
+      "status": "partial",
+      "places": 5,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [
+        "Sapa Warm Hotel",
+        "Sapa Everest Hotel",
+        "Sapa Eco-Home - Mountain retreat",
+        "Van Hung Hotel",
+        "Sapa Paramount Hotel"
+      ],
+      "duration_ms": 5280
+    },
+    {
+      "case": "sapa-hotel",
+      "engine": "maf",
+      "chosen_location": "Sa Pa, Lao Cai",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 0,
+      "detail_calls": 0,
+      "keywords": [],
+      "place_names": [],
+      "duration_ms": 282
+    },
+    {
+      "case": "dalat-sights",
+      "engine": "adk",
+      "chosen_location": "Ðà Lạt, Lam Dong",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [],
+      "duration_ms": 4062
+    },
+    {
+      "case": "dalat-sights",
+      "engine": "maf",
+      "chosen_location": "Ðà Lạt, Lam Dong",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [],
+      "duration_ms": 983
+    },
+    {
+      "case": "dalat-sights",
+      "engine": "adk",
+      "chosen_location": "Ðà Lạt, Lam Dong",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [],
+      "duration_ms": 891
+    },
+    {
+      "case": "dalat-sights",
+      "engine": "maf",
+      "chosen_location": "Ðà Lạt, Lam Dong",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 0,
+      "detail_calls": 0,
+      "keywords": [],
+      "place_names": [],
+      "duration_ms": 296
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "adk",
+      "chosen_location": "Thành phố Huế",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 0,
+      "detail_calls": 0,
+      "keywords": [],
+      "place_names": [],
+      "needs_hits": 0,
+      "duration_ms": 297
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "maf",
+      "chosen_location": "Thành phố Huế",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 1,
+      "detail_calls": 0,
+      "keywords": [
+        ""
+      ],
+      "place_names": [],
+      "needs_hits": 0,
+      "duration_ms": 5827
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "adk",
+      "chosen_location": "Thành phố Huế",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 0,
+      "detail_calls": 0,
+      "keywords": [],
+      "place_names": [],
+      "needs_hits": 0,
+      "duration_ms": 312
+    },
+    {
+      "case": "hue-heritage",
+      "engine": "maf",
+      "chosen_location": "Thành phố Huế",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 0,
+      "detail_calls": 0,
+      "keywords": [],
+      "place_names": [],
+      "needs_hits": 0,
+      "duration_ms": 281
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "adk",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 0,
+      "detail_calls": 0,
+      "keywords": [],
+      "place_names": [],
+      "needs_hits": 0,
+      "duration_ms": 297
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "maf",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 0,
+      "detail_calls": 0,
+      "keywords": [],
+      "place_names": [],
+      "needs_hits": 0,
+      "duration_ms": 296
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "adk",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 0,
+      "detail_calls": 0,
+      "keywords": [],
+      "place_names": [],
+      "needs_hits": 0,
+      "duration_ms": 296
+    },
+    {
+      "case": "danang-seafood",
+      "engine": "maf",
+      "chosen_location": "Thành phố Đà Nẵng",
+      "status": "source_error",
+      "places": 0,
+      "grounded": true,
+      "search_calls": 0,
+      "detail_calls": 0,
+      "keywords": [],
+      "place_names": [],
+      "needs_hits": 0,
+      "duration_ms": 297
+    }
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "created_at": "2026-11-04T19:54:11.478530+00:00"
+}

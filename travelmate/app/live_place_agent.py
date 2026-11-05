@@ -21,6 +21,7 @@ from .agents import AgentError, BaseAgent
 from .browser_places import BrowserPlaceResult, WebSource
 from .geo_places import GeoPlaceService, Locality, LocalityChoiceRequired, PlaceMetadata
 from .models import Context, Model, Place, PlaceResult, PlaceSearchRequest
+from .open_data_provider import rank_candidates
 from .place_agent import PlaceAgentInput, PlaceAssistant
 from .structured_hotel import URL_PATTERN, StructuredHotelReader
 
@@ -105,6 +106,8 @@ class LivePlaceReport(Model):
 class GroundedBrowserProvider:
     """Per-invocation evidence store and real tools for either execution engine."""
 
+    MAX_SEARCHES = MAX_DETAILS = 2
+
     def __init__(self, request, context, web_tool, reader):
         self.request, self.context = request, context
         self.web_tool, self.reader = web_tool, reader
@@ -146,7 +149,7 @@ class GroundedBrowserProvider:
             raise AgentError("Search cannot change the fixed destination/category")
         if query.keyword in self.queries:
             raise AgentError("Same query already executed; use existing evidence")
-        if self.search_calls >= 2:
+        if self.search_calls >= self.MAX_SEARCHES:
             raise AgentError("Live discovery budget exceeded")
         self.search_calls += 1
         self.queries.add(query.keyword)
@@ -175,7 +178,7 @@ class GroundedBrowserProvider:
         return PlaceResult(places=accepted[: self.request.limit], warnings=discovery.warnings)
 
     async def get_details(self, place_id):
-        if place_id not in self.records or self.detail_calls >= 2:
+        if place_id not in self.records or self.detail_calls >= self.MAX_DETAILS:
             raise AgentError("Unknown ID or details budget exceeded")
         self.detail_calls += 1
         known = self.records[place_id]
@@ -190,6 +193,8 @@ class GroundedBrowserProvider:
 class GeoGroundedProvider:
     """Pinned locality and category; only source-observed IDs may leave the agent."""
 
+    MAX_SEARCHES = MAX_DETAILS = 2
+
     def __init__(self, request, service):
         self.request, self.service = request, service
         self.records, self.sources, self.metadata = {}, {}, {}
@@ -200,6 +205,9 @@ class GeoGroundedProvider:
         self.choices = []
         self.queries = set()
         self.candidate_count = 0
+        # Records shown per search. The UI pages by the request limit; the LLM gets a wider
+        # pool to choose from (set by LivePlaceAgent), while submissions stay within the limit.
+        self.page_size = request.limit
 
     def event(self, step, message, count=0):
         self.trace.append(PlaceTrace(step=step, at=datetime.now(UTC), message=message, record_count=count))
@@ -236,7 +244,7 @@ class GeoGroundedProvider:
     async def search_places(self, query):
         if query.destination != self.request.destination or query.category != self.request.category:
             raise AgentError("Destination/category is pinned")
-        if self.search_calls >= 2 or query.keyword in self.queries:
+        if self.search_calls >= self.MAX_SEARCHES or query.keyword in self.queries:
             raise AgentError("Search budget exceeded or query already executed")
         if self.location is None:
             await self.resolve()
@@ -244,7 +252,8 @@ class GeoGroundedProvider:
         self.queries.add(query.keyword)
         self.event(
             "search",
-            "Tra Photon/OSM theo loại địa điểm và "
+            (f"Từ khoá “{query.keyword}”. " if query.keyword else "Tìm rộng, không từ khoá. ")
+            + "Tra Photon/OSM theo loại địa điểm và "
             + (
                 "bán kính đã chọn."
                 if self.location.scope == "nearby"
@@ -258,6 +267,11 @@ class GeoGroundedProvider:
             self.request.radius_m,
             query.keyword,
         )
+        # Same candidate quality as itinerary search: no OSM notes or duplicate names, and
+        # for sights, landmarks before the nearest park or statue.
+        kept = rank_candidates(places, self.request.category)
+        skipped += len(places) - len(kept)
+        places = kept
         self.candidate_count = len(places)
         self.last_source_status = "success" if places else "no_results"
         self.metadata.update(metadata)
@@ -282,13 +296,13 @@ class GeoGroundedProvider:
         if skipped:
             self.warnings.append(f"Đã bỏ {skipped} bản ghi nguồn không hợp lệ.")
         start = self.request.offset
-        page = places[start : start + self.request.limit]
+        page = places[start : start + self.page_size]
         if not page:
             self.last_source_status = "no_results"
         return PlaceResult(places=page, warnings=[])
 
     async def get_details(self, place_id):
-        if place_id not in self.records or self.detail_calls >= 2:
+        if place_id not in self.records or self.detail_calls >= self.MAX_DETAILS:
             raise AgentError("Unknown ID or detail budget exceeded")
         self.detail_calls += 1
         known = self.records[place_id]
@@ -330,8 +344,13 @@ class LivePlaceAgent(BaseAgent[LivePlaceRequest, LivePlaceReport]):
         try:
             if isinstance(provider, GeoGroundedProvider):
                 await provider.resolve()
+                if self.model_factory:
+                    provider.page_size = min(20, max(15, data.limit * 3))
             if self.model_factory:
-                agent = PlaceAssistant(self.model_factory, provider, max_llm_calls=8, engine=self.engine)
+                agent = PlaceAssistant(
+                    self.model_factory, provider, max_llm_calls=8, engine=self.engine,
+                    max_searches=provider.MAX_SEARCHES, max_details=provider.MAX_DETAILS,
+                )
                 output = await agent.run(
                     PlaceAgentInput(
                         destination=data.destination,

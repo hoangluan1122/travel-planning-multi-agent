@@ -101,7 +101,7 @@ async def test_plain_text_not_accepted():
 async def test_search_budget():
     provider = Provider()
     with pytest.raises(AgentError, match="search budget"):
-        await assistant(provider, [call("search_places", keyword="")] * 4).run(
+        await assistant(provider, [call("search_places", keyword=k) for k in ["", "a", "b", "c"]]).run(
             PlaceAgentInput(destination="Hanoi"), Context()
         )
     assert provider.searches == 3
