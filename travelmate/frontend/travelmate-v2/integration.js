@@ -40,6 +40,7 @@
   const style = document.createElement('style');
   style.textContent = '.api-photo{margin:-24px -24px 16px;overflow:hidden;border-radius:20px 20px 0 0}.api-photo img{display:block;width:100%;height:220px;object-fit:cover}.api-photo figcaption{font-size:11px;color:#667;padding:6px 24px 0}.api-thumb{margin:-24px -24px 12px;overflow:hidden;border-radius:20px 20px 0 0}.api-thumb img{display:block;width:100%;height:140px;object-fit:cover}.api-thumb figcaption{display:none}.api-rating{color:#b26a00;font-weight:600}.api-hours summary{cursor:pointer}.api-banner{padding:12px 5%;background:#eef1ff;font-size:13px}.api-banner input{max-width:240px;padding:8px}.api-card{padding:24px;margin:16px 0;border:1px solid #e1e5ee;border-radius:20px;background:white;overflow-wrap:anywhere}.api-actions{display:flex;gap:12px;flex-wrap:wrap}.api-warning{padding:16px;background:#fff5dc;border-radius:12px;margin:12px 0}.api-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px}.api-error{color:#a32424}.api-card h3{margin:12px 0}.api-card p{margin:12px 0}.api-meta{color:#647084;font-size:13px}.api-banner summary{cursor:pointer}';
   style.textContent += '.chat-log{display:flex;flex-direction:column;gap:12px;max-height:60vh;overflow:auto;padding:8px 0;margin:16px 0}.chat-msg{max-width:min(760px,92%);padding:14px 18px;border-radius:18px}.chat-msg p{margin:4px 0}.chat-msg.user{align-self:flex-end;background:#16302b;color:#fff}.chat-msg.bot{align-self:flex-start;background:#f3f1ea}.chat-agent{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:#16302b;color:#fff;border-radius:999px;padding:3px 10px;margin-bottom:4px}.chat-form{display:flex;gap:8px}.chat-form input{flex:1;padding:12px 16px;border-radius:999px;border:1px solid #ccc;font:inherit}.chat-places{margin-top:10px}.chat-place h4{margin:4px 0}';
+  style.textContent += '.tm-verdict{padding:10px 14px;border-radius:12px;font-weight:600}.tm-bar{position:relative;display:flex;height:18px;border-radius:9px;background:#eef0f4;overflow:visible;margin:16px 0}.tm-bar span{display:block;height:100%}.tm-bar span:first-child{border-radius:9px 0 0 9px}.tm-bar b{position:absolute;top:-5px;bottom:-5px;width:2px;background:#111}.tm-budget-table{width:100%;border-collapse:collapse;font-size:14px}.tm-budget-table td{padding:8px 6px;border-top:1px solid #eef0f4;vertical-align:top}.tm-budget-table td:nth-child(2){white-space:nowrap;font-weight:600}.tm-budget-table i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px}';
   document.head.append(style);
   const banner = document.createElement('div');
   banner.className = 'api-banner';
@@ -94,7 +95,30 @@
   const current = () => records().find(p=>p.result.request_id===(params.get('id')||read('tm-current','')));
   window.tm = {api, render, esc, money, time, wmo, kind, photo, price, stars, hours, placeLinks, ticketSource, mapLink, link, read, save, records, session, route, params};
   const warnings = items => items.length?`<div class="api-warning"><strong>Thông tin cần lưu ý</strong><ul>${[...new Set(items)].map(w=>`<li>${esc(w)}</li>`).join('')}</ul></div>`:'';
-  const budget = b => `<div class="api-card"><h3>Chi phí đã có dữ liệu: ${money(b.known_subtotal)}</h3><p>${b.status==='incomplete'?'Chưa đủ dữ liệu để kết luận tổng chi phí.':b.status==='over_budget'?'Chi phí đã biết vượt ngân sách.':'Các khoản đã tính nằm trong ngân sách.'}</p>${b.estimated_low_vnd!=null?`<p><strong>Ước tính theo khoảng giá nguồn: ${money(b.estimated_low_vnd)} – ${money(b.estimated_high_vnd)}</strong> (chưa gồm các khoản bên dưới)</p><details${(b.estimate_basis||[]).some(x=>x.includes('do bạn nhập'))?' open':''}><summary>Cách tính</summary><ul>${b.estimate_basis.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`:(b.estimate_basis||[]).length?`<details${b.estimate_basis.some(x=>x.includes('do bạn nhập'))?' open':''}><summary>Đã tính gồm</summary><ul>${b.estimate_basis.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`:''}${b.unknown_items.length?`<p>Chưa tính được: ${b.unknown_items.map(esc).join(', ')}. Không coi các khoản này là 0.</p>`:''}</div>`;
+  const budgetLegacy = b => `<div class="api-card"><h3>Chi phí đã có dữ liệu: ${money(b.known_subtotal)}</h3><p>${b.status==='incomplete'?'Chưa đủ dữ liệu để kết luận tổng chi phí.':b.status==='over_budget'?'Chi phí đã biết vượt ngân sách.':'Các khoản đã tính nằm trong ngân sách.'}</p>${b.estimated_low_vnd!=null?`<p><strong>Ước tính theo khoảng giá nguồn: ${money(b.estimated_low_vnd)} – ${money(b.estimated_high_vnd)}</strong> (chưa gồm các khoản bên dưới)</p><details${(b.estimate_basis||[]).some(x=>x.includes('do bạn nhập'))?' open':''}><summary>Cách tính</summary><ul>${b.estimate_basis.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`:(b.estimate_basis||[]).length?`<details${b.estimate_basis.some(x=>x.includes('do bạn nhập'))?' open':''}><summary>Đã tính gồm</summary><ul>${b.estimate_basis.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`:''}${b.unknown_items.length?`<p>Chưa tính được: ${b.unknown_items.map(esc).join(', ')}. Không coi các khoản này là 0.</p>`:''}</div>`;
+  // Whole-trip estimate from the budget agent: a stacked bar per category against the budget.
+  const styles = {budget: 'Tiết kiệm', mid: 'Vừa phải', high: 'Cao cấp'};
+  const colors = {tickets: '#16302b', places: '#7a8f6a', lodging: '#c0703a', food: '#d9a441', transport: '#5b7fa6', other: '#8c6bb1'};
+  const costKinds = {sourced: 'có nguồn', reference: 'giá tham khảo', user: 'do bạn nhập'};
+  const span = (lo, hi) => Number(lo) === Number(hi) ? money(lo) : `${money(lo)} – ${money(hi)}`;
+  const budget = b => {
+    if (!b.lines || !b.lines.length || b.verdict === 'unknown' || b.total_high_vnd == null) return budgetLegacy(b);
+    const cap = Number(b.budget_vnd), top = Math.max(cap, Number(b.total_high_vnd)) || 1;
+    const verdict = {fits: ['#e3f3e6', '#1f6b35', `Đủ ngân sách: còn dư ít nhất ${money(cap - b.total_high_vnd)}`],
+      tight: ['#fff5dc', '#8a5a00', `Sát ngân sách: chi mức cao có thể thiếu tới ${money(b.total_high_vnd - cap)}`],
+      over: ['#fde8e8', '#a32424', `Vượt ngân sách: thiếu ít nhất ${money(b.total_low_vnd - cap)}`]}[b.verdict];
+    const bar = b.lines.map(l => `<span title="${esc(l.label)}: ${esc(span(l.low_vnd, l.high_vnd))}" style="width:${(Number(l.high_vnd) / top * 100).toFixed(2)}%;background:${colors[l.category] || '#999'}"></span>`).join('');
+    const rows = b.lines.map(l => `<tr><td><i style="background:${colors[l.category] || '#999'}"></i>${esc(l.label)}</td><td>${esc(span(l.low_vnd, l.high_vnd))}</td><td class="api-meta">${esc(l.detail)} · ${costKinds[l.kind]}${(l.sources || []).length ? ` · ${l.sources.map((u, k) => `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">nguồn ${k + 1}</a>`).join(' ')}` : ''}</td></tr>`).join('');
+    const tips = (b.savings || []).length ? `<h4>Gợi ý tiết kiệm</h4><ul>${b.savings.map(t => `<li><strong>${esc(t.label)}</strong>: bớt tới ${money(t.saving_vnd)}. ${esc(t.detail)}</li>`).join('')}</ul><p class="api-meta">Chưa áp dụng gợi ý nào. Đổi mức chi tiêu hoặc bỏ điểm trong mục “Sửa lịch trình”.</p>` : '';
+    const left = (b.unknown_items || []).filter(x => !x.startsWith('Chi phí tại'));
+    return `<div class="api-card tm-budget" id="tm-budget"><h3>Chi phí ước tính: ${esc(span(b.total_low_vnd, b.total_high_vnd))}</h3>
+      <p class="tm-verdict" style="background:${verdict[0]};color:${verdict[1]}">${esc(verdict[2])}</p>
+      <p class="api-meta">Ngân sách ${money(cap)} · mức ${esc(styles[b.travel_style] || '')} · tối đa khoảng ${money(b.per_person_high_vnd)}/người</p>
+      <div class="tm-bar" role="img" aria-label="Chi phí theo khoản so với ngân sách">${bar}<b style="left:${(cap / top * 100).toFixed(2)}%" title="Ngân sách"></b></div>
+      <table class="tm-budget-table"><tbody>${rows}</tbody></table>${tips}
+      ${left.length ? `<p>Chưa tính được: ${left.map(esc).join(', ')}. Không coi các khoản này là 0.</p>` : ''}
+      <p class="api-meta">Lưu trú, ăn uống, đi lại là giá tham khảo từ các nguồn ghi bên trên${b.reference_checked ? ` (kiểm tra ${esc(b.reference_checked)})` : ''}, không phải báo giá. Hỏi Trợ lý AI “nếu ở khách sạn 500k/đêm thì sao” để tính thử.</p></div>`;
+  };
   const empty = () => render(`<h1>Chưa có lịch trình.</h1><p>Hãy tạo chuyến đi để xem kết quả từ backend.</p>${link('create','Tạo chuyến đi')}`);
 
   if(route==='home'){
@@ -108,13 +132,15 @@
     ['start','end'].forEach(n=>{form.elements[n].min=today;form.elements[n].value=today});
     form.elements.people.max=50;form.elements.budget.min=1;form.elements.notes.maxLength=1500;
     if(previous){for(const [name,key] of Object.entries({destination:'destination',start:'start_date',end:'end_date',people:'travelers',budget:'budget_vnd',notes:'notes'}))form.elements[name].value=previous[key]??''}
+    if(!form.elements.travel_style){const label=document.createElement('label');label.className='field';label.innerHTML='Mức chi tiêu<select name="travel_style"><option value="budget">Tiết kiệm</option><option value="mid" selected>Vừa phải</option><option value="high">Cao cấp</option></select>';form.querySelector('.form-grid').after(label)}
+    if(previous?.travel_style)form.elements.travel_style.value=previous.travel_style;
     if(previous&&Array.isArray(previous.interests))form.querySelectorAll('[name=interests]').forEach(box=>box.checked=previous.interests.includes(box.value));
     form.addEventListener('submit',e=>{
       e.preventDefault();e.stopImmediatePropagation();
       const f=new FormData(form);
       const days=(new Date(f.get('end'))-new Date(f.get('start')))/86400000;
       if(days<0||days>13){form.querySelector('.form-status').textContent='Chuyến đi cần dài từ 1 đến 14 ngày.';return}
-      const request={destination:f.get('destination').trim(),start_date:f.get('start'),end_date:f.get('end'),travelers:Number(f.get('people')),budget_vnd:f.get('budget'),interests:f.getAll('interests'),notes:f.get('notes').trim()};
+      const request={destination:f.get('destination').trim(),start_date:f.get('start'),end_date:f.get('end'),travelers:Number(f.get('people')),budget_vnd:f.get('budget'),interests:f.getAll('interests'),notes:f.get('notes').trim(),travel_style:f.get('travel_style')||'mid'};
       try{save('tm-request',request);location.href='?view=loading'}catch{form.querySelector('.form-status').textContent='Không lưu được dữ liệu trong phiên trình duyệt. Hãy cho phép session storage.'}
     },true);
   }

@@ -6,6 +6,7 @@ from uuid import UUID, uuid4
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
 ShortText = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=200)]
+TravelStyle = Literal["budget", "mid", "high"]
 
 
 class Model(BaseModel):
@@ -20,6 +21,8 @@ class TripRequest(Model):
     budget_vnd: Decimal = Field(gt=0, max_digits=14, decimal_places=2)
     interests: list[ShortText] = Field(default_factory=list, max_length=20)
     notes: str = Field(default="", max_length=1500)
+    # Spending level for the reference lodging/food/transport costs.
+    travel_style: TravelStyle = "mid"
 
     @model_validator(mode="after")
     def validate_dates(self):
@@ -225,10 +228,39 @@ class ScheduleConstraints(Model):
 PlannerInput.model_rebuild()
 
 
+class UserCost(Model):
+    """A cost the user knows (hotel booked, food budget…); replaces the reference for its category."""
+
+    category: Literal["lodging", "food", "transport", "other"]
+    label: str = Field(min_length=1, max_length=80)
+    amount_vnd: int = Field(gt=0, le=10_000_000_000)
+
+
 class BudgetInput(Model):
     trip: TripRequest
     draft: Draft
     places: PlaceResult
+    user_costs: list[UserCost] = Field(default_factory=list, max_length=10)
+    # "What if" from the chat: a lodging price per room per night instead of the reference.
+    lodging_per_night_vnd: Decimal | None = Field(default=None, gt=0, max_digits=14, decimal_places=2)
+
+
+class BudgetLine(Model):
+    """One part of the trip cost; kind says where the number comes from."""
+
+    category: Literal["tickets", "places", "lodging", "food", "transport", "other"]
+    label: str = Field(max_length=200)
+    low_vnd: Decimal = Field(ge=0)
+    high_vnd: Decimal = Field(ge=0)
+    kind: Literal["sourced", "reference", "user"]
+    detail: str = Field(default="", max_length=500)
+    sources: list[str] = Field(default_factory=list, max_length=5)
+
+
+class SavingTip(Model):
+    label: str = Field(max_length=200)
+    detail: str = Field(default="", max_length=500)
+    saving_vnd: Decimal = Field(ge=0)  # off the high estimate
 
 
 class BudgetResult(Model):
@@ -240,6 +272,17 @@ class BudgetResult(Model):
     estimated_low_vnd: Decimal | None = Field(default=None, ge=0)
     estimated_high_vnd: Decimal | None = Field(default=None, ge=0)
     estimate_basis: list[str] = Field(default_factory=list)
+    # Whole-trip estimate: sourced tickets + reference lodging/food/transport (or the user's own costs).
+    travel_style: TravelStyle | None = None
+    budget_vnd: Decimal | None = None
+    lines: list[BudgetLine] = Field(default_factory=list)
+    total_low_vnd: Decimal | None = None
+    total_high_vnd: Decimal | None = None
+    per_person_high_vnd: Decimal | None = None
+    # fits: even the high estimate fits; tight: only the low one does; over: neither; unknown: no reference.
+    verdict: Literal["fits", "tight", "over", "unknown"] = "unknown"
+    savings: list[SavingTip] = Field(default_factory=list)
+    reference_checked: date | None = None
 
 
 AgentName = Literal["places", "place_search", "weather", "recommendation", "itinerary", "budget"]

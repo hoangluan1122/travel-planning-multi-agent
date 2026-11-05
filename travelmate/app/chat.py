@@ -7,7 +7,9 @@ validated arguments:
 - place_finder    targeted place search (food, sights, stays) at a destination
 - trip_planner    collects trip details over several turns, then runs the planning
                   orchestrator (Planning pattern + Metacognition)
-- budget_advisor  costs from the last plan and the cited ticket table
+- budget_advisor  whole-trip cost of the last plan against the budget (cited tickets plus
+                  reference lodging/food/transport by spending level), savings, and "what if"
+                  questions: a hotel price per night, more people, another level or budget
 - weather_advisor forecast for the destination and dates
 
 The conversation keeps state between turns (known trip details, the active specialist,
@@ -28,9 +30,20 @@ from typing import Literal
 
 from pydantic import Field, ValidationError, model_validator
 
-from .agents import AgentError
+from .agents import AgentError, BudgetAgent
+from .cost_reference import STYLES
 from .knowledge import Citation, KnowledgeAgent, KnowledgeBase
-from .models import Context, Model, Place, PlaceSearchRequest, PlanResponse, TripRequest
+from .models import (
+    BudgetInput,
+    Context,
+    Model,
+    Place,
+    PlaceResult,
+    PlaceSearchRequest,
+    PlanResponse,
+    TravelStyle,
+    TripRequest,
+)
 from .tool_loop import ToolLoop, run_tool_loop
 
 logger = logging.getLogger(__name__)
@@ -72,6 +85,7 @@ class TripSlots(Model):
     budget_vnd: Decimal | None = Field(default=None, gt=0, max_digits=14, decimal_places=2)
     interests: list[str] = Field(default_factory=list, max_length=10)
     notes: str = Field(default="", max_length=500)
+    travel_style: TravelStyle | None = None
 
     def merged(self, update):
         data = self.model_dump()
@@ -181,6 +195,7 @@ class ChatSession:
         self.slots = TripSlots()
         self.active_agent: str | None = None
         self.last_plan: PlanResponse | None = None
+        self.last_trip: TripRequest | None = None
         self.touched = time.monotonic()
 
     def dump(self):
@@ -190,6 +205,7 @@ class ChatSession:
             "slots": self.slots.model_dump(mode="json"),
             "active_agent": self.active_agent,
             "last_plan": self.last_plan.model_dump(mode="json") if self.last_plan else None,
+            "last_trip": self.last_trip.model_dump(mode="json") if self.last_trip else None,
         }
 
     @classmethod
@@ -200,6 +216,13 @@ class ChatSession:
         session.active_agent = data.get("active_agent")
         if data.get("last_plan"):
             session.last_plan = PlanResponse.model_validate(data["last_plan"])
+        if data.get("last_trip"):
+            # The trip may be in the past by now: rebuild it without the "not in the past" rule.
+            raw = data["last_trip"]
+            session.last_trip = TripRequest.model_construct(**{
+                **raw, "start_date": date.fromisoformat(raw["start_date"]),
+                "end_date": date.fromisoformat(raw["end_date"]), "budget_vnd": Decimal(str(raw["budget_vnd"])),
+                "travel_style": raw.get("travel_style") or "mid"})
         return session
 
 
@@ -244,12 +267,14 @@ CONCIERGE_INSTRUCTION = (
     "3. Agents: place_finder (find restaurants, sights or stays; needs place_query with category "
     "attraction|restaurant|hotel, a short literal keyword such as \"chay\" or \"hải sản\" or empty, and "
     "destination); trip_planner (make or change a day-by-day itinerary); budget_advisor (total trip cost "
-    "of the current plan); weather_advisor (weather questions); guide_advisor (facts about a place or city: "
+    "of the current plan, whether the budget is enough, how to save, and 'what if' questions such as a hotel "
+    "price per night, more people, another spending level or another budget); weather_advisor (weather questions); guide_advisor (facts about a place or city: "
     "history, what is special, entrance fees, opening hours, getting around, travel tips; set question to "
     "the user's question rewritten to stand alone, naming the place).\n"
     "4. Put every trip detail the user has given into slots: destination, start_date and end_date as "
     "YYYY-MM-DD (resolve words like 'cuối tuần này' or '3 ngày từ thứ Bảy' using today's date), travelers, "
-    "budget_vnd as a number (5 triệu = 5000000), interests, notes. Never invent details the user did not "
+    "budget_vnd as a number (5 triệu = 5000000; never a price per night or per person), interests, notes, "
+    "travel_style budget|mid|high only when the user says tiết kiệm/bình dân, tầm trung or cao cấp/sang. Never invent details the user did not "
     "give.\n"
     "5. If the user is answering a question from the active agent, hand off to that same agent.\n"
     "5b. If the message asks for two or three different things (for example an itinerary and the weather), "
@@ -322,7 +347,8 @@ ROUTES = [
     ("weather_advisor", r"thời tiết|mưa|nắng|nhiệt độ|dự báo"),
     ("guide_advisor", r"có gì|lịch sử|giới thiệu|mở cửa|mấy giờ|giờ mở|nên đi|kinh nghiệm|đặc biệt|đi lại|"
                       r"di chuyển|giá vé|vé vào|vé tham quan|là gì|nổi tiếng|ý nghĩa"),
-    ("budget_advisor", r"chi phí|bao nhiêu tiền|giá|ngân sách|tốn|tổng"),
+    ("budget_advisor", r"chi phí|bao nhiêu tiền|giá|ngân sách|tốn|tổng|đủ không|có đủ|thì sao|"
+                       r"/\s*đêm|mỗi đêm|một đêm|tiết kiệm|cao cấp"),
     ("trip_planner", r"lịch trình|lên lịch|kế hoạch|lịch đi|\bngày\b.*\bđi\b|đi .*\bngày\b"),
     ("place_finder", r"quán|ăn|uống|cà phê|cafe|khách sạn|nhà nghỉ|homestay|ở đâu|chơi|tham quan|đi đâu"),
 ]
@@ -336,7 +362,35 @@ PLACE_AFTER = re.compile(
 ISO_DATE = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
 DM_DATE = re.compile(r"\b(\d{1,2})/(\d{1,2})(?:/(\d{4}))?\b")
 PEOPLE = re.compile(r"(\d{1,2})\s*(?:người|khách|ng\b)", re.I)
-MILLION = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:triệu|tr\b)", re.I)
+# A budget, not a price per night/person/day ("khách sạn 1 triệu/đêm" is not a 1 million budget).
+MILLION = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:triệu|tr\b)(?!\s*(?:/|một|mỗi|1)\s*(?:đêm|người|ngày))", re.I)
+STYLE_WORDS = [("budget", r"tiết kiệm|bình dân|giá rẻ|\brẻ\b|du lịch bụi"),
+               ("high", r"cao cấp|sang trọng|\bsang\b|[45] sao|resort"),
+               ("mid", r"tầm trung|vừa phải|trung bình|3 sao")]
+LODGING_PRICE = re.compile(
+    r"(?:khách sạn|phòng|homestay|nhà nghỉ|chỗ ở|lưu trú|resort)\D{0,25}?(\d+(?:[.,]\d+)?)(?!\s*sao)"
+    r"\s*(k\b|nghìn|ngàn|tr\b|triệu|đ\b|₫|vnd)?", re.I)
+
+
+def style_in(text):
+    lowered = text.casefold()
+    return next((style for style, pattern in STYLE_WORDS if re.search(pattern, lowered)), None)
+
+
+def lodging_price(text):
+    """A price per room per night the user mentions ("khách sạn 500k/đêm"), in VND, else None."""
+    match = LODGING_PRICE.search(text)
+    if not match:
+        return None
+    number = Decimal(match.group(1).replace(",", "."))
+    unit = (match.group(2) or "").casefold()
+    if unit in ("tr", "triệu"):
+        number *= 1_000_000
+    elif unit in ("k", "nghìn", "ngàn"):
+        number *= 1000
+    elif number < 10_000:
+        return None  # "phòng 2" is not a price
+    return number if 10_000 <= number <= 100_000_000 else None
 DAYS = re.compile(r"(\d{1,2})\s*ngày", re.I)
 
 
@@ -375,6 +429,8 @@ def extract_slots(text):
         data["travelers"] = int(match.group(1))
     if match := MILLION.search(text):
         data["budget_vnd"] = Decimal(match.group(1).replace(",", ".")) * 1_000_000
+    if style := style_in(text):
+        data["travel_style"] = style
     try:
         return TripSlots.model_validate(data)
     except ValidationError:
@@ -421,6 +477,67 @@ def single_rule_decision(session, text, slots):
         "hoặc kể về một địa danh (lịch sử, giá vé, kinh nghiệm). "
         "Bạn muốn bắt đầu với việc gì?"
     ))
+
+
+def what_if(text, trip):
+    """Changes to try from a "what if" question: (descriptions, trip update, lodging price per night)."""
+    changes, update, lodging = [], {}, lodging_price(text)
+    if lodging is not None:
+        changes.append(f"ở {money(lodging)}/phòng/đêm")
+    style = style_in(text)
+    if style and style != trip.travel_style and lodging is None:
+        changes.append(f"chi tiêu mức {STYLES[style].lower()}")
+        update["travel_style"] = style
+    if (match := PEOPLE.search(text)) and 1 <= int(match.group(1)) <= 50 and int(match.group(1)) != trip.travelers:
+        changes.append(f"đi {int(match.group(1))} người")
+        update["travelers"] = int(match.group(1))
+    if match := MILLION.search(text):
+        budget = Decimal(match.group(1).replace(",", ".")) * 1_000_000
+        if budget > 0 and budget != trip.budget_vnd:
+            changes.append(f"ngân sách {money(budget)}")
+            update["budget_vnd"] = budget
+    return changes, update, lodging
+
+
+def money_range(low, high):
+    return money(low) if low == high else f"{money(low)} – {money(high)}"
+
+
+def budget_text(b, trip=None):
+    """A short Vietnamese answer from a BudgetResult; every number comes from it."""
+    if b.verdict == "unknown" or b.total_high_vnd is None:
+        parts = [f"Chi phí đã biết: {money(b.known_subtotal)}"]
+        if b.estimated_low_vnd is not None:
+            parts.append(f"ước tính {money_range(b.estimated_low_vnd, b.estimated_high_vnd)}")
+        text = ", ".join(parts) + "."
+        if b.estimate_basis:
+            text += " Gồm: " + "; ".join(b.estimate_basis[:4]) + "."
+        unknown = [u for u in b.unknown_items if not u.startswith("Chi phí tại")][:3]
+        if unknown:
+            where = f" ở {trip.destination}" if trip else ""
+            text += (f" Chưa tính được: {', '.join(unknown)} (không coi là 0) vì mình chưa có giá tham khảo{where}."
+                     " Bạn có thể cho mình giá, ví dụ “nếu khách sạn 500k/đêm thì sao”.")
+        return text
+    days = (trip.end_date - trip.start_date).days + 1 if trip else None
+    who = f"{trip.travelers} người, {days} ngày" if trip else ""
+    style = STYLES.get(b.travel_style or "mid", "")
+    text = (f"Mức {style.lower()}, {who}: tổng ước tính {money_range(b.total_low_vnd, b.total_high_vnd)}"
+            f" (tối đa khoảng {money(b.per_person_high_vnd)} mỗi người).")
+    cap = b.budget_vnd
+    if b.verdict == "fits":
+        text += f" Ngân sách {money(cap)} là đủ, còn dư ít nhất {money(cap - b.total_high_vnd)}."
+    elif b.verdict == "tight":
+        text += (f" Ngân sách {money(cap)} chỉ vừa nếu chi ở mức thấp; chi mức cao sẽ thiếu tới "
+                 f"{money(b.total_high_vnd - cap)}.")
+    else:
+        text += f" Ngân sách {money(cap)} chưa đủ: thiếu ít nhất {money(b.total_low_vnd - cap)}."
+    text += " Gồm: " + "; ".join(f"{line.label} {money_range(line.low_vnd, line.high_vnd)}" for line in b.lines) + "."
+    if b.savings:
+        text += " Cách tiết kiệm: " + "; ".join(
+            f"{tip.label} (bớt tới {money(tip.saving_vnd)})" for tip in b.savings[:3]) + "."
+    if any(line.kind == "reference" for line in b.lines):
+        text += " Lưu trú, ăn uống, đi lại là giá tham khảo có nguồn, không phải báo giá."
+    return text
 
 
 class ChatService:
@@ -522,13 +639,14 @@ class ChatService:
         try:
             trip = TripRequest(destination=slots.destination, start_date=slots.start_date, end_date=slots.end_date,
                                travelers=slots.travelers, budget_vnd=slots.budget_vnd,
-                               interests=slots.interests, notes=slots.notes)
+                               interests=slots.interests, notes=slots.notes,
+                               travel_style=slots.travel_style or "mid")
         except ValidationError as exc:
             problem = exc.errors()[0].get("msg", "thông tin chưa hợp lệ")
             return ChatMessage(role="assistant", agent="trip_planner",
                                text=f"Thông tin chuyến đi chưa hợp lệ ({problem}). Bạn kiểm tra lại ngày đi giúp mình nhé.")
         plan = await self.orchestrator.plan(trip)
-        session.last_plan = plan
+        session.last_plan, session.last_trip = plan, trip
         names = {p.id: p.name for p in plan.places}
         days = "; ".join(
             f"ngày {i + 1}: " + ", ".join(names.get(a.place_id, a.place_id) for a in d.activities[:4])
@@ -543,22 +661,35 @@ class ChatService:
         ))
 
     async def budget_advisor(self, session, hand, context):
-        plan = session.last_plan
+        plan, trip = session.last_plan, session.last_trip
         if plan is None:
             return ChatMessage(role="assistant", agent="budget_advisor", text=(
                 "Mình cần một lịch trình để tính chi phí. Bạn muốn mình lập lịch trước không?"
             ))
-        b = plan.budget
-        parts = [f"Chi phí đã biết: {money(b.known_subtotal)}"]
-        if b.estimated_low_vnd is not None:
-            parts.append(f"ước tính {money(b.estimated_low_vnd)} – {money(b.estimated_high_vnd)}")
-        unknown = [u for u in b.unknown_items if not u.startswith("Chi phí tại")][:3]
-        text = ", ".join(parts) + "."
-        if b.estimate_basis:
-            text += " Gồm: " + "; ".join(b.estimate_basis[:4]) + "."
-        if unknown:
-            text += f" Chưa tính được: {', '.join(unknown)} (không coi là 0)."
-        return ChatMessage(role="assistant", agent="budget_advisor", text=text)
+        if trip is None:  # a conversation saved before trips were kept with the plan
+            return ChatMessage(role="assistant", agent="budget_advisor", text=budget_text(plan.budget))
+        text = hand.question or next((m.text for m in reversed(session.messages) if m.role == "user"), "")
+        changes, update, lodging = what_if(text, trip)
+        current = await self.cost(trip, plan, None)
+        if not changes:
+            return ChatMessage(role="assistant", agent="budget_advisor", text=budget_text(current, trip))
+        tried_trip = trip.model_copy(update=update)
+        tried = await self.cost(tried_trip, plan, lodging)
+        diff = ""
+        if tried.total_high_vnd is not None and current.total_high_vnd is not None:
+            delta = tried.total_high_vnd - current.total_high_vnd
+            if delta:
+                diff = f" So với hiện tại: {'tăng' if delta > 0 else 'giảm'} tới {money(abs(delta))}."
+        return ChatMessage(role="assistant", agent="budget_advisor", text=(
+            f"Nếu {', '.join(changes)}: {budget_text(tried, tried_trip)}{diff} "
+            "(Đây là tính thử, lịch đã lưu không đổi.)"
+        ))
+
+    @staticmethod
+    async def cost(trip, plan, lodging):
+        data = BudgetInput.model_construct(trip=trip, draft=plan.draft, places=PlaceResult(places=plan.places),
+                                           user_costs=[], lodging_per_night_vnd=lodging)
+        return await BudgetAgent().execute(data, Context())
 
     async def weather_advisor(self, session, hand, context):
         slots = session.slots

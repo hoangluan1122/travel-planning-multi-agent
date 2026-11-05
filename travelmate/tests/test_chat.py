@@ -140,7 +140,13 @@ async def test_trip_planner_collects_details_across_turns():
     assert reply.plan is not None and reply.trip.destination == "Huế"
     assert orchestrator.trips[0].travelers == 2 and len(reply.plan.draft.days) == 2
     _, reply = await service.handle(session.id, "chi phí bao nhiêu")
-    assert reply.agent == "budget_advisor" and "không coi là 0" in reply.text
+    assert reply.agent == "budget_advisor" and "tổng ước tính" in reply.text and "Mức vừa phải" in reply.text
+    # "What if" questions recompute without changing the plan.
+    _, tried = await service.handle(session.id, "nếu ở khách sạn 1,5 triệu/đêm thì sao")
+    assert tried.agent == "budget_advisor" and tried.text.startswith("Nếu ở 1.500.000 ₫/phòng/đêm")
+    assert "tính thử" in tried.text and session.slots.budget_vnd == 5_000_000
+    _, tried = await service.handle(session.id, "nếu đi 4 người, mức tiết kiệm thì có đủ không")
+    assert "đi 4 người" in tried.text and "mức tiết kiệm" in tried.text
 
 
 async def test_place_finder_widens_an_empty_keyword_search():
