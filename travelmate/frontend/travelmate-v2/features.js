@@ -47,7 +47,7 @@
     return true;
   }
   const signedIn = (data, next) => {
-    localStorage.setItem('tm-session', JSON.stringify({token: data.token, user: data.user}));
+    localStorage.setItem('tm-session', JSON.stringify({user: data.user}));  // the token stays in the HttpOnly cookie
     location.href = next && next.startsWith('?') ? next : '?view=saved';
   };
   const refreshUser = u => { const s = session(); if (s) localStorage.setItem('tm-session', JSON.stringify({...s, user: u})); };

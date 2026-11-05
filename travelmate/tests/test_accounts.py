@@ -395,3 +395,67 @@ def test_trip_dates_move_auto_arrange_and_user_costs(env):
     both = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"auto_arrange": True, "start_date": later.isoformat()},
                         headers=headers)
     assert both.status_code == 422
+
+
+def test_browser_session_uses_an_httponly_cookie_with_csrf_header(env):
+    client, _ = env
+    r = client.post("/api/v1/auth/login", json={"email": "x@example.com", "password": "sai"})
+    signup(client)  # sets the cookie on this client
+    cookie = client.cookies.get("tm_session")
+    assert cookie
+    header = next(h for h in client.post("/api/v1/auth/login", json={
+        "email": "an@example.com", "password": PASSWORD}).headers.get_list("set-cookie") if h.startswith("tm_session="))
+    assert "HttpOnly" in header and "SameSite=strict" in header.replace("Strict", "strict")
+    assert client.get("/api/v1/me").status_code == 200  # reads work with the cookie alone
+    # Writes with the cookie need the custom header (a cross-site form cannot send it).
+    assert client.patch("/api/v1/me", json={"name": "Hacked"}).status_code == 401
+    ok = client.patch("/api/v1/me", json={"name": "An mới"}, headers={"X-Requested-With": "travelmate"})
+    assert ok.status_code == 200 and ok.json()["name"] == "An mới"
+    assert client.post("/api/v1/places/search", json={"destination": "Huế"},
+                       headers={"X-Requested-With": "travelmate"}).status_code == 200
+    out = client.post("/api/v1/auth/logout", headers={"X-Requested-With": "travelmate"})
+    assert out.status_code == 200 and not client.cookies.get("tm_session")
+    assert client.get("/api/v1/me").status_code == 401
+    assert r.status_code == 401
+
+
+def test_reset_email_is_sent_when_smtp_is_configured(tmp_path):
+    from app.mailer import Mailer
+
+    sent = []
+
+    class FakeSMTP:
+        def __init__(self, host, port, timeout):
+            self.host = host
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            return False
+
+        def starttls(self, context):
+            pass
+
+        def login(self, user, password):
+            sent.append(("login", user))
+
+        def send_message(self, message):
+            sent.append(("to", message["To"], message.get_content()))
+
+    from fastapi import FastAPI
+
+    from app.accounts import create_accounts_router
+
+    store = Store(tmp_path / "m.sqlite3")
+    store.signup("an@example.com", PASSWORD, "An")
+    app = FastAPI()
+    app.include_router(create_accounts_router(store, Settings(_env_file=None), Mailer(
+        "smtp.example.com", 587, "bot@example.com", "app-password", smtp=FakeSMTP)))
+    client = TestClient(app)
+    r = client.post("/api/v1/auth/forgot", json={"email": "an@example.com"}).json()
+    assert "đã gửi" in r["message"]
+    assert sent[0] == ("login", "bot@example.com") and sent[1][1] == "an@example.com"
+    assert "view=forgot&reset=" in sent[1][2]
+    unknown = client.post("/api/v1/auth/forgot", json={"email": "ai@example.com"}).json()
+    assert unknown["message"] == r["message"] and len(sent) == 2  # no enumeration, no email

@@ -13,7 +13,7 @@ from datetime import date
 from decimal import Decimal
 from typing import Literal
 
-from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import Field, ValidationError, field_validator, model_validator
 
@@ -35,6 +35,35 @@ from .self_check import review_draft
 from .store import StoreError
 
 logger = logging.getLogger(__name__)
+SESSION_COOKIE = "tm_session"
+SAFE_METHODS = {"GET", "HEAD", "OPTIONS"}
+
+
+async def session_from(request, credentials, store):
+    """(user, token) from a Bearer session token or the HttpOnly session cookie, else (None, None).
+
+    Cookie-authenticated writes must carry the X-Requested-With: travelmate header. Another site
+    cannot add a custom header to a cross-site request without CORS (not enabled), and the cookie
+    is SameSite=Strict as well, so a forged form post cannot act as the user (CSRF).
+    """
+    if credentials is not None:
+        user = await asyncio.to_thread(store.user_for_token, credentials.credentials)
+        if user is not None:
+            return user, credentials.credentials
+    token = request.cookies.get(SESSION_COOKIE)
+    if not token:
+        return None, None
+    if request.method not in SAFE_METHODS and request.headers.get("X-Requested-With") != "travelmate":
+        return None, None
+    user = await asyncio.to_thread(store.user_for_token, token)
+    return (user, token) if user else (None, None)
+
+
+def set_session_cookie(response, request, token):
+    response.set_cookie(SESSION_COOKIE, token, max_age=30 * 24 * 3600, httponly=True, samesite="strict",
+                        secure=request.url.scheme == "https", path="/")
+
+
 EMAIL = re.compile(r"^[^@\s]{1,64}@[^@\s]{1,190}\.[^@\s]{2,}$")
 LOGIN_WINDOW_S, LOGIN_ATTEMPTS = 15 * 60, 8
 
@@ -179,8 +208,14 @@ def edited_result(request, result, draft, extra_places):
     return data, kept
 
 
-def create_accounts_router(store, settings):
+def create_accounts_router(store, settings, mailer=None):
     router = APIRouter(prefix="/api/v1")
+    if mailer is None:
+        from .mailer import Mailer
+
+        mailer = Mailer(getattr(settings, "travelmate_smtp_host", ""), getattr(settings, "travelmate_smtp_port", 587),
+                        getattr(settings, "travelmate_smtp_user", ""), getattr(settings, "travelmate_smtp_password", ""),
+                        getattr(settings, "travelmate_smtp_from", ""))
     bearer = HTTPBearer(auto_error=False)
     attempts: dict[str, deque] = defaultdict(deque)
 
@@ -190,18 +225,15 @@ def create_accounts_router(store, settings):
         except StoreError as exc:
             raise HTTPException(exc.status, str(exc)) from None
 
-    async def current_user(credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
-        if credentials is None:
-            raise HTTPException(401, "Bạn cần đăng nhập.")
-        user = await asyncio.to_thread(store.user_for_token, credentials.credentials)
+    async def current_user(request: Request, credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
+        user, token = await session_from(request, credentials, store)
         if user is None:
-            raise HTTPException(401, "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.")
-        return {**user, "token": credentials.credentials}
+            raise HTTPException(401, "Bạn cần đăng nhập, hoặc phiên đăng nhập đã hết hạn.")
+        return {**user, "token": token}
 
-    async def optional_user(credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
-        if credentials is None:
-            return None
-        return await asyncio.to_thread(store.user_for_token, credentials.credentials)
+    async def optional_user(request: Request, credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
+        user, _ = await session_from(request, credentials, store)
+        return user
 
     async def admin_user(user=Depends(current_user)):
         if user["role"] != "admin":
@@ -224,34 +256,45 @@ def create_accounts_router(store, settings):
     # --- accounts ------------------------------------------------------------------------
 
     @router.post("/auth/signup")
-    async def signup(data: Signup, request: Request):
+    async def signup(data: Signup, request: Request, response: Response):
         if not settings.travelmate_signup_open:
             raise HTTPException(403, "Đăng ký đang tạm đóng.")
         throttle(request, data.email)
         token, user = await run(store.signup, data.email, data.password, data.name)
+        set_session_cookie(response, request, token)
         return {"token": token, "user": user}
 
     @router.post("/auth/login")
-    async def login(data: Credentials, request: Request):
+    async def login(data: Credentials, request: Request, response: Response):
         throttle(request, data.email)
         token, user = await run(store.login, data.email, data.password)
+        set_session_cookie(response, request, token)
         return {"token": token, "user": user}
 
     @router.post("/auth/logout")
-    async def logout(user=Depends(current_user)):
+    async def logout(response: Response, user=Depends(current_user)):
         await run(store.logout, user["token"])
+        response.delete_cookie(SESSION_COOKIE, path="/")
         return {"ok": True}
 
     @router.post("/auth/forgot")
     async def forgot(data: Forgot, request: Request):
         throttle(request, data.email)
         user, token = await run(store.create_reset, email=data.email)
-        if token:
-            # No email service in this demo: the operator reads the link from the server log.
+        if token and mailer.enabled:
+            try:
+                await asyncio.to_thread(mailer.send_reset, user["email"], user["name"], reset_link(request, token))
+            except Exception as exc:  # never reveal to the caller whether the email exists or failed
+                logger.warning("password_reset email outcome=failed error_type=%s", type(exc).__name__)
+        elif token:
+            # No email service configured: the operator reads the link from the server log.
             logger.warning("password_reset user=%s link=%s (valid 30 minutes)", user["id"], reset_link(request, token))
+        if mailer.enabled:
+            return {"ok": True, "message": "Nếu email có tài khoản, chúng tôi đã gửi link đặt lại mật khẩu (hiệu lực 30 "
+                                           "phút). Kiểm tra cả thư mục spam."}
         return {"ok": True, "message": "Nếu email có tài khoản, link đặt lại mật khẩu đã được tạo (hiệu lực 30 phút). "
-                                       "Bản demo chưa gửi email: quản trị viên lấy link trong log máy chủ hoặc cấp lại "
-                                       "trong trang Quản trị."}
+                                       "Máy chủ chưa cấu hình gửi email: quản trị viên lấy link trong log máy chủ hoặc "
+                                       "cấp lại trong trang Quản trị."}
 
     @router.post("/auth/reset")
     async def reset(data: Reset):
@@ -272,8 +315,9 @@ def create_accounts_router(store, settings):
         return {"ok": True}
 
     @router.post("/me/delete")
-    async def delete_me(data: AccountDelete, user=Depends(current_user)):
+    async def delete_me(data: AccountDelete, response: Response, user=Depends(current_user)):
         await run(store.delete_account, user["id"], data.password)
+        response.delete_cookie(SESSION_COOKIE, path="/")
         return {"ok": True}
 
     # --- trips ---------------------------------------------------------------------------

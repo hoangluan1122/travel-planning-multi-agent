@@ -191,3 +191,16 @@ def test_specialist_failure_is_a_failed_task():
                                     provider=built.provider, chat=chat))
     task = send(failing, "tìm quán ăn ở Huế").json()["result"]["task"]
     assert task["status"]["state"] == "TASK_STATE_FAILED"
+
+
+def test_mcp_over_http_requires_the_api_token():
+    from app.mcp_server import http_app
+
+    app = http_app(create_mcp(services()), "secret")
+    with TestClient(app, base_url="http://127.0.0.1:8765") as client:  # MCP allows only localhost hosts
+        body = {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {
+            "protocolVersion": "2025-06-18", "capabilities": {}, "clientInfo": {"name": "t", "version": "1"}}}
+        headers = {"Accept": "application/json, text/event-stream", "Content-Type": "application/json"}
+        assert client.post("/mcp", json=body, headers=headers).status_code == 401
+        ok = client.post("/mcp", json=body, headers={**headers, "Authorization": "Bearer secret"})
+        assert ok.status_code == 200 and "TravelMate" in ok.text

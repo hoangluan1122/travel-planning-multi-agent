@@ -20,6 +20,7 @@ import argparse
 import asyncio
 import json
 import logging
+import secrets
 from datetime import date, timedelta
 from decimal import Decimal
 from typing import Annotated, Literal
@@ -157,6 +158,30 @@ def create_mcp(services, name="TravelMate"):
     return mcp
 
 
+class BearerGuard:
+    """ASGI wrapper: every HTTP request needs Authorization: Bearer <token> (constant-time check)."""
+
+    def __init__(self, app, token):
+        self.app, self.token = app, token
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] == "http":
+            headers = dict(scope.get("headers") or [])
+            auth = headers.get(b"authorization", b"").decode("latin-1")
+            if not (auth.startswith("Bearer ") and secrets.compare_digest(auth[7:], self.token)):
+                await send({"type": "http.response.start", "status": 401,
+                            "headers": [(b"content-type", b"application/json"), (b"www-authenticate", b"Bearer")]})
+                await send({"type": "http.response.body", "body": b'{"error":"Invalid API token"}'})
+                return
+        await self.app(scope, receive, send)
+
+
+def http_app(mcp, token):
+    """Streamable HTTP app; protected by the API token whenever one is configured."""
+    app = mcp.streamable_http_app()
+    return BearerGuard(app, token) if token else app
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description="TravelMate MCP server")
     parser.add_argument("--http", action="store_true", help="serve Streamable HTTP instead of stdio")
@@ -170,8 +195,12 @@ def main(argv=None):
     logging.basicConfig(level=logging.WARNING)  # stderr
     mcp = create_mcp(build_services(settings))
     if args.http:
-        mcp.settings.host, mcp.settings.port = "127.0.0.1", args.port
-        mcp.run(transport="streamable-http")
+        import uvicorn
+
+        if not settings.travelmate_api_token:
+            logging.getLogger(__name__).warning("MCP over HTTP without TRAVELMATE_API_TOKEN: anyone on this machine "
+                                                "can call it")
+        uvicorn.run(http_app(mcp, settings.travelmate_api_token), host="127.0.0.1", port=args.port)
     else:
         mcp.run(transport="stdio")
 

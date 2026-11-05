@@ -5,13 +5,14 @@ from pathlib import Path
 from typing import Literal
 from uuid import UUID
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.staticfiles import StaticFiles
 from pydantic import AliasChoices, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from .accounts import session_from
 from .adk_adapter import AdkPlanner
 from .agents import (
     AgentError,
@@ -64,6 +65,12 @@ class Settings(BaseSettings):
     # The account signing up with this email becomes an admin
     travelmate_admin_email: str = ""
     travelmate_signup_open: bool = True
+    # Optional SMTP for password-reset emails (e.g. smtp.gmail.com + an app password)
+    travelmate_smtp_host: str = ""
+    travelmate_smtp_port: int = 587
+    travelmate_smtp_user: str = ""
+    travelmate_smtp_password: str = ""
+    travelmate_smtp_from: str = ""
 
     @field_validator("travelmate_memory_user", mode="before")
     @classmethod
@@ -238,16 +245,15 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
     app.state.chat, app.state.store = chat, store
     bearer = HTTPBearer(auto_error=False)
 
-    async def authorize(credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
-        # The operator's API token, or a signed-in user's session token.
+    async def authorize(request: Request, credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
+        # The operator's API token, or a signed-in user's session (Bearer token or HttpOnly cookie).
         if not settings.travelmate_api_token:
             return
-        if credentials is not None:
-            if secrets.compare_digest(credentials.credentials, settings.travelmate_api_token):
-                return
-            if await asyncio.to_thread(store.user_for_token, credentials.credentials):
-                return
-        raise HTTPException(401, "Invalid API token")
+        if credentials is not None and secrets.compare_digest(credentials.credentials, settings.travelmate_api_token):
+            return
+        user, _ = await session_from(request, credentials, store)
+        if user is None:
+            raise HTTPException(401, "Invalid API token")
 
     async def remember(places):
         try:
@@ -323,11 +329,10 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
             raise HTTPException(502, "Planning failed; check provider configuration and retry") from None
 
     @app.post("/api/v1/chat", response_model=ChatResponse, dependencies=[Depends(authorize)])
-    async def chat_turn(data: ChatRequest, credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
+    async def chat_turn(data: ChatRequest, request: Request,
+                        credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
         # Signed-in users' chats are saved to the database (and plans to their trips); others stay in memory.
-        user = None
-        if credentials is not None:
-            user = await asyncio.to_thread(store.user_for_token, credentials.credentials)
+        user, _ = await session_from(request, credentials, store)
         owner = user["id"] if user else None
         trip_id = None
         try:
@@ -359,7 +364,7 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
         return ChatResponse(session_id=session.id, reply=replies[0], replies=replies,
                             active_agent=session.active_agent, trip_id=trip_id)
 
-    from .accounts import create_accounts_router
+    from .accounts import create_accounts_router  # noqa: F811 (session_from imported at top)
 
     app.include_router(create_accounts_router(store, settings))
 

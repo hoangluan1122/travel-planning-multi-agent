@@ -64,16 +64,17 @@
     document.querySelector('#api-health').textContent = `Backend đã kết nối · ${h.mode==='demo'?'DEMO — dữ liệu giả lập, không phải địa điểm thật':`LIVE — ${h.place_provider==='open_data'?'OpenStreetMap + Open-Meteo':'Google Places'} · lịch do Gemini lập (${(h.agent_engine||'adk').toUpperCase()})`}${h.token_required?' · Yêu cầu token truy cập':''}`;
   }).catch(()=>{document.querySelector('#api-health').textContent='Không kết nối được backend. Hãy chạy ứng dụng qua máy chủ FastAPI.'});
 
-  const session = () => {try {return JSON.parse(localStorage.getItem('tm-session'))} catch {return null}};
+  // The session token lives in an HttpOnly cookie the page cannot read; only the profile is kept here.
+  const session = () => {try {const s=JSON.parse(localStorage.getItem('tm-session'));if(s?.token){delete s.token;localStorage.setItem('tm-session',JSON.stringify(s))}return s?.user?s:null} catch {return null}};
   async function api(path, data, signal, method='POST') {
-    const headers = {'Content-Type':'application/json'};
+    const headers = {'Content-Type':'application/json','X-Requested-With':'travelmate'};
     // A signed-in user's session unlocks the API; otherwise the operator token, if any.
-    const token = session()?.token || readToken();
+    const token = readToken();  // operator token, if any; the signed-in session rides on the cookie
     if(token) headers.Authorization = `Bearer ${token}`;
     const response = await fetch(path,{method,headers,body:method==='GET'||method==='DELETE'?undefined:JSON.stringify(data??{}),signal});
     const body = await response.json().catch(()=>({}));
     if (!response.ok) {
-      if(response.status===401&&session()?.token&&!path.startsWith('/api/v1/auth/')){localStorage.removeItem('tm-session');throw Error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.')}
+      if(response.status===401&&session()?.user&&!path.startsWith('/api/v1/auth/')){localStorage.removeItem('tm-session');throw Error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.')}
       if(response.status===401&&path.startsWith('/api/v1/auth/'))throw Error(body.detail||'Email hoặc mật khẩu không đúng.');
       if(response.status===401) {const details=document.querySelector('.api-banner details');if(details)details.open=true;tokenInput.focus()}
       if(response.status===401) throw Error('Token truy cập không đúng hoặc còn thiếu. Mở Cấu hình kết nối để nhập lại.');
@@ -134,7 +135,7 @@
       if(cancelled)return;
       const record={request,result};
       const finish=()=>{save('tm-plans',[record,...records()].slice(0,20));save('tm-current',result.request_id);location.replace('?view=plan')};
-      if(session()?.token)api('/api/v1/me/trips',{request,result}).then(t=>{record.trip_id=t.id}).catch(()=>{}).finally(finish);else finish();
+      if(session()?.user)api('/api/v1/me/trips',{request,result}).then(t=>{record.trip_id=t.id}).catch(()=>{}).finally(finish);else finish();
     }).catch(error=>{
       if(cancelled)return;
       render(`<h1>Chưa tạo được lịch trình.</h1><p class="api-error" role="alert">${esc(error.name==='AbortError'?'Đã hết thời gian chờ. Bạn có thể thử lại.':error.message)}</p><div class="api-actions">${link('loading','Thử lại')}${link('create','Sửa thông tin')}</div>`);
@@ -157,7 +158,7 @@
       }).join('')+warnings(result.warnings));
     }else empty();
   }
-  if(route==='saved'&&!session()?.token)render(`<h1>Những chuyến đi<br>trong phiên này.</h1><p>Lưu tạm trong tab trình duyệt, chưa đồng bộ tài khoản hoặc database.</p>${link('create','Tạo chuyến đi')}<div class="api-grid">${records().map(({request,result})=>`<article class="api-card"><h3>${esc(request.destination)}</h3><p>${esc(request.start_date)} · ${result.draft.days.length} ngày · ${result.mode.toUpperCase()}</p>${link(`plan&id=${encodeURIComponent(result.request_id)}`,'Mở lịch trình')}</article>`).join('')||'<p>Chưa có chuyến đi nào.</p>'}</div>`);
+  if(route==='saved'&&!session()?.user)render(`<h1>Những chuyến đi<br>trong phiên này.</h1><p>Lưu tạm trong tab trình duyệt, chưa đồng bộ tài khoản hoặc database.</p>${link('create','Tạo chuyến đi')}<div class="api-grid">${records().map(({request,result})=>`<article class="api-card"><h3>${esc(request.destination)}</h3><p>${esc(request.start_date)} · ${result.draft.days.length} ngày · ${result.mode.toUpperCase()}</p>${link(`plan&id=${encodeURIComponent(result.request_id)}`,'Mở lịch trình')}</article>`).join('')||'<p>Chưa có chuyến đi nào.</p>'}</div>`);
   if(route==='explore'){
     const main=render('<h1>Tìm nơi bạn muốn đến.</h1><form id="api-search" class="api-card"><label class="field">Thành phố / khu vực<input name="destination" required minlength="2" maxlength="200" value="Đà Nẵng"></label><label class="field">Loại địa điểm<select name="category"><option value="attraction">Tham quan</option><option value="hotel">Khách sạn</option><option value="restaurant">Nhà hàng</option></select></label><label class="field">Từ khóa<input name="keyword" maxlength="120"></label><button class="button dark">Tìm địa điểm</button></form><div id="search-status" role="status"></div><div id="api-results" class="api-grid"></div>');
     main.querySelector('form').onsubmit=async e=>{
@@ -197,7 +198,7 @@
     // Signed-in users: earlier conversations are kept in their account.
     const history=document.createElement('section');history.className='api-card';history.id='tm-chat-history';main.querySelector('.page-shell').append(history);
     function loadHistory(){
-      if(!session()?.token){history.innerHTML=`<p class="api-meta">${link('login&next=%3Fview%3Dchat','Đăng nhập')} để lưu các cuộc trò chuyện và tự lưu lịch trình vào tài khoản.</p>`;return}
+      if(!session()?.user){history.innerHTML=`<p class="api-meta">${link('login&next=%3Fview%3Dchat','Đăng nhập')} để lưu các cuộc trò chuyện và tự lưu lịch trình vào tài khoản.</p>`;return}
       api('/api/v1/me/chats',null,undefined,'GET').then(list=>{
         history.innerHTML=`<h3>Cuộc trò chuyện trước</h3>${list.map(c=>`<div class="tm-row"><button type="button" class="button outline" data-open-chat="${esc(c.id)}">${esc(c.title)}</button><span class="api-meta">${new Date(c.updated_at*1000).toLocaleString('vi-VN')}</span><button type="button" class="button outline" data-del-chat="${esc(c.id)}" aria-label="Xoá cuộc trò chuyện">Xoá</button></div>`).join('')||'<p>Chưa có cuộc trò chuyện nào được lưu.</p>'}`;
       }).catch(()=>{history.textContent=''});
