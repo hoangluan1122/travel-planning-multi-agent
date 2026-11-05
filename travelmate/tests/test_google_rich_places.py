@@ -102,8 +102,9 @@ async def test_budget_estimate_uses_price_ranges_without_counting_them_as_known(
     ]), Day(date=trip.end_date, activities=[Activity(place_id="d", start_minute=480, end_minute=540)])])
     result = await BudgetAgent().run(BudgetInput(trip=trip, draft=draft, places=places), Context())
     assert result.known_subtotal == Decimal("60000")  # only the explicit cost, x2 travelers
-    assert result.estimated_low_vnd == Decimal("60000") + 2 * (Decimal("50000") + Decimal("200000"))
-    assert result.estimated_high_vnd == Decimal("60000") + 2 * (Decimal("100000") + Decimal("200000"))
+    ranged = next(line for line in result.lines if line.category == "places")
+    assert ranged.kind == "sourced"
+    assert (ranged.low_vnd, ranged.high_vnd) == (2 * Decimal("250000"), 2 * Decimal("300000"))
     assert len(result.estimate_basis) == 2
     assert any("D" in item for item in result.unknown_items)
 

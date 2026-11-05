@@ -91,13 +91,37 @@ async def test_verdict_is_tight_or_over_and_savings_are_concrete():
     assert [t.saving_vnd for t in over.savings] == sorted((t.saving_vnd for t in over.savings), reverse=True)
 
 
-async def test_city_without_reference_stays_unknown_not_guessed():
-    b = await estimate(trip(destination="Đà Lạt"))
-    assert b.verdict == "unknown" and b.total_high_vnd is None
-    assert {"Lưu trú", "Ăn uống", "Di chuyển"} <= set(b.unknown_items)
-    assert reference_for("Đà Lạt")[1] is None and reference_for("Hội An, Quảng Nam")[1]["id"] == "hoi-an"
-    # Restaurant price ranges are still shown as the best estimate available.
-    assert any(line.category == "places" for line in b.lines)
+async def test_other_destinations_use_the_national_level_and_say_so():
+    b = await estimate(trip(destination="Lai Châu"))
+    assert b.verdict != "unknown" and b.reference_area == "Việt Nam (mức chung)"
+    assert all("mức chung toàn quốc" in line.detail for line in b.lines if line.kind == "reference")
+    # A city with only some figures of its own fills the rest from the national level.
+    dalat = await estimate(trip(destination="Đà Lạt"))
+    parts = {line.category: line for line in dalat.lines}
+    assert dalat.reference_area == "Đà Lạt" and "mức chung toàn quốc" not in parts["lodging"].detail
+    assert "mức chung toàn quốc" in parts["food"].detail
+    assert reference_for("Hội An, Quảng Nam")[1]["id"] == "hoi-an"
+    assert reference_for("TP. Hồ Chí Minh")[1]["id"] == "ho-chi-minh"
+
+
+async def test_users_own_costs_still_work_without_any_reference():
+    b = await estimate(trip(destination="Đà Lạt"), user_costs=[
+        UserCost(category="food", label="Ăn uống", amount_vnd=500000)])
+    assert next(line for line in b.lines if line.category == "food").kind == "user"
+
+
+def test_every_ticket_and_city_entry_cites_a_source():
+    import json
+    from pathlib import Path
+
+    data = Path(__file__).resolve().parents[1] / "app" / "data"
+    tickets = json.loads((data / "ticket_prices.json").read_text("utf-8"))["tickets"]
+    assert len(tickets) >= 40 and all(t["sources"] for t in tickets)
+    assert len({t["id"] for t in tickets}) == len(tickets)
+    costs = json.loads((data / "cost_reference.json").read_text("utf-8"))
+    items = [i for c in costs["cities"] for s in c["styles"].values() for i in s.values()]
+    items += [i for s in costs["national"]["styles"].values() for i in s.values()]
+    assert len(costs["cities"]) >= 10 and all(i["sources"] and i["low"] <= i["high"] for i in items)
 
 
 async def test_day_trip_needs_no_room_and_user_costs_replace_reference():
@@ -132,3 +156,17 @@ def test_what_if_parsing():
     changes, update, lodging = what_if("nếu đi 4 người với ngân sách 8 triệu", trip())
     assert update == {"travelers": 4, "budget_vnd": 8_000_000} and lodging is None and len(changes) == 2
     assert what_if("chi phí bao nhiêu", trip()) == ([], {}, None)
+
+
+def test_landmark_tickets_match_by_city_and_free_entry_is_zero():
+    from app.ticket_prices import ticket_for
+
+    def sight(name, address):
+        return Place(id=name, name=name, address=address, latitude=0, longitude=0, source="t", types=["attraction"])
+
+    assert ticket_for(sight("Văn Miếu - Quốc Tử Giám", "Đống Đa, Hà Nội"), "Hà Nội").adult_vnd == 45000
+    assert ticket_for(sight("Lăng Chủ tịch Hồ Chí Minh", "Ba Đình, Hà Nội"), "Hà Nội").adult_vnd == 0
+    assert ticket_for(sight("Sun World Ba Na Hills", "Hòa Vang, Đà Nẵng"), "Đà Nẵng").adult_vnd == 900000
+    assert ticket_for(sight("Dinh Độc Lập", "Quận 1, TP.HCM"), "Hồ Chí Minh").adult_vnd == 65000
+    # A name in another city does not borrow its fee.
+    assert ticket_for(sight("Bảo tàng Lịch sử", "Hoàn Kiếm, Hà Nội"), "Hà Nội") is None

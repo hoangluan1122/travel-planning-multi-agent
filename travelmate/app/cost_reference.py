@@ -1,8 +1,9 @@
 """Reference lodging/food/transport costs by travel style, from app/data/cost_reference.json.
 
 The table is transcribed by hand from cited travel guides (see each entry's sources). These are
-planning estimates, never quotes: a city not in the table gets no reference costs, and the budget
-agent then says so instead of guessing.
+planning estimates, never quotes. Popular destinations have their own figures; any part a city
+lacks, and any destination not in the table, uses the national figures, marked `national` so the
+answer can say it is a country-wide level rather than a price for that city.
 """
 
 import json
@@ -16,32 +17,38 @@ from .place_media import plain
 TABLE = Path(__file__).resolve().parent / "data" / "cost_reference.json"
 STYLES = {"budget": "Tiết kiệm", "mid": "Vừa phải", "high": "Cao cấp"}
 CHEAPER = {"high": "mid", "mid": "budget"}
+PARTS = ("lodging", "food", "transport")
 PEOPLE_PER_ROOM = 2
+
+
+def parse(item, national):
+    return {**item, "low": Decimal(item["low"]), "high": Decimal(item["high"]), "national": national}
 
 
 @lru_cache(maxsize=1)
 def load_reference():
     raw = json.loads(TABLE.read_text("utf-8"))
     checked = date.fromisoformat(raw["checked"])
+    national = {style: {part: parse(item, True) for part, item in parts.items()}
+                for style, parts in raw["national"]["styles"].items()}
     cities = []
     for city in raw["cities"]:
-        styles = {
-            style: {
-                part: {**item, "low": Decimal(item["low"]), "high": Decimal(item["high"])}
-                for part, item in parts.items()
-            }
-            for style, parts in city["styles"].items()
-        }
+        styles = {}
+        for style in STYLES:
+            own = city["styles"].get(style, {})
+            styles[style] = {part: parse(own[part], False) if part in own else national[style][part]
+                             for part in PARTS}
         cities.append({"id": city["id"], "label": city["label"], "names": [plain(n) for n in city["cities"]],
                        "styles": styles})
-    return checked, cities
+    country = {"id": "vietnam", "label": raw["national"]["label"], "names": [], "styles": national}
+    return checked, cities, country
 
 
 def reference_for(destination):
-    """(checked date, city entry) for a destination in the table, else (checked date, None)."""
-    checked, cities = load_reference()
+    """(checked date, entry): the destination's city entry, or the national one for anywhere else."""
+    checked, cities, country = load_reference()
     where = plain(destination or "")
     for city in cities:
         if any(name in where for name in city["names"]):
             return checked, city
-    return checked, None
+    return checked, country

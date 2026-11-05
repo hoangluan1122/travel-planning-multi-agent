@@ -283,6 +283,8 @@ class BudgetResult(Model):
     verdict: Literal["fits", "tight", "over", "unknown"] = "unknown"
     savings: list[SavingTip] = Field(default_factory=list)
     reference_checked: date | None = None
+    # The city whose reference prices were used, or "Việt Nam (mức chung)" for the country-wide level.
+    reference_area: str | None = None
 
 
 AgentName = Literal["places", "place_search", "weather", "recommendation", "itinerary", "budget"]

@@ -225,7 +225,8 @@ class KnowledgeBase:
             bucket.append(ticket)
         out = []
         for ticket in exact or close or city_only:
-            fee = (f"{int(ticket.adult_vnd):,} ₫/người lớn" if ticket.adult_vnd is not None
+            fee = ("miễn phí" if ticket.adult_vnd == 0 else f"{int(ticket.adult_vnd):,} ₫/người lớn"
+                   if ticket.adult_vnd is not None
                    else f"{int(ticket.low_vnd or 0):,} – {int(ticket.high_vnd or 0):,} ₫").replace(",", ".")
             note = f" {ticket.note}." if ticket.note else ""
             text = f"{ticket.label}: {fee}.{note} Giá kiểm tra ngày {ticket.checked:%d/%m/%Y}, có thể thay đổi."

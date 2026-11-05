@@ -45,8 +45,9 @@ async def test_budget_counts_one_ticket_per_group_and_ranges_as_estimates():
     ])
     result = await BudgetAgent().run(BudgetInput(trip=trip, draft=draft, places=PlaceResult(places=places)), Context())
     assert result.known_subtotal == Decimal(2 * (200000 + 150000))  # Đại Nội once, not twice
-    assert result.estimated_low_vnd == result.known_subtotal + 2 * 80000
-    assert result.estimated_high_vnd == result.known_subtotal + 2 * 120000
+    tickets = next(line for line in result.lines if line.category == "tickets")
+    assert tickets.low_vnd == result.known_subtotal + 2 * 80000
+    assert tickets.high_vnd == result.known_subtotal + 2 * 120000
     assert not any("Hoàng Thành" in u or "Điện Thái Hòa" in u for u in result.unknown_items)
 
 
@@ -58,4 +59,6 @@ async def test_known_fees_alone_give_no_redundant_estimate_range():
                         for d in (trip.start_date, trip.end_date)])
     result = await BudgetAgent().run(BudgetInput(trip=trip, draft=draft, places=PlaceResult(places=places)), Context())
     assert result.known_subtotal == Decimal(400000)
-    assert result.estimated_low_vnd is None and result.estimate_basis  # basis still explains the fee
+    tickets = next(line for line in result.lines if line.category == "tickets")
+    assert tickets.low_vnd == tickets.high_vnd == Decimal(400000)  # a known fee, not a range
+    assert result.estimate_basis  # basis still explains the fee
