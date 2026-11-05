@@ -2538,6 +2538,9 @@ maf = [
     { name = "agent-framework-core" },
     { name = "agent-framework-gemini" },
 ]
+mcp = [
+    { name = "mcp" },
+]
 
 [package.metadata]
 requires-dist = [
@@ -2546,6 +2549,7 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.115,<1" },
     { name = "google-adk", marker = "extra == 'ai'", specifier = ">=1.18,<2" },
     { name = "httpx", specifier = ">=0.27,<1" },
+    { name = "mcp", marker = "extra == 'mcp'", specifier = ">=1.20,<2" },
     { name = "playwright", marker = "extra == 'browser'", specifier = ">=1.48,<2" },
     { name = "pydantic-settings", specifier = ">=2.6,<3" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8,<10" },
@@ -2553,7 +2557,7 @@ requires-dist = [
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.9,<1" },
     { name = "uvicorn", specifier = ">=0.30,<1" },
 ]
-provides-extras = ["ai", "maf", "browser", "dev"]
+provides-extras = ["ai", "maf", "browser", "mcp", "dev"]
 
 [[package]]
 name = "typing-extensions"

@@ -119,9 +119,16 @@ def live_planner(settings):
     return AdkPlanner(settings.gemini_model)
 
 
-def create_app(settings=None, orchestrator=None, provider=None, chat=None):
+class Services:
+    """Everything the API, the MCP server and the A2A endpoint share; built once per process."""
+
+    def __init__(self, settings, provider, orchestrator, chat, photos=None):
+        self.settings, self.provider, self.orchestrator, self.chat, self.photos = (
+            settings, provider, orchestrator, chat, photos)
+
+
+def build_services(settings=None, orchestrator=None, provider=None, chat=None):
     settings = settings or Settings()
-    configure_telemetry(settings.travelmate_telemetry, "travelmate-api")
     if settings.travelmate_mode == "live":
         if not settings.google_api_key or not settings.travelmate_api_token:
             raise ValueError("Live mode requires GOOGLE_API_KEY and TRAVELMATE_API_TOKEN")
@@ -177,6 +184,15 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None):
 
         chat = ChatService(orchestrator, provider, concierge_agent(settings), settings.travelmate_agent_timeout,
                            knowledge_agent(settings))
+    return Services(settings, provider, orchestrator, chat, photos)
+
+
+def create_app(settings=None, orchestrator=None, provider=None, chat=None):
+    settings = settings or Settings()
+    configure_telemetry(settings.travelmate_telemetry, "travelmate-api")
+    services = build_services(settings, orchestrator, provider, chat)
+    settings, provider, orchestrator, chat, photos = (
+        services.settings, services.provider, services.orchestrator, services.chat, services.photos)
     app = FastAPI(title="TravelMate API", version="0.1.0")
     bearer = HTTPBearer(auto_error=False)
 
@@ -251,6 +267,11 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None):
             logger.warning("chat outcome=failed error_type=%s", type(exc).__name__)
             raise HTTPException(502, "Chat failed; retry shortly") from None
         return ChatResponse(session_id=session.id, reply=reply, active_agent=session.active_agent)
+
+    # A2A: Agent Card + JSON-RPC endpoint over the same chat sessions (app/a2a.py)
+    from .a2a import create_a2a_router
+
+    app.include_router(create_a2a_router(chat, settings.travelmate_api_token))
 
     @app.get("/", include_in_schema=False)
     async def frontend():

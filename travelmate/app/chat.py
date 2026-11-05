@@ -139,6 +139,7 @@ class ChatMessage(Model):
     citations: list[Citation] = Field(default_factory=list)
     plan: PlanResponse | None = None
     trip: TripRequest | None = None
+    failed: bool = False  # the specialist errored; A2A reports TASK_STATE_FAILED
     at: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
 
@@ -392,7 +393,7 @@ class ChatService:
                 raise
             except Exception as exc:
                 logger.warning("chat specialist=%s outcome=failed error_type=%s", hand.agent, type(exc).__name__)
-                reply = ChatMessage(role="assistant", agent=hand.agent, text=(
+                reply = ChatMessage(role="assistant", agent=hand.agent, failed=True, text=(
                     "Mình chưa xử lý được yêu cầu này do nguồn dữ liệu hoặc mô hình đang lỗi. Bạn thử lại sau ít phút nhé."
                 ))
             reply.reason = hand.reason
