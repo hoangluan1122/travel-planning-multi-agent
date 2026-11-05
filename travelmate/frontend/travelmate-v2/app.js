@@ -1,6 +1,6 @@
 const refinement=document.createElement('link');refinement.rel='stylesheet';refinement.href='refinement.css';document.head.append(refinement);
 const moreStyles=document.createElement('link');moreStyles.rel='stylesheet';moreStyles.href='pages.css';document.head.append(moreStyles);
-const morePages=document.createElement('script');morePages.src='pages.js';morePages.onload=()=>{const integration=document.createElement('script');integration.src='integration.js';document.body.append(integration)};document.body.append(morePages);
+const morePages=document.createElement('script');morePages.src='pages.js';morePages.onload=()=>{const integration=document.createElement('script');integration.src='integration.js';integration.onload=()=>{const features=document.createElement('script');features.src='features.js';document.body.append(features)};document.body.append(integration)};document.body.append(morePages);
 const view=new URLSearchParams(location.search).get('view')||'home';document.getElementById(['home','chat','day'].includes(view)?view:'home').classList.add('visible');
 document.querySelectorAll('nav a').forEach(a=>{if(a.getAttribute('href')==='?view='+view)a.setAttribute('aria-current','page')});
 document.querySelector('.menu-toggle').addEventListener('click',e=>{const open=document.querySelector('header').classList.toggle('menu-open');e.currentTarget.setAttribute('aria-expanded',String(open))});

@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import secrets
 from pathlib import Path
@@ -54,6 +55,11 @@ class Settings(BaseSettings):
     travelmate_memory_db: Path = Path("agent-memory.sqlite3")
     # OpenTelemetry traces: off, console, or otlp (OTEL_EXPORTER_OTLP_ENDPOINT); needs --extra maf
     travelmate_telemetry: Literal["off", "console", "otlp"] = "off"
+    # Product data (accounts, trips, favourites, reviews); one SQLite file, gitignored
+    travelmate_db: Path = Path("travelmate.sqlite3")
+    # The account signing up with this email becomes an admin
+    travelmate_admin_email: str = ""
+    travelmate_signup_open: bool = True
 
     @field_validator("travelmate_memory_user", mode="before")
     @classmethod
@@ -187,21 +193,39 @@ def build_services(settings=None, orchestrator=None, provider=None, chat=None):
     return Services(settings, provider, orchestrator, chat, photos)
 
 
-def create_app(settings=None, orchestrator=None, provider=None, chat=None):
+def create_app(settings=None, orchestrator=None, provider=None, chat=None, store=None):
     settings = settings or Settings()
     configure_telemetry(settings.travelmate_telemetry, "travelmate-api")
     services = build_services(settings, orchestrator, provider, chat)
     settings, provider, orchestrator, chat, photos = (
         services.settings, services.provider, services.orchestrator, services.chat, services.photos)
+    if store is None:
+        from .store import Store
+
+        store = Store(settings.travelmate_db, settings.travelmate_admin_email)
     app = FastAPI(title="TravelMate API", version="0.1.0")
     bearer = HTTPBearer(auto_error=False)
 
     async def authorize(credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
-        if settings.travelmate_api_token and (
-            credentials is None
-            or not secrets.compare_digest(credentials.credentials, settings.travelmate_api_token)
-        ):
-            raise HTTPException(401, "Invalid API token")
+        # The operator's API token, or a signed-in user's session token.
+        if not settings.travelmate_api_token:
+            return
+        if credentials is not None:
+            if secrets.compare_digest(credentials.credentials, settings.travelmate_api_token):
+                return
+            if await asyncio.to_thread(store.user_for_token, credentials.credentials):
+                return
+        raise HTTPException(401, "Invalid API token")
+
+    async def remember(places):
+        try:
+            await asyncio.to_thread(store.remember_places, [p.model_dump(mode="json") for p in places])
+        except Exception as exc:  # the product database must never break planning
+            logger.warning("store remember_places outcome=failed error_type=%s", type(exc).__name__)
+
+    async def visible(places):
+        hidden = await asyncio.to_thread(store.hidden_place_ids)
+        return [p for p in places if p.id not in hidden]
 
     @app.get("/api/v1/places/photo", include_in_schema=False)
     async def place_photo(ref: str):
@@ -226,12 +250,17 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None):
             "place_provider": None if settings.travelmate_mode == "demo" else settings.travelmate_place_provider,
             "agent_engine": settings.agent_engine,
             "orchestrator": settings.travelmate_orchestrator,
+            "accounts": True,
+            "signup_open": settings.travelmate_signup_open,
         }
 
     @app.post("/api/v1/places/search", response_model=PlaceResult, dependencies=[Depends(authorize)])
     async def search_places(query: PlaceSearchRequest):
         try:
-            return await provider.search_places(query)
+            result = await provider.search_places(query)
+            result = result.model_copy(update={"places": await visible(result.places)})
+            await remember(result.places)
+            return result
         except TimeoutError:
             raise HTTPException(504, "Place lookup timed out") from None
         except AgentError as exc:
@@ -242,7 +271,9 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None):
     @app.post("/api/v1/plans/preview", response_model=PlanResponse, dependencies=[Depends(authorize)])
     async def preview(trip: TripRequest):
         try:
-            return await orchestrator.plan(trip)
+            plan = await orchestrator.plan(trip)
+            await remember(plan.places + plan.stays)
+            return plan
         except TimeoutError:
             raise HTTPException(504, "Agent processing timed out") from None
         except AgentError as exc:
@@ -263,10 +294,17 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None):
         # Specialist failures become a chat reply; anything else must not leak details.
         try:
             session, reply = await chat.handle(data.session_id, data.message)
+            if reply.places:
+                reply.places = await visible(reply.places)
+            await remember(reply.places + (reply.plan.places + reply.plan.stays if reply.plan else []))
         except Exception as exc:
             logger.warning("chat outcome=failed error_type=%s", type(exc).__name__)
             raise HTTPException(502, "Chat failed; retry shortly") from None
         return ChatResponse(session_id=session.id, reply=reply, active_agent=session.active_agent)
+
+    from .accounts import create_accounts_router
+
+    app.include_router(create_accounts_router(store, settings))
 
     # A2A: Agent Card + JSON-RPC endpoint over the same chat sessions (app/a2a.py)
     from .a2a import create_a2a_router
