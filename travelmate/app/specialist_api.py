@@ -45,6 +45,7 @@ from .specialists.routed_planner import RoutedPlan, RoutedPlannerInput, RoutedPl
 from .specialists.routing import OSRMProvider, RouteReport, RouteRequest, RouteSpecialist
 from .specialists.trip_budget import TripBudgetReport, TripBudgetRequest, TripBudgetSpecialist
 from .specialists.weather import WeatherReport, WeatherRequest, WeatherSpecialist
+from .telemetry import configure_telemetry
 
 logger = logging.getLogger(__name__)
 
@@ -65,6 +66,8 @@ class SpecialistSettings(BaseSettings):
     specialist_memory_db: Path = Path("agent-memory.sqlite3")
     overpass_url: str = "https://overpass-api.de/api/interpreter"
     osrm_url: str = "https://router.project-osrm.org"
+    # OpenTelemetry traces: off, console, or otlp (OTEL_EXPORTER_OTLP_ENDPOINT); needs --extra maf
+    travelmate_telemetry: Literal["off", "console", "otlp"] = "off"
 
 
 @asynccontextmanager
@@ -116,6 +119,7 @@ def agent_model_factory(settings, engine):
 
 def create_app(settings=None, overrides=None):
     settings = settings or SpecialistSettings()
+    configure_telemetry(settings.travelmate_telemetry, "travelmate-specialists")
     if not settings.travelmate_api_token.get_secret_value():
         raise ValueError("Configure TRAVELMATE_API_TOKEN before starting specialist API")
     overrides = overrides or {}
