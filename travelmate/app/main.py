@@ -1,12 +1,13 @@
 import secrets
 from pathlib import Path
 from typing import Literal
+from uuid import UUID
 
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.staticfiles import StaticFiles
-from pydantic import AliasChoices, Field
+from pydantic import AliasChoices, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from .adk_adapter import AdkPlanner
@@ -38,6 +39,24 @@ class Settings(BaseSettings):
     )
     # classic: asyncio pipeline in app/orchestrator.py; workflow: MAF Workflow graph (needs --extra maf)
     travelmate_orchestrator: Literal["classic", "workflow"] = "classic"
+    # Saved preferences for planning (read-only). The host binds one authenticated identity;
+    # requests cannot choose whose memory is read. Unset = request interests only.
+    travelmate_memory_user: UUID | None = None
+    travelmate_memory_db: Path = Path("agent-memory.sqlite3")
+
+    @field_validator("travelmate_memory_user", mode="before")
+    @classmethod
+    def blank_memory_user_is_unset(cls, value):
+        # .env.example ships TRAVELMATE_MEMORY_USER= empty; that means "not configured".
+        return None if isinstance(value, str) and not value.strip() else value
+
+
+def memory_store(settings):
+    if settings.travelmate_memory_user is None:
+        return None
+    from .specialists.memory import MemorySpecialist
+
+    return MemorySpecialist(settings.travelmate_memory_db, settings.travelmate_memory_user)
 
 
 def live_planner(settings):
@@ -67,7 +86,7 @@ def create_app(settings=None, orchestrator=None, provider=None):
     if orchestrator is None:
         registry = Registry()
         for agent in [
-            MemoryAgent(),
+            MemoryAgent(memory_store(settings)),
             PlaceAgent(provider),
             WeatherAgent(provider),
             RecommendationAgent(),
