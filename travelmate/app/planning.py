@@ -29,13 +29,18 @@ from .models import (
     PlanRound,
     Preferences,
     RecommendationInput,
+    SelfCheckReport,
+    SelfCheckRound,
     TravelPlan,
     TravelSubTask,
 )
 from .orchestrator import checked_places, checked_weather, plan_response, validate_draft
+from .self_check import draft_score, feedback_from, review_draft
 from .tool_loop import ToolLoop, run_tool_loop
 
 logger = logging.getLogger(__name__)
+
+MAX_SELF_CHECK_REVISIONS = 2
 
 PLANNING_INSTRUCTION = (
     "You are the Planning Agent of a travel planner. You do not plan the day-by-day schedule; you "
@@ -260,10 +265,53 @@ class PlanningOrchestrator:
         )
         candidates = PlaceResult(places=merged, warnings=places.warnings, stays=places.stays)
         ranked = await run("recommendation", RecommendationInput(places=candidates, preferences=preferences))
-        draft = await run(
-            "planner", PlannerInput(trip=trip, places=ranked, weather=weather, preferences=preferences)
-        )
-        validate_draft(trip, draft, ranked)
+        wishes = [
+            (f"“{task.inputs.keyword.strip()}”", task.inputs.keyword.strip(), {p.id for p in result.places})
+            for task, result in found.values()
+        ]
+        draft, report = await self.reviewed_draft(trip, ranked, weather, preferences, wishes, run)
         budget = await run("budget", BudgetInput(trip=trip, draft=draft, places=ranked))
         response = plan_response(context, self.mode, draft, ranked, weather, budget, preferences, places.stays)
-        return response.model_copy(update={"planning": PlanningTrace(planner=planner_kind, rounds=rounds)})
+        return response.model_copy(update={
+            "planning": PlanningTrace(planner=planner_kind, rounds=rounds),
+            "self_check": report,
+        })
+
+    async def reviewed_draft(self, trip, ranked, weather, preferences, wishes, run):
+        """Metacognition: draft, self-check, and let the LLM fix what the check found.
+
+        Revisions only happen when the itinerary agent uses an LLM; the deterministic demo
+        planner cannot act on feedback, so its draft is just reported with its checks.
+        A revision that fails validation or errors is discarded; the best draft (fewest
+        failed checks, earliest on ties) is returned.
+        """
+        can_revise = getattr(self.registry.get("planner"), "llm", None) is not None
+        feedback, attempts, best = [], [], None
+        for round_no in range(1, MAX_SELF_CHECK_REVISIONS + 2):
+            try:
+                draft = await run("planner", PlannerInput(
+                    trip=trip, places=ranked, weather=weather, preferences=preferences, feedback=feedback,
+                ))
+                validate_draft(trip, draft, ranked)
+            except asyncio.CancelledError:
+                raise
+            except Exception as exc:
+                if best is None:
+                    raise  # the first draft is required; revisions are optional
+                # A failed revision (quota, provider error, invalid draft) keeps the best draft.
+                logger.warning("self_check round=%d outcome=revision_failed error_type=%s", round_no,
+                               type(exc).__name__)
+                break
+            checks = review_draft(draft, ranked, weather, wishes)
+            attempts.append(SelfCheckRound(round=round_no, checks=checks))
+            score = draft_score(checks)
+            if best is None or score < best[0]:
+                best = (score, round_no, draft)
+            if not score[1] or not can_revise:
+                break
+            feedback = feedback_from(checks)
+        score, chosen, draft = best
+        report = SelfCheckReport(
+            rounds=attempts, revisions=len(attempts) - 1, chosen_round=chosen, final_passed=score[1] == 0,
+        )
+        return draft, report

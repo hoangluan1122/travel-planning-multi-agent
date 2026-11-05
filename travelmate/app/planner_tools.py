@@ -26,6 +26,8 @@ PLANNER_INSTRUCTION = (
     "for about 60-90 minutes, and leave travel gaps between activities. Prefer a different place "
     "on each day when enough candidates exist. When weather warnings flag a day, prefer indoor "
     "places (museum, gallery, cafe, restaurant) for that day. "
+    "If inspect_trip shows feedback about a previous draft, fix every listed problem while keeping "
+    "the other rules. "
     "Honor wishes stated in trip.notes and preferences (for example tombs or vegetarian food): when "
     "matching candidates exist, schedule at least one of each such wish. "
     "Group places that are close together (by latitude/longitude) on the same day, and give "

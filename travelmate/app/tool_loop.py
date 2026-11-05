@@ -37,6 +37,18 @@ class ToolLoop:
 
 TRANSIENT_STATUS = {429, 500, 502, 503, 504}
 RETRY_DELAYS_S = (2.0, 5.0)  # provider 5xx come in short bursts; back off a little more each time
+RATE_LIMIT_DELAYS_S = (10.0, 20.0)  # 429 quotas are per minute, so wait longer
+
+
+def is_rate_limited(exc):
+    seen = 0
+    while exc is not None and seen < 10:
+        code = getattr(exc, "code", None) or getattr(exc, "status_code", None)
+        if code == 429:
+            return True
+        exc = exc.__cause__ or exc.__context__
+        seen += 1
+    return False
 
 
 def is_transient(exc):
@@ -82,7 +94,8 @@ async def run_tool_loop(engine: Engine, model_factory, loop: ToolLoop, context, 
                 "tool_loop request_id=%s agent=%s outcome=retry error_type=%s",
                 context.request_id, loop.name, type(exc).__name__,
             )
-            await asyncio.sleep(RETRY_DELAYS_S[min(attempt, len(RETRY_DELAYS_S) - 1)])
+            delays = RATE_LIMIT_DELAYS_S if is_rate_limited(exc) else RETRY_DELAYS_S
+            await asyncio.sleep(delays[min(attempt, len(delays) - 1)])
 
 
 async def _run_adk(model_factory, loop, context):

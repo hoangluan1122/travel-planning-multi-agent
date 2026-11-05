@@ -52,6 +52,7 @@ async def test_one_retry_after_a_transient_error(monkeypatch):
 
     monkeypatch.setattr(tool_loop, "_run_maf", runner)
     monkeypatch.setattr(tool_loop, "RETRY_DELAYS_S", (0, 0))
+    monkeypatch.setattr(tool_loop, "RATE_LIMIT_DELAYS_S", (0, 0))
     await run_tool_loop("maf", None, loop(done), Context())
     assert len(calls) == 2 and done["v"]
 
@@ -75,6 +76,14 @@ async def test_no_retry_for_agent_errors_or_after_the_retry_budget(monkeypatch):
 
     monkeypatch.setattr(tool_loop, "_run_maf", always_down)
     monkeypatch.setattr(tool_loop, "RETRY_DELAYS_S", (0, 0))
+    monkeypatch.setattr(tool_loop, "RATE_LIMIT_DELAYS_S", (0, 0))
     with pytest.raises(Wrapped):
         await run_tool_loop("maf", None, loop({"v": False}), Context())
     assert calls.count(2) == 3  # first try + 2 retries
+
+
+def test_rate_limits_are_recognised_through_wrappers():
+    status = Exception("quota")
+    status.code = 429
+    assert tool_loop.is_rate_limited(wrapped(status))
+    assert not tool_loop.is_rate_limited(wrapped(ServerError("503")))
