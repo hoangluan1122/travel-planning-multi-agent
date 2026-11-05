@@ -12,6 +12,8 @@ maf = ["agent-framework-core==1.24.0", "agent-framework-gemini==1.0.0b261030"]
 browser = ["playwright>=1.48,<2"]
 # MCP server (app/mcp_server.py); the API and A2A endpoint do not need it.
 mcp = ["mcp>=1.20,<2"]
+# PostgreSQL for product data (TRAVELMATE_DATABASE_URL); SQLite needs nothing extra.
+postgres = ["psycopg[binary]>=3.2,<4"]
 dev = ["pytest>=8,<10", "pytest-asyncio>=0.24,<2", "ruff>=0.9,<1"]
 
 [tool.pytest.ini_options]

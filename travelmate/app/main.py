@@ -57,6 +57,9 @@ class Settings(BaseSettings):
     travelmate_telemetry: Literal["off", "console", "otlp"] = "off"
     # Product data (accounts, trips, favourites, reviews); one SQLite file, gitignored
     travelmate_db: Path = Path("travelmate.sqlite3")
+    # PostgreSQL instead of SQLite, e.g. postgresql://user:password@localhost:5432/travelmate
+    # (needs --extra postgres). Contains a password: never logged or returned.
+    travelmate_database_url: str = ""
     # The account signing up with this email becomes an admin
     travelmate_admin_email: str = ""
     travelmate_signup_open: bool = True
@@ -202,7 +205,7 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
     if store is None:
         from .store import Store
 
-        store = Store(settings.travelmate_db, settings.travelmate_admin_email)
+        store = Store(settings.travelmate_database_url or settings.travelmate_db, settings.travelmate_admin_email)
     app = FastAPI(title="TravelMate API", version="0.1.0")
     bearer = HTTPBearer(auto_error=False)
 
@@ -251,6 +254,7 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
             "agent_engine": settings.agent_engine,
             "orchestrator": settings.travelmate_orchestrator,
             "accounts": True,
+            "database": store.backend,
             "signup_open": settings.travelmate_signup_open,
         }
 

@@ -54,7 +54,8 @@ không được ghi con số nào không có trong nguồn. Xem [`docs/agentic-r
 ## Tài khoản và nghiệp vụ
 
 Đăng ký/đăng nhập, chuyến đi lưu theo tài khoản (sửa được), địa điểm yêu thích, trang địa điểm,
-đánh giá có kiểm duyệt và khu vực quản trị. Dữ liệu nằm trong SQLite (`TRAVELMATE_DB`); đặt
+đánh giá có kiểm duyệt và khu vực quản trị. Dữ liệu nằm trong PostgreSQL (`TRAVELMATE_DATABASE_URL`,
+cần extra `postgres`) hoặc SQLite (`TRAVELMATE_DB`) khi không đặt URL; đặt
 `TRAVELMATE_ADMIN_EMAIL` để tài khoản đăng ký bằng email đó là quản trị viên. Chi tiết:
 [`docs/product-features.md`](../docs/product-features.md).
 

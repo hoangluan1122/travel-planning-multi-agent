@@ -46,16 +46,31 @@ Tất cả màn hình trong thiết kế đã nối với backend thật. Không
 - **Quên mật khẩu:** bản demo chưa có dịch vụ email. Link đặt lại được ghi vào log máy chủ, hoặc quản
   trị viên cấp trong trang Người dùng để gửi cho người dùng.
 
+## Database: PostgreSQL hoặc SQLite
+
+- **PostgreSQL** (khuyên dùng):
+  1. Tạo database một lần: `psql -U postgres -c "CREATE DATABASE travelmate"`.
+  2. Cài driver: `uv sync --extra postgres`.
+  3. Đặt trong `.env`: `TRAVELMATE_DATABASE_URL=postgresql://postgres:<mật khẩu>@localhost:5432/travelmate`.
+
+  Server tự tạo bảng khi khởi động. `/health` cho biết đang dùng `"database": "postgresql"`.
+- **SQLite:** để trống `TRAVELMATE_DATABASE_URL` thì dùng file `TRAVELMATE_DB`
+  (mặc định `travelmate.sqlite3`).
+- Câu lệnh SQL viết một lần, chạy được trên cả hai (`app/store.py`, lớp `Db`). Test nghiệp vụ chạy trên
+  SQLite, và chạy cả trên PostgreSQL khi đặt `TRAVELMATE_TEST_DATABASE_URL` trỏ tới một database dùng
+  riêng cho test. Bảng của database đó sẽ bị **xoá** trước mỗi test, nên đừng trỏ vào database thật.
+- Chuỗi kết nối chứa mật khẩu: chỉ đặt trong `.env` (không commit), không bao giờ được ghi log hay trả về.
+
 ## Bảo mật
 
 - Mật khẩu băm bằng scrypt có salt riêng. Token phiên và token đặt lại là chuỗi ngẫu nhiên 32 byte;
   trong DB chỉ lưu SHA-256 của chúng.
 - Mọi truy vấn SQL dùng tham số. Mọi nội dung người dùng được escape khi hiển thị.
-- Dữ liệu nằm trong `travelmate.sqlite3`, đã có trong `.gitignore`.
 
 ## Kiểm thử (05/11/2026)
 
-- 731 test đều qua (thêm 18 test nghiệp vụ trong `tests/test_accounts.py`).
+- 748 test đều qua. Test nghiệp vụ trong `tests/test_accounts.py` chạy trên cả SQLite và PostgreSQL 18;
+  đã thử đăng ký qua API và đọc lại được tài khoản trong bảng PostgreSQL.
 - Đã chạy thử trên trình duyệt (chế độ demo, database tạm):
   - Đăng ký tài khoản admin, tạo chuyến đi và tự lưu vào tài khoản.
   - Mở trang địa điểm từ lịch, ♡ yêu thích, viết đánh giá (chờ duyệt).
@@ -70,4 +85,4 @@ Tất cả màn hình trong thiết kế đã nối với backend thật. Không
 - Phiên lưu trong `localStorage` của trình duyệt. Nếu đưa lên mạng, nên chuyển sang cookie
   HttpOnly và bật HTTPS.
 - Địa điểm bị ẩn chưa bị loại khỏi lịch do AI lập; mới bị loại khỏi tìm kiếm, Trợ lý AI và yêu thích.
-- Một tiến trình, một file SQLite: phù hợp demo, chưa dành cho nhiều máy chủ.
+- Với SQLite: một tiến trình, một file, phù hợp demo. Chạy nhiều máy chủ thì dùng PostgreSQL.

@@ -1,3 +1,4 @@
+import os
 from datetime import date, timedelta
 
 import pytest
@@ -25,9 +26,24 @@ class Provider(DemoProvider):
         ])
 
 
-@pytest.fixture
-def env(tmp_path):
-    store = Store(tmp_path / "t.sqlite3", admin_email="admin@example.com")
+TABLES = "audit, reports, reviews, favorites, places, trips, resets, sessions, users"
+
+
+@pytest.fixture(params=["sqlite", "postgresql"])
+def env(request, tmp_path):
+    """Every business test runs on SQLite and, when TRAVELMATE_TEST_DATABASE_URL points to a
+    disposable PostgreSQL database, on PostgreSQL too (its tables are dropped first)."""
+    if request.param == "sqlite":
+        store = Store(tmp_path / "t.sqlite3", admin_email="admin@example.com")
+    else:
+        url = os.environ.get("TRAVELMATE_TEST_DATABASE_URL", "")
+        if not url:
+            pytest.skip("Set TRAVELMATE_TEST_DATABASE_URL to a disposable PostgreSQL database")
+        psycopg = pytest.importorskip("psycopg")
+        with psycopg.connect(url, autocommit=True) as conn:
+            conn.execute(f"DROP TABLE IF EXISTS {TABLES} CASCADE")
+        store = Store(url, admin_email="admin@example.com")
+        assert store.backend == "postgresql"
     settings = Settings(_env_file=None, travelmate_api_token="operator-token")
     client = TestClient(create_app(settings, provider=Provider(), store=store))
     return client, store

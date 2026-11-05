@@ -1,5 +1,8 @@
-"""Product data in one SQLite file: accounts, sessions, saved trips, favourites, places seen,
-reviews, reports and the admin audit log.
+"""Product data: accounts, sessions, saved trips, favourites, places seen, reviews, reports
+and the admin audit log, in PostgreSQL (TRAVELMATE_DATABASE_URL=postgresql://…) or, with no
+URL, one SQLite file.
+
+Queries are written once with `?` placeholders; `Db` adapts them for psycopg.
 
 Security notes:
 - Passwords are hashed with scrypt and a per-user salt; never stored or logged in clear.
@@ -27,47 +30,95 @@ CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY, email TEXT NOT NULL UNIQUE, name TEXT NOT NULL, password_hash TEXT NOT NULL,
     role TEXT NOT NULL DEFAULT 'user' CHECK (role IN ('user', 'admin')),
     status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'locked')),
-    interests TEXT NOT NULL DEFAULT '[]', created_at REAL NOT NULL, last_login REAL
+    interests TEXT NOT NULL DEFAULT '[]', created_at DOUBLE PRECISION NOT NULL, last_login DOUBLE PRECISION
 );
 CREATE TABLE IF NOT EXISTS sessions (
     token_hash TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    created_at REAL NOT NULL, expires_at REAL NOT NULL
+    created_at DOUBLE PRECISION NOT NULL, expires_at DOUBLE PRECISION NOT NULL
 );
 CREATE TABLE IF NOT EXISTS resets (
     token_hash TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    expires_at REAL NOT NULL, used INTEGER NOT NULL DEFAULT 0
+    expires_at DOUBLE PRECISION NOT NULL, used INTEGER NOT NULL DEFAULT 0
 );
 CREATE TABLE IF NOT EXISTS trips (
     id TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE, title TEXT NOT NULL,
-    request TEXT NOT NULL, result TEXT NOT NULL, created_at REAL NOT NULL, updated_at REAL NOT NULL
+    request TEXT NOT NULL, result TEXT NOT NULL, created_at DOUBLE PRECISION NOT NULL, updated_at DOUBLE PRECISION NOT NULL
 );
 CREATE INDEX IF NOT EXISTS trips_by_user ON trips(user_id, updated_at DESC);
 CREATE TABLE IF NOT EXISTS places (
     id TEXT PRIMARY KEY, data TEXT NOT NULL, hidden INTEGER NOT NULL DEFAULT 0, admin_note TEXT NOT NULL DEFAULT '',
-    first_seen REAL NOT NULL, last_seen REAL NOT NULL
+    first_seen DOUBLE PRECISION NOT NULL, last_seen DOUBLE PRECISION NOT NULL
 );
 CREATE TABLE IF NOT EXISTS favorites (
     user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE, place_id TEXT NOT NULL REFERENCES places(id),
-    created_at REAL NOT NULL, PRIMARY KEY (user_id, place_id)
+    created_at DOUBLE PRECISION NOT NULL, PRIMARY KEY (user_id, place_id)
 );
 CREATE TABLE IF NOT EXISTS reviews (
     id TEXT PRIMARY KEY, place_id TEXT NOT NULL REFERENCES places(id),
     user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     rating INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5), text TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected', 'hidden')),
-    moderation_note TEXT NOT NULL DEFAULT '', created_at REAL NOT NULL, updated_at REAL NOT NULL,
+    moderation_note TEXT NOT NULL DEFAULT '', created_at DOUBLE PRECISION NOT NULL, updated_at DOUBLE PRECISION NOT NULL,
     UNIQUE (place_id, user_id)
 );
 CREATE INDEX IF NOT EXISTS reviews_by_place ON reviews(place_id, status);
 CREATE TABLE IF NOT EXISTS reports (
     id TEXT PRIMARY KEY, review_id TEXT NOT NULL REFERENCES reviews(id) ON DELETE CASCADE,
     user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE, reason TEXT NOT NULL,
-    resolved INTEGER NOT NULL DEFAULT 0, created_at REAL NOT NULL, UNIQUE (review_id, user_id)
+    resolved INTEGER NOT NULL DEFAULT 0, created_at DOUBLE PRECISION NOT NULL, UNIQUE (review_id, user_id)
 );
 CREATE TABLE IF NOT EXISTS audit (
-    id INTEGER PRIMARY KEY AUTOINCREMENT, actor_id TEXT, action TEXT NOT NULL, target TEXT NOT NULL, at REAL NOT NULL
+    id {AUTO_ID}, actor_id TEXT, action TEXT NOT NULL, target TEXT NOT NULL, at DOUBLE PRECISION NOT NULL
 );
 """
+
+
+try:  # PostgreSQL driver is optional (extra "postgres")
+    import psycopg
+    from psycopg.rows import dict_row
+
+    INTEGRITY_ERRORS = (sqlite3.IntegrityError, psycopg.IntegrityError)
+except ImportError:  # pragma: no cover - exercised only without the extra
+    psycopg = None
+    INTEGRITY_ERRORS = (sqlite3.IntegrityError,)
+
+
+def is_postgres_url(value):
+    return str(value).startswith(("postgresql://", "postgres://"))
+
+
+class Db:
+    """One connection with the same interface on SQLite and PostgreSQL; commits on success."""
+
+    def __init__(self, conn, postgres):
+        self.conn, self.postgres = conn, postgres
+
+    def sql(self, statement):
+        if self.postgres:
+            return statement.replace("?", "%s").replace("GROUP_CONCAT(", "string_agg(")
+        return statement
+
+    def execute(self, statement, params=()):
+        return self.conn.execute(self.sql(statement), params)
+
+    def executemany(self, statement, rows):
+        if self.postgres:
+            with self.conn.cursor() as cursor:
+                cursor.executemany(self.sql(statement), rows)
+        else:
+            self.conn.executemany(statement, rows)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, *_):
+        if exc_type is None:
+            self.conn.commit()
+        else:
+            self.conn.rollback()
+
+    def close(self):
+        self.conn.close()
 
 
 class StoreError(Exception):
@@ -104,18 +155,33 @@ def public_user(row):
 
 
 class Store:
-    def __init__(self, path, admin_email=""):
-        self.path = Path(path)
+    def __init__(self, location, admin_email=""):
+        """location: a postgresql:// URL, or a path to a SQLite file."""
+        self.postgres = is_postgres_url(location)
+        if self.postgres and psycopg is None:
+            raise ValueError("PostgreSQL needs the postgres extra: uv sync --extra postgres")
+        self.location = str(location) if self.postgres else Path(location)
         self.admin_email = admin_email.strip().casefold()
+        schema = SCHEMA.replace("{AUTO_ID}", "BIGSERIAL PRIMARY KEY" if self.postgres
+                                else "INTEGER PRIMARY KEY AUTOINCREMENT")
         with closing(self.connect()) as db, db:
-            db.executescript(SCHEMA)
+            if self.postgres:
+                db.conn.execute(schema)
+            else:
+                db.conn.executescript(schema)
+
+    @property
+    def backend(self):
+        return "postgresql" if self.postgres else "sqlite"
 
     def connect(self):
-        db = sqlite3.connect(self.path, timeout=10)
-        db.row_factory = sqlite3.Row
-        db.execute("PRAGMA foreign_keys = ON")
-        db.execute("PRAGMA journal_mode = WAL")
-        return db
+        if self.postgres:
+            return Db(psycopg.connect(self.location, row_factory=dict_row, connect_timeout=10), True)
+        conn = sqlite3.connect(self.location, timeout=10)
+        conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA foreign_keys = ON")
+        conn.execute("PRAGMA journal_mode = WAL")
+        return Db(conn, False)
 
     def audit(self, db, actor_id, action, target):
         db.execute("INSERT INTO audit (actor_id, action, target, at) VALUES (?, ?, ?, ?)",
@@ -132,7 +198,7 @@ class Store:
                 db.execute(
                     "INSERT INTO users (id, email, name, password_hash, role, created_at) VALUES (?, ?, ?, ?, ?, ?)",
                     (user_id, email, name.strip(), hash_password(password), role, time.time()))
-            except sqlite3.IntegrityError:
+            except INTEGRITY_ERRORS:
                 raise StoreError("Email này đã có tài khoản.", 409) from None
             self.audit(db, user_id, "signup", user_id)
         return self.login(email, password)
@@ -260,7 +326,7 @@ class Store:
                 "SELECT 1 FROM favorites WHERE user_id = ? AND place_id = ?", (viewer["id"], place_id)).fetchone()
         return {
             "place": json.loads(row["data"]), "hidden": bool(row["hidden"]), "admin_note": row["admin_note"],
-            "review_count": stats["n"], "average_rating": None if stats["avg"] is None else round(stats["avg"], 1),
+            "review_count": stats["n"], "average_rating": None if stats["avg"] is None else round(float(stats["avg"]), 1),
             "reviews": [self.review_view(r, viewer) for r in reviews], "favorite": bool(favorite),
         }
 
@@ -285,7 +351,7 @@ class Store:
             if on:
                 if db.execute("SELECT 1 FROM places WHERE id = ? AND hidden = 0", (place_id,)).fetchone() is None:
                     raise StoreError("Không tìm thấy địa điểm.", 404)
-                db.execute("INSERT OR IGNORE INTO favorites VALUES (?, ?, ?)", (user_id, place_id, time.time()))
+                db.execute("INSERT INTO favorites VALUES (?, ?, ?) ON CONFLICT DO NOTHING", (user_id, place_id, time.time()))
             else:
                 db.execute("DELETE FROM favorites WHERE user_id = ? AND place_id = ?", (user_id, place_id))
 
@@ -378,14 +444,14 @@ class Store:
             try:
                 db.execute("INSERT INTO reports VALUES (?, ?, ?, ?, 0, ?)",
                            (str(uuid.uuid4()), review_id, user_id, reason.strip(), time.time()))
-            except sqlite3.IntegrityError:
+            except INTEGRITY_ERRORS:
                 raise StoreError("Bạn đã báo cáo đánh giá này.", 409) from None
 
     # --- admin -------------------------------------------------------------------------------
 
     def stats(self):
         with closing(self.connect()) as db:
-            one = lambda sql: db.execute(sql).fetchone()[0]  # noqa: E731
+            one = lambda sql: db.execute(sql.replace("COUNT(*)", "COUNT(*) AS n", 1)).fetchone()["n"]  # noqa: E731
             recent = db.execute("SELECT audit.*, users.email AS actor FROM audit LEFT JOIN users ON users.id = actor_id "
                                 "ORDER BY audit.id DESC LIMIT 15").fetchall()
             return {
@@ -466,7 +532,7 @@ class Store:
                 "COUNT(reports.id) AS report_count, GROUP_CONCAT(reports.reason, ' | ') AS reasons "
                 "FROM reports JOIN reviews ON reviews.id = reports.review_id JOIN users ON users.id = reviews.user_id "
                 "JOIN places ON places.id = reviews.place_id WHERE reports.resolved = 0 "
-                "GROUP BY reviews.id ORDER BY MIN(reports.created_at)").fetchall()
+                "GROUP BY reviews.id, users.name, users.email, places.data ORDER BY MIN(reports.created_at)").fetchall()
 
         def view(row, extra=None):
             return {**self.review_view(row), "author_email": row["author_email"],
