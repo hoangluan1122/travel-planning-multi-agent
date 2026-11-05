@@ -30,7 +30,8 @@
   if (avatar) {
     const u = user();
     avatar.href = u ? '?view=profile' : '?view=login';
-    avatar.textContent = u ? (u.name.trim()[0] || 'T').toUpperCase() : '→';
+    if (u) { avatar.innerHTML = `<b>${esc((u.name.trim()[0] || 'T').toUpperCase())}</b><span>${esc(u.name)}</span>`; avatar.classList.add('tm-user'); }
+    else { avatar.textContent = 'Đăng nhập'; avatar.classList.add('tm-login'); }
     avatar.setAttribute('aria-label', u ? `Tài khoản của ${u.name}` : 'Đăng nhập');
     const nav = document.querySelector('header nav');
     const mine = nav?.querySelector('a[href="?view=day"]');

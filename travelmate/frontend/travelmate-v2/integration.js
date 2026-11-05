@@ -45,6 +45,7 @@
   const banner = document.createElement('div');
   banner.className = 'api-banner';
   banner.innerHTML = '<span id="api-health" role="status">Đang kiểm tra kết nối backend…</span><details><summary>Cấu hình kết nối</summary><label>Token truy cập backend (nếu được yêu cầu) <input type="password" id="api-token" autocomplete="off"></label><button id="token-save" type="button">Áp dụng</button><small> Token được lưu trên trình duyệt này (mọi tab). Dán đúng giá trị TRAVELMATE_API_TOKEN, không nhập API key Gemini tại đây.</small></details>';
+  banner.hidden = true;
   document.querySelector('header').after(banner);
   // Accept a pasted .env line or a quoted value; keep the token for every tab on this browser.
   const cleanToken = value => value.trim().replace(/^TRAVELMATE_API_TOKEN\s*=\s*/i,'').replace(/^["']+|["']+$/g,'').trim();
@@ -62,8 +63,9 @@
   tokenInput.addEventListener('change', applyToken);
   tokenInput.addEventListener('keydown', e => {if(e.key==='Enter'){e.preventDefault();applyToken()}});
   fetch('/health').then(r=>{if(!r.ok)throw Error();return r.json()}).then(h=>{
+    banner.hidden = h.mode !== 'demo';
     document.querySelector('#api-health').textContent = `Backend đã kết nối · ${h.mode==='demo'?'DEMO — dữ liệu giả lập, không phải địa điểm thật':`LIVE — ${h.place_provider==='open_data'?'OpenStreetMap + Open-Meteo':'Google Places'} · lịch do Gemini lập (${(h.agent_engine||'adk').toUpperCase()})`}${h.token_required?' · Yêu cầu token truy cập':''}`;
-  }).catch(()=>{document.querySelector('#api-health').textContent='Không kết nối được backend. Hãy chạy ứng dụng qua máy chủ FastAPI.'});
+  }).catch(()=>{banner.hidden=false;document.querySelector('#api-health').textContent='Không kết nối được máy chủ TravelMate. Hãy thử tải lại trang sau ít phút.'});
 
   // The session token lives in an HttpOnly cookie the page cannot read; only the profile is kept here.
   const session = () => {try {const s=JSON.parse(localStorage.getItem('tm-session'));if(s?.token){delete s.token;localStorage.setItem('tm-session',JSON.stringify(s))}return s?.user?s:null} catch {return null}};
@@ -77,8 +79,8 @@
     if (!response.ok) {
       if(response.status===401&&session()?.user&&!path.startsWith('/api/v1/auth/')){localStorage.removeItem('tm-session');throw Error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.')}
       if(response.status===401&&path.startsWith('/api/v1/auth/'))throw Error(body.detail||'Email hoặc mật khẩu không đúng.');
-      if(response.status===401) {const details=document.querySelector('.api-banner details');if(details)details.open=true;tokenInput.focus()}
-      if(response.status===401) throw Error('Token truy cập không đúng hoặc còn thiếu. Mở Cấu hình kết nối để nhập lại.');
+      if(response.status===401) {banner.hidden=false;const details=document.querySelector('.api-banner details');if(details)details.open=true;tokenInput.focus()}
+      if(response.status===401) throw Error('Bạn cần đăng nhập để dùng chức năng này (hoặc nhập token truy cập ở dải phía trên).');
       if(response.status===422) throw Error('Thông tin chưa hợp lệ: '+(Array.isArray(body.detail)?body.detail.map(e=>`${e.loc.slice(1).join('.')}: ${e.msg}`).join('; '):'Kiểm tra lại biểu mẫu.'));
       throw Error(response.status===504?'Quá thời gian xử lý. Vui lòng thử lại.':body.detail || `Backend trả lỗi ${response.status}`);
     }
@@ -89,6 +91,7 @@
     let main=document.querySelector('#connected-view');
     if(!main){main=document.createElement('main');main.id='connected-view';document.body.append(main)}
     main.className='view visible expanded-view';main.innerHTML=`<div class="page-shell">${content}</div>`;
+    const title=window.travelmateRoutes?.[route];if(title)document.title=`${title} — TravelMate`;
     return main;
   }
   const records = () => read('tm-plans',[]);
@@ -147,7 +150,7 @@
   if(route==='loading'){
     const request=read('tm-request',null);
     if(!request){empty();return}
-    const main=render('<h1>Đang chuẩn bị<br>chuyến đi của bạn.</h1><p role="status" id="planning-status">Backend đang xử lý địa điểm, thời tiết và lịch trình. Chưa có tiến độ riêng từng agent.</p><button class="button outline" id="cancel-plan">Hủy chờ kết quả</button>');
+    const main=render(`<div class="tm-loading"><div class="tm-spinner" aria-hidden="true"></div><span class="tm-pill">${esc(request.destination)} · ${request.travelers} người</span><h1>Đang chuẩn bị<br>chuyến đi của bạn.</h1><ol class="tm-steps" id="tm-steps"><li>Tìm địa danh và địa điểm thật quanh điểm đến</li><li>Lấy dự báo thời tiết, xếp hạng địa điểm</li><li>Sắp xếp lịch từng ngày</li><li>Tự kiểm tra lịch và tính chi phí</li></ol><p role="status" id="planning-status" class="api-meta">Đang bắt đầu…</p><button class="button outline" id="cancel-plan">Hủy chờ kết quả</button></div>`);
     const controller=new AbortController();
     let cancelled=false;
     main.querySelector('#cancel-plan').onclick=()=>{cancelled=true;controller.abort();location.href='?view=create'};
@@ -155,7 +158,9 @@
     // No per-agent progress is streamed yet: show elapsed time and what usually happens when.
     const started=Date.now(), statusLine=main.querySelector('#planning-status');
     const stages=[[0,'Đang tìm địa danh và địa điểm thật quanh điểm đến…'],[8,'Đang lấy dự báo thời tiết và xếp hạng địa điểm…'],[15,'Gemini đang sắp xếp lịch từng ngày (thường mất 30–90 giây)…'],[100,'Vẫn đang xử lý; chuyến nhiều ngày có thể lâu hơn…']];
-    const tick=setInterval(()=>{const s=Math.round((Date.now()-started)/1000);statusLine.textContent=`${stages.filter(([t])=>s>=t).pop()[1]} · ${s} giây`},1000);
+    const steps=[...main.querySelectorAll('#tm-steps li')];
+    const tick=setInterval(()=>{const s=Math.round((Date.now()-started)/1000);statusLine.textContent=`${stages.filter(([t])=>s>=t).pop()[1]} · ${s} giây`;const k=s<8?0:s<15?1:s<60?2:3;steps.forEach((li,i)=>{li.className=i<k?'done':i===k?'active':''})},1000);
+    steps[0].className='active';
     controller.signal.addEventListener('abort',()=>clearInterval(tick));
     api('/api/v1/plans/preview',request,controller.signal).then(result=>{
       if(cancelled)return;
@@ -173,15 +178,19 @@
     const places=new Map(result.places.map(p=>[p.id,p]));
     const dayIndex=Number(params.get('day')||0);
     const day=result.draft.days[dayIndex];
-    const heading=`<div class="eyebrow">${result.mode==='demo'?'DEMO · DỮ LIỆU GIẢ LẬP':'BẢN PHÁC THẢO · CHƯA XÁC MINH'}</div><h1>${esc(request.destination)}</h1><p>${esc(request.start_date)} → ${esc(request.end_date)} · ${request.travelers} người · Ngân sách ${money(request.budget_vnd)}</p><p class="api-meta">Mã yêu cầu: ${esc(result.request_id)}</p>`;
+    const fmt=d=>new Date(d+'T00:00:00').toLocaleDateString('vi-VN',{weekday:'short',day:'2-digit',month:'2-digit'});
+    const cover=result.places.find(p=>p.photo);
+    const firstPhoto=d=>d.activities.map(a=>places.get(a.place_id)).find(p=>p?.photo);
+    const heading=`<section class="tm-plan-hero">${photo(cover,'tm-plan-cover')}<div class="tm-plan-hero-text"><span class="tm-pill">${result.mode==='demo'?'DEMO · DỮ LIỆU GIẢ LẬP':'BẢN PHÁC THẢO · CHƯA XÁC MINH'}</span><h1>${esc(request.destination)}</h1><div class="tm-chips"><span>📅 ${esc(fmt(request.start_date))} → ${esc(fmt(request.end_date))}</span><span>👥 ${request.travelers} người</span><span>💰 Ngân sách ${money(request.budget_vnd)}</span>${request.travel_style?`<span>Mức ${esc((styles[request.travel_style]||'').toLowerCase())}</span>`:''}<span>🗓️ ${result.draft.days.length} ngày · ${result.draft.days.reduce((n,d)=>n+d.activities.length,0)} điểm</span></div></div></section>`;
+    const requestId=`<p class="api-meta tm-request-id">Mã yêu cầu: ${esc(result.request_id)}</p>`;
     if(route==='plan'){
-      render(heading+'<div id="tm-plan-account"></div>'+selfCheck(result.self_check)+planningTrace(result.planning)+warnings([...result.warnings,...result.weather.warnings])+budget(result.budget)+`<div class="api-grid">${result.draft.days.map((d,i)=>`<article class="api-card">${photo(d.activities.map(a=>places.get(a.place_id)).find(p=>p?.photo),'api-thumb')}<div class="eyebrow">NGÀY ${i+1} · ${esc(d.date)}</div><h3>${d.activities.length} hoạt động</h3>${(w=>w?`<p>${wmo(w.weather_code)}</p>`:'')(result.weather.days.find(w=>w.date===d.date))}<p>${d.activities.map(a=>esc(places.get(a.place_id)?.name||a.place_id)).join(' → ')}</p>${link(`day&id=${encodeURIComponent(result.request_id)}&day=${i}`,'Xem chi tiết ngày →')}</article>`).join('')}</div>${stays(result.stays, request)}<div class="api-actions">${link('create','Tạo kế hoạch mới')}${link('saved','Kế hoạch trong phiên')}</div>`);
+      render(heading+'<div id="tm-plan-account"></div>'+selfCheck(result.self_check)+planningTrace(result.planning)+warnings([...result.warnings,...result.weather.warnings])+budget(result.budget)+`<h2 class="tm-section-title">Lịch trình từng ngày</h2><div class="tm-days">${result.draft.days.map((d,i)=>{const w=result.weather.days.find(x=>x.date===d.date);return `<article class="tm-day-card">${photo(firstPhoto(d),'tm-day-photo')}<div class="tm-day-body"><div class="tm-day-top"><span class="eyebrow">NGÀY ${i+1} · ${esc(fmt(d.date))}</span>${w?`<span class="tm-weather">${wmo(w.weather_code)}</span>`:''}</div><ol class="tm-mini-timeline">${d.activities.map(a=>`<li><time>${time(a.start_minute)}</time><span>${esc(places.get(a.place_id)?.name||a.place_id)}</span></li>`).join('')}</ol>${link(`day&id=${encodeURIComponent(result.request_id)}&day=${i}`,'Xem chi tiết ngày →')}</div></article>`}).join('')}</div>${stays(result.stays, request)}<div class="api-actions">${link('create','Tạo kế hoạch mới')}${link('saved','Kế hoạch của tôi')}</div>${requestId}`);
     } else if(day){
       const weather=result.weather.days.find(w=>w.date===day.date);
-      render(heading+`<div class="api-actions">${link(`plan&id=${encodeURIComponent(result.request_id)}`,'← Tổng quan')}${result.draft.days.map((d,i)=>link(`day&id=${encodeURIComponent(result.request_id)}&day=${i}`,`Ngày ${i+1}`)).join('')}</div><h2>Ngày ${dayIndex+1} · ${esc(day.date)}</h2><p>${weather?`Dự báo: ${wmo(weather.weather_code)}`:'Chưa có dự báo thời tiết cho ngày này.'}</p>`+day.activities.map(a=>{
+      render(heading+`<div class="api-actions">${link(`plan&id=${encodeURIComponent(result.request_id)}`,'← Tổng quan')}${result.draft.days.map((d,i)=>`<a class="button ${i===dayIndex?'dark':'outline'}" href="?view=day&id=${encodeURIComponent(result.request_id)}&day=${i}"${i===dayIndex?' aria-current="page"':''}>Ngày ${i+1}</a>`).join('')}</div><div class="tm-day-head"><h2>Ngày ${dayIndex+1} · ${esc(fmt(day.date))}</h2><span class="tm-weather">${weather?wmo(weather.weather_code):'Chưa có dự báo thời tiết'}</span></div>`+'<ol class="tm-timeline">'+day.activities.map(a=>{
         const p=places.get(a.place_id);
-        return `<article class="api-card">${photo(p)}<div class="eyebrow">${time(a.start_minute)} — ${time(a.end_minute)}</div><h3>${p?`<a href="?view=place&id=${encodeURIComponent(p.id)}">${esc(p.name)}</a>`:esc(a.place_id)}</h3>${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}${stars(p)}<p>${esc(p?.address||'Chưa có địa chỉ')}</p><p>${esc(price(p))}</p>${ticketSource(p)}${hours(p)}<p>${placeLinks(p)}</p><p class="api-meta">Nguồn: ${esc(p?.attribution||p?.source||'Chưa xác định')}</p></article>`;
-      }).join('')+warnings(result.warnings));
+        return `<li class="tm-stop"><div class="tm-stop-time"><strong>${time(a.start_minute)}</strong><span>${time(a.end_minute)}</span></div><article class="api-card tm-stop-card">${photo(p,'tm-stop-photo')}<div class="tm-stop-body"><h3>${p?`<a href="?view=place&id=${encodeURIComponent(p.id)}">${esc(p.name)}</a>`:esc(a.place_id)}</h3>${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}${stars(p)}<p>${esc(p?.address||'Chưa có địa chỉ')}</p><p>${esc(price(p))}</p>${ticketSource(p)}${hours(p)}<p>${placeLinks(p)}</p><p class="api-meta">Nguồn: ${esc(p?.attribution||p?.source||'Chưa xác định')}</p></div></article></li>`;
+      }).join('')+'</ol>'+warnings(result.warnings));
     }else empty();
   }
   if(route==='saved'&&!session()?.user)render(`<h1>Những chuyến đi<br>trong phiên này.</h1><p>Lưu tạm trong tab trình duyệt, chưa đồng bộ tài khoản hoặc database.</p>${link('create','Tạo chuyến đi')}<div class="api-grid">${records().map(({request,result})=>`<article class="api-card"><h3>${esc(request.destination)}</h3><p>${esc(request.start_date)} · ${result.draft.days.length} ngày · ${result.mode.toUpperCase()}</p>${link(`plan&id=${encodeURIComponent(result.request_id)}`,'Mở lịch trình')}</article>`).join('')||'<p>Chưa có chuyến đi nào.</p>'}</div>`);
@@ -198,14 +207,17 @@
     // Multi-agent chat: the concierge hands each message to one specialist; the badge shows who answered and why.
     const badges={concierge:'Trợ lý điều phối',place_finder:'Chuyên gia địa điểm',trip_planner:'Chuyên gia lịch trình',budget_advisor:'Chuyên gia chi phí',weather_advisor:'Chuyên gia thời tiết',guide_advisor:'Hướng dẫn viên'};
     const state=read('tm-chat',{session_id:null,messages:[]});
-    const main=render(`<h1>Trợ lý AI.</h1><p>Một trợ lý điều phối đọc câu hỏi rồi chuyển cho đúng chuyên gia: địa điểm, lịch trình, chi phí, thời tiết hoặc hướng dẫn viên (trả lời có nguồn). Thông tin chuyến đi được nhớ qua các lượt.</p><div id="tm-chat-log" class="chat-log" aria-live="polite"></div><form id="tm-chat-form" class="chat-form"><input name="message" required maxlength="1000" autocomplete="off" placeholder="Ví dụ: tìm quán chay ở Huế"><button class="button dark">Gửi</button></form><div class="api-actions"><button type="button" class="button outline" id="tm-chat-reset">Cuộc trò chuyện mới</button>${['Tìm quán chay ở Huế','Lăng Tự Đức có gì đặc biệt, giá vé bao nhiêu?','Lên lịch đi Huế 2 ngày, 2 người, 5 triệu','Thời tiết Huế thế nào và chi phí bao nhiêu?'].map(t=>`<button type="button" class="button outline chat-suggest">${esc(t)}</button>`).join('')}</div>`);
+    const icons={concierge:'🧭',place_finder:'📍',trip_planner:'🗓️',budget_advisor:'💰',weather_advisor:'🌤️',guide_advisor:'📖'};
+    const ideas=[['📍','Tìm quán chay ở Huế'],['📖','Lăng Tự Đức có gì đặc biệt, giá vé bao nhiêu?'],['🗓️','Lên lịch đi Huế 2 ngày, 2 người, 5 triệu'],['🌤️','Thời tiết Huế thế nào và chi phí bao nhiêu?'],['💰','Nếu ở khách sạn 500k/đêm thì sao?']];
+    const chip=([i,t])=>`<button type="button" class="tm-chip chat-suggest" data-q="${esc(t)}">${i} ${esc(t)}</button>`;
+    const main=render(`<div class="tm-chat"><aside class="tm-chat-side"><button type="button" class="button dark tm-new-chat" id="tm-chat-reset">＋ Cuộc trò chuyện mới</button></aside><section class="tm-chat-main"><div class="tm-chat-head"><h1>Trợ lý AI</h1><p class="api-meta">Trợ lý điều phối chuyển câu hỏi cho đúng chuyên gia: địa điểm, lịch trình, chi phí, thời tiết, hướng dẫn viên.</p></div><div id="tm-chat-log" class="chat-log" aria-live="polite"></div><div class="tm-chip-row">${ideas.map(chip).join('')}</div><form id="tm-chat-form" class="chat-form tm-chat-input"><input name="message" required maxlength="1000" autocomplete="off" placeholder="Hỏi gì cũng được, ví dụ: tìm quán chay ở Huế" aria-label="Tin nhắn"><button class="button dark" aria-label="Gửi">Gửi ↑</button></form></section></div>`);
     const log=main.querySelector('#tm-chat-log'),form=main.querySelector('#tm-chat-form'),input=form.querySelector('input'),button=form.querySelector('button');
     const placeCard=p=>`<article class="api-card chat-place">${photo(p,'api-thumb')}<h4><a href="?view=place&id=${encodeURIComponent(p.id)}">${esc(p.name)}</a></h4>${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}<p>${esc(p.address||'')}</p><p>${esc(price(p))}</p><p>${placeLinks(p)}</p></article>`;
-    const bubble=m=>m.role==='user'?`<div class="chat-msg user"><p>${esc(m.text)}</p></div>`:`<div class="chat-msg bot"><div class="chat-agent">${esc(badges[m.agent]||m.agent||'Trợ lý')}</div>${m.reason?`<p class="api-meta">Vì sao chọn: ${esc(m.reason)}</p>`:''}<p>${esc(m.text)}</p>${m.citations?.length?`<p class="api-meta">Nguồn: ${m.citations.filter(c=>/^https:\/\//.test(c.url)).map(c=>`<a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">[${esc(c.id)}] ${esc(c.title)}</a>`).join(' · ')}</p>`:''}${m.places?.length?`<div class="api-grid chat-places">${m.places.slice(0,6).map(placeCard).join('')}</div>`:''}${m.plan_id?`<p>${m.trip_id?link(`trip&id=${encodeURIComponent(m.trip_id)}`,'Mở lịch trình (đã lưu vào Chuyến đi của tôi) →'):link(`plan&id=${encodeURIComponent(m.plan_id)}`,'Mở lịch trình đầy đủ →')}</p>`:''}</div>`;
-    const draw=()=>{log.innerHTML=state.messages.map(bubble).join('')||'<p class="api-meta">Hãy bắt đầu bằng một câu hỏi.</p>';log.scrollTop=log.scrollHeight};
+    const bubble=m=>m.role==='user'?`<div class="chat-msg user"><p>${esc(m.text)}</p></div>`:`<div class="tm-msg-row"><span class="tm-agent-ico" aria-hidden="true">${icons[m.agent]||'✦'}</span><div class="chat-msg bot"><div class="chat-agent">${esc(badges[m.agent]||m.agent||'Trợ lý')}</div>${m.reason?`<p class="api-meta">Vì sao chọn: ${esc(m.reason)}</p>`:''}<p>${esc(m.text)}</p>${m.citations?.length?`<p class="api-meta">Nguồn: ${m.citations.filter(c=>/^https:\/\//.test(c.url)).map(c=>`<a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">[${esc(c.id)}] ${esc(c.title)}</a>`).join(' · ')}</p>`:''}${m.places?.length?`<div class="api-grid chat-places">${m.places.slice(0,6).map(placeCard).join('')}</div>`:''}${m.plan_id?`<p>${m.trip_id?link(`trip&id=${encodeURIComponent(m.trip_id)}`,'Mở lịch trình (đã lưu vào Chuyến đi của tôi) →'):link(`plan&id=${encodeURIComponent(m.plan_id)}`,'Mở lịch trình đầy đủ →')}</p>`:''}</div></div>`;
+    const draw=()=>{log.innerHTML=state.messages.map(bubble).join('')||`<div class="tm-chat-empty"><span class="tm-chat-logo">✦</span><h2>Bạn muốn đi đâu?</h2><p class="api-meta">Hỏi về địa điểm, lịch trình, chi phí hay thời tiết. Có thể hỏi nhiều việc trong một câu.</p><div class="tm-idea-grid">${ideas.slice(0,4).map(chip).join('')}</div></div>`;main.querySelector('.tm-chip-row').hidden=!state.messages.length;log.scrollTop=log.scrollHeight};
     const send=async text=>{
       state.messages.push({role:'user',text});draw();button.disabled=true;input.value='';
-      const waiting=document.createElement('p');waiting.className='api-meta';waiting.textContent='Đang chuyển cho chuyên gia phù hợp… (lập lịch có thể mất 1–2 phút)';log.append(waiting);
+      const waiting=document.createElement('div');waiting.className='tm-typing';waiting.setAttribute('role','status');waiting.innerHTML='<i></i><i></i><i></i><small>Đang chuyển cho chuyên gia phù hợp… lập lịch có thể mất 1–2 phút</small>';log.append(waiting);log.scrollTop=log.scrollHeight;
       try{
         const r=await api('/api/v1/chat',{session_id:state.session_id,message:text});
         state.session_id=r.session_id;
@@ -219,14 +231,14 @@
       finally{save('tm-chat',{...state,messages:state.messages.slice(-40)});button.disabled=false;draw();input.focus()}
     };
     form.onsubmit=e=>{e.preventDefault();const t=input.value.trim();if(t)send(t)};
-    main.querySelectorAll('.chat-suggest').forEach(b=>b.onclick=()=>{if(!button.disabled)send(b.textContent)});
+    main.addEventListener('click',e=>{const b=e.target.closest('.chat-suggest');if(b&&!button.disabled)send(b.dataset.q||b.textContent.trim())});
     main.querySelector('#tm-chat-reset').onclick=()=>{state.session_id=null;state.messages=[];save('tm-chat',state);draw();loadHistory()};
     // Signed-in users: earlier conversations are kept in their account.
-    const history=document.createElement('section');history.className='api-card';history.id='tm-chat-history';main.querySelector('.page-shell').append(history);
+    const history=document.createElement('section');history.className='tm-chat-history';history.id='tm-chat-history';main.querySelector('.tm-chat-side').append(history);
     function loadHistory(){
-      if(!session()?.user){history.innerHTML=`<p class="api-meta">${link('login&next=%3Fview%3Dchat','Đăng nhập')} để lưu các cuộc trò chuyện và tự lưu lịch trình vào tài khoản.</p>`;return}
+      if(!session()?.user){history.innerHTML=`<p class="api-meta">Đăng nhập để lưu các cuộc trò chuyện và tự lưu lịch trình vào tài khoản.</p>${link('login&next=%3Fview%3Dchat','Đăng nhập')}`;return}
       api('/api/v1/me/chats',null,undefined,'GET').then(list=>{
-        history.innerHTML=`<h3>Cuộc trò chuyện trước</h3>${list.map(c=>`<div class="tm-row"><button type="button" class="button outline" data-open-chat="${esc(c.id)}">${esc(c.title)}</button><span class="api-meta">${new Date(c.updated_at*1000).toLocaleString('vi-VN')}</span><button type="button" class="button outline" data-del-chat="${esc(c.id)}" aria-label="Xoá cuộc trò chuyện">Xoá</button></div>`).join('')||'<p>Chưa có cuộc trò chuyện nào được lưu.</p>'}`;
+        history.innerHTML=`<div class="side-label">GẦN ĐÂY</div>${list.map(c=>`<div class="tm-history-row${c.id===state.session_id?' active':''}"><button type="button" class="tm-history-open" data-open-chat="${esc(c.id)}"><span>${esc(c.title)}</span><small>${(d=>`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')} · ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`)(new Date(c.updated_at*1000))}</small></button><button type="button" class="tm-history-del" data-del-chat="${esc(c.id)}" aria-label="Xoá cuộc trò chuyện" title="Xoá">×</button></div>`).join('')||'<p>Chưa có cuộc trò chuyện nào được lưu.</p>'}`;
       }).catch(()=>{history.textContent=''});
     }
     history.onclick=async e=>{
