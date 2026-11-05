@@ -96,6 +96,20 @@ def concierge_agent(settings):
     return ConciergeAgent(lambda: settings.gemini_model, "adk")
 
 
+def knowledge_agent(settings):
+    """Agentic RAG guide: LLM in live mode, extractive quotes from the same sources in demo mode."""
+    from .knowledge import KnowledgeAgent, KnowledgeBase
+
+    if settings.travelmate_mode != "live":
+        return KnowledgeAgent(KnowledgeBase())
+    if settings.agent_engine == "maf":
+        from .maf_clients import maf_gemini_client
+
+        return KnowledgeAgent(KnowledgeBase(), lambda: maf_gemini_client(settings.google_api_key, settings.gemini_model),
+                              "maf")
+    return KnowledgeAgent(KnowledgeBase(), lambda: settings.gemini_model, "adk")
+
+
 def live_planner(settings):
     if settings.agent_engine == "maf":
         from .maf_adapter import MafPlanner
@@ -161,7 +175,8 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None):
     if chat is None:
         from .chat import ChatService
 
-        chat = ChatService(orchestrator, provider, concierge_agent(settings), settings.travelmate_agent_timeout)
+        chat = ChatService(orchestrator, provider, concierge_agent(settings), settings.travelmate_agent_timeout,
+                           knowledge_agent(settings))
     app = FastAPI(title="TravelMate API", version="0.1.0")
     bearer = HTTPBearer(auto_error=False)
 

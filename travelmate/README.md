@@ -47,6 +47,10 @@ Màn hình **Trợ lý AI** (`?view=chat`) gọi `POST /api/v1/chat`: một tr�
 rồi chuyển cho chuyên gia địa điểm, lịch trình, chi phí hoặc thời tiết, nhớ thông tin chuyến đi
 qua các lượt. Chi tiết và kết quả chạy thật: [`docs/multi-agent.md`](../docs/multi-agent.md).
 
+Câu hỏi về một địa danh (lịch sử, giá vé, giờ mở cửa, đi lại) đi tới **Hướng dẫn viên**
+(Agentic RAG): agent tự tìm trong Wikipedia, Wikivoyage và bảng giá vé, trả lời kèm nguồn, và
+không được ghi con số nào không có trong nguồn. Xem [`docs/agentic-rag.md`](../docs/agentic-rag.md).
+
 ## Place Agent — dữ liệu thật
 
 ```powershell
