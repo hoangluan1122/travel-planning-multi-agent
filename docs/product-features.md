@@ -9,7 +9,8 @@ Tất cả màn hình trong thiết kế đã nối với backend thật. Không
 | Tài khoản | `?view=profile` | Sửa tên, sở thích (điền sẵn khi tạo chuyến), đổi mật khẩu, xem đánh giá của mình, đăng xuất, xoá tài khoản |
 | Chuyến đi của tôi | `?view=saved` | Danh sách chuyến đã lưu: mở, đổi tên, chỉnh sửa, xoá |
 | Lịch trình | `?view=plan` | Lịch tạo khi đã đăng nhập được tự lưu vào tài khoản; chưa lưu thì có nút “Lưu vào tài khoản” |
-| Chỉnh sửa lịch trình | `?view=edit&id=…` | Đổi giờ, bỏ hoạt động, thêm địa điểm yêu thích, đổi tên; chi phí được tính lại |
+| Chỉnh sửa lịch trình | `?view=edit&id=…` | Đổi giờ, bỏ hoạt động, thêm địa điểm yêu thích, đổi tên, **dời cả chuyến sang ngày khác**, **xếp lại tự động**, **nhập chi phí lưu trú/ăn uống/di chuyển**; chi phí được tính lại và lịch được tự kiểm tra |
+| Trợ lý AI | `?view=chat` | Hỏi nhiều việc trong một câu (“lên lịch và báo thời tiết”); khi đăng nhập, cuộc trò chuyện được lưu (mở lại, xoá) và lịch tạo trong chat tự vào “Chuyến đi của tôi” |
 | Chi tiết địa điểm | `?view=place&id=…` | Ảnh, giá vé có nguồn, giờ mở cửa, bản đồ, ghi chú của quản trị, điểm và đánh giá TravelMate, ♡ yêu thích, báo cáo đánh giá |
 | Viết đánh giá | `?view=review&id=…` | 1–5 sao và nội dung; sửa hoặc xoá đánh giá của mình |
 | Yêu thích | `?view=favorites` | Địa điểm đã ♡, bỏ yêu thích |
@@ -61,28 +62,48 @@ Tất cả màn hình trong thiết kế đã nối với backend thật. Không
   riêng cho test. Bảng của database đó sẽ bị **xoá** trước mỗi test, nên đừng trỏ vào database thật.
 - Chuỗi kết nối chứa mật khẩu: chỉ đặt trong `.env` (không commit), không bao giờ được ghi log hay trả về.
 
+## Khi Gemini lỗi hoặc hết hạn mức
+
+Lịch vẫn được tạo. Bộ xếp lịch theo luật (`app/rule_scheduler.py`) làm thay phần AI: ưu tiên địa điểm
+khớp mong muốn, có bữa trưa trong 10:30–14:30, ngày mưa tối đa một điểm ngoài trời, không lặp địa
+điểm. Lịch có cảnh báo ghi rõ là xếp bằng luật, và phần tự kiểm tra ghi `scheduled_by: rules`.
+
+## Tìm theo từ khoá
+
+Tìm có phân biệt dấu tiếng Việt: “lăng” không còn ra “Làng…”, “chay” không ra “cháy”, “phở” không ra
+“Phong Nha”. Ngoài kết quả của Photon, hệ thống còn:
+- lọc danh sách địa điểm quanh khu vực (cả di tích trong 15 km với điểm tham quan) theo tên hoặc loại,
+  ví dụ “lăng” khớp loại `tomb`;
+- thử thêm từ tiếng Anh tương ứng (chay → vegetarian), vì nhiều tên trong OSM là tiếng Anh.
+
 ## Bảo mật
 
+- Trên trình duyệt, phiên đăng nhập nằm trong cookie `HttpOnly`, `SameSite=Strict`; trang web không đọc
+  được token. Mọi thao tác ghi bằng cookie phải kèm header `X-Requested-With: travelmate` (chống CSRF).
+  Ứng dụng khác vẫn dùng `Authorization: Bearer`.
+- Email đặt lại mật khẩu gửi qua SMTP khi đặt `TRAVELMATE_SMTP_*` (miễn phí với app password Gmail).
+  Không cấu hình thì link nằm trong log máy chủ. Câu trả lời không tiết lộ email có tài khoản hay không.
+- MCP qua HTTP bắt buộc `Authorization: Bearer <TRAVELMATE_API_TOKEN>`.
 - Mật khẩu băm bằng scrypt có salt riêng. Token phiên và token đặt lại là chuỗi ngẫu nhiên 32 byte;
   trong DB chỉ lưu SHA-256 của chúng.
 - Mọi truy vấn SQL dùng tham số. Mọi nội dung người dùng được escape khi hiển thị.
 
 ## Kiểm thử (05/11/2026)
 
-- 748 test đều qua. Test nghiệp vụ trong `tests/test_accounts.py` chạy trên cả SQLite và PostgreSQL 18;
-  đã thử đăng ký qua API và đọc lại được tài khoản trong bảng PostgreSQL.
-- Đã chạy thử trên trình duyệt (chế độ demo, database tạm):
-  - Đăng ký tài khoản admin, tạo chuyến đi và tự lưu vào tài khoản.
-  - Mở trang địa điểm từ lịch, ♡ yêu thích, viết đánh giá (chờ duyệt).
-  - Sửa lịch: đổi giờ và tên, chi phí tính lại.
-  - Duyệt đánh giá; xem tổng quan, danh sách người dùng và địa điểm quản trị.
-  - Lưu sở thích; đăng xuất, đăng nhập sai rồi đúng.
-  - Quên mật khẩu: link xuất hiện trong log.
+- 747 test đều qua. Test nghiệp vụ chạy trên cả SQLite và PostgreSQL 18 (cụm tạm).
+- `tests/test_ui_e2e.py`: test giao diện tự động trên trình duyệt thật (Edge qua Playwright), đi hết các
+  luồng chính:
+  - Admin và thành viên đăng ký. Token không còn nằm trong `localStorage`.
+  - Tạo chuyến đi và tự lưu. Mở trang địa điểm, ♡, viết đánh giá.
+  - Sửa lịch, thêm chi phí tự nhập.
+  - Chat câu hỏi ghép, được hai chuyên gia trả lời; lịch sử chat được lưu.
+  - Admin duyệt đánh giá; điểm 5/5 hiện trên trang địa điểm.
 
-## Giới hạn
+## Giới hạn còn lại
 
-- Chưa gửi email, chưa đăng nhập bằng Google/Facebook, chưa xác minh email.
-- Phiên lưu trong `localStorage` của trình duyệt. Nếu đưa lên mạng, nên chuyển sang cookie
-  HttpOnly và bật HTTPS.
-- Địa điểm bị ẩn chưa bị loại khỏi lịch do AI lập; mới bị loại khỏi tìm kiếm, Trợ lý AI và yêu thích.
+- Chưa đăng nhập bằng Google/Facebook, chưa xác minh email khi đăng ký.
+- Bảng giá vé có nguồn mới có Huế và Hội An. Thêm thành phố cần tra và ghi nguồn từng giá.
+- Dự báo thời tiết chỉ có cho khoảng 14 ngày tới.
+- Hướng dẫn viên tìm theo từ trùng (chưa có embedding).
+- Sửa lịch chưa nhờ AI lập lại một ngày; “Xếp lại tự động” dùng luật.
 - Với SQLite: một tiến trình, một file, phù hợp demo. Chạy nhiều máy chủ thì dùng PostgreSQL.
