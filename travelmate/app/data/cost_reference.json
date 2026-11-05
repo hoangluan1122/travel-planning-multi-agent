@@ -1,0 +1,50 @@
+{
+  "checked": "2026-11-05",
+  "about": "Reference daily costs by travel style, transcribed by hand from the cited travel guides. Estimates for planning, not quotes: lodging is per room per night (2 people per room), food and local transport per person per day. USD figures were converted at 26,000 VND/USD and rounded. Update by hand; cities not listed get no reference costs.",
+  "cities": [
+    {
+      "id": "hue",
+      "label": "Huế",
+      "cities": ["huế", "hue", "thuận hóa"],
+      "styles": {
+        "budget": {
+          "lodging": {"low": 150000, "high": 400000, "note": "homestay, nhà nghỉ bình dân", "sources": ["https://vinwonders.com/vi/wonderpedia/news/chi-phi-du-lich-hue/"]},
+          "food": {"low": 45000, "high": 150000, "note": "3 bữa quán bình dân, 15.000–50.000 ₫/phần", "sources": ["https://vinwonders.com/vi/wonderpedia/news/chi-phi-du-lich-hue/"]},
+          "transport": {"low": 78000, "high": 78000, "note": "xe đạp, xe buýt, đi bộ (3 USD/ngày)", "sources": ["https://www.tripbase.com/destinations/hue-vietnam/budget/"]}
+        },
+        "mid": {
+          "lodging": {"low": 500000, "high": 800000, "note": "khách sạn 2–3 sao", "sources": ["https://vinwonders.com/vi/wonderpedia/news/chi-phi-du-lich-hue/"]},
+          "food": {"low": 260000, "high": 260000, "note": "nhà hàng tầm trung (10 USD/ngày)", "sources": ["https://www.tripbase.com/destinations/hue-vietnam/budget/"]},
+          "transport": {"low": 50000, "high": 100000, "note": "thuê xe máy 100.000–200.000 ₫/xe/ngày, 2 người một xe", "sources": ["https://vinwonders.com/vi/wonderpedia/news/chi-phi-du-lich-hue/"]}
+        },
+        "high": {
+          "lodging": {"low": 1100000, "high": 3200000, "note": "khách sạn 4–5 sao", "sources": ["https://mia.vn/cam-nang-du-lich/top-5-khach-san-4-sao-hue-gia-tot-cho-ban-tham-khao-11221", "https://www.vn.kayak.com/Hue-Hotels.28212.hotel.ksp"]},
+          "food": {"low": 650000, "high": 650000, "note": "nhà hàng cao cấp (25 USD/ngày)", "sources": ["https://www.tripbase.com/destinations/hue-vietnam/budget/"]},
+          "transport": {"low": 390000, "high": 390000, "note": "taxi, Grab, xe riêng (15 USD/ngày)", "sources": ["https://www.tripbase.com/destinations/hue-vietnam/budget/"]}
+        }
+      }
+    },
+    {
+      "id": "hoi-an",
+      "label": "Hội An",
+      "cities": ["hội an", "hoi an"],
+      "styles": {
+        "budget": {
+          "lodging": {"low": 250000, "high": 500000, "note": "homestay, nhà nghỉ bình dân", "sources": ["https://www.vietnamtourism.com/vi/ngan-sach-du-lich-hoi-an-mot-ngay-chi-phi-thuc-te-cho-chuyen"]},
+          "food": {"low": 180000, "high": 180000, "note": "quán vỉa hè, chợ", "sources": ["https://www.vietnamtourism.com/vi/ngan-sach-du-lich-hoi-an-mot-ngay-chi-phi-thuc-te-cho-chuyen"]},
+          "transport": {"low": 30000, "high": 30000, "note": "xe đạp", "sources": ["https://www.vietnamtourism.com/vi/ngan-sach-du-lich-hoi-an-mot-ngay-chi-phi-thuc-te-cho-chuyen"]}
+        },
+        "mid": {
+          "lodging": {"low": 700000, "high": 1500000, "note": "khách sạn tầm trung", "sources": ["https://www.vietnamtourism.com/vi/ngan-sach-du-lich-hoi-an-mot-ngay-chi-phi-thuc-te-cho-chuyen"]},
+          "food": {"low": 350000, "high": 350000, "note": "nhà hàng có chỗ ngồi", "sources": ["https://www.vietnamtourism.com/vi/ngan-sach-du-lich-hoi-an-mot-ngay-chi-phi-thuc-te-cho-chuyen"]},
+          "transport": {"low": 50000, "high": 50000, "note": "xe đạp, đôi khi Grab", "sources": ["https://www.vietnamtourism.com/vi/ngan-sach-du-lich-hoi-an-mot-ngay-chi-phi-thuc-te-cho-chuyen"]}
+        },
+        "high": {
+          "lodging": {"low": 2500000, "high": 6000000, "note": "khách sạn cao cấp, resort", "sources": ["https://www.vietnamtourism.com/vi/ngan-sach-du-lich-hoi-an-mot-ngay-chi-phi-thuc-te-cho-chuyen"]},
+          "food": {"low": 700000, "high": 700000, "note": "nhà hàng ven sông, phố cổ", "sources": ["https://www.vietnamtourism.com/vi/ngan-sach-du-lich-hoi-an-mot-ngay-chi-phi-thuc-te-cho-chuyen"]},
+          "transport": {"low": 150000, "high": 150000, "note": "taxi, Grab", "sources": ["https://www.vietnamtourism.com/vi/ngan-sach-du-lich-hoi-an-mot-ngay-chi-phi-thuc-te-cho-chuyen"]}
+        }
+      }
+    }
+  ]
+}

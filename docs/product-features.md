@@ -8,8 +8,8 @@ Tất cả màn hình trong thiết kế đã nối với backend thật. Không
 | Quên mật khẩu | `?view=forgot` | Tạo link đặt lại (30 phút), đặt mật khẩu mới qua `?view=forgot&reset=…` |
 | Tài khoản | `?view=profile` | Sửa tên, sở thích (điền sẵn khi tạo chuyến), đổi mật khẩu, xem đánh giá của mình, đăng xuất, xoá tài khoản |
 | Chuyến đi của tôi | `?view=saved` | Danh sách chuyến đã lưu: mở, đổi tên, chỉnh sửa, xoá |
-| Lịch trình | `?view=plan` | Lịch tạo khi đã đăng nhập được tự lưu vào tài khoản; chưa lưu thì có nút “Lưu vào tài khoản” |
-| Chỉnh sửa lịch trình | `?view=edit&id=…` | Đổi giờ, bỏ hoạt động, thêm địa điểm yêu thích, đổi tên, **dời cả chuyến sang ngày khác**, **xếp lại tự động**, **nhập chi phí lưu trú/ăn uống/di chuyển**; chi phí được tính lại và lịch được tự kiểm tra |
+| Lịch trình | `?view=plan` | Lịch tạo khi đã đăng nhập được tự lưu vào tài khoản; chưa lưu thì có nút “Lưu vào tài khoản”. Khung chi phí: tổng ước tính, đủ/sát/vượt ngân sách, biểu đồ theo khoản, nguồn giá, gợi ý tiết kiệm |
+| Chỉnh sửa lịch trình | `?view=edit&id=…` | Đổi giờ, bỏ hoạt động, thêm địa điểm yêu thích, đổi tên, **dời cả chuyến sang ngày khác**, **xếp lại tự động**, **nhập chi phí lưu trú/ăn uống/di chuyển**, **đổi mức chi tiêu**; chi phí được tính lại và lịch được tự kiểm tra |
 | Trợ lý AI | `?view=chat` | Hỏi nhiều việc trong một câu (“lên lịch và báo thời tiết”); khi đăng nhập, cuộc trò chuyện được lưu (mở lại, xoá) và lịch tạo trong chat tự vào “Chuyến đi của tôi” |
 | Chi tiết địa điểm | `?view=place&id=…` | Ảnh, giá vé có nguồn, giờ mở cửa, bản đồ, ghi chú của quản trị, điểm và đánh giá TravelMate, ♡ yêu thích, báo cáo đánh giá |
 | Viết đánh giá | `?view=review&id=…` | 1–5 sao và nội dung; sửa hoặc xoá đánh giá của mình |
@@ -35,7 +35,20 @@ Tất cả màn hình trong thiết kế đã nối với backend thật. Không
   - Khi sửa, không đổi được ngày. Mỗi ngày cần ít nhất một hoạt động, giờ không chồng nhau, một địa
     điểm không lặp trong ngày.
   - Chỉ thêm được địa điểm của chuyến đó hoặc trong danh sách yêu thích.
-  - Chi phí tính lại bằng Budget Agent. Phần tự kiểm tra của AI được gỡ vì lịch đã sửa tay.
+  - Chi phí tính lại bằng Budget Agent, kể cả khi đổi mức chi tiêu.
+- **Chi phí (Budget Agent):**
+  - Tổng chuyến = vé tham quan có nguồn + lưu trú, ăn uống, đi lại theo bảng giá tham khảo
+    (`app/data/cost_reference.json`) cho mức tiết kiệm / vừa phải / cao cấp. Mỗi số ghi nguồn.
+  - Lưu trú tính theo phòng (2 người/phòng) × số đêm; ăn uống và đi lại theo người × số ngày.
+    Đi trong ngày thì không tính lưu trú. Giá quán ăn trong lịch đã nằm trong khoản ăn uống, không cộng hai lần.
+  - Kết luận so với ngân sách: **đủ** (cả mức cao vẫn vừa), **sát** (chỉ mức thấp vừa), **vượt**.
+  - Khi sát hoặc vượt: gợi ý tiết kiệm kèm số tiền bớt được (hạ mức chi tiêu, chỉ hạ chỗ ở, bỏ một điểm
+    có vé). Chỉ gợi ý thay bằng địa điểm mà nguồn ghi là miễn phí. Không gợi ý nào tự áp dụng.
+  - Chi phí bạn tự nhập thay cho giá tham khảo của khoản đó.
+  - Thành phố chưa có trong bảng (hiện có Huế, Hội An): lưu trú, ăn uống, đi lại ghi “chưa tính được”,
+    không đoán.
+  - Trợ lý AI trả lời “có đủ không”, “tốn bao nhiêu” và câu hỏi “nếu…”: giá phòng mỗi đêm
+    (“khách sạn 500k/đêm”), số người, mức chi tiêu, ngân sách khác. Đây là tính thử, lịch đã lưu không đổi.
 - **Địa điểm:** được ghi nhận khi xuất hiện trong tìm kiếm, lịch trình hoặc Trợ lý AI. Địa điểm bị ẩn
   không còn trong tìm kiếm, Trợ lý AI, yêu thích và trang chi tiết; quản trị viên vẫn xem được.
 - **Đánh giá:**

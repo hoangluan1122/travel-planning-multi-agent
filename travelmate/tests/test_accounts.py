@@ -351,7 +351,7 @@ def test_signed_in_chats_are_saved_restored_and_private(env):
     # After a restart (memory cleared) the conversation continues from the database.
     client.app.state.chat.store.sessions.clear()
     cost = client.post("/api/v1/chat", json={"session_id": sid, "message": "chi phí bao nhiêu"}, headers=headers).json()
-    assert cost["session_id"] == sid and cost["reply"]["agent"] == "budget_advisor" and "không coi là 0" in cost["reply"]["text"]
+    assert cost["session_id"] == sid and cost["reply"]["agent"] == "budget_advisor" and "tổng ước tính" in cost["reply"]["text"]
     # Someone else cannot read or continue it.
     other, _ = signup(client, "b@example.com", "B")
     assert client.get(f"/api/v1/me/chats/{sid}", headers=other).status_code == 404
@@ -389,9 +389,15 @@ def test_trip_dates_move_auto_arrange_and_user_costs(env):
     priced = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"user_costs": costs}, headers=headers).json()
     budget = priced["result"]["budget"]
     assert "Lưu trú" not in budget["unknown_items"] and "Ăn uống" not in budget["unknown_items"]
-    assert "Di chuyển" in budget["unknown_items"]
+    # The user's costs replace the reference for lodging and food; transport keeps the reference (Huế).
+    kinds = {line["category"]: line["kind"] for line in budget["lines"]}
+    assert kinds["lodging"] == kinds["food"] == "user" and kinds["transport"] == "reference"
     assert float(budget["known_subtotal"]) >= 1400000
     assert any("do bạn nhập" in b for b in budget["estimate_basis"])
+    assert budget["verdict"] in ("fits", "tight", "over") and budget["total_high_vnd"] is not None
+    styled = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"travel_style": "high"}, headers=headers).json()
+    assert styled["request"]["travel_style"] == "high"
+    assert styled["result"]["budget"]["travel_style"] == "high"
     both = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"auto_arrange": True, "start_date": later.isoformat()},
                         headers=headers)
     assert both.status_code == 422

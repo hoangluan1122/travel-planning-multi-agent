@@ -27,7 +27,9 @@ from .models import (
     PlaceResult,
     SelfCheckReport,
     SelfCheckRound,
+    TravelStyle,
     TripRequest,
+    UserCost,
     WeatherResult,
 )
 from .rule_scheduler import rule_draft
@@ -121,15 +123,6 @@ class TripSave(Model):
     title: str | None = Field(default=None, max_length=120)
 
 
-class UserCost(Model):
-    category: Literal["lodging", "food", "transport", "other"]
-    label: str = Field(min_length=1, max_length=80)
-    amount_vnd: int = Field(gt=0, le=10_000_000_000)
-
-
-COST_UNKNOWN = {"lodging": "Lưu trú", "food": "Ăn uống", "transport": "Di chuyển"}
-
-
 class TripEdit(Model):
     title: str | None = Field(default=None, min_length=1, max_length=120)
     draft: Draft | None = None
@@ -141,6 +134,8 @@ class TripEdit(Model):
     auto_arrange: bool = False
     # Costs the user knows (hotel booked, food budget…); replace the previous list when given.
     user_costs: list[UserCost] | None = Field(default=None, max_length=10)
+    # Spending level for the reference lodging/food/transport costs.
+    travel_style: TravelStyle | None = None
 
     @model_validator(mode="after")
     def one_schedule_change(self):
@@ -347,11 +342,14 @@ def create_accounts_router(store, settings, mailer=None):
 
     @router.patch("/me/trips/{trip_id}")
     async def edit_trip(trip_id: str, data: TripEdit, user=Depends(current_user)):
-        changes_plan = data.draft is not None or data.start_date or data.auto_arrange or data.user_costs is not None
+        changes_plan = (data.draft is not None or data.start_date or data.auto_arrange or data.user_costs is not None
+                        or data.travel_style is not None)
         if not changes_plan:
             return await run(store.update_trip, user["id"], trip_id, data.title)
         trip = await run(store.trip, user["id"], trip_id)
         request, result = dict(trip["request"]), dict(trip["result"])
+        if data.travel_style is not None:
+            request["travel_style"] = data.travel_style
         draft = data.draft or Draft.model_validate(result["draft"])
         weather = WeatherResult.model_validate(result.get("weather") or {})
         scheduled_by = "manual"
@@ -379,21 +377,10 @@ def create_accounts_router(store, settings, mailer=None):
             budget_input, kept = edited_result(request, result, draft, [favorites[p] for p in data.added_place_ids])
         except StoreError as exc:
             raise HTTPException(exc.status, str(exc)) from None
-        budget = await BudgetAgent().execute(budget_input, Context())
         costs = data.user_costs if data.user_costs is not None else [
             UserCost.model_validate(c) for c in result.get("user_costs", [])]
-        if costs:
-            extra = sum(c.amount_vnd for c in costs)
-            covered = {COST_UNKNOWN[c.category] for c in costs if c.category in COST_UNKNOWN}
-            budget = budget.model_copy(update={
-                "known_subtotal": budget.known_subtotal + extra,
-                "unknown_items": [u for u in budget.unknown_items if u not in covered],
-                "estimate_basis": budget.estimate_basis + [f"{c.label}: {c.amount_vnd:,} ₫ (do bạn nhập)".replace(",", ".")
-                                                           for c in costs],
-                "estimated_low_vnd": None if budget.estimated_low_vnd is None else budget.estimated_low_vnd + extra,
-                "estimated_high_vnd": None if budget.estimated_high_vnd is None else budget.estimated_high_vnd + extra,
-                "status": "over_budget" if budget.known_subtotal + extra > budget_input.trip.budget_vnd else budget.status,
-            })
+        # The user's own costs replace the reference estimate for their category.
+        budget = await BudgetAgent().execute(budget_input.model_copy(update={"user_costs": costs}), Context())
         # Self-check the edited schedule with the same rules the AI planner is held to.
         checks = review_draft(draft, PlaceResult(places=kept), weather)
         report = SelfCheckReport(rounds=[SelfCheckRound(round=1, checks=checks)], final_passed=all(c.passed for c in checks),
