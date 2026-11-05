@@ -240,6 +240,97 @@ class BudgetResult(Model):
     estimate_basis: list[str] = Field(default_factory=list)
 
 
+AgentName = Literal["places", "place_search", "weather", "recommendation", "itinerary", "budget"]
+CORE = ("places", "weather", "recommendation", "itinerary", "budget")
+# Dependencies every plan must state, so the plan describes what will really happen.
+REQUIRED_EDGES = {"recommendation": {"places", "place_search"}, "itinerary": {"recommendation", "weather"},
+                  "budget": {"itinerary"}}
+MAX_TARGETED_SEARCHES = 4
+MAX_REPLANS = 2
+
+
+class SubTaskInputs(Model):
+    category: Literal["attraction", "restaurant", "hotel"] | None = None
+    keyword: str = Field(default="", max_length=60)
+
+
+class TravelSubTask(Model):
+    id: str = Field(pattern=r"^[a-z][a-z0-9_-]{0,30}$")
+    agent: AgentName
+    goal: str = Field(min_length=3, max_length=300)
+    inputs: SubTaskInputs = Field(default_factory=SubTaskInputs)
+    depends_on: list[str] = Field(default_factory=list, max_length=8)
+
+
+class TravelPlan(Model):
+    """Planning-pattern plan; validated as a submit gate (see app/planning.py)."""
+
+    subtasks: list[TravelSubTask] = Field(min_length=len(CORE), max_length=len(CORE) + MAX_TARGETED_SEARCHES)
+
+    @model_validator(mode="after")
+    def executable(self):
+        ids = [t.id for t in self.subtasks]
+        if len(set(ids)) != len(ids):
+            raise ValueError("Subtask ids must be unique")
+        for task in self.subtasks:
+            if task.agent != "place_search":
+                task.inputs = SubTaskInputs()  # inputs only mean something for targeted searches
+        counts = {name: sum(t.agent == name for t in self.subtasks) for name in CORE}
+        if any(n != 1 for n in counts.values()):
+            raise ValueError("Exactly one subtask each for places, weather, recommendation, itinerary, budget")
+        by_id = {t.id: t for t in self.subtasks}
+        for task in self.subtasks:
+            unknown = set(task.depends_on) - set(by_id)
+            if unknown or task.id in task.depends_on:
+                raise ValueError(f"Subtask {task.id} depends on unknown or itself: {sorted(unknown)}")
+            if task.agent == "place_search":
+                if task.inputs.category is None or not task.inputs.keyword.strip():
+                    raise ValueError(f"place_search {task.id} needs a category and a keyword")
+                if task.depends_on:
+                    raise ValueError("place_search runs first and depends on nothing")
+            needed = REQUIRED_EDGES.get(task.agent, set())
+            have = {by_id[d].agent for d in task.depends_on}
+            for agent in needed:
+                if agent == "place_search":
+                    searches = {t.id for t in self.subtasks if t.agent == "place_search"}
+                    if not searches <= set(task.depends_on):
+                        raise ValueError(f"{task.id} must depend on every place_search subtask")
+                elif agent not in have:
+                    raise ValueError(f"{task.id} ({task.agent}) must depend on a {agent} subtask")
+        # Acyclic: repeatedly remove subtasks whose dependencies are done.
+        done, pending = set(), dict(by_id)
+        while pending:
+            ready = [i for i, t in pending.items() if set(t.depends_on) <= done]
+            if not ready:
+                raise ValueError("Subtask dependencies form a cycle")
+            for i in ready:
+                done.add(i)
+                pending.pop(i)
+        return self
+
+    def of(self, agent):
+        return [t for t in self.subtasks if t.agent == agent]
+
+
+class Observation(Model):
+    subtask_id: str
+    outcome: Literal["ok", "no_results", "failed"]
+    count: int = 0
+
+
+class PlanRound(Model):
+    round: int
+    plan: TravelPlan
+    observations: list[Observation] = Field(default_factory=list)
+    note: str | None = Field(default=None, max_length=300)
+
+
+class PlanningTrace(Model):
+    planner: Literal["llm", "default"]
+    rounds: list[PlanRound]
+
+
+
 class PlanResponse(Model):
     request_id: UUID
     mode: Literal["demo", "live"]
@@ -250,3 +341,4 @@ class PlanResponse(Model):
     budget: BudgetResult
     warnings: list[str]
     stays: list[Place] = Field(default_factory=list)
+    planning: PlanningTrace | None = None
