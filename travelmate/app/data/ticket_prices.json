@@ -1,0 +1,35 @@
+{
+  "checked": "2026-11-05",
+  "about": "Reference entrance fees for well-known sights, transcribed from the cited press/official pages. Adult fee per visit unless stated. Update by hand when fees change; prices not found in a source are left out rather than guessed.",
+  "tickets": [
+    {
+      "id": "hue-dai-noi",
+      "cities": ["huế", "hue", "thuận hóa"],
+      "names": ["hoàng thành huế", "đại nội", "imperial city", "kinh thành huế", "tử cấm thành", "forbidden purple city", "điện thái hòa", "ngọ môn", "thế miếu", "hiển lâm các", "duyệt thị đường", "điện cần chánh", "điện kiến trung", "phủ nội vụ", "đông khuyết đài", "tây khuyết đài"],
+      "label": "Vé Đại Nội Huế (một vé cho cả khu)",
+      "adult_vnd": 200000,
+      "child_note": "Trẻ 7–12 tuổi 40.000 ₫",
+      "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm", "https://baoquocte.vn/hue-mo-rong-doi-tuong-mien-giam-phi-tham-quan-di-tich-lich-su-van-hoa-tu-nam-2026-340581.html"]
+    },
+    {"id": "hue-minh-mang", "cities": ["huế", "hue"], "names": ["lăng minh mạng", "minh mang tomb", "tomb of minh mang", "hiếu lăng"], "label": "Vé lăng Minh Mạng", "adult_vnd": 150000, "child_note": "Trẻ 7–12 tuổi 30.000 ₫", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
+    {"id": "hue-tu-duc", "cities": ["huế", "hue"], "names": ["lăng tự đức", "tu duc tomb", "tomb of tu duc", "khiêm lăng"], "label": "Vé lăng Tự Đức", "adult_vnd": 150000, "child_note": "Trẻ 7–12 tuổi 30.000 ₫", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
+    {"id": "hue-khai-dinh", "cities": ["huế", "hue"], "names": ["lăng khải định", "khai dinh", "tomb of khai dinh", "ứng lăng"], "label": "Vé lăng Khải Định", "adult_vnd": 150000, "child_note": "Trẻ 7–12 tuổi 30.000 ₫", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
+    {"id": "hue-gia-long", "cities": ["huế", "hue"], "names": ["lăng gia long", "gia long tomb", "thiên thọ lăng"], "label": "Vé lăng Gia Long", "adult_vnd": 150000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
+    {"id": "hue-dong-khanh", "cities": ["huế", "hue"], "names": ["lăng đồng khánh", "dong khanh tomb", "tư lăng"], "label": "Vé lăng Đồng Khánh", "adult_vnd": 100000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
+    {"id": "hue-thieu-tri", "cities": ["huế", "hue"], "names": ["lăng thiệu trị", "thieu tri tomb", "xương lăng"], "label": "Vé lăng Thiệu Trị", "adult_vnd": 50000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
+    {"id": "hue-bao-tang-co-vat", "cities": ["huế", "hue"], "names": ["bảo tàng cổ vật cung đình", "museum of royal antiquities", "royal antiquities"], "label": "Vé Bảo tàng Cổ vật Cung đình Huế", "adult_vnd": 50000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
+    {"id": "hue-an-dinh", "cities": ["huế", "hue"], "names": ["cung an định", "an dinh palace"], "label": "Vé cung An Định", "adult_vnd": 50000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
+    {"id": "hue-nam-giao", "cities": ["huế", "hue"], "names": ["đàn nam giao", "nam giao"], "label": "Vé đàn Nam Giao", "adult_vnd": 50000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
+    {"id": "hue-hon-chen", "cities": ["huế", "hue"], "names": ["điện hòn chén", "hon chen temple"], "label": "Vé điện Hòn Chén", "adult_vnd": 50000, "child_note": "Trẻ em miễn phí", "sources": ["https://tuoitre.vn/ve-tham-quan-di-san-hue-dat-hay-xung-dang-tung-dong-20250814155742411.htm"]},
+    {
+      "id": "hoian-old-town",
+      "cities": ["hội an", "hoi an"],
+      "names": ["hội quán phước kiến", "phuc kien assembly", "bảo tàng hội an", "chùa cầu", "japanese covered bridge", "hội quán quảng đông", "hội quán triều châu", "nhà cổ tấn ký", "nhà cổ phùng hưng", "nhà cổ đức an", "miếu quan công", "bảo tàng gốm sứ mậu dịch", "bảo tàng văn hóa sa huỳnh", "bảo tàng văn hóa dân gian"],
+      "label": "Vé tham quan phố cổ Hội An (mua một lần, dùng tối đa 3 ngày)",
+      "low_vnd": 80000,
+      "high_vnd": 120000,
+      "child_note": "Nguồn ghi hai mức 80.000 ₫ và 120.000 ₫, không nêu rõ đối tượng",
+      "sources": ["https://danangfantasticity.com/en/tin-tuc/cap-nhat-ve-tham-quan-khu-pho-co-hoi-an-2026"]
+    }
+  ]
+}

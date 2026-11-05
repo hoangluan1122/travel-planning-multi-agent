@@ -70,7 +70,7 @@ class Orchestrator:
         )
         validate_draft(trip, draft, ranked)
         budget = await run("budget", BudgetInput(trip=trip, draft=draft, places=ranked))
-        return plan_response(context, self.mode, draft, ranked, weather, budget, memory)
+        return plan_response(context, self.mode, draft, ranked, weather, budget, memory, places.stays)
 
 
 # Step rules shared by Orchestrator and WorkflowOrchestrator, so both produce the same
@@ -95,7 +95,7 @@ def checked_weather(result):
     return result
 
 
-def plan_response(context, mode, draft, ranked, weather, budget, memory=None):
+def plan_response(context, mode, draft, ranked, weather, budget, memory=None, stays=()):
     return PlanResponse(
         request_id=context.request_id,
         mode=mode,
@@ -103,6 +103,7 @@ def plan_response(context, mode, draft, ranked, weather, budget, memory=None):
         places=ranked.places,
         weather=weather,
         budget=budget,
+        stays=list(stays),
         warnings=(memory.warnings if memory else [])
         + ranked.warnings
         + weather.warnings

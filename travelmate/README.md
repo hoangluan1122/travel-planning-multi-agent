@@ -12,6 +12,35 @@ uv sync --extra dev --extra ai --extra browser
 
 Chỉ tạo `.env` từ `.env.example` khi cần cấu hình khóa API; không commit `.env`.
 
+## Bản demo: lịch trình thật trên web
+
+Nhập điểm đến trên web, nhận lịch trình từ **địa điểm thật** (OpenStreetMap/Photon),
+**thời tiết thật** (Open-Meteo) và lịch do **Gemini** lập. Không cần Google Maps key.
+
+1. Cài đặt: `uv sync --extra dev --extra ai --extra browser --extra maf`
+2. Tạo `.env` từ `.env.example`, rồi đặt:
+
+   ```dotenv
+   GOOGLE_API_KEY=<key Gemini của bạn>
+   TRAVELMATE_API_TOKEN=<chuỗi ngẫu nhiên bất kỳ>
+   TRAVELMATE_MODE=live
+   TRAVELMATE_PLACE_PROVIDER=open_data
+   AGENT_ENGINE=maf
+   TRAVELMATE_ORCHESTRATOR=workflow
+   TRAVELMATE_AGENT_TIMEOUT=120
+   ```
+
+3. Chạy `uv run uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8000`
+4. Mở http://127.0.0.1:8000/, vào **Cấu hình kết nối** nhập đúng `TRAVELMATE_API_TOKEN`,
+   rồi **Bắt đầu hành trình**. Một lịch 2 ngày mất khoảng 1 phút.
+
+Kết quả: từng ngày có khung giờ, loại địa điểm, địa chỉ, link bản đồ OpenStreetMap, dự báo
+thời tiết; chi phí chưa biết được liệt kê theo tên, không coi là 0. Giới hạn của bản demo:
+tên trùng (ví dụ "Hội An") tự chọn địa danh khớp nhất và báo rõ trong cảnh báo; chỉ lấy địa
+điểm trong 5 km quanh trung tâm (8 điểm tham quan, 4 quán ăn); chưa có giá, giờ mở cửa, ảnh,
+tuyến đường thật giữa các điểm, lưu trú, đặt chỗ hay tài khoản người dùng; lịch có thể lặp
+lại quán ăn khi nguồn có ít lựa chọn.
+
 ## Place Agent — dữ liệu thật
 
 ```powershell

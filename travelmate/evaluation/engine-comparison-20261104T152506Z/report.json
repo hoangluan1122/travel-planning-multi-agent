@@ -1,0 +1,236 @@
+{
+  "summary": {
+    "adk": {
+      "runs": 9,
+      "accepted": 9,
+      "accept_rate": 1.0,
+      "median_ms": 44562,
+      "max_ms": 65250,
+      "errors": {}
+    },
+    "maf": {
+      "runs": 9,
+      "accepted": 9,
+      "accept_rate": 1.0,
+      "median_ms": 55485,
+      "max_ms": 70593,
+      "errors": {}
+    }
+  },
+  "by_case": {
+    "planner · adk": {
+      "runs": 3,
+      "accepted": 3,
+      "accept_rate": 1.0,
+      "median_ms": 46453,
+      "max_ms": 52046,
+      "errors": {}
+    },
+    "planner · maf": {
+      "runs": 3,
+      "accepted": 3,
+      "accept_rate": 1.0,
+      "median_ms": 42264,
+      "max_ms": 55485,
+      "errors": {}
+    },
+    "planner-3day-constraints · adk": {
+      "runs": 3,
+      "accepted": 3,
+      "accept_rate": 1.0,
+      "median_ms": 47906,
+      "max_ms": 65250,
+      "errors": {}
+    },
+    "planner-3day-constraints · maf": {
+      "runs": 3,
+      "accepted": 3,
+      "accept_rate": 1.0,
+      "median_ms": 69000,
+      "max_ms": 70593,
+      "errors": {}
+    },
+    "recommendation-required-excluded · adk": {
+      "runs": 3,
+      "accepted": 3,
+      "accept_rate": 1.0,
+      "median_ms": 39593,
+      "max_ms": 41922,
+      "errors": {}
+    },
+    "recommendation-required-excluded · maf": {
+      "runs": 3,
+      "accepted": 3,
+      "accept_rate": 1.0,
+      "median_ms": 63594,
+      "max_ms": 65891,
+      "errors": {}
+    }
+  },
+  "runs": [
+    {
+      "engine": "adk",
+      "agent": "planner_specialist",
+      "case": "planner",
+      "run": 1,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 44562
+    },
+    {
+      "engine": "maf",
+      "agent": "planner_specialist",
+      "case": "planner",
+      "run": 1,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 38171
+    },
+    {
+      "engine": "adk",
+      "agent": "planner_specialist",
+      "case": "planner",
+      "run": 2,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 46453
+    },
+    {
+      "engine": "maf",
+      "agent": "planner_specialist",
+      "case": "planner",
+      "run": 2,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 55485
+    },
+    {
+      "engine": "adk",
+      "agent": "planner_specialist",
+      "case": "planner",
+      "run": 3,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 52046
+    },
+    {
+      "engine": "maf",
+      "agent": "planner_specialist",
+      "case": "planner",
+      "run": 3,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 42264
+    },
+    {
+      "engine": "adk",
+      "agent": "planner_specialist",
+      "case": "planner-3day-constraints",
+      "run": 1,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 65250
+    },
+    {
+      "engine": "maf",
+      "agent": "planner_specialist",
+      "case": "planner-3day-constraints",
+      "run": 1,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 30953
+    },
+    {
+      "engine": "adk",
+      "agent": "planner_specialist",
+      "case": "planner-3day-constraints",
+      "run": 2,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 41187
+    },
+    {
+      "engine": "maf",
+      "agent": "planner_specialist",
+      "case": "planner-3day-constraints",
+      "run": 2,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 69000
+    },
+    {
+      "engine": "adk",
+      "agent": "planner_specialist",
+      "case": "planner-3day-constraints",
+      "run": 3,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 47906
+    },
+    {
+      "engine": "maf",
+      "agent": "planner_specialist",
+      "case": "planner-3day-constraints",
+      "run": 3,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 70593
+    },
+    {
+      "engine": "adk",
+      "agent": "recommendation_specialist",
+      "case": "recommendation-required-excluded",
+      "run": 1,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 39593
+    },
+    {
+      "engine": "maf",
+      "agent": "recommendation_specialist",
+      "case": "recommendation-required-excluded",
+      "run": 1,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 42264
+    },
+    {
+      "engine": "adk",
+      "agent": "recommendation_specialist",
+      "case": "recommendation-required-excluded",
+      "run": 2,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 41922
+    },
+    {
+      "engine": "maf",
+      "agent": "recommendation_specialist",
+      "case": "recommendation-required-excluded",
+      "run": 2,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 65891
+    },
+    {
+      "engine": "adk",
+      "agent": "recommendation_specialist",
+      "case": "recommendation-required-excluded",
+      "run": 3,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 30561
+    },
+    {
+      "engine": "maf",
+      "agent": "recommendation_specialist",
+      "case": "recommendation-required-excluded",
+      "run": 3,
+      "outcome": "accepted",
+      "error_type": null,
+      "duration_ms": 63594
+    }
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "created_at": "2026-11-04T15:25:06.322582+00:00"
+}

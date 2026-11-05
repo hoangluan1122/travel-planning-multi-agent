@@ -58,6 +58,34 @@ class Preferences(Model):
     warnings: list[str] = Field(default_factory=list)
 
 
+class PlacePhoto(Model):
+    """A displayable image: an https URL or a same-origin proxy path, with its credit."""
+
+    url: str = Field(min_length=1, max_length=2000)
+    attribution: str = Field(max_length=500)
+    source_url: str | None = Field(default=None, max_length=2000)
+
+
+class PriceRange(Model):
+    """Per-person price range reported by the source (e.g. Google Places priceRange)."""
+
+    low_vnd: Decimal | None = Field(default=None, ge=0)
+    high_vnd: Decimal | None = Field(default=None, ge=0)
+
+
+class TicketInfo(Model):
+    """Entrance fee from the curated, cited table in app/data/ticket_prices.json."""
+
+    group_id: ShortText  # one ticket can cover several places (e.g. the whole Imperial City)
+    label: str = Field(max_length=300)
+    adult_vnd: Decimal | None = Field(default=None, ge=0)
+    low_vnd: Decimal | None = Field(default=None, ge=0)
+    high_vnd: Decimal | None = Field(default=None, ge=0)
+    note: str | None = Field(default=None, max_length=300)
+    sources: list[str] = Field(default_factory=list, max_length=5)
+    checked: date
+
+
 class Place(Model):
     id: ShortText
     name: ShortText
@@ -75,11 +103,20 @@ class Place(Model):
     website_url: str | None = Field(default=None, max_length=2000)
     image_reference: str | None = Field(default=None, max_length=2000)
     field_sources: dict[str, str] = Field(default_factory=dict)
+    photo: PlacePhoto | None = None
+    rating: float | None = Field(default=None, ge=0, le=5)
+    rating_count: int | None = Field(default=None, ge=0)
+    price_level: Literal["free", "inexpensive", "moderate", "expensive", "very_expensive"] | None = None
+    price_range: PriceRange | None = None
+    maps_url: str | None = Field(default=None, max_length=2000)
+    ticket: TicketInfo | None = None
 
 
 class PlaceResult(Model):
     places: list[Place]
     warnings: list[str] = Field(default_factory=list)
+    # Accommodation candidates; shown with the plan, never scheduled as activities.
+    stays: list[Place] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def unique_places(self):
@@ -197,6 +234,10 @@ class BudgetResult(Model):
     known_subtotal: Decimal
     unknown_items: list[str]
     status: Literal["incomplete", "over_budget", "within_budget"]
+    # Range from source price ranges (e.g. restaurants' priceRange x travelers), not a quote.
+    estimated_low_vnd: Decimal | None = Field(default=None, ge=0)
+    estimated_high_vnd: Decimal | None = Field(default=None, ge=0)
+    estimate_basis: list[str] = Field(default_factory=list)
 
 
 class PlanResponse(Model):
@@ -208,3 +249,4 @@ class PlanResponse(Model):
     weather: WeatherResult
     budget: BudgetResult
     warnings: list[str]
+    stays: list[Place] = Field(default_factory=list)
