@@ -32,6 +32,7 @@ PROTOCOL_VERSION = "1.0"
 SUPPORTED_VERSIONS = {"1.0", "1"}
 MAX_TASKS = 500
 MAX_TEXT = 1000
+PARAGRAPH = chr(10) * 2
 
 PARSE_ERROR, INVALID_REQUEST, METHOD_NOT_FOUND, INVALID_PARAMS, INTERNAL_ERROR = -32700, -32600, -32601, -32602, -32603
 TASK_NOT_FOUND, UNSUPPORTED_OPERATION, CONTENT_TYPE_NOT_SUPPORTED = -32001, -32004, -32005
@@ -211,7 +212,17 @@ def create_a2a_router(chat, token):
             return rpc_error(request_id, INVALID_PARAMS, "That task is already finished; send without taskId")
         context_id = message.get("contextId") or (previous or {}).get("contextId")
         try:
-            session, reply = await chat.handle(context_id, text)
+            session, replies = await chat.handle_turn(context_id, text)
+            reply = replies[-1] if len(replies) > 1 else replies[0]
+            if len(replies) > 1:  # several things asked: one text answer, every artifact
+                reply = reply.model_copy(update={
+                    "text": PARAGRAPH.join(r.text for r in replies),
+                    "places": [p for r in replies for p in r.places],
+                    "citations": [c for r in replies for c in r.citations],
+                    "plan": next((r.plan for r in replies if r.plan is not None), None),
+                    "failed": all(r.failed for r in replies),
+                    "agent": "+".join(r.agent or "" for r in replies),
+                })
         except Exception as exc:
             logger.warning("a2a outcome=failed error_type=%s", type(exc).__name__)
             return rpc_error(request_id, INTERNAL_ERROR, "TravelMate could not handle the message; retry shortly")

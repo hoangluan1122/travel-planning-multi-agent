@@ -67,6 +67,11 @@ CREATE TABLE IF NOT EXISTS reports (
     user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE, reason TEXT NOT NULL,
     resolved INTEGER NOT NULL DEFAULT 0, created_at DOUBLE PRECISION NOT NULL, UNIQUE (review_id, user_id)
 );
+CREATE TABLE IF NOT EXISTS chats (
+    id TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE, title TEXT NOT NULL,
+    state TEXT NOT NULL, created_at DOUBLE PRECISION NOT NULL, updated_at DOUBLE PRECISION NOT NULL
+);
+CREATE INDEX IF NOT EXISTS chats_by_user ON chats(user_id, updated_at DESC);
 CREATE TABLE IF NOT EXISTS audit (
     id {AUTO_ID}, actor_id TEXT, action TEXT NOT NULL, target TEXT NOT NULL, at DOUBLE PRECISION NOT NULL
 );
@@ -404,6 +409,37 @@ class Store:
         with closing(self.connect()) as db, db:
             if db.execute("DELETE FROM trips WHERE id = ? AND user_id = ?", (trip_id, user_id)).rowcount == 0:
                 raise StoreError("Không tìm thấy chuyến đi.", 404)
+
+    # --- chats --------------------------------------------------------------------------------
+
+    def save_chat(self, user_id, chat_id, title, state):
+        now = time.time()
+        with closing(self.connect()) as db, db:
+            owner = db.execute("SELECT user_id FROM chats WHERE id = ?", (chat_id,)).fetchone()
+            if owner is not None and owner["user_id"] != user_id:
+                raise StoreError("Không tìm thấy cuộc trò chuyện.", 404)
+            db.execute(
+                "INSERT INTO chats VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET state = excluded.state, "
+                "updated_at = excluded.updated_at", (chat_id, user_id, title, json.dumps(state, ensure_ascii=False), now, now))
+
+    def chats(self, user_id):
+        with closing(self.connect()) as db:
+            rows = db.execute("SELECT id, title, created_at, updated_at FROM chats WHERE user_id = ? "
+                              "ORDER BY updated_at DESC LIMIT 50", (user_id,)).fetchall()
+        return [dict(r) for r in rows]
+
+    def chat(self, user_id, chat_id):
+        with closing(self.connect()) as db:
+            row = db.execute("SELECT * FROM chats WHERE id = ? AND user_id = ?", (chat_id, user_id)).fetchone()
+        if row is None:
+            raise StoreError("Không tìm thấy cuộc trò chuyện.", 404)
+        return {"id": row["id"], "title": row["title"], "state": json.loads(row["state"]),
+                "updated_at": row["updated_at"]}
+
+    def delete_chat(self, user_id, chat_id):
+        with closing(self.connect()) as db, db:
+            if db.execute("DELETE FROM chats WHERE id = ? AND user_id = ?", (chat_id, user_id)).rowcount == 0:
+                raise StoreError("Không tìm thấy cuộc trò chuyện.", 404)
 
     # --- reviews and reports -----------------------------------------------------------------
 

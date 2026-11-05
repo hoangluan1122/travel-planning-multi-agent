@@ -332,3 +332,36 @@ def test_hidden_places_never_reach_ai_plans(env):
     assert "osm:1" not in {p["id"] for p in plan["places"]}
     scheduled = {a["place_id"] for d in plan["draft"]["days"] for a in d["activities"]}
     assert "osm:1" not in scheduled
+
+
+def test_signed_in_chats_are_saved_restored_and_private(env):
+    client, store = env
+    headers, _ = signup(client)
+    start = date.today() + timedelta(days=5)
+    first = client.post("/api/v1/chat", json={"message": "lên lịch trình đi Huế"}, headers=headers).json()
+    sid = first["session_id"]
+    text = f"từ {start:%d/%m} đến {start + timedelta(1):%d/%m}, 2 người, 5 triệu"
+    second = client.post("/api/v1/chat", json={"session_id": sid, "message": text}, headers=headers).json()
+    assert second["trip_id"] and second["reply"]["plan"]
+    assert [t["id"] for t in client.get("/api/v1/me/trips", headers=headers).json()] == [second["trip_id"]]
+    chats = client.get("/api/v1/me/chats", headers=headers).json()
+    assert [c["id"] for c in chats] == [sid] and chats[0]["title"] == "lên lịch trình đi Huế"
+    saved = client.get(f"/api/v1/me/chats/{sid}", headers=headers).json()
+    assert [m["role"] for m in saved["messages"]] == ["user", "assistant", "user", "assistant"]
+    # After a restart (memory cleared) the conversation continues from the database.
+    client.app.state.chat.store.sessions.clear()
+    cost = client.post("/api/v1/chat", json={"session_id": sid, "message": "chi phí bao nhiêu"}, headers=headers).json()
+    assert cost["session_id"] == sid and cost["reply"]["agent"] == "budget_advisor" and "không coi là 0" in cost["reply"]["text"]
+    # Someone else cannot read or continue it.
+    other, _ = signup(client, "b@example.com", "B")
+    assert client.get(f"/api/v1/me/chats/{sid}", headers=other).status_code == 404
+    theirs = client.post("/api/v1/chat", json={"session_id": sid, "message": "chi phí bao nhiêu"}, headers=other).json()
+    assert theirs["session_id"] != sid
+    assert client.delete(f"/api/v1/me/chats/{sid}", headers=headers).status_code == 200
+
+
+def test_compound_question_gets_one_answer_per_specialist(env):
+    client, _ = env
+    headers, _ = signup(client)
+    r = client.post("/api/v1/chat", json={"message": "tìm quán ăn ở Huế và thời tiết thế nào"}, headers=headers).json()
+    assert [x["agent"] for x in r["replies"]] == ["place_finder", "weather_advisor"]

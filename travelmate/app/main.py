@@ -23,11 +23,12 @@ from .agents import (
     Registry,
     WeatherAgent,
 )
-from .chat import ChatRequest, ChatResponse
+from .chat import ChatRequest, ChatResponse, ChatSession
 from .models import PlaceResult, PlaceSearchRequest, PlanResponse, TripRequest
 from .orchestrator import Orchestrator
 from .place_media import GooglePhotoProxy
 from .providers import DemoProvider, LiveProvider
+from .store import StoreError
 from .telemetry import configure_telemetry
 
 logger = logging.getLogger(__name__)
@@ -234,6 +235,7 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
     settings, provider, orchestrator, chat, photos = (
         services.settings, services.provider, services.orchestrator, services.chat, services.photos)
     app = FastAPI(title="TravelMate API", version="0.1.0")
+    app.state.chat, app.state.store = chat, store
     bearer = HTTPBearer(auto_error=False)
 
     async def authorize(credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
@@ -321,17 +323,41 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
             raise HTTPException(502, "Planning failed; check provider configuration and retry") from None
 
     @app.post("/api/v1/chat", response_model=ChatResponse, dependencies=[Depends(authorize)])
-    async def chat_turn(data: ChatRequest):
-        # Specialist failures become a chat reply; anything else must not leak details.
+    async def chat_turn(data: ChatRequest, credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
+        # Signed-in users' chats are saved to the database (and plans to their trips); others stay in memory.
+        user = None
+        if credentials is not None:
+            user = await asyncio.to_thread(store.user_for_token, credentials.credentials)
+        owner = user["id"] if user else None
+        trip_id = None
         try:
-            session, reply = await chat.handle(data.session_id, data.message)
-            if reply.places:
-                reply.places = await visible(reply.places)
-            await remember(reply.places + (reply.plan.places + reply.plan.stays if reply.plan else []))
+            session = None
+            if owner and data.session_id and data.session_id not in chat.store.sessions:
+                try:
+                    saved = await asyncio.to_thread(store.chat, owner, data.session_id)
+                    session = chat.store.put(ChatSession.load(saved["id"], owner, saved["state"]))
+                except StoreError:
+                    session = None  # unknown or someone else's: start a new conversation
+            session, replies = await chat.handle_turn(data.session_id, data.message, owner, session)
+            for reply in replies:
+                if reply.places:
+                    reply.places = await visible(reply.places)
+                await remember(reply.places + (reply.plan.places + reply.plan.stays if reply.plan else []))
+            if owner:
+                title = next((m.text for m in session.messages if m.role == "user"), data.message)[:80]
+                await asyncio.to_thread(store.save_chat, owner, session.id, title, session.dump())
+                planned = next((r for r in replies if r.plan is not None and r.trip is not None), None)
+                if planned:
+                    saved_trip = await asyncio.to_thread(
+                        store.save_trip, owner, planned.trip.model_dump(mode="json"),
+                        planned.plan.model_dump(mode="json"),
+                        f"{planned.trip.destination} · {len(planned.plan.draft.days)} ngày (Trợ lý AI)")
+                    trip_id = saved_trip["id"]
         except Exception as exc:
             logger.warning("chat outcome=failed error_type=%s", type(exc).__name__)
             raise HTTPException(502, "Chat failed; retry shortly") from None
-        return ChatResponse(session_id=session.id, reply=reply, active_agent=session.active_agent)
+        return ChatResponse(session_id=session.id, reply=replies[0], replies=replies,
+                            active_agent=session.active_agent, trip_id=trip_id)
 
     from .accounts import create_accounts_router
 

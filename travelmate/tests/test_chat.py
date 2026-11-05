@@ -269,3 +269,16 @@ def test_chat_endpoint_keeps_the_session_and_requires_the_token():
                          headers=auth).json()
     assert second["session_id"] == first["session_id"] and "điểm đến Huế" in second["reply"]["text"]
     assert client.post("/api/v1/chat", json={"message": ""}, headers=auth).status_code == 422
+
+
+def test_rule_router_splits_compound_questions_and_orders_them():
+    decision = rule_decision(ChatSession(), "thời tiết Huế thế nào và lên lịch trình 2 ngày")
+    assert [h.agent for h in decision.hand_offs()] == ["trip_planner", "weather_advisor"]
+    single = rule_decision(ChatSession(), "tìm quán ăn và quán cà phê ở Huế")
+    assert single.also == [] and single.hand_off.agent == "place_finder"
+
+
+def test_decision_also_is_validated():
+    with pytest.raises(ValueError, match="place_query"):
+        Decision(action="hand_off", hand_off=HandOff(agent="weather_advisor", reason="thời tiết"),
+                 also=[HandOff(agent="place_finder", reason="tìm quán")])

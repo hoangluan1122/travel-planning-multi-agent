@@ -171,10 +171,10 @@
     // Multi-agent chat: the concierge hands each message to one specialist; the badge shows who answered and why.
     const badges={concierge:'Trợ lý điều phối',place_finder:'Chuyên gia địa điểm',trip_planner:'Chuyên gia lịch trình',budget_advisor:'Chuyên gia chi phí',weather_advisor:'Chuyên gia thời tiết',guide_advisor:'Hướng dẫn viên'};
     const state=read('tm-chat',{session_id:null,messages:[]});
-    const main=render(`<h1>Trợ lý AI.</h1><p>Một trợ lý điều phối đọc câu hỏi rồi chuyển cho đúng chuyên gia: địa điểm, lịch trình, chi phí, thời tiết hoặc hướng dẫn viên (trả lời có nguồn). Thông tin chuyến đi được nhớ qua các lượt.</p><div id="tm-chat-log" class="chat-log" aria-live="polite"></div><form id="tm-chat-form" class="chat-form"><input name="message" required maxlength="1000" autocomplete="off" placeholder="Ví dụ: tìm quán chay ở Huế"><button class="button dark">Gửi</button></form><div class="api-actions"><button type="button" class="button outline" id="tm-chat-reset">Cuộc trò chuyện mới</button>${['Tìm quán chay ở Huế','Lăng Tự Đức có gì đặc biệt, giá vé bao nhiêu?','Lên lịch đi Huế 2 ngày, 2 người, 5 triệu','Thời tiết Huế thế nào?','Chi phí bao nhiêu?'].map(t=>`<button type="button" class="button outline chat-suggest">${esc(t)}</button>`).join('')}</div>`);
+    const main=render(`<h1>Trợ lý AI.</h1><p>Một trợ lý điều phối đọc câu hỏi rồi chuyển cho đúng chuyên gia: địa điểm, lịch trình, chi phí, thời tiết hoặc hướng dẫn viên (trả lời có nguồn). Thông tin chuyến đi được nhớ qua các lượt.</p><div id="tm-chat-log" class="chat-log" aria-live="polite"></div><form id="tm-chat-form" class="chat-form"><input name="message" required maxlength="1000" autocomplete="off" placeholder="Ví dụ: tìm quán chay ở Huế"><button class="button dark">Gửi</button></form><div class="api-actions"><button type="button" class="button outline" id="tm-chat-reset">Cuộc trò chuyện mới</button>${['Tìm quán chay ở Huế','Lăng Tự Đức có gì đặc biệt, giá vé bao nhiêu?','Lên lịch đi Huế 2 ngày, 2 người, 5 triệu','Thời tiết Huế thế nào và chi phí bao nhiêu?'].map(t=>`<button type="button" class="button outline chat-suggest">${esc(t)}</button>`).join('')}</div>`);
     const log=main.querySelector('#tm-chat-log'),form=main.querySelector('#tm-chat-form'),input=form.querySelector('input'),button=form.querySelector('button');
     const placeCard=p=>`<article class="api-card chat-place">${photo(p,'api-thumb')}<h4><a href="?view=place&id=${encodeURIComponent(p.id)}">${esc(p.name)}</a></h4>${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}<p>${esc(p.address||'')}</p><p>${esc(price(p))}</p><p>${placeLinks(p)}</p></article>`;
-    const bubble=m=>m.role==='user'?`<div class="chat-msg user"><p>${esc(m.text)}</p></div>`:`<div class="chat-msg bot"><div class="chat-agent">${esc(badges[m.agent]||m.agent||'Trợ lý')}</div>${m.reason?`<p class="api-meta">Vì sao chọn: ${esc(m.reason)}</p>`:''}<p>${esc(m.text)}</p>${m.citations?.length?`<p class="api-meta">Nguồn: ${m.citations.filter(c=>/^https:\/\//.test(c.url)).map(c=>`<a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">[${esc(c.id)}] ${esc(c.title)}</a>`).join(' · ')}</p>`:''}${m.places?.length?`<div class="api-grid chat-places">${m.places.slice(0,6).map(placeCard).join('')}</div>`:''}${m.plan_id?`<p>${link(`plan&id=${encodeURIComponent(m.plan_id)}`,'Mở lịch trình đầy đủ →')}</p>`:''}</div>`;
+    const bubble=m=>m.role==='user'?`<div class="chat-msg user"><p>${esc(m.text)}</p></div>`:`<div class="chat-msg bot"><div class="chat-agent">${esc(badges[m.agent]||m.agent||'Trợ lý')}</div>${m.reason?`<p class="api-meta">Vì sao chọn: ${esc(m.reason)}</p>`:''}<p>${esc(m.text)}</p>${m.citations?.length?`<p class="api-meta">Nguồn: ${m.citations.filter(c=>/^https:\/\//.test(c.url)).map(c=>`<a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">[${esc(c.id)}] ${esc(c.title)}</a>`).join(' · ')}</p>`:''}${m.places?.length?`<div class="api-grid chat-places">${m.places.slice(0,6).map(placeCard).join('')}</div>`:''}${m.plan_id?`<p>${m.trip_id?link(`trip&id=${encodeURIComponent(m.trip_id)}`,'Mở lịch trình (đã lưu vào Chuyến đi của tôi) →'):link(`plan&id=${encodeURIComponent(m.plan_id)}`,'Mở lịch trình đầy đủ →')}</p>`:''}</div>`;
     const draw=()=>{log.innerHTML=state.messages.map(bubble).join('')||'<p class="api-meta">Hãy bắt đầu bằng một câu hỏi.</p>';log.scrollTop=log.scrollHeight};
     const send=async text=>{
       state.messages.push({role:'user',text});draw();button.disabled=true;input.value='';
@@ -182,15 +182,34 @@
       try{
         const r=await api('/api/v1/chat',{session_id:state.session_id,message:text});
         state.session_id=r.session_id;
-        const m={role:'assistant',agent:r.reply.agent,reason:r.reply.reason,text:r.reply.text,places:r.reply.places,citations:r.reply.citations};
-        if(r.reply.plan&&r.reply.trip){save('tm-plans',[{request:r.reply.trip,result:r.reply.plan},...records()].slice(0,20));save('tm-current',r.reply.plan.request_id);m.plan_id=r.reply.plan.request_id}
-        state.messages.push(m);
+        for(const reply of (r.replies?.length?r.replies:[r.reply])){
+          const m={role:'assistant',agent:reply.agent,reason:reply.reason,text:reply.text,places:reply.places,citations:reply.citations};
+          if(reply.plan&&reply.trip){save('tm-plans',[{request:reply.trip,result:reply.plan,trip_id:r.trip_id||undefined},...records()].slice(0,20));save('tm-current',reply.plan.request_id);m.plan_id=reply.plan.request_id;if(r.trip_id)m.trip_id=r.trip_id}
+          state.messages.push(m);
+        }
+        loadHistory();
       }catch(error){state.messages.push({role:'assistant',agent:'concierge',text:error.message})}
       finally{save('tm-chat',{...state,messages:state.messages.slice(-40)});button.disabled=false;draw();input.focus()}
     };
     form.onsubmit=e=>{e.preventDefault();const t=input.value.trim();if(t)send(t)};
     main.querySelectorAll('.chat-suggest').forEach(b=>b.onclick=()=>{if(!button.disabled)send(b.textContent)});
-    main.querySelector('#tm-chat-reset').onclick=()=>{state.session_id=null;state.messages=[];save('tm-chat',state);draw()};
+    main.querySelector('#tm-chat-reset').onclick=()=>{state.session_id=null;state.messages=[];save('tm-chat',state);draw();loadHistory()};
+    // Signed-in users: earlier conversations are kept in their account.
+    const history=document.createElement('section');history.className='api-card';history.id='tm-chat-history';main.querySelector('.page-shell').append(history);
+    function loadHistory(){
+      if(!session()?.token){history.innerHTML=`<p class="api-meta">${link('login&next=%3Fview%3Dchat','Đăng nhập')} để lưu các cuộc trò chuyện và tự lưu lịch trình vào tài khoản.</p>`;return}
+      api('/api/v1/me/chats',null,undefined,'GET').then(list=>{
+        history.innerHTML=`<h3>Cuộc trò chuyện trước</h3>${list.map(c=>`<div class="tm-row"><button type="button" class="button outline" data-open-chat="${esc(c.id)}">${esc(c.title)}</button><span class="api-meta">${new Date(c.updated_at*1000).toLocaleString('vi-VN')}</span><button type="button" class="button outline" data-del-chat="${esc(c.id)}" aria-label="Xoá cuộc trò chuyện">Xoá</button></div>`).join('')||'<p>Chưa có cuộc trò chuyện nào được lưu.</p>'}`;
+      }).catch(()=>{history.textContent=''});
+    }
+    history.onclick=async e=>{
+      const open=e.target.dataset.openChat, del=e.target.dataset.delChat;
+      try{
+        if(open){const c=await api(`/api/v1/me/chats/${encodeURIComponent(open)}`,null,undefined,'GET');state.session_id=c.id;state.messages=c.messages.map(m=>({role:m.role,agent:m.agent,reason:m.reason,text:m.text,places:m.places,citations:m.citations}));save('tm-chat',state);draw()}
+        if(del&&confirm('Xoá cuộc trò chuyện này?')){await api(`/api/v1/me/chats/${encodeURIComponent(del)}`,null,undefined,'DELETE');if(state.session_id===del){state.session_id=null;state.messages=[];save('tm-chat',state);draw()}loadHistory()}
+      }catch(err){alert(err.message)}
+    };
+    loadHistory();
     draw();
   }
   // Remaining designs are explicitly previews, not simulated authenticated features.

@@ -289,6 +289,24 @@ def create_accounts_router(store, settings):
         await run(store.delete_trip, user["id"], trip_id)
         return {"ok": True}
 
+    # --- chats -----------------------------------------------------------------------------
+
+    @router.get("/me/chats")
+    async def my_chats(user=Depends(current_user)):
+        return await run(store.chats, user["id"])
+
+    @router.get("/me/chats/{chat_id}")
+    async def get_chat(chat_id: str, user=Depends(current_user)):
+        chat = await run(store.chat, user["id"], chat_id)
+        state = chat["state"]
+        return {"id": chat["id"], "title": chat["title"], "messages": state.get("messages", []),
+                "active_agent": state.get("active_agent")}
+
+    @router.delete("/me/chats/{chat_id}")
+    async def delete_chat(chat_id: str, user=Depends(current_user)):
+        await run(store.delete_chat, user["id"], chat_id)
+        return {"ok": True}
+
     # --- favourites and place pages -------------------------------------------------------
 
     @router.get("/me/favorites")

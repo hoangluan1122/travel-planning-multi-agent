@@ -117,6 +117,8 @@ class Decision(Model):
     action: Literal["reply", "hand_off"]
     text: str | None = Field(default=None, max_length=600)
     hand_off: HandOff | None = None
+    # Other things asked in the same message ("lên lịch và báo thời tiết"), run in order after hand_off.
+    also: list[HandOff] = Field(default_factory=list, max_length=2)
 
     @model_validator(mode="after")
     def complete(self):
@@ -125,9 +127,23 @@ class Decision(Model):
         if self.action == "hand_off":
             if self.hand_off is None:
                 raise ValueError("A hand_off needs hand_off details")
-            if self.hand_off.agent == "place_finder" and self.hand_off.place_query is None:
-                raise ValueError("place_finder needs place_query (category, keyword, destination)")
+            for hand in [self.hand_off, *self.also]:
+                if hand.agent == "place_finder" and hand.place_query is None:
+                    raise ValueError("place_finder needs place_query (category, keyword, destination)")
         return self
+
+    def hand_offs(self):
+        """Primary hand-off first, then the others; the planner before costs/weather that need its plan."""
+        if self.action != "hand_off":
+            return []
+        seen, out = set(), []
+        for hand in [self.hand_off, *self.also]:
+            key = (hand.agent, hand.place_query.model_dump_json() if hand.place_query else "", hand.question or "")
+            if key not in seen:
+                seen.add(key)
+                out.append(hand)
+        order = {"trip_planner": 0, "place_finder": 1, "guide_advisor": 1, "weather_advisor": 2, "budget_advisor": 3}
+        return sorted(out, key=lambda h: order.get(h.agent, 1))
 
 
 class ChatMessage(Model):
@@ -151,17 +167,40 @@ class ChatRequest(Model):
 class ChatResponse(Model):
     session_id: str
     reply: ChatMessage
+    # All answers of this turn when the message asked several things (reply is the first).
+    replies: list[ChatMessage] = Field(default_factory=list)
     active_agent: str | None = None
+    trip_id: str | None = None  # the plan in this turn, saved to the signed-in user's trips
 
 
 class ChatSession:
-    def __init__(self):
-        self.id = str(uuid.uuid4())
+    def __init__(self, session_id=None, owner=None):
+        self.id = session_id or str(uuid.uuid4())
+        self.owner = owner  # user id for signed-in chats (saved to the database), else None
         self.messages: list[ChatMessage] = []
         self.slots = TripSlots()
         self.active_agent: str | None = None
         self.last_plan: PlanResponse | None = None
         self.touched = time.monotonic()
+
+    def dump(self):
+        """JSON-safe state for the database (the last plan is kept; it is what costs questions use)."""
+        return {
+            "messages": [m.model_dump(mode="json", exclude={"plan"}) for m in self.messages[-60:]],
+            "slots": self.slots.model_dump(mode="json"),
+            "active_agent": self.active_agent,
+            "last_plan": self.last_plan.model_dump(mode="json") if self.last_plan else None,
+        }
+
+    @classmethod
+    def load(cls, session_id, owner, data):
+        session = cls(session_id, owner)
+        session.messages = [ChatMessage.model_validate(m) for m in data.get("messages", [])]
+        session.slots = TripSlots.model_validate(data.get("slots") or {})
+        session.active_agent = data.get("active_agent")
+        if data.get("last_plan"):
+            session.last_plan = PlanResponse.model_validate(data["last_plan"])
+        return session
 
 
 class SessionStore:
@@ -170,16 +209,23 @@ class SessionStore:
     def __init__(self):
         self.sessions: dict[str, ChatSession] = {}
 
-    def get(self, session_id):
+    def put(self, session):
+        self.sessions[session.id] = session
+        session.touched = time.monotonic()
+        return session
+
+    def get(self, session_id, owner=None):
         now = time.monotonic()
         for key in [k for k, s in self.sessions.items() if now - s.touched > SESSION_TTL_S]:
             self.sessions.pop(key)
         session = self.sessions.get(session_id or "")
+        if session is not None and session.owner != owner:
+            session = None  # never continue someone else's conversation
         if session is None:
             if len(self.sessions) >= MAX_SESSIONS:
                 oldest = min(self.sessions.values(), key=lambda s: s.touched)
                 self.sessions.pop(oldest.id)
-            session = ChatSession()
+            session = ChatSession(owner=owner)
             self.sessions[session.id] = session
         session.touched = now
         return session
@@ -206,6 +252,8 @@ CONCIERGE_INSTRUCTION = (
     "budget_vnd as a number (5 triệu = 5000000), interests, notes. Never invent details the user did not "
     "give.\n"
     "5. If the user is answering a question from the active agent, hand off to that same agent.\n"
+    "5b. If the message asks for two or three different things (for example an itinerary and the weather), "
+    "put the first in hand_off and the others in \"also\": a list of up to 2 more hand_off objects.\n"
     "6. reason: one short Vietnamese sentence saying why this agent fits."
 )
 
@@ -333,10 +381,27 @@ def extract_slots(text):
         return TripSlots()
 
 
+SPLIT = re.compile(r"\s+(?:và|rồi|sau đó|với lại|kèm|cùng với)\s+|;|\?\s+", re.I)
+
+
 def rule_decision(session, text):
-    """Keyword router used without an LLM or when the concierge fails."""
-    lowered = text.casefold()
+    """Keyword router used without an LLM or when the concierge fails; splits compound questions."""
     slots = extract_slots(text)
+    parts = [p for p in SPLIT.split(text) if p and p.strip()]
+    if len(parts) > 1:
+        hands = []
+        for part in parts:
+            decision = single_rule_decision(session, part, slots)
+            if decision.action == "hand_off" and decision.hand_off.reason.startswith("Chuyển theo"):
+                if decision.hand_off.agent not in [h.agent for h in hands]:
+                    hands.append(decision.hand_off)
+        if len(hands) > 1:
+            return Decision(action="hand_off", hand_off=hands[0], also=hands[1:3])
+    return single_rule_decision(session, text, slots)
+
+
+def single_rule_decision(session, text, slots):
+    lowered = text.casefold()
     for agent, pattern in ROUTES:
         if re.search(pattern, lowered):
             query = None
@@ -376,15 +441,20 @@ class ChatService:
                 logger.warning("chat concierge outcome=fallback error_type=%s", type(exc).__name__)
         return rule_decision(session, text), "rules"
 
-    async def handle(self, session_id, text):
-        session = self.store.get(session_id)
+    async def handle(self, session_id, text, owner=None):
+        """One user message; returns (session, first reply). See handle_turn for every reply."""
+        session, replies = await self.handle_turn(session_id, text, owner)
+        return session, replies[0]
+
+    async def handle_turn(self, session_id, text, owner=None, session=None):
+        session = session or self.store.get(session_id, owner)
         context = Context()
         session.messages.append(ChatMessage(role="user", text=text))
         decision, router = await self.route(session, text, context)
+        replies = []
         if decision.action == "reply":
-            reply = ChatMessage(role="assistant", agent="concierge", text=decision.text)
-        else:
-            hand = decision.hand_off
+            replies.append(ChatMessage(role="assistant", agent="concierge", text=decision.text))
+        for hand in decision.hand_offs():
             session.slots = session.slots.merged(hand.slots)
             handler = getattr(self, hand.agent)
             try:
@@ -398,9 +468,11 @@ class ChatService:
                 ))
             reply.reason = hand.reason
             session.active_agent = hand.agent
-        session.messages.append(reply)
-        logger.info("chat session=%s router=%s agent=%s", session.id, router, reply.agent)
-        return session, reply
+            replies.append(reply)
+        session.messages.extend(replies)
+        logger.info("chat session=%s router=%s agents=%s", session.id, router,
+                    ",".join(r.agent or "" for r in replies))
+        return session, replies
 
     # --- specialists ----------------------------------------------------------------------
 
