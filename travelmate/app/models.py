@@ -169,6 +169,8 @@ class PlannerInput(Model):
     # Merged request + saved interests. Reaches the LLM only as inspect_trip data, never
     # as prompt instructions, so saved text cannot act as a command.
     preferences: Preferences | None = None
+    # Problems the self-check found in a previous draft (metacognition); fix them if possible.
+    feedback: list[str] = Field(default_factory=list, max_length=10)
 
     @model_validator(mode="after")
     def consistent_evidence(self):
@@ -331,6 +333,27 @@ class PlanningTrace(Model):
 
 
 
+class CheckResult(Model):
+    id: str = Field(max_length=80)
+    label: str = Field(max_length=200)
+    passed: bool
+    detail: str = Field(max_length=500)
+
+
+class SelfCheckRound(Model):
+    round: int
+    checks: list[CheckResult]
+
+
+class SelfCheckReport(Model):
+    """How the planner reviewed and revised its own draft before answering."""
+
+    rounds: list[SelfCheckRound]
+    revisions: int = 0
+    chosen_round: int = 1
+    final_passed: bool
+
+
 class PlanResponse(Model):
     request_id: UUID
     mode: Literal["demo", "live"]
@@ -342,3 +365,4 @@ class PlanResponse(Model):
     warnings: list[str]
     stays: list[Place] = Field(default_factory=list)
     planning: PlanningTrace | None = None
+    self_check: SelfCheckReport | None = None
