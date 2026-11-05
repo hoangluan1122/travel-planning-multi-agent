@@ -29,18 +29,20 @@ from typing import Literal
 from pydantic import Field, ValidationError, model_validator
 
 from .agents import AgentError
+from .knowledge import Citation, KnowledgeAgent, KnowledgeBase
 from .models import Context, Model, Place, PlaceSearchRequest, PlanResponse, TripRequest
 from .tool_loop import ToolLoop, run_tool_loop
 
 logger = logging.getLogger(__name__)
 
-Specialist = Literal["place_finder", "trip_planner", "budget_advisor", "weather_advisor"]
+Specialist = Literal["place_finder", "trip_planner", "budget_advisor", "weather_advisor", "guide_advisor"]
 AGENT_LABELS = {
     "concierge": "Trợ lý điều phối",
     "place_finder": "Chuyên gia địa điểm",
     "trip_planner": "Chuyên gia lịch trình",
     "budget_advisor": "Chuyên gia chi phí",
     "weather_advisor": "Chuyên gia thời tiết",
+    "guide_advisor": "Hướng dẫn viên",
 }
 CATEGORY_LABELS = {"attraction": "điểm tham quan", "restaurant": "quán ăn", "hotel": "nơi ở"}
 WMO = [(0, "trời quang"), (2, "ít mây"), (3, "nhiều mây"), (48, "sương mù"), (57, "mưa phùn"), (67, "mưa"),
@@ -105,6 +107,8 @@ class HandOff(Model):
     reason: str = Field(min_length=3, max_length=200)
     slots: TripSlots = Field(default_factory=TripSlots)
     place_query: PlaceQuery | None = None
+    # guide_advisor: the user's question rewritten to stand alone ("ở đó" → the place's name)
+    question: str | None = Field(default=None, max_length=300)
 
 
 class Decision(Model):
@@ -132,6 +136,7 @@ class ChatMessage(Model):
     agent: str | None = None
     reason: str | None = None
     places: list[Place] = Field(default_factory=list)
+    citations: list[Citation] = Field(default_factory=list)
     plan: PlanResponse | None = None
     trip: TripRequest | None = None
     at: datetime = Field(default_factory=lambda: datetime.now(UTC))
@@ -191,8 +196,10 @@ CONCIERGE_INSTRUCTION = (
     "\"place_query\": {...}}}\n"
     "3. Agents: place_finder (find restaurants, sights or stays; needs place_query with category "
     "attraction|restaurant|hotel, a short literal keyword such as \"chay\" or \"hải sản\" or empty, and "
-    "destination); trip_planner (make or change a day-by-day itinerary); budget_advisor (cost or price "
-    "questions); weather_advisor (weather questions).\n"
+    "destination); trip_planner (make or change a day-by-day itinerary); budget_advisor (total trip cost "
+    "of the current plan); weather_advisor (weather questions); guide_advisor (facts about a place or city: "
+    "history, what is special, entrance fees, opening hours, getting around, travel tips; set question to "
+    "the user's question rewritten to stand alone, naming the place).\n"
     "4. Put every trip detail the user has given into slots: destination, start_date and end_date as "
     "YYYY-MM-DD (resolve words like 'cuối tuần này' or '3 ngày từ thứ Bảy' using today's date), travelers, "
     "budget_vnd as a number (5 triệu = 5000000), interests, notes. Never invent details the user did not "
@@ -264,7 +271,9 @@ class ConciergeAgent:
 
 ROUTES = [
     ("weather_advisor", r"thời tiết|mưa|nắng|nhiệt độ|dự báo"),
-    ("budget_advisor", r"chi phí|bao nhiêu tiền|giá vé|giá|ngân sách|tốn"),
+    ("guide_advisor", r"có gì|lịch sử|giới thiệu|mở cửa|mấy giờ|giờ mở|nên đi|kinh nghiệm|đặc biệt|đi lại|"
+                      r"di chuyển|giá vé|vé vào|vé tham quan|là gì|nổi tiếng|ý nghĩa"),
+    ("budget_advisor", r"chi phí|bao nhiêu tiền|giá|ngân sách|tốn|tổng"),
     ("trip_planner", r"lịch trình|lên lịch|kế hoạch|lịch đi|\bngày\b.*\bđi\b|đi .*\bngày\b"),
     ("place_finder", r"quán|ăn|uống|cà phê|cafe|khách sạn|nhà nghỉ|homestay|ở đâu|chơi|tham quan|đi đâu"),
 ]
@@ -342,14 +351,16 @@ def rule_decision(session, text):
             agent=session.active_agent, reason="Tiếp tục với chuyên gia đang trao đổi.", slots=slots,
         ))
     return Decision(action="reply", text=(
-        "Mình có thể tìm quán ăn, chỗ chơi, khách sạn, lập lịch trình, xem chi phí hoặc thời tiết. "
+        "Mình có thể tìm quán ăn, chỗ chơi, khách sạn, lập lịch trình, xem chi phí, thời tiết, "
+        "hoặc kể về một địa danh (lịch sử, giá vé, kinh nghiệm). "
         "Bạn muốn bắt đầu với việc gì?"
     ))
 
 
 class ChatService:
-    def __init__(self, orchestrator, provider, concierge=None, timeout=60):
+    def __init__(self, orchestrator, provider, concierge=None, timeout=60, guide=None):
         self.orchestrator, self.provider, self.concierge = orchestrator, provider, concierge
+        self.guide = guide or KnowledgeAgent(KnowledgeBase())
         self.timeout = timeout
         self.store = SessionStore()
 
@@ -377,7 +388,9 @@ class ChatService:
             handler = getattr(self, hand.agent)
             try:
                 reply = await handler(session, hand, context)
-            except (AgentError, TimeoutError) as exc:
+            except asyncio.CancelledError:
+                raise
+            except Exception as exc:
                 logger.warning("chat specialist=%s outcome=failed error_type=%s", hand.agent, type(exc).__name__)
                 reply = ChatMessage(role="assistant", agent=hand.agent, text=(
                     "Mình chưa xử lý được yêu cầu này do nguồn dữ liệu hoặc mô hình đang lỗi. Bạn thử lại sau ít phút nhé."
@@ -488,3 +501,11 @@ class ChatService:
         days = "; ".join(f"{d.date.strftime('%d/%m')}: {weather_label(d.weather_code)}" for d in forecast.days)
         return ChatMessage(role="assistant", agent="weather_advisor",
                            text=f"Dự báo ở {slots.destination} — {days}. Nguồn: Open-Meteo.")
+
+    async def guide_advisor(self, session, hand, context):
+        question = (hand.question or session.messages[-1].text).strip()
+        answer = await self.guide.ask(question, context, session.slots.destination)
+        text = answer.text
+        if answer.answered_by == "extractive":
+            text += " (Trích nguyên văn vì chưa dùng được mô hình để tóm tắt.)"
+        return ChatMessage(role="assistant", agent="guide_advisor", text=text, citations=answer.citations)
