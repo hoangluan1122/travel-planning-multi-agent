@@ -308,11 +308,14 @@ class KnowledgeAgent:
                 out.append(existing)
             return out
 
-        if self.model_factory is None:
+        async def quoted():
             topic = topic_query(question)
             state["searches"] += [f"tickets:{plain(topic)}", f"wikipedia:{plain(topic)}"]
             passages = await collect(topic, "tickets") + await collect(topic, "wikipedia")
             return extractive_answer(passages, state["searches"])
+
+        if self.model_factory is None:
+            return await quoted()
 
         async def search_knowledge(query: str, source: str) -> dict:
             """Search one source and return passages with ids to cite.
@@ -388,10 +391,14 @@ class KnowledgeAgent:
         )
         try:
             await run_tool_loop(self.engine, self.model_factory, loop, context)
-        except AgentError as exc:
+        except asyncio.CancelledError:
+            raise
+        except Exception as exc:  # model quota/outage or budget: quote sources instead of failing
             if state["answer"] is None:
                 logger.warning("knowledge outcome=extractive_fallback error_type=%s", type(exc).__name__)
         if state["answer"] is None:
             # Fail soft: quote what was retrieved rather than lose the searches already made.
+            if not retrieved:
+                return await quoted()
             return extractive_answer(list(retrieved.values()), state["searches"])
         return state["answer"]

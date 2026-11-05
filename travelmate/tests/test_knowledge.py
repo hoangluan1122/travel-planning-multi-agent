@@ -206,3 +206,12 @@ async def test_guide_gets_the_standalone_question_and_returns_citations():
     _, reply = await ChatService(Orchestrator(), Provider(), concierge, guide=guide).handle(None, "ở đó có gì?")
     assert guide.asked == [("Lăng Tự Đức có gì đặc biệt?", None)]
     assert reply.agent == "guide_advisor" and reply.citations[0].id == "w1"
+
+
+async def test_model_outage_falls_back_to_quotes():
+    def broken_model():
+        raise RuntimeError("429 quota")
+
+    base = FakeBase()
+    answer = await KnowledgeAgent(base, broken_model, "adk").ask("Lăng Tự Đức có gì đặc biệt?", Context())
+    assert answer.answered_by == "extractive" and answer.citations

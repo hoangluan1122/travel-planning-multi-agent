@@ -51,6 +51,15 @@ Câu hỏi về một địa danh (lịch sử, giá vé, giờ mở cửa, đi 
 (Agentic RAG): agent tự tìm trong Wikipedia, Wikivoyage và bảng giá vé, trả lời kèm nguồn, và
 không được ghi con số nào không có trong nguồn. Xem [`docs/agentic-rag.md`](../docs/agentic-rag.md).
 
+## MCP và A2A
+
+- **MCP:** `uv run python -m app.mcp_server` mở các tool `search_places`, `weather_forecast`,
+  `ask_guide`, `plan_trip` cho Claude Desktop và các client MCP khác (cần extra `mcp`).
+- **A2A 1.0:** API ở cổng 8000 có Agent Card tại `/.well-known/agent-card.json` và endpoint
+  JSON-RPC `/a2a` (`SendMessage`, `GetTask`), để agent khác giao việc cho TravelMate.
+
+Chi tiết, cấu hình Claude Desktop và kết quả chạy thử: [`docs/mcp-a2a.md`](../docs/mcp-a2a.md).
+
 ## Place Agent — dữ liệu thật
 
 ```powershell
