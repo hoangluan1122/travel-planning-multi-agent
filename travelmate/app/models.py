@@ -353,7 +353,7 @@ class SelfCheckReport(Model):
     chosen_round: int = 1
     final_passed: bool
     # "rules" when the itinerary LLM failed and the rule-based scheduler made the draft
-    scheduled_by: Literal["llm", "rules", "demo"] = "llm"
+    scheduled_by: Literal["llm", "rules", "demo", "manual"] = "llm"
 
 
 class PlanResponse(Model):

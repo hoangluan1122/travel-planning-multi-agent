@@ -394,7 +394,7 @@ class Store:
             view.update(request=request, result=result)
         return view
 
-    def update_trip(self, user_id, trip_id, title=None, result=None):
+    def update_trip(self, user_id, trip_id, title=None, result=None, request=None):
         with closing(self.connect()) as db, db:
             if db.execute("SELECT 1 FROM trips WHERE id = ? AND user_id = ?", (trip_id, user_id)).fetchone() is None:
                 raise StoreError("Không tìm thấy chuyến đi.", 404)
@@ -402,6 +402,8 @@ class Store:
                 db.execute("UPDATE trips SET title = ? WHERE id = ?", (title, trip_id))
             if result is not None:
                 db.execute("UPDATE trips SET result = ? WHERE id = ?", (json.dumps(result, ensure_ascii=False), trip_id))
+            if request is not None:
+                db.execute("UPDATE trips SET request = ? WHERE id = ?", (json.dumps(request, ensure_ascii=False), trip_id))
             db.execute("UPDATE trips SET updated_at = ? WHERE id = ?", (time.time(), trip_id))
         return self.trip(user_id, trip_id)
 

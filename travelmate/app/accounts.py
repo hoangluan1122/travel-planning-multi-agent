@@ -15,10 +15,23 @@ from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import Field, ValidationError, field_validator
+from pydantic import Field, ValidationError, field_validator, model_validator
 
 from .agents import BudgetAgent
-from .models import BudgetInput, Context, Draft, Model, Place, PlaceResult, TripRequest
+from .models import (
+    BudgetInput,
+    Context,
+    Draft,
+    Model,
+    Place,
+    PlaceResult,
+    SelfCheckReport,
+    SelfCheckRound,
+    TripRequest,
+    WeatherResult,
+)
+from .rule_scheduler import rule_draft
+from .self_check import review_draft
 from .store import StoreError
 
 logger = logging.getLogger(__name__)
@@ -79,11 +92,32 @@ class TripSave(Model):
     title: str | None = Field(default=None, max_length=120)
 
 
+class UserCost(Model):
+    category: Literal["lodging", "food", "transport", "other"]
+    label: str = Field(min_length=1, max_length=80)
+    amount_vnd: int = Field(gt=0, le=10_000_000_000)
+
+
+COST_UNKNOWN = {"lodging": "Lưu trú", "food": "Ăn uống", "transport": "Di chuyển"}
+
+
 class TripEdit(Model):
     title: str | None = Field(default=None, min_length=1, max_length=120)
     draft: Draft | None = None
     # Favourite places the user added to the schedule; must already be in their favourites.
     added_place_ids: list[str] = Field(default_factory=list, max_length=20)
+    # Move the whole trip to a new first day (same length, same schedule).
+    start_date: date | None = None
+    # Let the rule-based scheduler rearrange every day from the trip's places.
+    auto_arrange: bool = False
+    # Costs the user knows (hotel booked, food budget…); replace the previous list when given.
+    user_costs: list[UserCost] | None = Field(default=None, max_length=10)
+
+    @model_validator(mode="after")
+    def one_schedule_change(self):
+        if sum([self.draft is not None, self.start_date is not None, self.auto_arrange]) > 1:
+            raise ValueError("Mỗi lần chỉ sửa lịch, đổi ngày hoặc xếp lại tự động.")
+        return self
 
 
 class ReviewIn(Model):
@@ -110,6 +144,14 @@ class Moderation(Model):
     note: str = Field(default="", max_length=300)
 
 
+def trip_for(request):
+    """A saved trip may be in the past now: build it without the "not in the past" rule."""
+    return TripRequest.model_construct(**{**request, "start_date": date.fromisoformat(request["start_date"]),
+                                          "end_date": date.fromisoformat(request["end_date"]),
+                                          "budget_vnd": Decimal(str(request["budget_vnd"])),
+                                          "travelers": int(request["travelers"])})
+
+
 def edited_result(request, result, draft, extra_places):
     """Validate an edited schedule against the saved trip and recompute its budget."""
     plan_days = [d["date"] for d in result["draft"]["days"]]
@@ -133,12 +175,7 @@ def edited_result(request, result, draft, extra_places):
         day.activities.sort(key=lambda a: a.start_minute)
     used = {a.place_id for d in draft.days for a in d.activities}
     kept = [Place.model_validate(p) for pid, p in places.items() if pid in used or pid in {x["id"] for x in result["places"]}]
-    # Saved trips may be in the past now: build the trip without the "not in the past" rule.
-    trip = TripRequest.model_construct(**{**request, "start_date": date.fromisoformat(request["start_date"]),
-                                          "end_date": date.fromisoformat(request["end_date"]),
-                                          "budget_vnd": Decimal(str(request["budget_vnd"])),
-                                          "travelers": int(request["travelers"])})
-    data = BudgetInput.model_construct(trip=trip, draft=draft, places=PlaceResult(places=kept))
+    data = BudgetInput.model_construct(trip=trip_for(request), draft=draft, places=PlaceResult(places=kept))
     return data, kept
 
 
@@ -266,23 +303,61 @@ def create_accounts_router(store, settings):
 
     @router.patch("/me/trips/{trip_id}")
     async def edit_trip(trip_id: str, data: TripEdit, user=Depends(current_user)):
-        result = None
-        if data.draft is not None:
-            trip = await run(store.trip, user["id"], trip_id)
-            favorites = {p["id"]: p for p in await run(store.favorites, user["id"])}
-            missing = [pid for pid in data.added_place_ids if pid not in favorites]
-            if missing:
-                raise HTTPException(400, "Chỉ thêm được địa điểm trong danh sách yêu thích.")
-            try:
-                budget_input, kept = edited_result(trip["request"], trip["result"], data.draft,
-                                                   [favorites[p] for p in data.added_place_ids])
-            except StoreError as exc:
-                raise HTTPException(exc.status, str(exc)) from None
-            budget = await BudgetAgent().execute(budget_input, Context())
-            result = {**trip["result"], "draft": data.draft.model_dump(mode="json"),
-                      "places": [p.model_dump(mode="json") for p in kept], "budget": budget.model_dump(mode="json"),
-                      "self_check": None, "edited": True}
-        return await run(store.update_trip, user["id"], trip_id, data.title, result)
+        changes_plan = data.draft is not None or data.start_date or data.auto_arrange or data.user_costs is not None
+        if not changes_plan:
+            return await run(store.update_trip, user["id"], trip_id, data.title)
+        trip = await run(store.trip, user["id"], trip_id)
+        request, result = dict(trip["request"]), dict(trip["result"])
+        draft = data.draft or Draft.model_validate(result["draft"])
+        weather = WeatherResult.model_validate(result.get("weather") or {})
+        scheduled_by = "manual"
+        if data.start_date is not None:
+            if data.start_date < date.today():
+                raise HTTPException(400, "Ngày đi mới không được ở quá khứ.")
+            shift = data.start_date - date.fromisoformat(request["start_date"])
+            request["start_date"] = data.start_date.isoformat()
+            request["end_date"] = (date.fromisoformat(request["end_date"]) + shift).isoformat()
+            for day in draft.days:
+                day.date = day.date + shift
+            result["draft"] = draft.model_dump(mode="json")
+            # The old forecast belongs to the old dates.
+            weather = WeatherResult(warnings=["Đã đổi ngày đi: dự báo cũ không còn đúng; tạo lại lịch để có dự báo mới."])
+            result["weather"] = weather.model_dump(mode="json")
+        favorites = {p["id"]: p for p in await run(store.favorites, user["id"])}
+        if any(pid not in favorites for pid in data.added_place_ids):
+            raise HTTPException(400, "Chỉ thêm được địa điểm trong danh sách yêu thích.")
+        if data.auto_arrange:
+            trip_model = trip_for(request)
+            draft = rule_draft(trip_model, PlaceResult(places=[Place.model_validate(p) for p in result["places"]]),
+                               weather)
+            scheduled_by = "rules"
+        try:
+            budget_input, kept = edited_result(request, result, draft, [favorites[p] for p in data.added_place_ids])
+        except StoreError as exc:
+            raise HTTPException(exc.status, str(exc)) from None
+        budget = await BudgetAgent().execute(budget_input, Context())
+        costs = data.user_costs if data.user_costs is not None else [
+            UserCost.model_validate(c) for c in result.get("user_costs", [])]
+        if costs:
+            extra = sum(c.amount_vnd for c in costs)
+            covered = {COST_UNKNOWN[c.category] for c in costs if c.category in COST_UNKNOWN}
+            budget = budget.model_copy(update={
+                "known_subtotal": budget.known_subtotal + extra,
+                "unknown_items": [u for u in budget.unknown_items if u not in covered],
+                "estimate_basis": budget.estimate_basis + [f"{c.label}: {c.amount_vnd:,} ₫ (do bạn nhập)".replace(",", ".")
+                                                           for c in costs],
+                "estimated_low_vnd": None if budget.estimated_low_vnd is None else budget.estimated_low_vnd + extra,
+                "estimated_high_vnd": None if budget.estimated_high_vnd is None else budget.estimated_high_vnd + extra,
+                "status": "over_budget" if budget.known_subtotal + extra > budget_input.trip.budget_vnd else budget.status,
+            })
+        # Self-check the edited schedule with the same rules the AI planner is held to.
+        checks = review_draft(draft, PlaceResult(places=kept), weather)
+        report = SelfCheckReport(rounds=[SelfCheckRound(round=1, checks=checks)], final_passed=all(c.passed for c in checks),
+                                 scheduled_by=scheduled_by)
+        result.update(draft=draft.model_dump(mode="json"), places=[p.model_dump(mode="json") for p in kept],
+                      budget=budget.model_dump(mode="json"), self_check=report.model_dump(mode="json"), edited=True,
+                      user_costs=[c.model_dump() for c in costs])
+        return await run(store.update_trip, user["id"], trip_id, data.title, result, request)
 
     @router.delete("/me/trips/{trip_id}")
     async def delete_trip(trip_id: str, user=Depends(current_user)):

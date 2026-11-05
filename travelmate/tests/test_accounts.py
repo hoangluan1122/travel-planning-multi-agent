@@ -199,7 +199,7 @@ def test_editing_a_trip_validates_and_recomputes_the_budget(env):
                                                                  "added_place_ids": added}, headers=headers)
     assert r.status_code == 200, r.text
     result = r.json()["result"]
-    assert result["edited"] is True and result["self_check"] is None
+    assert result["edited"] is True and result["self_check"]["scheduled_by"] == "manual"
     assert float(result["budget"]["known_subtotal"]) == 300000
     assert any(p["id"] == "osm:1" for p in result["places"])
 
@@ -365,3 +365,33 @@ def test_compound_question_gets_one_answer_per_specialist(env):
     headers, _ = signup(client)
     r = client.post("/api/v1/chat", json={"message": "tìm quán ăn ở Huế và thời tiết thế nào"}, headers=headers).json()
     assert [x["agent"] for x in r["replies"]] == ["place_finder", "weather_advisor"]
+
+
+def test_trip_dates_move_auto_arrange_and_user_costs(env):
+    client, _ = env
+    headers, _ = signup(client)
+    trip = make_trip(client, headers)
+    later = date.today() + timedelta(days=20)
+    moved = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"start_date": later.isoformat()}, headers=headers)
+    assert moved.status_code == 200, moved.text
+    moved = moved.json()
+    assert moved["request"]["start_date"] == later.isoformat()
+    assert moved["request"]["end_date"] == (later + timedelta(1)).isoformat()
+    assert [d["date"] for d in moved["result"]["draft"]["days"]] == [later.isoformat(), (later + timedelta(1)).isoformat()]
+    assert moved["result"]["weather"]["days"] == []
+    past = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"start_date": "2020-01-01"}, headers=headers)
+    assert past.status_code == 400
+    arranged = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"auto_arrange": True}, headers=headers).json()
+    assert arranged["result"]["self_check"]["scheduled_by"] == "rules"
+    assert all(d["activities"] for d in arranged["result"]["draft"]["days"])
+    costs = [{"category": "lodging", "label": "Khách sạn 1 đêm", "amount_vnd": 800000},
+             {"category": "food", "label": "Ăn uống", "amount_vnd": 600000}]
+    priced = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"user_costs": costs}, headers=headers).json()
+    budget = priced["result"]["budget"]
+    assert "Lưu trú" not in budget["unknown_items"] and "Ăn uống" not in budget["unknown_items"]
+    assert "Di chuyển" in budget["unknown_items"]
+    assert float(budget["known_subtotal"]) >= 1400000
+    assert any("do bạn nhập" in b for b in budget["estimate_basis"])
+    both = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"auto_arrange": True, "start_date": later.isoformat()},
+                        headers=headers)
+    assert both.status_code == 422
