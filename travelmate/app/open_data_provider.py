@@ -16,6 +16,7 @@ from .geo_places import GeoPlaceService, LocalityChoiceRequired
 from .models import Context, PlaceResult, WeatherDay, WeatherResult
 from .place_media import WikipediaImages, plain
 from .ticket_prices import apply_tickets
+from .vietnam_regions import load_catalog
 
 SOURCE_NOTE = (
     "Địa điểm từ OpenStreetMap qua Photon (dữ liệu cộng đồng, ODbL); có thể thiếu hoặc cũ, "
@@ -35,9 +36,16 @@ MEAL_TYPES = {"restaurant", "food_court", "fast_food"}
 HERITAGE_WORDS = (
     "bảo tàng", "hoàng thành", "kinh thành", "tử cấm", "điện ", "lăng ", "chùa", "đền ", "đình ",
     "cung ", "thành cổ", "phố cổ", "nhà thờ", "tháp ", "hội quán", "di tích", "museum", "citadel",
-    "pagoda", "temple", "tomb", "cathedral",
+    "pagoda", "temple", "tomb", "cathedral", "văn miếu", "quốc tử giám",
 )
 GENERIC_WORDS = ("trung tâm", "centre", "center", "nhà văn hóa")
+# GeoNames/OSM locality kinds, most city-like first; anything else is a village or a sight.
+CITY_CODES = ("PPLC", "PPLA", "OSM:city", "PPLA2", "OSM:town")
+
+
+def city_rank(locality):
+    code = locality.feature_code
+    return CITY_CODES.index(code) if code in CITY_CODES else len(CITY_CODES)
 
 
 def plausible_name(name):
@@ -52,15 +60,30 @@ def plausible_name(name):
     return 4 <= letters and len(name) <= 70 and (first.isdigit() or first.isupper())
 
 
+def name_key(place):
+    return " ".join(place.name.casefold().split())
+
+
 def unique_plausible(places):
     seen, out = set(), []
     for place in places:
-        key = " ".join(place.name.casefold().split())
+        key = name_key(place)
         if key in seen or not plausible_name(place.name):
             continue
         seen.add(key)
         out.append(place)
     return out
+
+
+SIGHT_AREA_WORDS = ("khu du lịch", "danh thắng", "quần thể", "di tích", "văn miếu")
+
+
+def sight_like(place):
+    """A landmark-search hit tagged only building=yes counts when its name says it is a sight."""
+    if place.types != ["building"]:
+        return True
+    name = place.name.casefold() + " "
+    return any(word in name for word in SIGHT_AREA_WORDS + HERITAGE_WORDS)
 
 
 def attraction_rank(place):
@@ -134,16 +157,44 @@ class OpenDataProvider:
             try:
                 location = await self.geo.resolve(destination, None, "nearby")
             except LocalityChoiceRequired as exc:
-                if not exc.choices:
-                    raise AgentError(f"Không tìm thấy địa danh “{destination}” ở Việt Nam") from None
-                location = exc.choices[0]
-                where = ", ".join(part for part in [location.name, location.admin1] if part)
-                notes.append(
-                    f"“{destination}” khớp {len(exc.choices)} địa danh; đang dùng {where}. "
-                    "Ghi rõ tỉnh/thành nếu đây không phải nơi bạn muốn."
-                )
+                location, note = await self.pick_locality(destination, exc.choices)
+                notes.append(note)
             self._localities[key] = (time.monotonic(), location, notes)
             return location, list(notes)
+
+    async def pick_locality(self, destination, choices):
+        """Choose among ambiguous matches: for a province name, its city, never a namesake village.
+
+        "Ninh Bình" matches villages in Đà Nẵng and Khánh Hòa while the provincial city is now
+        named Hoa Lư, so the first match would put the search in the wrong province.
+        """
+        catalog = load_catalog()
+        regions = [r for r in catalog.matches(destination) if not r["historical"]]
+        if len(regions) == 1:
+            region = regions[0]
+            inside = sorted(
+                (p for p in choices if catalog.contains(region["id"], p.longitude, p.latitude)), key=city_rank
+            )
+            if not inside or city_rank(inside[0]) == len(CITY_CODES):
+                try:
+                    seat = await self.geo.province_seat(destination)
+                except (AgentError, TimeoutError):
+                    seat = None
+                if seat is not None:
+                    return seat, (
+                        f"“{destination}” là tên tỉnh; đang tìm quanh {seat.name}, {region['label']}. "
+                        "Ghi rõ thành phố/xã nếu bạn muốn nơi khác trong tỉnh."
+                    )
+            if inside:
+                choices = inside + [p for p in choices if p not in inside]
+        if not choices:
+            raise AgentError(f"Không tìm thấy địa danh “{destination}” ở Việt Nam")
+        location = choices[0]
+        where = ", ".join(part for part in [location.name, location.admin1] if part)
+        return location, (
+            f"“{destination}” khớp {len(choices)} địa danh; đang dùng {where}. "
+            "Ghi rõ tỉnh/thành nếu đây không phải nơi bạn muốn."
+        )
 
     async def search(self, trip):
         location, warnings = await self.locate(trip.destination)
@@ -181,15 +232,27 @@ class OpenDataProvider:
         """Royal tombs and historic temples often lie outside the city-centre radius."""
         if not self.heritage:
             return []
+        # Heritage-listed landmarks (Văn Miếu – Quốc Tử Giám) come first: Photon cannot find
+        # them by tag. Both lookups are optional extras; the main lists stand on their own.
+        landmarks = await self.landmarks(location, self.heritage_radius_m)
         try:
             found, _, _ = await self.geo.discover(location, "heritage", self.heritage_radius_m)
         except AgentError:
-            return []  # optional extra; the main lists already succeeded or failed on their own
-        taken = {" ".join(p.name.casefold().split()) for p in already}
-        fresh = [p for p in unique_plausible(found) if " ".join(p.name.casefold().split()) not in taken]
+            found = []
+        taken = {name_key(p) for p in already}
+        landmarks = [p for p in unique_plausible(landmarks) if name_key(p) not in taken]
+        taken |= {name_key(p) for p in landmarks}
+        fresh = [p for p in unique_plausible(found) if name_key(p) not in taken]
         # Named sites ("Lăng Tự Đức") before unnamed-looking ones; distance order within each.
         fresh.sort(key=lambda p: not any(w in p.name.casefold() + " " for w in HERITAGE_WORDS))
-        return fresh[: self.heritage]
+        return (landmarks[: (self.heritage + 1) // 2] + fresh)[: self.heritage]
+
+    async def landmarks(self, location, radius_m, keyword=""):
+        """Overpass landmarks, or nothing when that source is down (it only adds to Photon)."""
+        try:
+            return await self.geo.landmarks(location, radius_m, keyword)
+        except (AgentError, TimeoutError):
+            return []
 
     async def search_places(self, query):
         location, warnings = await self.locate(query.destination)
@@ -216,6 +279,21 @@ class OpenDataProvider:
                 except AgentError:
                     continue
                 extra += [p for p in nearby if keyword_matches(p, query.keyword)]
+            if query.category == "attraction":
+                # A keyword usually names one landmark, and landmarks often lie outside the
+                # default 3 km (Ngũ Hành Sơn ~8 km, Tràng An ~6 km from the centre).
+                radius = max(query.radius_m, self.heritage_radius_m)
+                landmarks = await self.landmarks(location, radius, keyword)
+                try:
+                    named, _, _ = await self.geo.discover(location, "landmark", radius, keyword)
+                except (AgentError, TimeoutError):
+                    named = []
+                named = [p for p in named if loosely_named(p, keyword) and sight_like(p)]
+                # The site itself before its gate building or a namesake park (distance order kept).
+                landmarks += sorted(named, key=attraction_rank)
+                ids = set()
+                landmarks = [p for p in landmarks if p.id not in ids and not ids.add(p.id)]
+                found = landmarks + [p for p in found if p.id not in ids]
             seen = {p.id for p in found}
             found = found + [p for p in extra if p.id not in seen and not seen.add(p.id)]
             found = keyword_filter(found, query.keyword)

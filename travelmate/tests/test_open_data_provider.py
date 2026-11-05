@@ -2,12 +2,13 @@
 
 from datetime import UTC, date, datetime, timedelta
 
+import httpx
 import pytest
 from fastapi.testclient import TestClient
 from test_planning import payload
 
 from app.agents import AgentError
-from app.geo_places import Locality, LocalityChoiceRequired
+from app.geo_places import GeoPlaceService, Locality, LocalityChoiceRequired, PublicGeoClient, name_pattern
 from app.main import Settings, create_app
 from app.models import Place, PlaceSearchRequest, TripRequest
 from app.open_data_provider import OpenDataProvider, pick_attractions, pick_food, plausible_name
@@ -47,7 +48,18 @@ class FakeGeo:
         self.discovered.append((category, radius_m, keyword))
         if category in self.broken:
             raise AgentError("source down")
+        if category == "landmark":
+            return [], {}, 0
         return [place(f"{category}-{i}", [category]) for i in range(10)], {}, 0
+
+    async def landmarks(self, location, radius_m, keyword=""):
+        self.discovered.append(("overpass", radius_m, keyword))
+        if "overpass" in self.broken:
+            raise AgentError("overpass at capacity")
+        return []
+
+    async def province_seat(self, destination):
+        return None
 
 
 class FakeWeather:
@@ -281,3 +293,180 @@ async def test_osm_stays_are_returned_apart_from_activities():
     result = await OpenDataProvider(images=False, geo=FakeGeo(), stays=3).search(trip())
     assert [p.id for p in result.stays] == ["hotel-0", "hotel-1", "hotel-2"]
     assert not any(p.id.startswith("hotel") for p in result.places)
+
+
+# --- Landmark search (2026-11-05 live failures: Văn Miếu, Ngũ Hành Sơn, Tràng An, Ninh Bình) ---
+
+HANOI = dict(name="Hà Nội", admin1="Hanoi", ident="geonames:1581130")
+
+
+def at(lat, lon, **extra):
+    return locality(**extra).model_copy(update={"latitude": lat, "longitude": lon})
+
+
+def photon(ident, name, key, value, lon, lat, osm_type="R"):
+    return {
+        "type": "Feature",
+        "properties": {"name": name, "osm_type": osm_type, "osm_id": ident, "osm_key": key,
+                       "osm_value": value, "countrycode": "VN"},
+        "geometry": {"type": "Point", "coordinates": [lon, lat]},
+    }
+
+
+class HttpGeo(GeoPlaceService):
+    """The real Photon/Overpass parsing over fake HTTP; only the locality is fixed."""
+
+    def __init__(self, where, landmark_features=(), overpass=None, overpass_status=200):
+        self.calls = []
+
+        def handler(request):
+            self.calls.append(request)
+            if request.url.host == "overpass.test":
+                if overpass_status != 200:
+                    return httpx.Response(overpass_status, text="at capacity")
+                return httpx.Response(200, json={"elements": overpass or []})
+            tags = request.url.params.get_list("osm_tag")
+            features = list(landmark_features) if "landuse:religious" in tags else []
+            return httpx.Response(200, json={"type": "FeatureCollection", "features": features})
+
+        super().__init__(
+            client=PublicGeoClient(transport=httpx.MockTransport(handler), interval=0),
+            photon_url="https://photon.test", overpass_url="https://overpass.test/api/interpreter",
+        )
+        self.where = where
+
+    async def resolve(self, destination, selected_id, scope):
+        return self.where
+
+
+def search(destination, keyword, **extra):
+    return PlaceSearchRequest(destination=destination, category="attraction", keyword=keyword, **extra)
+
+
+@pytest.mark.asyncio
+async def test_landmark_tagged_natural_wood_outside_default_radius_is_found():
+    # Ngũ Hành Sơn is natural=wood in Photon's index and ~8.5 km from the Đà Nẵng centre.
+    geo = HttpGeo(at(16.06778, 108.22083, name="Đà Nẵng"), overpass_status=502, landmark_features=[
+        photon(8552348, "Ngũ Hành Sơn", "natural", "wood", 108.2627745, 16.00402),
+        photon(9, "Đường Ngũ Hành Sơn", "highway", "trunk", 108.2386, 16.0469, "W"),
+    ])
+    provider = OpenDataProvider(images=False, geo=geo)
+    result = await provider.search_places(search("Đà Nẵng", "ngũ hành sơn"))
+    assert [(p.name, p.types) for p in result.places] == [("Ngũ Hành Sơn", ["attraction"])]
+    landmark = next(r for r in geo.calls if "landuse:religious" in r.url.params.get_list("osm_tag"))
+    x0, _, x1, _ = map(float, landmark.url.params["bbox"].split(","))
+    assert x1 - x0 > 0.25  # a 15 km box, not the request's 3 km radius
+    # Overpass at capacity: the search still works and the next one does not wait on it.
+    await provider.search_places(search("Đà Nẵng", "ngũ hành sơn", limit=5))
+    assert sum(r.url.host == "overpass.test" for r in geo.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_heritage_landmark_from_overpass_ranks_before_its_gate_building():
+    # Văn Miếu – Quốc Tử Giám: landuse=religious + heritage=2, invisible to a tourism-tag search.
+    overpass = [
+        {"type": "relation", "id": 21422528, "center": {"lat": 21.0287903, "lon": 105.8359533},
+         "tags": {"name": "Văn Miếu - Quốc Tử Giám", "landuse": "religious", "heritage": "2"}},
+        {"type": "way", "id": 691421444, "center": {"lat": 21.026, "lon": 105.835},
+         "tags": {"name": "Trường Tiểu học Văn Miếu", "amenity": "school", "historic": "yes"}},
+        {"type": "relation", "id": 12413584, "center": {"lat": 21.025, "lon": 105.834},
+         "tags": {"name": "Phường Văn Miếu", "boundary": "historic", "heritage": "3"}},
+    ]
+    geo = HttpGeo(at(21.0245, 105.84117, **HANOI), overpass=overpass, landmark_features=[
+        photon(1, "Văn Miếu Môn", "building", "yes", 105.8355176, 21.0276496, "W"),
+        photon(21422528, "Văn Miếu - Quốc Tử Giám", "landuse", "religious", 105.8359533, 21.0287903),
+    ])
+    result = await OpenDataProvider(images=False, geo=geo).search_places(search("Hà Nội", "văn miếu"))
+    assert [p.name for p in result.places] == ["Văn Miếu - Quốc Tử Giám", "Văn Miếu Môn"]
+    assert result.places[0].types == ["temple"] and result.places[0].source == "osm_overpass"
+    query = next(r for r in geo.calls if r.url.host == "overpass.test").url.params["data"]
+    assert '"name"~"(V|v)ăn +(M|m)iếu"' in query and "around:15000" in query
+
+
+@pytest.mark.asyncio
+async def test_tourist_area_building_is_kept_but_namesake_buildings_and_lookalikes_are_not():
+    # Tràng An's boat-tour area is building=yes in Photon; flats and accent lookalikes are noise.
+    geo = HttpGeo(at(20.2572, 105.9719, name="Hoa Lư"), overpass_status=504, landmark_features=[
+        photon(474685617, "Khu Du lịch sinh Thái Tràng An", "building", "yes", 105.918, 20.2527, "W"),
+        photon(2, "Chung cư Tràng An", "building", "yes", 105.96, 20.25, "W"),
+        photon(3, "Trang An Đình", "amenity", "place_of_worship", 105.95, 20.25, "W"),
+        photon(4, "Công viên văn hóa Tràng An", "leisure", "park", 105.9561, 20.2625, "W"),
+    ])
+    result = await OpenDataProvider(images=False, geo=geo).search_places(search("Ninh Bình", "tràng an"))
+    assert [p.name for p in result.places] == ["Khu Du lịch sinh Thái Tràng An", "Công viên văn hóa Tràng An"]
+
+
+def test_overpass_name_pattern_keeps_accents_exact_or_expands_plain_keywords():
+    assert name_pattern("lăng") == "(L|l)ăng"
+    assert name_pattern("Ngũ  Hành") == "(N|n)gũ +(H|h)ành"
+    plain_pattern = name_pattern("van mieu")
+    assert "ă" in plain_pattern and "ế" in plain_pattern and plain_pattern.startswith("(V|v)(")
+    assert name_pattern("den").startswith("(D|d|Đ|đ)") and name_pattern("dền") == "(D|d)ền"
+
+
+class ProvinceGeo(FakeGeo):
+    def __init__(self, choices, seat):
+        super().__init__()
+        self.choices, self.seat, self.seat_calls = choices, seat, 0
+
+    async def resolve(self, destination, selected_id, scope):
+        raise LocalityChoiceRequired(self.choices, "many")
+
+    async def province_seat(self, destination):
+        self.seat_calls += 1
+        return self.seat
+
+
+@pytest.mark.asyncio
+async def test_province_name_uses_its_city_not_a_namesake_village_elsewhere():
+    villages = [at(15.7, 108.01667, name="Ninh Bình", admin1="Đà Nẵng", ident="geonames:1571966"),
+                at(12.48333, 109.06667, name="Ninh Bình", admin1="Khanh Hoa", ident="geonames:1571969")]
+    hoa_lu = at(20.2572484, 105.9718894, name="Hoa Lư", admin1="Tỉnh Ninh Bình", ident="photon:relation/19539208")
+    geo = ProvinceGeo(villages, hoa_lu)
+    location, notes = await OpenDataProvider(images=False, geo=geo).locate("Ninh Bình")
+    assert location.name == "Hoa Lư" and "là tên tỉnh" in notes[0]
+    # A province whose capital matched already (Hà Nội PPLC) needs no extra lookup.
+    capital = at(21.0245, 105.84117, **HANOI).model_copy(update={"feature_code": "PPLC"})
+    namesake = at(20.47366, 106.02292, name="Hà Nội", admin1="Ninh Binh", ident="geonames:8564175")
+    geo = ProvinceGeo([namesake, capital], hoa_lu)
+    location, _ = await OpenDataProvider(images=False, geo=geo).locate("Hà Nội")
+    assert location.id == "geonames:1581130" and geo.seat_calls == 0
+
+
+@pytest.mark.asyncio
+async def test_province_seat_is_a_city_inside_the_province_polygon():
+    features = [
+        photon(1903516, "Hà Nội", "place", "city", 105.854041, 21.0283334),  # outside the province
+        photon(5, "Phát Diệm", "place", "town", 106.08, 20.09, "N"),
+        photon(19539208, "Hoa Lư", "place", "city", 105.9718894, 20.2572484),
+    ]
+    requests = []
+
+    def handler(request):
+        requests.append(request)
+        return httpx.Response(200, json={"type": "FeatureCollection", "features": features})
+
+    geo = GeoPlaceService(client=PublicGeoClient(transport=httpx.MockTransport(handler), interval=0),
+                          photon_url="https://photon.test")
+    seat = await geo.province_seat("Ninh Bình")
+    assert seat.name == "Hoa Lư" and seat.id == "photon:relation/19539208"
+    assert requests[0].url.params["include"] == "osm.place.city,osm.place.town"
+    assert await geo.province_seat("Hội An") is None  # not a province name: no lookup
+    assert len(requests) == 1
+
+
+class LandmarkGeo(HeritageGeo):
+    async def landmarks(self, location, radius_m, keyword=""):
+        self.discovered.append(("overpass", radius_m, keyword))
+        return [place("vm", ["temple"], "Văn Miếu - Quốc Tử Giám"), place("dup2", ["museum"], "Attraction-1")]
+
+
+@pytest.mark.asyncio
+async def test_default_search_adds_heritage_landmarks_before_photon_heritage():
+    geo = LandmarkGeo()
+    result = await OpenDataProvider(images=False, geo=geo, heritage=4).search(trip())
+    ids = [p.id for p in result.places]
+    assert ("overpass", 15000, "") in geo.discovered
+    assert ids.index("vm") < ids.index("t1") and "dup2" not in ids
+    broken = await OpenDataProvider(images=False, geo=FakeGeo(broken={"overpass"})).search(trip())
+    assert broken.places  # Overpass down: Photon lists still returned
