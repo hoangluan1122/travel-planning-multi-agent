@@ -64,13 +64,17 @@
     document.querySelector('#api-health').textContent = `Backend đã kết nối · ${h.mode==='demo'?'DEMO — dữ liệu giả lập, không phải địa điểm thật':`LIVE — ${h.place_provider==='open_data'?'OpenStreetMap + Open-Meteo':'Google Places'} · lịch do Gemini lập (${(h.agent_engine||'adk').toUpperCase()})`}${h.token_required?' · Yêu cầu token truy cập':''}`;
   }).catch(()=>{document.querySelector('#api-health').textContent='Không kết nối được backend. Hãy chạy ứng dụng qua máy chủ FastAPI.'});
 
-  async function api(path, data, signal) {
+  const session = () => {try {return JSON.parse(localStorage.getItem('tm-session'))} catch {return null}};
+  async function api(path, data, signal, method='POST') {
     const headers = {'Content-Type':'application/json'};
-    const token = readToken();
+    // A signed-in user's session unlocks the API; otherwise the operator token, if any.
+    const token = session()?.token || readToken();
     if(token) headers.Authorization = `Bearer ${token}`;
-    const response = await fetch(path,{method:'POST',headers,body:JSON.stringify(data),signal});
+    const response = await fetch(path,{method,headers,body:method==='GET'||method==='DELETE'?undefined:JSON.stringify(data??{}),signal});
     const body = await response.json().catch(()=>({}));
     if (!response.ok) {
+      if(response.status===401&&session()?.token&&!path.startsWith('/api/v1/auth/')){localStorage.removeItem('tm-session');throw Error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.')}
+      if(response.status===401&&path.startsWith('/api/v1/auth/'))throw Error(body.detail||'Email hoặc mật khẩu không đúng.');
       if(response.status===401) {const details=document.querySelector('.api-banner details');if(details)details.open=true;tokenInput.focus()}
       if(response.status===401) throw Error('Token truy cập không đúng hoặc còn thiếu. Mở Cấu hình kết nối để nhập lại.');
       if(response.status===422) throw Error('Thông tin chưa hợp lệ: '+(Array.isArray(body.detail)?body.detail.map(e=>`${e.loc.slice(1).join('.')}: ${e.msg}`).join('; '):'Kiểm tra lại biểu mẫu.'));
@@ -87,6 +91,7 @@
   }
   const records = () => read('tm-plans',[]);
   const current = () => records().find(p=>p.result.request_id===(params.get('id')||read('tm-current','')));
+  window.tm = {api, render, esc, money, time, wmo, kind, photo, price, stars, hours, placeLinks, ticketSource, mapLink, link, read, save, records, session, route, params};
   const warnings = items => items.length?`<div class="api-warning"><strong>Thông tin cần lưu ý</strong><ul>${[...new Set(items)].map(w=>`<li>${esc(w)}</li>`).join('')}</ul></div>`:'';
   const budget = b => `<div class="api-card"><h3>Chi phí đã có dữ liệu: ${money(b.known_subtotal)}</h3><p>${b.status==='incomplete'?'Chưa đủ dữ liệu để kết luận tổng chi phí.':b.status==='over_budget'?'Chi phí đã biết vượt ngân sách.':'Các khoản đã tính nằm trong ngân sách.'}</p>${b.estimated_low_vnd!=null?`<p><strong>Ước tính theo khoảng giá nguồn: ${money(b.estimated_low_vnd)} – ${money(b.estimated_high_vnd)}</strong> (chưa gồm các khoản bên dưới)</p><details><summary>Cách tính</summary><ul>${b.estimate_basis.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`:(b.estimate_basis||[]).length?`<details><summary>Đã tính gồm</summary><ul>${b.estimate_basis.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`:''}${b.unknown_items.length?`<p>Chưa tính được: ${b.unknown_items.map(esc).join(', ')}. Không coi các khoản này là 0.</p>`:''}</div>`;
   const empty = () => render(`<h1>Chưa có lịch trình.</h1><p>Hãy tạo chuyến đi để xem kết quả từ backend.</p>${link('create','Tạo chuyến đi')}`);
@@ -127,7 +132,9 @@
     controller.signal.addEventListener('abort',()=>clearInterval(tick));
     api('/api/v1/plans/preview',request,controller.signal).then(result=>{
       if(cancelled)return;
-      save('tm-plans',[{request,result},...records()].slice(0,20));save('tm-current',result.request_id);location.replace('?view=plan');
+      const record={request,result};
+      const finish=()=>{save('tm-plans',[record,...records()].slice(0,20));save('tm-current',result.request_id);location.replace('?view=plan')};
+      if(session()?.token)api('/api/v1/me/trips',{request,result}).then(t=>{record.trip_id=t.id}).catch(()=>{}).finally(finish);else finish();
     }).catch(error=>{
       if(cancelled)return;
       render(`<h1>Chưa tạo được lịch trình.</h1><p class="api-error" role="alert">${esc(error.name==='AbortError'?'Đã hết thời gian chờ. Bạn có thể thử lại.':error.message)}</p><div class="api-actions">${link('loading','Thử lại')}${link('create','Sửa thông tin')}</div>`);
@@ -141,22 +148,22 @@
     const day=result.draft.days[dayIndex];
     const heading=`<div class="eyebrow">${result.mode==='demo'?'DEMO · DỮ LIỆU GIẢ LẬP':'BẢN PHÁC THẢO · CHƯA XÁC MINH'}</div><h1>${esc(request.destination)}</h1><p>${esc(request.start_date)} → ${esc(request.end_date)} · ${request.travelers} người · Ngân sách ${money(request.budget_vnd)}</p><p class="api-meta">Mã yêu cầu: ${esc(result.request_id)}</p>`;
     if(route==='plan'){
-      render(heading+selfCheck(result.self_check)+planningTrace(result.planning)+warnings([...result.warnings,...result.weather.warnings])+budget(result.budget)+`<div class="api-grid">${result.draft.days.map((d,i)=>`<article class="api-card">${photo(d.activities.map(a=>places.get(a.place_id)).find(p=>p?.photo),'api-thumb')}<div class="eyebrow">NGÀY ${i+1} · ${esc(d.date)}</div><h3>${d.activities.length} hoạt động</h3>${(w=>w?`<p>${wmo(w.weather_code)}</p>`:'')(result.weather.days.find(w=>w.date===d.date))}<p>${d.activities.map(a=>esc(places.get(a.place_id)?.name||a.place_id)).join(' → ')}</p>${link(`day&id=${encodeURIComponent(result.request_id)}&day=${i}`,'Xem chi tiết ngày →')}</article>`).join('')}</div>${stays(result.stays, request)}<div class="api-actions">${link('create','Tạo kế hoạch mới')}${link('saved','Kế hoạch trong phiên')}</div>`);
+      render(heading+'<div id="tm-plan-account"></div>'+selfCheck(result.self_check)+planningTrace(result.planning)+warnings([...result.warnings,...result.weather.warnings])+budget(result.budget)+`<div class="api-grid">${result.draft.days.map((d,i)=>`<article class="api-card">${photo(d.activities.map(a=>places.get(a.place_id)).find(p=>p?.photo),'api-thumb')}<div class="eyebrow">NGÀY ${i+1} · ${esc(d.date)}</div><h3>${d.activities.length} hoạt động</h3>${(w=>w?`<p>${wmo(w.weather_code)}</p>`:'')(result.weather.days.find(w=>w.date===d.date))}<p>${d.activities.map(a=>esc(places.get(a.place_id)?.name||a.place_id)).join(' → ')}</p>${link(`day&id=${encodeURIComponent(result.request_id)}&day=${i}`,'Xem chi tiết ngày →')}</article>`).join('')}</div>${stays(result.stays, request)}<div class="api-actions">${link('create','Tạo kế hoạch mới')}${link('saved','Kế hoạch trong phiên')}</div>`);
     } else if(day){
       const weather=result.weather.days.find(w=>w.date===day.date);
       render(heading+`<div class="api-actions">${link(`plan&id=${encodeURIComponent(result.request_id)}`,'← Tổng quan')}${result.draft.days.map((d,i)=>link(`day&id=${encodeURIComponent(result.request_id)}&day=${i}`,`Ngày ${i+1}`)).join('')}</div><h2>Ngày ${dayIndex+1} · ${esc(day.date)}</h2><p>${weather?`Dự báo: ${wmo(weather.weather_code)}`:'Chưa có dự báo thời tiết cho ngày này.'}</p>`+day.activities.map(a=>{
         const p=places.get(a.place_id);
-        return `<article class="api-card">${photo(p)}<div class="eyebrow">${time(a.start_minute)} — ${time(a.end_minute)}</div><h3>${esc(p?.name||a.place_id)}</h3>${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}${stars(p)}<p>${esc(p?.address||'Chưa có địa chỉ')}</p><p>${esc(price(p))}</p>${ticketSource(p)}${hours(p)}<p>${placeLinks(p)}</p><p class="api-meta">Nguồn: ${esc(p?.attribution||p?.source||'Chưa xác định')}</p></article>`;
+        return `<article class="api-card">${photo(p)}<div class="eyebrow">${time(a.start_minute)} — ${time(a.end_minute)}</div><h3>${p?`<a href="?view=place&id=${encodeURIComponent(p.id)}">${esc(p.name)}</a>`:esc(a.place_id)}</h3>${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}${stars(p)}<p>${esc(p?.address||'Chưa có địa chỉ')}</p><p>${esc(price(p))}</p>${ticketSource(p)}${hours(p)}<p>${placeLinks(p)}</p><p class="api-meta">Nguồn: ${esc(p?.attribution||p?.source||'Chưa xác định')}</p></article>`;
       }).join('')+warnings(result.warnings));
     }else empty();
   }
-  if(route==='saved')render(`<h1>Những chuyến đi<br>trong phiên này.</h1><p>Lưu tạm trong tab trình duyệt, chưa đồng bộ tài khoản hoặc database.</p>${link('create','Tạo chuyến đi')}<div class="api-grid">${records().map(({request,result})=>`<article class="api-card"><h3>${esc(request.destination)}</h3><p>${esc(request.start_date)} · ${result.draft.days.length} ngày · ${result.mode.toUpperCase()}</p>${link(`plan&id=${encodeURIComponent(result.request_id)}`,'Mở lịch trình')}</article>`).join('')||'<p>Chưa có chuyến đi nào.</p>'}</div>`);
+  if(route==='saved'&&!session()?.token)render(`<h1>Những chuyến đi<br>trong phiên này.</h1><p>Lưu tạm trong tab trình duyệt, chưa đồng bộ tài khoản hoặc database.</p>${link('create','Tạo chuyến đi')}<div class="api-grid">${records().map(({request,result})=>`<article class="api-card"><h3>${esc(request.destination)}</h3><p>${esc(request.start_date)} · ${result.draft.days.length} ngày · ${result.mode.toUpperCase()}</p>${link(`plan&id=${encodeURIComponent(result.request_id)}`,'Mở lịch trình')}</article>`).join('')||'<p>Chưa có chuyến đi nào.</p>'}</div>`);
   if(route==='explore'){
     const main=render('<h1>Tìm nơi bạn muốn đến.</h1><form id="api-search" class="api-card"><label class="field">Thành phố / khu vực<input name="destination" required minlength="2" maxlength="200" value="Đà Nẵng"></label><label class="field">Loại địa điểm<select name="category"><option value="attraction">Tham quan</option><option value="hotel">Khách sạn</option><option value="restaurant">Nhà hàng</option></select></label><label class="field">Từ khóa<input name="keyword" maxlength="120"></label><button class="button dark">Tìm địa điểm</button></form><div id="search-status" role="status"></div><div id="api-results" class="api-grid"></div>');
     main.querySelector('form').onsubmit=async e=>{
       e.preventDefault();const button=e.target.querySelector('button'),status=main.querySelector('#search-status'),results=main.querySelector('#api-results');
       button.disabled=true;status.textContent='Đang tìm địa điểm…';results.replaceChildren();
-      try{const f=new FormData(e.target);const data=await api('/api/v1/places/search',{destination:f.get('destination'),category:f.get('category'),keyword:f.get('keyword'),limit:12});status.textContent=`Tìm thấy ${data.places.length} địa điểm.`;results.innerHTML=warnings(data.warnings)+data.places.map(p=>`<article class="api-card">${photo(p)}<h3>${esc(p.name)}</h3>${stars(p)}${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}<p>${esc(p.address)}</p><p>${mapLink(p)}</p><p class="api-meta">Nguồn: ${esc(p.attribution||p.source)}</p><p>${esc(price(p))}</p></article>`).join('')}
+      try{const f=new FormData(e.target);const data=await api('/api/v1/places/search',{destination:f.get('destination'),category:f.get('category'),keyword:f.get('keyword'),limit:12});status.textContent=`Tìm thấy ${data.places.length} địa điểm.`;results.innerHTML=warnings(data.warnings)+data.places.map(p=>`<article class="api-card">${photo(p)}<h3><a href="?view=place&id=${encodeURIComponent(p.id)}">${esc(p.name)}</a></h3>${stars(p)}${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}<p>${esc(p.address)}</p><p>${mapLink(p)}</p><p class="api-meta">Nguồn: ${esc(p.attribution||p.source)}</p><p>${esc(price(p))}</p></article>`).join('')}
       catch(error){status.textContent=error.message}finally{button.disabled=false}
     };
   }
@@ -166,7 +173,7 @@
     const state=read('tm-chat',{session_id:null,messages:[]});
     const main=render(`<h1>Trợ lý AI.</h1><p>Một trợ lý điều phối đọc câu hỏi rồi chuyển cho đúng chuyên gia: địa điểm, lịch trình, chi phí, thời tiết hoặc hướng dẫn viên (trả lời có nguồn). Thông tin chuyến đi được nhớ qua các lượt.</p><div id="tm-chat-log" class="chat-log" aria-live="polite"></div><form id="tm-chat-form" class="chat-form"><input name="message" required maxlength="1000" autocomplete="off" placeholder="Ví dụ: tìm quán chay ở Huế"><button class="button dark">Gửi</button></form><div class="api-actions"><button type="button" class="button outline" id="tm-chat-reset">Cuộc trò chuyện mới</button>${['Tìm quán chay ở Huế','Lăng Tự Đức có gì đặc biệt, giá vé bao nhiêu?','Lên lịch đi Huế 2 ngày, 2 người, 5 triệu','Thời tiết Huế thế nào?','Chi phí bao nhiêu?'].map(t=>`<button type="button" class="button outline chat-suggest">${esc(t)}</button>`).join('')}</div>`);
     const log=main.querySelector('#tm-chat-log'),form=main.querySelector('#tm-chat-form'),input=form.querySelector('input'),button=form.querySelector('button');
-    const placeCard=p=>`<article class="api-card chat-place">${photo(p,'api-thumb')}<h4>${esc(p.name)}</h4>${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}<p>${esc(p.address||'')}</p><p>${esc(price(p))}</p><p>${placeLinks(p)}</p></article>`;
+    const placeCard=p=>`<article class="api-card chat-place">${photo(p,'api-thumb')}<h4><a href="?view=place&id=${encodeURIComponent(p.id)}">${esc(p.name)}</a></h4>${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}<p>${esc(p.address||'')}</p><p>${esc(price(p))}</p><p>${placeLinks(p)}</p></article>`;
     const bubble=m=>m.role==='user'?`<div class="chat-msg user"><p>${esc(m.text)}</p></div>`:`<div class="chat-msg bot"><div class="chat-agent">${esc(badges[m.agent]||m.agent||'Trợ lý')}</div>${m.reason?`<p class="api-meta">Vì sao chọn: ${esc(m.reason)}</p>`:''}<p>${esc(m.text)}</p>${m.citations?.length?`<p class="api-meta">Nguồn: ${m.citations.filter(c=>/^https:\/\//.test(c.url)).map(c=>`<a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">[${esc(c.id)}] ${esc(c.title)}</a>`).join(' · ')}</p>`:''}${m.places?.length?`<div class="api-grid chat-places">${m.places.slice(0,6).map(placeCard).join('')}</div>`:''}${m.plan_id?`<p>${link(`plan&id=${encodeURIComponent(m.plan_id)}`,'Mở lịch trình đầy đủ →')}</p>`:''}</div>`;
     const draw=()=>{log.innerHTML=state.messages.map(bubble).join('')||'<p class="api-meta">Hãy bắt đầu bằng một câu hỏi.</p>';log.scrollTop=log.scrollHeight};
     const send=async text=>{
@@ -187,7 +194,7 @@
     draw();
   }
   // Remaining designs are explicitly previews, not simulated authenticated features.
-  if(['login','signup','forgot','profile','review','edit','favorites','place','admin','admin-users','admin-places','moderation'].includes(route)){
+  if([].includes(route)){
     render(`<h1>Màn hình đang chờ<br>kết nối nghiệp vụ.</h1><p>Backend hiện cung cấp API tìm địa điểm và tạo lịch trình. Chức năng ${esc(window.travelmateRoutes?.[route]||route)} chưa có API tương ứng.</p><div class="api-actions">${link('create','Tạo chuyến đi')}${link('explore','Tìm địa điểm')}${link('saved','Xem kế hoạch')}</div>`);
   }
 })();

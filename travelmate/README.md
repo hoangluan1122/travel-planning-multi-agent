@@ -51,6 +51,13 @@ Câu hỏi về một địa danh (lịch sử, giá vé, giờ mở cửa, đi 
 (Agentic RAG): agent tự tìm trong Wikipedia, Wikivoyage và bảng giá vé, trả lời kèm nguồn, và
 không được ghi con số nào không có trong nguồn. Xem [`docs/agentic-rag.md`](../docs/agentic-rag.md).
 
+## Tài khoản và nghiệp vụ
+
+Đăng ký/đăng nhập, chuyến đi lưu theo tài khoản (sửa được), địa điểm yêu thích, trang địa điểm,
+đánh giá có kiểm duyệt và khu vực quản trị. Dữ liệu nằm trong SQLite (`TRAVELMATE_DB`); đặt
+`TRAVELMATE_ADMIN_EMAIL` để tài khoản đăng ký bằng email đó là quản trị viên. Chi tiết:
+[`docs/product-features.md`](../docs/product-features.md).
+
 ## MCP và A2A
 
 - **MCP:** `uv run python -m app.mcp_server` mở các tool `search_places`, `weather_forecast`,
