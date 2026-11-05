@@ -11,6 +11,7 @@ state; is_done() reports whether that happened. Both runtimes then guarantee:
 The caller reads its accepted result after run_tool_loop returns.
 """
 
+import asyncio
 import logging
 from contextlib import aclosing
 from dataclasses import dataclass
@@ -34,16 +35,54 @@ class ToolLoop:
     is_done: Callable[[], bool]
 
 
-async def run_tool_loop(engine: Engine, model_factory, loop: ToolLoop, context) -> None:
-    """model_factory returns an ADK model (engine adk) or a MAF chat client (engine maf)."""
+TRANSIENT_STATUS = {429, 500, 502, 503, 504}
+RETRY_DELAYS_S = (2.0, 5.0)  # provider 5xx come in short bursts; back off a little more each time
+
+
+def is_transient(exc):
+    """A provider hiccup worth one retry: 5xx/429 from the model API or a network timeout.
+
+    Walks the cause chain because MAF and ADK wrap provider errors. Budget breaches and
+    other AgentErrors are never transient.
+    """
+    seen = 0
+    while exc is not None and seen < 10:
+        if isinstance(exc, AgentError):
+            return False
+        name = type(exc).__name__
+        code = getattr(exc, "code", None) or getattr(exc, "status_code", None)
+        if name == "ServerError" or (isinstance(code, int) and code in TRANSIENT_STATUS):
+            return True
+        if name in {"ReadTimeout", "ConnectTimeout", "RemoteProtocolError", "ConnectError"}:
+            return True
+        exc = exc.__cause__ or exc.__context__
+        seen += 1
+    return False
+
+
+async def run_tool_loop(engine: Engine, model_factory, loop: ToolLoop, context, retries=2) -> None:
+    """model_factory returns an ADK model (engine adk) or a MAF chat client (engine maf).
+
+    A transient provider error before anything was accepted is retried `retries` times with
+    a fresh client. Tool state and budgets carry over, so a retry cannot exceed them.
+    """
     if loop.max_llm_calls < 1:
         raise ValueError("max_llm_calls must be positive")
-    if engine == "maf":
-        await _run_maf(model_factory, loop, context)
-    elif engine == "adk":
-        await _run_adk(model_factory, loop, context)
-    else:
+    if engine not in {"maf", "adk"}:
         raise ValueError(f"Unknown agent engine: {engine}")
+    runner = _run_maf if engine == "maf" else _run_adk
+    for attempt in range(retries + 1):
+        try:
+            await runner(model_factory, loop, context)
+            return
+        except Exception as exc:
+            if loop.is_done() or attempt == retries or not is_transient(exc):
+                raise
+            logger.warning(
+                "tool_loop request_id=%s agent=%s outcome=retry error_type=%s",
+                context.request_id, loop.name, type(exc).__name__,
+            )
+            await asyncio.sleep(RETRY_DELAYS_S[min(attempt, len(RETRY_DELAYS_S) - 1)])
 
 
 async def _run_adk(model_factory, loop, context):

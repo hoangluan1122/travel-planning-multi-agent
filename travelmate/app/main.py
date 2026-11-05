@@ -42,7 +42,8 @@ class Settings(BaseSettings):
         default="adk", validation_alias=AliasChoices("agent_engine", "planner_engine")
     )
     # classic: asyncio pipeline in app/orchestrator.py; workflow: MAF Workflow graph (needs --extra maf)
-    travelmate_orchestrator: Literal["classic", "workflow"] = "classic"
+    # planning: Planning pattern (LLM decomposes the request into subtasks, re-plans on misses)
+    travelmate_orchestrator: Literal["classic", "workflow", "planning"] = "classic"
     # Live place/weather source: google (Places API, needs GOOGLE_MAPS_API_KEY) or
     # open_data (OpenStreetMap/Photon + Open-Meteo, no key)
     travelmate_place_provider: Literal["google", "open_data"] = "google"
@@ -66,6 +67,19 @@ def memory_store(settings):
     from .specialists.memory import MemorySpecialist
 
     return MemorySpecialist(settings.travelmate_memory_db, settings.travelmate_memory_user)
+
+
+def planning_agent(settings):
+    """LLM Planning Agent in live mode; demo mode uses the deterministic core plan."""
+    if settings.travelmate_mode != "live":
+        return None
+    from .planning import PlanningAgent
+
+    if settings.agent_engine == "maf":
+        from .maf_clients import maf_gemini_client
+
+        return PlanningAgent(lambda: maf_gemini_client(settings.google_api_key, settings.gemini_model), "maf")
+    return PlanningAgent(lambda: settings.gemini_model, "adk")
 
 
 def live_planner(settings):
@@ -121,7 +135,15 @@ def create_app(settings=None, orchestrator=None, provider=None):
             orchestrator_cls = WorkflowOrchestrator
         else:
             orchestrator_cls = Orchestrator
-        orchestrator = orchestrator_cls(registry, settings.travelmate_mode, settings.travelmate_agent_timeout)
+        if settings.travelmate_orchestrator == "planning":
+            from .planning import PlanningOrchestrator
+
+            orchestrator = PlanningOrchestrator(
+                registry, provider, planning_agent(settings), settings.travelmate_mode,
+                settings.travelmate_agent_timeout,
+            )
+        else:
+            orchestrator = orchestrator_cls(registry, settings.travelmate_mode, settings.travelmate_agent_timeout)
     app = FastAPI(title="TravelMate API", version="0.1.0")
     bearer = HTTPBearer(auto_error=False)
 
