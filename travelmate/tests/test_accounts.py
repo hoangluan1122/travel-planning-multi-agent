@@ -1,3 +1,4 @@
+import os
 from datetime import date, timedelta
 
 import pytest
@@ -14,6 +15,9 @@ PASSWORD = "matkhau-dai-123"
 class Provider(DemoProvider):
     """Search returns two real-looking places; planning uses the demo pipeline."""
 
+    async def search(self, trip):
+        return await self.search_places(trip)
+
     async def search_places(self, query):
         ticket = TicketInfo(group_id="hue-tu-duc", label="Vé lăng Tự Đức", adult_vnd=150000,
                             sources=["https://tuoitre.vn/x"], checked=date(2026, 11, 5))
@@ -25,9 +29,24 @@ class Provider(DemoProvider):
         ])
 
 
-@pytest.fixture
-def env(tmp_path):
-    store = Store(tmp_path / "t.sqlite3", admin_email="admin@example.com")
+TABLES = "audit, chats, reports, reviews, favorites, places, trips, resets, sessions, users"
+
+
+@pytest.fixture(params=["sqlite", "postgresql"])
+def env(request, tmp_path):
+    """Every business test runs on SQLite and, when TRAVELMATE_TEST_DATABASE_URL points to a
+    disposable PostgreSQL database, on PostgreSQL too (its tables are dropped first)."""
+    if request.param == "sqlite":
+        store = Store(tmp_path / "t.sqlite3", admin_email="admin@example.com")
+    else:
+        url = os.environ.get("TRAVELMATE_TEST_DATABASE_URL", "")
+        if not url:
+            pytest.skip("Set TRAVELMATE_TEST_DATABASE_URL to a disposable PostgreSQL database")
+        psycopg = pytest.importorskip("psycopg")
+        with psycopg.connect(url, autocommit=True) as conn:
+            conn.execute(f"DROP TABLE IF EXISTS {TABLES} CASCADE")
+        store = Store(url, admin_email="admin@example.com")
+        assert store.backend == "postgresql"
     settings = Settings(_env_file=None, travelmate_api_token="operator-token")
     client = TestClient(create_app(settings, provider=Provider(), store=store))
     return client, store
@@ -172,13 +191,15 @@ def test_editing_a_trip_validates_and_recomputes_the_budget(env):
     first = days[0]["activities"][0]
     # Add a favourite (Lăng Tự Đức, 150.000 ₫ ticket) to day 1.
     assert client.put("/api/v1/me/favorites/osm:1", headers=headers).status_code == 200
+    other = "osm:2" if first["place_id"] == "osm:1" else "osm:1"
     edited = [{"date": days[0]["date"], "activities": [
-        first, {"place_id": "osm:1", "start_minute": 900, "end_minute": 1000}]}, days[1]]
+        first, {"place_id": other, "start_minute": 900, "end_minute": 1000}]}, days[1]]
+    added = [] if other in {p["id"] for p in trip["result"]["places"]} else [other]
     r = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"draft": {"days": edited},
-                                                                 "added_place_ids": ["osm:1"]}, headers=headers)
+                                                                 "added_place_ids": added}, headers=headers)
     assert r.status_code == 200, r.text
     result = r.json()["result"]
-    assert result["edited"] is True and result["self_check"] is None
+    assert result["edited"] is True and result["self_check"]["scheduled_by"] == "manual"
     assert float(result["budget"]["known_subtotal"]) == 300000
     assert any(p["id"] == "osm:1" for p in result["places"])
 
@@ -299,3 +320,142 @@ def test_hidden_places_disappear_for_users(env):
     assert client.get("/api/v1/me/favorites", headers=member).json() == []
     places = client.get("/api/v1/admin/places?hidden=true", headers=admin).json()
     assert [p["place"]["id"] for p in places] == ["osm:2"]
+
+
+def test_hidden_places_never_reach_ai_plans(env):
+    client, store = env
+    admin, _ = signup(client, "admin@example.com", "Quản trị")
+    member, _ = signup(client)
+    remember(client, member)
+    client.patch("/api/v1/admin/places/osm:1", json={"hidden": True}, headers=admin)
+    plan = client.post("/api/v1/plans/preview", json=trip_payload(), headers=member).json()
+    assert "osm:1" not in {p["id"] for p in plan["places"]}
+    scheduled = {a["place_id"] for d in plan["draft"]["days"] for a in d["activities"]}
+    assert "osm:1" not in scheduled
+
+
+def test_signed_in_chats_are_saved_restored_and_private(env):
+    client, store = env
+    headers, _ = signup(client)
+    start = date.today() + timedelta(days=5)
+    first = client.post("/api/v1/chat", json={"message": "lên lịch trình đi Huế"}, headers=headers).json()
+    sid = first["session_id"]
+    text = f"từ {start:%d/%m} đến {start + timedelta(1):%d/%m}, 2 người, 5 triệu"
+    second = client.post("/api/v1/chat", json={"session_id": sid, "message": text}, headers=headers).json()
+    assert second["trip_id"] and second["reply"]["plan"]
+    assert [t["id"] for t in client.get("/api/v1/me/trips", headers=headers).json()] == [second["trip_id"]]
+    chats = client.get("/api/v1/me/chats", headers=headers).json()
+    assert [c["id"] for c in chats] == [sid] and chats[0]["title"] == "lên lịch trình đi Huế"
+    saved = client.get(f"/api/v1/me/chats/{sid}", headers=headers).json()
+    assert [m["role"] for m in saved["messages"]] == ["user", "assistant", "user", "assistant"]
+    # After a restart (memory cleared) the conversation continues from the database.
+    client.app.state.chat.store.sessions.clear()
+    cost = client.post("/api/v1/chat", json={"session_id": sid, "message": "chi phí bao nhiêu"}, headers=headers).json()
+    assert cost["session_id"] == sid and cost["reply"]["agent"] == "budget_advisor" and "không coi là 0" in cost["reply"]["text"]
+    # Someone else cannot read or continue it.
+    other, _ = signup(client, "b@example.com", "B")
+    assert client.get(f"/api/v1/me/chats/{sid}", headers=other).status_code == 404
+    theirs = client.post("/api/v1/chat", json={"session_id": sid, "message": "chi phí bao nhiêu"}, headers=other).json()
+    assert theirs["session_id"] != sid
+    assert client.delete(f"/api/v1/me/chats/{sid}", headers=headers).status_code == 200
+
+
+def test_compound_question_gets_one_answer_per_specialist(env):
+    client, _ = env
+    headers, _ = signup(client)
+    r = client.post("/api/v1/chat", json={"message": "tìm quán ăn ở Huế và thời tiết thế nào"}, headers=headers).json()
+    assert [x["agent"] for x in r["replies"]] == ["place_finder", "weather_advisor"]
+
+
+def test_trip_dates_move_auto_arrange_and_user_costs(env):
+    client, _ = env
+    headers, _ = signup(client)
+    trip = make_trip(client, headers)
+    later = date.today() + timedelta(days=20)
+    moved = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"start_date": later.isoformat()}, headers=headers)
+    assert moved.status_code == 200, moved.text
+    moved = moved.json()
+    assert moved["request"]["start_date"] == later.isoformat()
+    assert moved["request"]["end_date"] == (later + timedelta(1)).isoformat()
+    assert [d["date"] for d in moved["result"]["draft"]["days"]] == [later.isoformat(), (later + timedelta(1)).isoformat()]
+    assert moved["result"]["weather"]["days"] == []
+    past = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"start_date": "2020-01-01"}, headers=headers)
+    assert past.status_code == 400
+    arranged = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"auto_arrange": True}, headers=headers).json()
+    assert arranged["result"]["self_check"]["scheduled_by"] == "rules"
+    assert all(d["activities"] for d in arranged["result"]["draft"]["days"])
+    costs = [{"category": "lodging", "label": "Khách sạn 1 đêm", "amount_vnd": 800000},
+             {"category": "food", "label": "Ăn uống", "amount_vnd": 600000}]
+    priced = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"user_costs": costs}, headers=headers).json()
+    budget = priced["result"]["budget"]
+    assert "Lưu trú" not in budget["unknown_items"] and "Ăn uống" not in budget["unknown_items"]
+    assert "Di chuyển" in budget["unknown_items"]
+    assert float(budget["known_subtotal"]) >= 1400000
+    assert any("do bạn nhập" in b for b in budget["estimate_basis"])
+    both = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"auto_arrange": True, "start_date": later.isoformat()},
+                        headers=headers)
+    assert both.status_code == 422
+
+
+def test_browser_session_uses_an_httponly_cookie_with_csrf_header(env):
+    client, _ = env
+    r = client.post("/api/v1/auth/login", json={"email": "x@example.com", "password": "sai"})
+    signup(client)  # sets the cookie on this client
+    cookie = client.cookies.get("tm_session")
+    assert cookie
+    header = next(h for h in client.post("/api/v1/auth/login", json={
+        "email": "an@example.com", "password": PASSWORD}).headers.get_list("set-cookie") if h.startswith("tm_session="))
+    assert "HttpOnly" in header and "SameSite=strict" in header.replace("Strict", "strict")
+    assert client.get("/api/v1/me").status_code == 200  # reads work with the cookie alone
+    # Writes with the cookie need the custom header (a cross-site form cannot send it).
+    assert client.patch("/api/v1/me", json={"name": "Hacked"}).status_code == 401
+    ok = client.patch("/api/v1/me", json={"name": "An mới"}, headers={"X-Requested-With": "travelmate"})
+    assert ok.status_code == 200 and ok.json()["name"] == "An mới"
+    assert client.post("/api/v1/places/search", json={"destination": "Huế"},
+                       headers={"X-Requested-With": "travelmate"}).status_code == 200
+    out = client.post("/api/v1/auth/logout", headers={"X-Requested-With": "travelmate"})
+    assert out.status_code == 200 and not client.cookies.get("tm_session")
+    assert client.get("/api/v1/me").status_code == 401
+    assert r.status_code == 401
+
+
+def test_reset_email_is_sent_when_smtp_is_configured(tmp_path):
+    from app.mailer import Mailer
+
+    sent = []
+
+    class FakeSMTP:
+        def __init__(self, host, port, timeout):
+            self.host = host
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            return False
+
+        def starttls(self, context):
+            pass
+
+        def login(self, user, password):
+            sent.append(("login", user))
+
+        def send_message(self, message):
+            sent.append(("to", message["To"], message.get_content()))
+
+    from fastapi import FastAPI
+
+    from app.accounts import create_accounts_router
+
+    store = Store(tmp_path / "m.sqlite3")
+    store.signup("an@example.com", PASSWORD, "An")
+    app = FastAPI()
+    app.include_router(create_accounts_router(store, Settings(_env_file=None), Mailer(
+        "smtp.example.com", 587, "bot@example.com", "app-password", smtp=FakeSMTP)))
+    client = TestClient(app)
+    r = client.post("/api/v1/auth/forgot", json={"email": "an@example.com"}).json()
+    assert "đã gửi" in r["message"]
+    assert sent[0] == ("login", "bot@example.com") and sent[1][1] == "an@example.com"
+    assert "view=forgot&reset=" in sent[1][2]
+    unknown = client.post("/api/v1/auth/forgot", json={"email": "ai@example.com"}).json()
+    assert unknown["message"] == r["message"] and len(sent) == 2  # no enumeration, no email

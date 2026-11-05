@@ -35,12 +35,15 @@ from .models import (
     TravelSubTask,
 )
 from .orchestrator import checked_places, checked_weather, plan_response, validate_draft
+from .rule_scheduler import rule_draft
 from .self_check import draft_score, feedback_from, review_draft
 from .tool_loop import ToolLoop, run_tool_loop
 
 logger = logging.getLogger(__name__)
 
 MAX_SELF_CHECK_REVISIONS = 2
+RULE_FALLBACK_WARNING = ("Gemini đang lỗi hoặc hết hạn mức nên lịch được xếp tự động bằng luật: ưu tiên mong muốn "
+                         "đã nêu, có bữa trưa, hạn chế điểm ngoài trời khi mưa. Bạn có thể thử lại sau để AI xếp.")
 
 PLANNING_INSTRUCTION = (
     "You are the Planning Agent of a travel planner. You do not plan the day-by-day schedule; you "
@@ -272,9 +275,13 @@ class PlanningOrchestrator:
         draft, report = await self.reviewed_draft(trip, ranked, weather, preferences, wishes, run)
         budget = await run("budget", BudgetInput(trip=trip, draft=draft, places=ranked))
         response = plan_response(context, self.mode, draft, ranked, weather, budget, preferences, places.stays)
+        warnings = response.warnings
+        if report.scheduled_by == "rules":
+            warnings = [RULE_FALLBACK_WARNING, *warnings]
         return response.model_copy(update={
             "planning": PlanningTrace(planner=planner_kind, rounds=rounds),
             "self_check": report,
+            "warnings": warnings,
         })
 
     async def reviewed_draft(self, trip, ranked, weather, preferences, wishes, run):
@@ -287,6 +294,7 @@ class PlanningOrchestrator:
         """
         can_revise = getattr(self.registry.get("planner"), "llm", None) is not None
         feedback, attempts, best = [], [], None
+        scheduled_by = "llm" if can_revise else "demo"
         for round_no in range(1, MAX_SELF_CHECK_REVISIONS + 2):
             try:
                 draft = await run("planner", PlannerInput(
@@ -297,7 +305,18 @@ class PlanningOrchestrator:
                 raise
             except Exception as exc:
                 if best is None:
-                    raise  # the first draft is required; revisions are optional
+                    if not can_revise or isinstance(exc, AgentError) and "No places" in str(exc):
+                        raise  # demo planner errors and "no places" are real failures
+                    # The itinerary LLM failed (quota, outage, invalid draft): schedule by rules so
+                    # the user still gets a plan, and say so.
+                    logger.warning("self_check outcome=rule_fallback error_type=%s", type(exc).__name__)
+                    draft = rule_draft(trip, ranked, weather, set().union(*(ids for _, _, ids in wishes)))
+                    validate_draft(trip, draft, ranked)
+                    checks = review_draft(draft, ranked, weather, wishes)
+                    attempts.append(SelfCheckRound(round=round_no, checks=checks))
+                    best = (draft_score(checks), round_no, draft)
+                    scheduled_by = "rules"
+                    break
                 # A failed revision (quota, provider error, invalid draft) keeps the best draft.
                 logger.warning("self_check round=%d outcome=revision_failed error_type=%s", round_no,
                                type(exc).__name__)
@@ -313,5 +332,6 @@ class PlanningOrchestrator:
         score, chosen, draft = best
         report = SelfCheckReport(
             rounds=attempts, revisions=len(attempts) - 1, chosen_round=chosen, final_passed=score[1] == 0,
+            scheduled_by=scheduled_by,
         )
         return draft, report

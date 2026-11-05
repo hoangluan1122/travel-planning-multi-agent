@@ -7,12 +7,14 @@ say so.
 """
 
 import asyncio
+import re
 import time
+import unicodedata
 
 from .agents import AgentError
 from .geo_places import GeoPlaceService, LocalityChoiceRequired
 from .models import Context, PlaceResult, WeatherDay, WeatherResult
-from .place_media import WikipediaImages
+from .place_media import WikipediaImages, plain
 from .ticket_prices import apply_tickets
 
 SOURCE_NOTE = (
@@ -192,6 +194,32 @@ class OpenDataProvider:
     async def search_places(self, query):
         location, warnings = await self.locate(query.destination)
         found, _, _ = await self.geo.discover(location, query.category, query.radius_m, query.keyword)
+        keyword = query.keyword.strip()
+        if keyword:
+            # Photon also returns loose fuzzy hits ("chùa" → "Phan Bội Châu"): keep only places whose
+            # name contains the keyword (accents aside; keyword_filter checks accents below).
+            found = [p for p in found if keyword_matches(p, keyword) or loosely_named(p, keyword)]
+            english = KEYWORD_ENGLISH.get(" ".join(words(keyword)))
+            if english:  # OSM names are often English ("Vegetarian restaurant")
+                try:
+                    more, _, _ = await self.geo.discover(location, query.category, query.radius_m, english)
+                except AgentError:
+                    more = []
+                found += [p for p in more if keyword_matches(p, english) or loosely_named(p, english)]
+            # Photon's keyword search returns few, fuzzy hits; also match the keyword against the
+            # nearby list (and historic sites for sights) by name or type, accents included.
+            extra = []
+            for category, radius in [(query.category, query.radius_m)] + (
+                    [("heritage", self.heritage_radius_m)] if query.category == "attraction" else []):
+                try:
+                    nearby, _, _ = await self.geo.discover(location, category, radius)
+                except AgentError:
+                    continue
+                extra += [p for p in nearby if keyword_matches(p, query.keyword)]
+            seen = {p.id for p in found}
+            found = found + [p for p in extra if p.id not in seen and not seen.add(p.id)]
+            found = keyword_filter(found, query.keyword)
+            found.sort(key=lambda p: not keyword_matches(p, query.keyword))
         return PlaceResult(places=unique_plausible(found)[: query.limit], warnings=warnings + [SOURCE_NOTE])
 
     async def forecast(self, trip):
@@ -219,3 +247,68 @@ class OpenDataProvider:
                 "Chưa có dự báo cho: " + ", ".join(day.isoformat() for day in report.missing_dates) + "."
             )
         return WeatherResult(days=days, warnings=warnings + ["Thời tiết: dự báo Open-Meteo."])
+
+
+def words(text):
+    return re.findall(r"\w+", unicodedata.normalize("NFC", text.casefold()))
+
+
+# Keywords that name a kind of place rather than words in its name.
+KEYWORD_TYPES = {
+    "lăng": {"tomb"}, "lăng tẩm": {"tomb"}, "tomb": {"tomb"}, "mộ": {"tomb"},
+    "chùa": {"temple", "place_of_worship", "buddhist"}, "đền": {"temple"}, "temple": {"temple"},
+    "pagoda": {"temple", "buddhist"}, "bảo tàng": {"museum"}, "museum": {"museum"},
+    "chay": {"vegetarian", "vegan"}, "vegetarian": {"vegetarian", "vegan"}, "vegan": {"vegan"},
+    "hải sản": {"seafood"}, "seafood": {"seafood"}, "biển": {"beach"}, "beach": {"beach"},
+    "công viên": {"park"}, "park": {"park"}, "cà phê": {"cafe"}, "cafe": {"cafe"}, "chợ": {"marketplace"},
+}
+
+
+KEYWORD_ENGLISH = {"chay": "vegetarian", "đồ chay": "vegetarian", "hải sản": "seafood", "lăng": "tomb",
+                   "chùa": "pagoda", "bảo tàng": "museum", "chợ": "market", "biển": "beach"}
+
+
+def keyword_matches(place, keyword):
+    """Name contains the keyword with the same accents, or the place's type is what the keyword names."""
+    wanted = words(keyword)
+    name = words(place.name)
+    if wanted and any(name[i:i + len(wanted)] == wanted for i in range(len(name))):
+        return True
+    kinds = KEYWORD_TYPES.get(" ".join(wanted), set())
+    return bool(kinds & {t.casefold() for t in place.types})
+
+
+def loosely_named(place, keyword):
+    """The keyword's words appear in the name, ignoring accents ("pho" in "Phở Quân", not in "Phong")."""
+    wanted = [plain(w) for w in words(keyword)]
+    name = [plain(w) for w in words(place.name)]
+    return bool(wanted) and any(name[i:i + len(wanted)] == wanted for i in range(len(name)))
+
+
+def keyword_filter(places, keyword):
+    """Drop fuzzy matches that only agree once diacritics are removed.
+
+    Photon ignores Vietnamese diacritics, so "lăng" (tomb) also finds "Làng" (village) and
+    "chay" (vegetarian) finds "cháy" (burnt). A place whose name contains the keyword only
+    in such a different-diacritics form is dropped when the keyword itself has diacritics, or
+    when other places match it exactly. Places matched through other fields are kept.
+    """
+    wanted = words(keyword)
+    if not wanted:
+        return places
+    plain_wanted = [plain(w) for w in wanted]
+
+    def exact(place):
+        name = words(place.name)
+        return any(name[i:i + len(wanted)] == wanted for i in range(len(name)))
+
+    def conflict(place):
+        name = words(place.name)
+        flat = [plain(w) for w in name]
+        fuzzy = any(flat[i:i + len(wanted)] == plain_wanted for i in range(len(flat)))
+        return fuzzy and not exact(place)
+
+    has_marks = any(w != plain(w) for w in wanted)
+    if has_marks or any(exact(p) for p in places):
+        return [p for p in places if not conflict(p)]
+    return places

@@ -5,13 +5,14 @@ from pathlib import Path
 from typing import Literal
 from uuid import UUID
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.responses import RedirectResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.staticfiles import StaticFiles
 from pydantic import AliasChoices, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from .accounts import session_from
 from .adk_adapter import AdkPlanner
 from .agents import (
     AgentError,
@@ -23,11 +24,12 @@ from .agents import (
     Registry,
     WeatherAgent,
 )
-from .chat import ChatRequest, ChatResponse
+from .chat import ChatRequest, ChatResponse, ChatSession
 from .models import PlaceResult, PlaceSearchRequest, PlanResponse, TripRequest
 from .orchestrator import Orchestrator
 from .place_media import GooglePhotoProxy
 from .providers import DemoProvider, LiveProvider
+from .store import StoreError
 from .telemetry import configure_telemetry
 
 logger = logging.getLogger(__name__)
@@ -57,9 +59,18 @@ class Settings(BaseSettings):
     travelmate_telemetry: Literal["off", "console", "otlp"] = "off"
     # Product data (accounts, trips, favourites, reviews); one SQLite file, gitignored
     travelmate_db: Path = Path("travelmate.sqlite3")
+    # PostgreSQL instead of SQLite, e.g. postgresql://user:password@localhost:5432/travelmate
+    # (needs --extra postgres). Contains a password: never logged or returned.
+    travelmate_database_url: str = ""
     # The account signing up with this email becomes an admin
     travelmate_admin_email: str = ""
     travelmate_signup_open: bool = True
+    # Optional SMTP for password-reset emails (e.g. smtp.gmail.com + an app password)
+    travelmate_smtp_host: str = ""
+    travelmate_smtp_port: int = 587
+    travelmate_smtp_user: str = ""
+    travelmate_smtp_password: str = ""
+    travelmate_smtp_from: str = ""
 
     @field_validator("travelmate_memory_user", mode="before")
     @classmethod
@@ -133,7 +144,32 @@ class Services:
             settings, provider, orchestrator, chat, photos)
 
 
-def build_services(settings=None, orchestrator=None, provider=None, chat=None):
+class HidingProvider:
+    """Wraps a place provider so places an admin hid never reach searches, plans or the chat."""
+
+    def __init__(self, provider, hidden_ids):
+        self.inner, self.hidden_ids = provider, hidden_ids
+
+    def __getattr__(self, name):
+        return getattr(self.inner, name)
+
+    async def filtered(self, result):
+        hidden = await asyncio.to_thread(self.hidden_ids)
+        if not hidden:
+            return result
+        update = {"places": [p for p in result.places if p.id not in hidden]}
+        if getattr(result, "stays", None):
+            update["stays"] = [p for p in result.stays if p.id not in hidden]
+        return result.model_copy(update=update)
+
+    async def search(self, trip):
+        return await self.filtered(await self.inner.search(trip))
+
+    async def search_places(self, query):
+        return await self.filtered(await self.inner.search_places(query))
+
+
+def build_services(settings=None, orchestrator=None, provider=None, chat=None, hidden_ids=None):
     settings = settings or Settings()
     if settings.travelmate_mode == "live":
         if not settings.google_api_key or not settings.travelmate_api_token:
@@ -155,6 +191,8 @@ def build_services(settings=None, orchestrator=None, provider=None, chat=None):
         else:
             photos = GooglePhotoProxy(settings.google_maps_api_key)
             provider = LiveProvider(settings.google_maps_api_key, photos=photos)
+    if hidden_ids is not None:
+        provider = HidingProvider(provider, hidden_ids)
     if orchestrator is None:
         registry = Registry()
         for agent in [
@@ -196,26 +234,26 @@ def build_services(settings=None, orchestrator=None, provider=None, chat=None):
 def create_app(settings=None, orchestrator=None, provider=None, chat=None, store=None):
     settings = settings or Settings()
     configure_telemetry(settings.travelmate_telemetry, "travelmate-api")
-    services = build_services(settings, orchestrator, provider, chat)
-    settings, provider, orchestrator, chat, photos = (
-        services.settings, services.provider, services.orchestrator, services.chat, services.photos)
     if store is None:
         from .store import Store
 
-        store = Store(settings.travelmate_db, settings.travelmate_admin_email)
+        store = Store(settings.travelmate_database_url or settings.travelmate_db, settings.travelmate_admin_email)
+    services = build_services(settings, orchestrator, provider, chat, hidden_ids=store.hidden_place_ids)
+    settings, provider, orchestrator, chat, photos = (
+        services.settings, services.provider, services.orchestrator, services.chat, services.photos)
     app = FastAPI(title="TravelMate API", version="0.1.0")
+    app.state.chat, app.state.store = chat, store
     bearer = HTTPBearer(auto_error=False)
 
-    async def authorize(credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
-        # The operator's API token, or a signed-in user's session token.
+    async def authorize(request: Request, credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
+        # The operator's API token, or a signed-in user's session (Bearer token or HttpOnly cookie).
         if not settings.travelmate_api_token:
             return
-        if credentials is not None:
-            if secrets.compare_digest(credentials.credentials, settings.travelmate_api_token):
-                return
-            if await asyncio.to_thread(store.user_for_token, credentials.credentials):
-                return
-        raise HTTPException(401, "Invalid API token")
+        if credentials is not None and secrets.compare_digest(credentials.credentials, settings.travelmate_api_token):
+            return
+        user, _ = await session_from(request, credentials, store)
+        if user is None:
+            raise HTTPException(401, "Invalid API token")
 
     async def remember(places):
         try:
@@ -251,6 +289,7 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
             "agent_engine": settings.agent_engine,
             "orchestrator": settings.travelmate_orchestrator,
             "accounts": True,
+            "database": store.backend,
             "signup_open": settings.travelmate_signup_open,
         }
 
@@ -290,19 +329,42 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
             raise HTTPException(502, "Planning failed; check provider configuration and retry") from None
 
     @app.post("/api/v1/chat", response_model=ChatResponse, dependencies=[Depends(authorize)])
-    async def chat_turn(data: ChatRequest):
-        # Specialist failures become a chat reply; anything else must not leak details.
+    async def chat_turn(data: ChatRequest, request: Request,
+                        credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
+        # Signed-in users' chats are saved to the database (and plans to their trips); others stay in memory.
+        user, _ = await session_from(request, credentials, store)
+        owner = user["id"] if user else None
+        trip_id = None
         try:
-            session, reply = await chat.handle(data.session_id, data.message)
-            if reply.places:
-                reply.places = await visible(reply.places)
-            await remember(reply.places + (reply.plan.places + reply.plan.stays if reply.plan else []))
+            session = None
+            if owner and data.session_id and data.session_id not in chat.store.sessions:
+                try:
+                    saved = await asyncio.to_thread(store.chat, owner, data.session_id)
+                    session = chat.store.put(ChatSession.load(saved["id"], owner, saved["state"]))
+                except StoreError:
+                    session = None  # unknown or someone else's: start a new conversation
+            session, replies = await chat.handle_turn(data.session_id, data.message, owner, session)
+            for reply in replies:
+                if reply.places:
+                    reply.places = await visible(reply.places)
+                await remember(reply.places + (reply.plan.places + reply.plan.stays if reply.plan else []))
+            if owner:
+                title = next((m.text for m in session.messages if m.role == "user"), data.message)[:80]
+                await asyncio.to_thread(store.save_chat, owner, session.id, title, session.dump())
+                planned = next((r for r in replies if r.plan is not None and r.trip is not None), None)
+                if planned:
+                    saved_trip = await asyncio.to_thread(
+                        store.save_trip, owner, planned.trip.model_dump(mode="json"),
+                        planned.plan.model_dump(mode="json"),
+                        f"{planned.trip.destination} · {len(planned.plan.draft.days)} ngày (Trợ lý AI)")
+                    trip_id = saved_trip["id"]
         except Exception as exc:
             logger.warning("chat outcome=failed error_type=%s", type(exc).__name__)
             raise HTTPException(502, "Chat failed; retry shortly") from None
-        return ChatResponse(session_id=session.id, reply=reply, active_agent=session.active_agent)
+        return ChatResponse(session_id=session.id, reply=replies[0], replies=replies,
+                            active_agent=session.active_agent, trip_id=trip_id)
 
-    from .accounts import create_accounts_router
+    from .accounts import create_accounts_router  # noqa: F811 (session_from imported at top)
 
     app.include_router(create_accounts_router(store, settings))
 

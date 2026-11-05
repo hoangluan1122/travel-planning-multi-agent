@@ -65,12 +65,28 @@ class Orchestrator:
         places = checked_places(results[0])
         weather = checked_weather(results[1])
         ranked = await run("recommendation", RecommendationInput(places=places, preferences=memory))
-        draft = await run(
-            "planner", PlannerInput(trip=trip, places=ranked, weather=weather, preferences=memory)
-        )
-        validate_draft(trip, draft, ranked)
+        fallback = False
+        try:
+            draft = await run(
+                "planner", PlannerInput(trip=trip, places=ranked, weather=weather, preferences=memory)
+            )
+            validate_draft(trip, draft, ranked)
+        except asyncio.CancelledError:
+            raise
+        except Exception:
+            if getattr(self.registry.get("planner"), "llm", None) is None or not ranked.places:
+                raise
+            from .rule_scheduler import rule_draft  # the itinerary LLM failed: schedule by rules
+
+            draft, fallback = rule_draft(trip, ranked, weather), True
+            validate_draft(trip, draft, ranked)
         budget = await run("budget", BudgetInput(trip=trip, draft=draft, places=ranked))
-        return plan_response(context, self.mode, draft, ranked, weather, budget, memory, places.stays)
+        response = plan_response(context, self.mode, draft, ranked, weather, budget, memory, places.stays)
+        if fallback:
+            from .planning import RULE_FALLBACK_WARNING
+
+            response = response.model_copy(update={"warnings": [RULE_FALLBACK_WARNING, *response.warnings]})
+        return response
 
 
 # Step rules shared by Orchestrator and WorkflowOrchestrator, so both produce the same

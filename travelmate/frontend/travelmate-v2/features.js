@@ -47,7 +47,7 @@
     return true;
   }
   const signedIn = (data, next) => {
-    localStorage.setItem('tm-session', JSON.stringify({token: data.token, user: data.user}));
+    localStorage.setItem('tm-session', JSON.stringify({user: data.user}));  // the token stays in the HttpOnly cookie
     location.href = next && next.startsWith('?') ? next : '?view=saved';
   };
   const refreshUser = u => { const s = session(); if (s) localStorage.setItem('tm-session', JSON.stringify({...s, user: u})); };
@@ -247,16 +247,30 @@
       const places = new Map([...trip.result.places, ...favs].map(p => [p.id, p]));
       const days = trip.result.draft.days.map(d => ({date: d.date, activities: d.activities.map(a => ({...a}))}));
       const added = new Set();
+      const costs = (trip.result.user_costs || []).map(c => ({...c}));
+      const costKinds = {lodging: 'Lưu trú', food: 'Ăn uống', transport: 'Di chuyển', other: 'Khác'};
+      const costRows = () => costs.map((c, i) => `<div class="tm-row"><select data-cost="${i}" data-ck="category" aria-label="Loại chi phí">${Object.entries(costKinds).map(([k, t]) => `<option value="${k}" ${c.category === k ? 'selected' : ''}>${t}</option>`).join('')}</select><input data-cost="${i}" data-ck="label" value="${esc(c.label)}" maxlength="80" placeholder="Ví dụ: Khách sạn 2 đêm" aria-label="Tên khoản chi"><input data-cost="${i}" data-ck="amount_vnd" type="number" min="1" step="1000" value="${c.amount_vnd}" aria-label="Số tiền (₫)"> ₫ ${btn('Bỏ', `data-cost-remove="${i}"`)}</div>`).join('');
       const draw = () => {
         main.innerHTML = `<div class="page-shell"><div class="eyebrow">CHỈNH SỬA LỊCH TRÌNH</div><h1>${esc(trip.title)}</h1>
           ${field('Tên chuyến đi', 'title', 'text', trip.title, 'maxlength="120" id="tm-title"')}
+          <section class="api-card"><h3>Ngày và sắp xếp</h3><div class="tm-row"><label>Ngày đi mới <input type="date" id="tm-new-start" value="${esc(trip.request.start_date)}" min="${new Date().toISOString().slice(0, 10)}"></label>${btn('Đổi ngày (giữ nguyên lịch)', 'id="tm-move-dates"')}${btn('Xếp lại tự động', 'id="tm-auto-arrange"')}</div><p class="api-meta">Đổi ngày sẽ dời cả chuyến; dự báo thời tiết cũ bị bỏ. “Xếp lại tự động” dùng luật: ưu tiên bữa trưa, tránh ngoài trời khi mưa, không lặp địa điểm.</p></section>
           ${days.map((d, di) => `<section class="api-card"><h3>Ngày ${di + 1} · ${esc(d.date)}</h3>${d.activities.map((a, ai) => `<div class="tm-row"><input type="time" value="${time(a.start_minute)}" data-day="${di}" data-act="${ai}" data-k="start_minute" aria-label="Giờ bắt đầu"> → <input type="time" value="${time(a.end_minute)}" data-day="${di}" data-act="${ai}" data-k="end_minute" aria-label="Giờ kết thúc"> <strong>${esc(places.get(a.place_id)?.name || a.place_id)}</strong> ${btn('Bỏ', `data-remove="${di}:${ai}"`)}</div>`).join('')}
             <div class="tm-row"><select data-add-day="${di}" aria-label="Thêm địa điểm yêu thích"><option value="">+ Thêm địa điểm yêu thích…</option>${favs.map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('')}</select></div></section>`).join('')}
+          <section class="api-card"><h3>Chi phí bạn tự nhập</h3><p class="api-meta">Ví dụ tiền khách sạn đã đặt, ngân sách ăn uống, vé xe. Các khoản này được cộng vào chi phí đã biết và ghi rõ “do bạn nhập”.</p><div id="tm-costs">${costRows()}</div>${btn('+ Thêm khoản chi', 'id="tm-cost-add"')}</section>
           ${favs.length ? '' : `<p class="api-meta">Muốn thêm địa điểm? Bấm ♡ ở trang địa điểm để đưa vào ${tm.link('favorites', 'Yêu thích')}.</p>`}
           <div class="tm-row"><button class="button dark" id="tm-save-edit">Lưu thay đổi</button><a class="button outline" href="?view=saved">Huỷ</a></div>${status('tm-edit-status')}
-          <p class="api-meta">Mỗi ngày cần ít nhất một hoạt động; giờ không được chồng nhau. Chi phí được tính lại khi lưu; phần tự kiểm tra của AI không áp dụng cho lịch đã sửa tay.</p></div>`;
+          <p class="api-meta">Mỗi ngày cần ít nhất một hoạt động; giờ không được chồng nhau. Khi lưu, chi phí được tính lại và lịch được tự kiểm tra (bữa trưa, ngày mưa, lặp địa điểm).</p></div>`;
       };
       draw();
+      main.addEventListener('input', e => {
+        const t = e.target;
+        if (t.dataset.cost !== undefined) costs[t.dataset.cost][t.dataset.ck] = t.dataset.ck === 'amount_vnd' ? Number(t.value) : t.value;
+      });
+      const replaceWith = async body => {
+        const out = main.querySelector('#tm-edit-status');
+        try { const saved = await patch(`/api/v1/me/trips/${encodeURIComponent(id)}`, body); say(out, 'Đã lưu. Đang mở lịch trình…', true); setTimeout(() => openTrip(saved), 600); }
+        catch (err) { say(out, err.message); }
+      };
       main.addEventListener('change', e => {
         const t = e.target;
         if (t.dataset.k) days[t.dataset.day].activities[t.dataset.act][t.dataset.k] = toMin(t.value);
@@ -269,13 +283,18 @@
         }
       });
       main.addEventListener('click', async e => {
+        if (e.target.id === 'tm-cost-add') { costs.push({category: 'lodging', label: '', amount_vnd: 0}); draw(); return; }
+        if (e.target.dataset.costRemove !== undefined) { costs.splice(Number(e.target.dataset.costRemove), 1); draw(); return; }
+        if (e.target.id === 'tm-move-dates') { const v = main.querySelector('#tm-new-start').value; if (v && v !== trip.request.start_date) replaceWith({start_date: v}); return; }
+        if (e.target.id === 'tm-auto-arrange') { if (confirm('Xếp lại toàn bộ lịch tự động? Thay đổi chưa lưu trên trang sẽ mất.')) replaceWith({auto_arrange: true}); return; }
         if (e.target.dataset.remove) { const [di, ai] = e.target.dataset.remove.split(':').map(Number); days[di].activities.splice(ai, 1); draw(); }
         if (e.target.id === 'tm-save-edit') {
           const out = main.querySelector('#tm-edit-status');
           if (days.some(d => !d.activities.length)) { say(out, 'Mỗi ngày cần ít nhất một hoạt động.'); return; }
+          if (costs.some(c => !c.label.trim() || !(c.amount_vnd > 0))) { say(out, 'Mỗi khoản chi cần tên và số tiền lớn hơn 0.'); return; }
           try {
             const usedAdded = [...added].filter(pid => days.some(d => d.activities.some(a => a.place_id === pid)));
-            const saved = await patch(`/api/v1/me/trips/${encodeURIComponent(id)}`, {title: main.querySelector('#tm-title').value.trim() || trip.title, draft: {days}, added_place_ids: usedAdded});
+            const saved = await patch(`/api/v1/me/trips/${encodeURIComponent(id)}`, {title: main.querySelector('#tm-title').value.trim() || trip.title, draft: {days}, added_place_ids: usedAdded, user_costs: costs.map(c => ({...c, label: c.label.trim()}))});
             say(out, 'Đã lưu. Đang mở lịch trình…', true);
             setTimeout(() => openTrip(saved), 600);
           } catch (err) { say(out, err.message); }

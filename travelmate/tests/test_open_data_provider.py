@@ -159,13 +159,45 @@ async def test_forecast_maps_days_rain_risk_and_missing_dates():
 
 
 @pytest.mark.asyncio
+class NamedGeo(FakeGeo):
+    def __init__(self, names):
+        super().__init__()
+        self.names = names
+
+    async def discover(self, location, category, radius_m, keyword=""):
+        self.discovered.append((category, radius_m, keyword))
+        hits = self.names.get(keyword, [])
+        return [place(f"{category}-{keyword}-{i}", [category], name=n) for i, n in enumerate(hits)], {}, 0
+
+
 async def test_search_places_passes_keyword_radius_and_limit():
-    geo = FakeGeo()
+    geo = NamedGeo({"chay": [f"Quán chay {i}" for i in range(6)]})
     result = await OpenDataProvider(images=False, geo=geo).search_places(
         PlaceSearchRequest(destination="Hội An", category="restaurant", keyword="chay", limit=4, radius_m=2000)
     )
     assert len(result.places) == 4
-    assert geo.discovered == [("restaurant", 2000, "chay")]
+    assert geo.discovered[0] == ("restaurant", 2000, "chay")
+    assert ("restaurant", 2000, "vegetarian") in geo.discovered  # English OSM names
+    assert ("restaurant", 2000, "") in geo.discovered  # nearby list matched locally
+
+
+async def test_keyword_search_respects_vietnamese_accents():
+    geo = NamedGeo({"lăng": ["Làng tránh Sình", "Lăng Tự Đức"], "tomb": ["Tomb of Minh Mang"],
+                    "": ["Khiêm Lăng", "Chợ Đông Ba"]})
+    result = await OpenDataProvider(images=False, geo=geo).search_places(
+        PlaceSearchRequest(destination="Huế", category="attraction", keyword="lăng", limit=10, radius_m=10000))
+    names = [p.name for p in result.places]
+    assert "Làng tránh Sình" not in names and "Chợ Đông Ba" not in names
+    assert {"Lăng Tự Đức", "Khiêm Lăng", "Tomb of Minh Mang"} <= set(names)
+
+
+def test_keyword_filter_drops_accent_lookalikes():
+    from app.open_data_provider import keyword_filter, loosely_named
+
+    named = [place(str(i), ["restaurant"], name=n) for i, n in enumerate(["Quần cháy", "Quan chay", "Liên Hoa"])]
+    assert [p.name for p in keyword_filter(named, "chay")] == ["Quan chay", "Liên Hoa"]
+    assert [p.name for p in keyword_filter(named[:1], "chay")] == ["Quần cháy"]  # nothing exact: keep fuzzy
+    assert not loosely_named(place("x", ["restaurant"], name="Phong Nha"), "phở")
 
 
 def test_live_open_data_needs_no_maps_key_and_reports_provider():
