@@ -15,6 +15,9 @@ PASSWORD = "matkhau-dai-123"
 class Provider(DemoProvider):
     """Search returns two real-looking places; planning uses the demo pipeline."""
 
+    async def search(self, trip):
+        return await self.search_places(trip)
+
     async def search_places(self, query):
         ticket = TicketInfo(group_id="hue-tu-duc", label="Vé lăng Tự Đức", adult_vnd=150000,
                             sources=["https://tuoitre.vn/x"], checked=date(2026, 11, 5))
@@ -188,10 +191,12 @@ def test_editing_a_trip_validates_and_recomputes_the_budget(env):
     first = days[0]["activities"][0]
     # Add a favourite (Lăng Tự Đức, 150.000 ₫ ticket) to day 1.
     assert client.put("/api/v1/me/favorites/osm:1", headers=headers).status_code == 200
+    other = "osm:2" if first["place_id"] == "osm:1" else "osm:1"
     edited = [{"date": days[0]["date"], "activities": [
-        first, {"place_id": "osm:1", "start_minute": 900, "end_minute": 1000}]}, days[1]]
+        first, {"place_id": other, "start_minute": 900, "end_minute": 1000}]}, days[1]]
+    added = [] if other in {p["id"] for p in trip["result"]["places"]} else [other]
     r = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"draft": {"days": edited},
-                                                                 "added_place_ids": ["osm:1"]}, headers=headers)
+                                                                 "added_place_ids": added}, headers=headers)
     assert r.status_code == 200, r.text
     result = r.json()["result"]
     assert result["edited"] is True and result["self_check"] is None
@@ -315,3 +320,15 @@ def test_hidden_places_disappear_for_users(env):
     assert client.get("/api/v1/me/favorites", headers=member).json() == []
     places = client.get("/api/v1/admin/places?hidden=true", headers=admin).json()
     assert [p["place"]["id"] for p in places] == ["osm:2"]
+
+
+def test_hidden_places_never_reach_ai_plans(env):
+    client, store = env
+    admin, _ = signup(client, "admin@example.com", "Quản trị")
+    member, _ = signup(client)
+    remember(client, member)
+    client.patch("/api/v1/admin/places/osm:1", json={"hidden": True}, headers=admin)
+    plan = client.post("/api/v1/plans/preview", json=trip_payload(), headers=member).json()
+    assert "osm:1" not in {p["id"] for p in plan["places"]}
+    scheduled = {a["place_id"] for d in plan["draft"]["days"] for a in d["activities"]}
+    assert "osm:1" not in scheduled
