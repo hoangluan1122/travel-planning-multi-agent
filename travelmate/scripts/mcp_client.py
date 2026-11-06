@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 async def main():
-    server = StdioServerParameters(command=sys.executable, args=["-m", "app.mcp_server"], cwd=str(ROOT))
+    server = StdioServerParameters(command=sys.executable, args=["-m", "app.protocols.mcp_server"], cwd=str(ROOT))
     async with stdio_client(server) as (read, write), ClientSession(read, write) as session:
         info = await session.initialize()
         print(f"Server: {info.serverInfo.name}")

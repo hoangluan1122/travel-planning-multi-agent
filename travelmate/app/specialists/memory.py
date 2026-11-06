@@ -7,8 +7,8 @@ from uuid import UUID
 
 from pydantic import Field, model_validator
 
-from ..agents import AgentError, BaseAgent
-from ..models import Model, ShortText
+from app.core.base import AgentError, BaseAgent
+from app.core.models import Model, ShortText
 
 
 class MemoryRequest(Model):

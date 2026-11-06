@@ -12,9 +12,9 @@ from pathlib import Path
 
 import httpx
 
-from app.geo_places import GeoPlaceService, PublicGeoClient
-from app.live_place_agent import LivePlaceAgent
-from app.live_place_api import LivePlaceSettings, create_app
+from app.place_agent.live import LivePlaceAgent
+from app.place_agent.live_api import LivePlaceSettings, create_app
+from app.tools.places.geo_places import GeoPlaceService, PublicGeoClient
 from scripts.audit_place_coverage import AuditTransport, source_errors
 
 SCENARIOS = [

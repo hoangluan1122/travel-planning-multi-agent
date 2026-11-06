@@ -8,8 +8,8 @@ from uuid import UUID
 
 from pydantic import Field, field_validator, model_validator
 
-from ..agents import BaseAgent
-from ..models import Context, Model, ShortText
+from app.core.base import BaseAgent
+from app.core.models import Context, Model, ShortText
 
 Money = Annotated[Decimal, Field(ge=0, max_digits=14, decimal_places=2)]
 Category = Literal["accommodation", "meals", "transport", "visits", "other"]

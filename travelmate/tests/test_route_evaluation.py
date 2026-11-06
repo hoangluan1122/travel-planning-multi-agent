@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from app.evaluate_routes import evaluate
+from app.evaluation.evaluate_routes import evaluate
 from app.specialists.routing import RouteMatrix, RouteRequest
 
 

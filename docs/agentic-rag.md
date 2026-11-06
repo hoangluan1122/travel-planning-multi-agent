@@ -1,6 +1,6 @@
 # Agentic RAG (Bài 05) trong TravelMate: Hướng dẫn viên có nguồn
 
-Mã: `travelmate/app/knowledge.py`. Trong **Trợ lý AI**, câu hỏi về một địa danh hay thành phố
+Mã: `travelmate/app/agents/guide.py`. Trong **Trợ lý AI**, câu hỏi về một địa danh hay thành phố
 (lịch sử, có gì hay, giá vé, giờ mở cửa, đi lại, kinh nghiệm) được chuyển cho chuyên gia
 `guide_advisor` (“Hướng dẫn viên”).
 

@@ -5,9 +5,9 @@ import math
 import httpx
 import pytest
 
-from app.geo_places import GeoPlaceService, LocalityChoiceRequired, PublicGeoClient
-from app.osm_places import normalized
-from app.vietnam_regions import load_catalog
+from app.tools.places.geo_places import GeoPlaceService, LocalityChoiceRequired, PublicGeoClient
+from app.tools.places.osm_places import normalized
+from app.tools.places.vietnam_regions import load_catalog
 
 REGIONS = list(load_catalog().regions.values())
 

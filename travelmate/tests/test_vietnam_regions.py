@@ -2,10 +2,10 @@ import httpx
 import pytest
 from test_geo_places import feature
 
-from app.geo_places import GeoPlaceService, LocalityChoiceRequired, PublicGeoClient
-from app.live_place_agent import LivePlaceAgent, LivePlaceRequest
-from app.models import Context
-from app.vietnam_regions import load_catalog, polygon_contains
+from app.core.models import Context
+from app.place_agent.live import LivePlaceAgent, LivePlaceRequest
+from app.tools.places.geo_places import GeoPlaceService, LocalityChoiceRequired, PublicGeoClient
+from app.tools.places.vietnam_regions import load_catalog, polygon_contains
 
 
 def test_complete_versioned_catalog_and_exact_name_matching():
@@ -136,7 +136,7 @@ async def test_fallback_locality_provider_observed_identity_no_invented_coordina
 def test_region_api_serves_metadata_not_geometry_or_fake_pois():
     from fastapi.testclient import TestClient
 
-    from app.live_place_api import LivePlaceSettings, create_app
+    from app.place_agent.live_api import LivePlaceSettings, create_app
 
     with TestClient(create_app(LivePlaceSettings(travelmate_api_token=""))) as client:
         data = client.get("/api/v1/places/regions").json()

@@ -2,10 +2,10 @@
 
 import pytest
 
-import app.tool_loop as tool_loop
-from app.agents import AgentError
-from app.models import Context
-from app.tool_loop import ToolLoop, is_transient, run_tool_loop
+import app.core.llm.tool_loop as tool_loop
+from app.core.base import AgentError
+from app.core.llm.tool_loop import ToolLoop, is_transient, run_tool_loop
+from app.core.models import Context
 
 
 class ServerError(Exception):  # same name as google.genai.errors.ServerError

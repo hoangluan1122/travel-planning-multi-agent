@@ -7,13 +7,13 @@ import httpx
 import pytest
 from pydantic import ValidationError
 
-from app.agents import AgentError, BaseAgent
-from app.models import Context, Model, Place, ScheduleConstraints
-from app.provider_http import get_with_retry
+from app.core.base import AgentError, BaseAgent
+from app.core.models import Context, Model, Place, ScheduleConstraints
 from app.specialists.budget import BudgetRequest, BudgetSpecialist
 from app.specialists.memory import MemoryConflictError, MemoryRequest, MemorySpecialist
 from app.specialists.recommendation import RecommendationRequest
 from app.specialists.weather import WeatherRequest, WeatherSpecialist
+from app.tools.http import get_with_retry
 
 
 def place(identifier="p1"):
@@ -238,8 +238,8 @@ async def test_weather_malformed_values_fail_closed(code, rain):
 async def test_planner_validator_enforces_each_constraint(constraints):
     from test_adk_tools import fixture_data
 
-    from app.models import Draft
-    from app.orchestrator import validate_draft
+    from app.agents.orchestrator import validate_draft
+    from app.core.models import Draft
 
     data, draft = await fixture_data()
     with pytest.raises(AgentError):

@@ -9,9 +9,8 @@ import pytest
 from fastapi.testclient import TestClient
 from test_planning import payload
 
-from app.agents import BudgetAgent
-from app.main import Settings, create_app
-from app.models import (
+from app.agents.budget import BudgetAgent
+from app.core.models import (
     Activity,
     BudgetInput,
     Context,
@@ -22,8 +21,9 @@ from app.models import (
     PriceRange,
     TripRequest,
 )
-from app.place_media import GooglePhotoProxy
-from app.providers import LiveProvider
+from app.main import Settings, create_app
+from app.tools.places.place_media import GooglePhotoProxy
+from app.tools.places.providers import LiveProvider
 
 
 def google_item(ident, name, types, **extra):
@@ -111,17 +111,15 @@ async def test_budget_estimate_uses_price_ranges_without_counting_them_as_known(
 
 def test_plan_response_carries_stays_through_both_orchestrators():
     pytest.importorskip("agent_framework")
-    from app.agents import (
-        MemoryAgent,
-        PlaceAgent,
-        PlannerAgent,
-        RecommendationAgent,
-        Registry,
-        WeatherAgent,
-    )
-    from app.orchestrator import Orchestrator
-    from app.providers import DemoProvider
-    from app.workflow_orchestrator import WorkflowOrchestrator
+    from app.agents.itinerary import PlannerAgent
+    from app.agents.orchestrator import Orchestrator
+    from app.agents.place import PlaceAgent
+    from app.agents.recommendation import RecommendationAgent
+    from app.agents.weather import WeatherAgent
+    from app.agents.workflow_orchestrator import WorkflowOrchestrator
+    from app.core.base import Registry
+    from app.memory.preferences import MemoryAgent
+    from app.tools.places.providers import DemoProvider
 
     class WithStays(DemoProvider):
         async def search(self, trip):

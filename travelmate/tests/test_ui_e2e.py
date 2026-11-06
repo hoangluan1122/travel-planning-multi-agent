@@ -29,7 +29,7 @@ def server(tmp_path_factory):
     import uvicorn
 
     from app.main import Settings, create_app
-    from app.store import Store
+    from app.memory.store import Store
 
     store = Store(tmp_path_factory.mktemp("ui") / "ui.sqlite3", admin_email=ADMIN[0])
     app = create_app(Settings(_env_file=None, travelmate_api_token="ui-operator-token"), store=store)

@@ -7,12 +7,18 @@ import pytest
 from fastapi.testclient import TestClient
 from test_planning import payload
 
-from app.agents import AgentError
-from app.geo_places import GeoPlaceService, Locality, LocalityChoiceRequired, PublicGeoClient, name_pattern
+from app.core.base import AgentError
+from app.core.models import Place, PlaceSearchRequest, TripRequest
 from app.main import Settings, create_app
-from app.models import Place, PlaceSearchRequest, TripRequest
-from app.open_data_provider import OpenDataProvider, pick_attractions, pick_food, plausible_name
 from app.specialists.weather import ForecastDay, WeatherReport
+from app.tools.places.geo_places import (
+    GeoPlaceService,
+    Locality,
+    LocalityChoiceRequired,
+    PublicGeoClient,
+    name_pattern,
+)
+from app.tools.places.open_data_provider import OpenDataProvider, pick_attractions, pick_food, plausible_name
 
 
 def locality(name="Hội An", admin1="Đà Nẵng", ident="geonames:1"):
@@ -204,7 +210,7 @@ async def test_keyword_search_respects_vietnamese_accents():
 
 
 def test_keyword_filter_drops_accent_lookalikes():
-    from app.open_data_provider import keyword_filter, loosely_named
+    from app.tools.places.open_data_provider import keyword_filter, loosely_named
 
     named = [place(str(i), ["restaurant"], name=n) for i, n in enumerate(["Quần cháy", "Quan chay", "Liên Hoa"])]
     assert [p.name for p in keyword_filter(named, "chay")] == ["Quan chay", "Liên Hoa"]
@@ -231,16 +237,14 @@ def test_live_google_still_requires_maps_key():
 
 
 def test_open_data_plan_end_to_end_with_fakes():
-    from app.agents import (
-        BudgetAgent,
-        MemoryAgent,
-        PlaceAgent,
-        PlannerAgent,
-        RecommendationAgent,
-        Registry,
-        WeatherAgent,
-    )
-    from app.orchestrator import Orchestrator
+    from app.agents.budget import BudgetAgent
+    from app.agents.itinerary import PlannerAgent
+    from app.agents.orchestrator import Orchestrator
+    from app.agents.place import PlaceAgent
+    from app.agents.recommendation import RecommendationAgent
+    from app.agents.weather import WeatherAgent
+    from app.core.base import Registry
+    from app.memory.preferences import MemoryAgent
 
     provider = OpenDataProvider(images=False, geo=FakeGeo(), weather=FakeWeather())
     registry = Registry()

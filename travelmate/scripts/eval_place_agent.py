@@ -16,9 +16,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from app.geo_places import GeoPlaceService  # noqa: E402
-from app.place_agent_eval import evaluate, markdown  # noqa: E402
-from app.specialist_api import SpecialistSettings, gemini_factory, maf_gemini_factory  # noqa: E402
+from app.evaluation.place_agent_eval import evaluate, markdown  # noqa: E402
+from app.specialists.api import SpecialistSettings, gemini_factory, maf_gemini_factory  # noqa: E402
+from app.tools.places.geo_places import GeoPlaceService  # noqa: E402
 
 
 async def main(args):

@@ -18,9 +18,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from app.engine_comparison import compare, markdown  # noqa: E402
-from app.models import PlannerInput  # noqa: E402
-from app.specialist_api import SpecialistSettings, gemini_factory, maf_gemini_factory  # noqa: E402
+from app.core.models import PlannerInput  # noqa: E402
+from app.evaluation.engine_comparison import compare, markdown  # noqa: E402
+from app.specialists.api import SpecialistSettings, gemini_factory, maf_gemini_factory  # noqa: E402
 from app.specialists.recommendation import RecommendationRequest  # noqa: E402
 
 

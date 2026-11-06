@@ -10,15 +10,19 @@ from uuid import UUID
 from pydantic import AliasChoices, Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from ..models import Context, PlannerInput
-from .budget import BudgetRequest, BudgetSpecialist
-from .memory import MemoryRequest, MemorySpecialist
-from .planner import PlannerSpecialist
-from .recommendation import RecommendationRanker, RecommendationRequest, RecommendationSpecialist
-from .routed_planner import RoutedPlannerInput, RoutedPlannerSpecialist
-from .routing import RouteRequest, RouteSpecialist
-from .trip_budget import TripBudgetRequest, TripBudgetSpecialist
-from .weather import WeatherRequest, WeatherSpecialist
+from app.core.models import Context, PlannerInput
+from app.specialists.budget import BudgetRequest, BudgetSpecialist
+from app.specialists.memory import MemoryRequest, MemorySpecialist
+from app.specialists.planner import PlannerSpecialist
+from app.specialists.recommendation import (
+    RecommendationRanker,
+    RecommendationRequest,
+    RecommendationSpecialist,
+)
+from app.specialists.routed_planner import RoutedPlannerInput, RoutedPlannerSpecialist
+from app.specialists.routing import RouteRequest, RouteSpecialist
+from app.specialists.trip_budget import TripBudgetRequest, TripBudgetSpecialist
+from app.specialists.weather import WeatherRequest, WeatherSpecialist
 
 
 class Settings(BaseSettings):
@@ -41,9 +45,9 @@ async def run(args):
     raw = args.input.read_text(encoding="utf-8-sig")
     settings = Settings()
     if args.agent in {"recommendation", "planner", "routed-planner"}:
-        from ..adk_adapter import AdkPlanner
-        from ..maf_adapter import MafPlanner
-        from ..specialist_api import agent_model_factory
+        from app.core.llm.adk_adapter import AdkPlanner
+        from app.core.llm.maf_adapter import MafPlanner
+        from app.specialists.api import agent_model_factory
 
         if not settings.google_api_key.get_secret_value():
             raise ValueError("Configure GOOGLE_API_KEY in .env locally")

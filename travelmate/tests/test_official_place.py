@@ -4,9 +4,9 @@ import httpx
 import pytest
 from pydantic import ValidationError
 
-from app.agents import AgentError
-from app.models import Context
-from app.official_place import OfficialPlaceRequest, OfficialPlaceTool, parse_contact
+from app.core.base import AgentError
+from app.core.models import Context
+from app.tools.places.official_place import OfficialPlaceRequest, OfficialPlaceTool, parse_contact
 
 HTML = """<h2 class="extended-menu-title">Changed hotel name</h2>
 <div class="address">Different street<br> SAPA</div>

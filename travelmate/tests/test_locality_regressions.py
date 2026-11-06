@@ -7,10 +7,15 @@ import httpx
 import pytest
 from test_geo_places import feature, locality
 
-from app.geo_places import GeoPlaceService, LocalityChoiceRequired, PublicGeoClient, relevant_name
-from app.live_place_agent import LivePlaceAgent, LivePlaceRequest
-from app.models import Context
-from app.osm_places import normalized
+from app.core.models import Context
+from app.place_agent.live import LivePlaceAgent, LivePlaceRequest
+from app.tools.places.geo_places import (
+    GeoPlaceService,
+    LocalityChoiceRequired,
+    PublicGeoClient,
+    relevant_name,
+)
+from app.tools.places.osm_places import normalized
 
 
 def source(geonames, photon, *, photon_status=200):

@@ -4,8 +4,8 @@ import pytest
 from test_adk_tools import ScriptedModel
 from test_place_agent import Provider, call
 
-from app.models import Context, PlaceResult
-from app.place_agent import PlaceAgentInput, PlaceAssistant, place_instruction
+from app.core.models import Context, PlaceResult
+from app.place_agent.agent import PlaceAgentInput, PlaceAssistant, place_instruction
 
 pytest.importorskip("google.adk")
 
@@ -73,10 +73,10 @@ async def test_repeated_keyword_is_not_sent_again_but_uses_budget():
 
 
 def test_live_place_agent_passes_provider_budgets():
-    from app.live_place_agent import GeoGroundedProvider, GroundedBrowserProvider
+    from app.place_agent.live import GeoGroundedProvider, GroundedBrowserProvider
 
     assert GeoGroundedProvider.MAX_SEARCHES == 2 and GroundedBrowserProvider.MAX_SEARCHES == 2
-    source = open("app/live_place_agent.py", encoding="utf-8").read()
+    source = open("app/place_agent/live.py", encoding="utf-8").read()
     assert "max_searches=provider.MAX_SEARCHES" in source and "max_details=provider.MAX_DETAILS" in source
 
 
@@ -89,9 +89,9 @@ def test_budgets_must_be_positive():
 async def test_llm_mode_searches_see_a_wider_pool_than_the_submit_limit():
     from datetime import UTC, datetime
 
-    from app.geo_places import Locality, PlaceMetadata
-    from app.live_place_agent import GeoGroundedProvider, LivePlaceRequest
-    from app.models import Place, PlaceSearchRequest
+    from app.core.models import Place, PlaceSearchRequest
+    from app.place_agent.live import GeoGroundedProvider, LivePlaceRequest
+    from app.tools.places.geo_places import Locality, PlaceMetadata
 
     loc = Locality(id="geonames:1", name="Hội An", latitude=15.88, longitude=108.33, feature_code="PPL",
                    source_url="https://example.test", fetched_at=datetime.now(UTC))

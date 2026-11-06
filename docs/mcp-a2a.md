@@ -6,7 +6,7 @@ Hai giao thức, hai vai trò:
 |---|---|---|
 | TravelMate đóng vai | **Hộp công cụ** cho agent/ứng dụng khác | **Một agent** để agent khác giao việc |
 | Đơn vị trao đổi | Lời gọi tool (tham số có schema, kết quả JSON) | Task gồm nhiều message, có trạng thái |
-| Mã | `travelmate/app/mcp_server.py` | `travelmate/app/a2a.py` (gắn vào API ở cổng 8000) |
+| Mã | `travelmate/app/protocols/mcp_server.py` | `travelmate/app/protocols/a2a.py` (gắn vào API ở cổng 8000) |
 | Client thử | `scripts/mcp_client.py` | `scripts/a2a_client.py` |
 
 API, MCP và A2A dùng chung các dịch vụ (`build_services` trong `app/main.py`): cùng nguồn dữ
@@ -31,7 +31,7 @@ một câu ngắn (“Invalid input: …”, “retry shortly”), không lộ U
 
 ```bash
 uv sync --extra mcp   # một lần (đã có sẵn nếu cài extra ai)
-uv run python -m app.mcp_server
+uv run python -m app.protocols.mcp_server
 ```
 
 Lệnh trên chạy qua stdio. Muốn chạy Streamable HTTP ở `http://127.0.0.1:8765/mcp`, thêm
@@ -45,7 +45,7 @@ Lệnh trên chạy qua stdio. Muốn chạy Streamable HTTP ở `http://127.0.0
     "travelmate": {
       "command": "uv",
       "args": ["run", "--directory", "C:/đường/dẫn/travel-planning-multi-agent/travelmate",
-               "python", "-m", "app.mcp_server"]
+               "python", "-m", "app.protocols.mcp_server"]
     }
   }
 }

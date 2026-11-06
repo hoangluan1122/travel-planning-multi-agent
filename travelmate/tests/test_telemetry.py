@@ -14,10 +14,11 @@ from test_adk_tools import fixture_data
 from test_maf_tools import ScriptedClient
 from test_planning import payload
 
-import app.telemetry as telemetry
-from app.agents import AgentError, MemoryAgent
-from app.maf_adapter import MafPlanner
-from app.models import Context, TripRequest
+import app.core.telemetry as telemetry
+from app.core.base import AgentError
+from app.core.llm.maf_adapter import MafPlanner
+from app.core.models import Context, TripRequest
+from app.memory.preferences import MemoryAgent
 from app.specialists.planner import PlannerSpecialist
 
 

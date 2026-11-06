@@ -5,8 +5,7 @@ from decimal import Decimal
 import pytest
 from fastapi.testclient import TestClient
 
-from app.agents import AgentError
-from app.chat import (
+from app.agents.concierge import (
     ChatService,
     ChatSession,
     ConciergeAgent,
@@ -18,9 +17,10 @@ from app.chat import (
     extract_slots,
     rule_decision,
 )
+from app.core.base import AgentError
+from app.core.models import Place, PlaceResult, WeatherDay, WeatherResult
 from app.main import Settings, create_app
-from app.models import Place, PlaceResult, WeatherDay, WeatherResult
-from app.providers import DemoProvider
+from app.tools.places.providers import DemoProvider
 
 
 def place(ident, name):
@@ -48,7 +48,7 @@ class Orchestrator:
         self.trips.append(trip)
         app = create_app(Settings(_env_file=None))  # demo pipeline gives a real PlanResponse
         response = TestClient(app).post("/api/v1/plans/preview", json=trip.model_dump(mode="json"))
-        from app.models import PlanResponse
+        from app.core.models import PlanResponse
 
         return PlanResponse.model_validate(response.json())
 
@@ -232,7 +232,7 @@ def concierge_calls():
 
 def _session():
     session = ChatSession()
-    from app.chat import ChatMessage
+    from app.agents.concierge import ChatMessage
 
     session.messages.append(ChatMessage(role="user", text="tìm quán chay ở Huế"))
     return session
@@ -242,7 +242,7 @@ async def test_concierge_repairs_a_rejected_decision_on_adk():
     pytest.importorskip("google.adk")
     from test_adk_tools import ScriptedModel
 
-    from app.models import Context
+    from app.core.models import Context
 
     model = ScriptedModel(calls=concierge_calls())
     decision = await ConciergeAgent(lambda: model, engine="adk").decide(_session(), Context())
@@ -254,7 +254,7 @@ async def test_concierge_repairs_a_rejected_decision_on_maf():
     pytest.importorskip("agent_framework")
     from test_maf_tools import ScriptedClient
 
-    from app.models import Context
+    from app.core.models import Context
 
     client = ScriptedClient(concierge_calls())
     decision = await ConciergeAgent(lambda: client, engine="maf").decide(_session(), Context())

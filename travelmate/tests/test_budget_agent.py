@@ -3,10 +3,9 @@
 from datetime import date, timedelta
 from decimal import Decimal
 
-from app.agents import BudgetAgent
-from app.chat import extract_slots, lodging_price, style_in, what_if
-from app.cost_reference import reference_for
-from app.models import (
+from app.agents.budget import BudgetAgent
+from app.agents.concierge import extract_slots, lodging_price, style_in, what_if
+from app.core.models import (
     Activity,
     BudgetInput,
     Context,
@@ -19,6 +18,7 @@ from app.models import (
     TripRequest,
     UserCost,
 )
+from app.tools.prices.cost_reference import reference_for
 
 START = date.today() + timedelta(days=7)
 TICKET = TicketInfo(group_id="hue-tu-duc", label="Vé lăng Tự Đức", adult_vnd=Decimal("150000"),
@@ -159,7 +159,7 @@ def test_what_if_parsing():
 
 
 def test_landmark_tickets_match_by_city_and_free_entry_is_zero():
-    from app.ticket_prices import ticket_for
+    from app.tools.prices.ticket_prices import ticket_for
 
     def sight(name, address):
         return Place(id=name, name=name, address=address, latitude=0, longitude=0, source="t", types=["attraction"])

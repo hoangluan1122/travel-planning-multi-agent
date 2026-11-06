@@ -4,10 +4,10 @@ from datetime import date, timedelta
 import pytest
 from fastapi.testclient import TestClient
 
+from app.core.models import Place, PlaceResult, TicketInfo
 from app.main import Settings, create_app
-from app.models import Place, PlaceResult, TicketInfo
-from app.providers import DemoProvider
-from app.store import Store, check_password, hash_password
+from app.memory.store import Store, check_password, hash_password
+from app.tools.places.providers import DemoProvider
 
 PASSWORD = "matkhau-dai-123"
 
@@ -426,7 +426,7 @@ def test_browser_session_uses_an_httponly_cookie_with_csrf_header(env):
 
 
 def test_reset_email_is_sent_when_smtp_is_configured(tmp_path):
-    from app.mailer import Mailer
+    from app.trust.mailer import Mailer
 
     sent = []
 
@@ -451,7 +451,7 @@ def test_reset_email_is_sent_when_smtp_is_configured(tmp_path):
 
     from fastapi import FastAPI
 
-    from app.accounts import create_accounts_router
+    from app.trust.accounts import create_accounts_router
 
     store = Store(tmp_path / "m.sqlite3")
     store.signup("an@example.com", PASSWORD, "An")

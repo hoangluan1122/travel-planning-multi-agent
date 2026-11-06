@@ -5,7 +5,7 @@ import httpx
 import pytest
 from fastapi.testclient import TestClient
 
-from app.specialist_api import SpecialistSettings, create_app
+from app.specialists.api import SpecialistSettings, create_app
 
 HEADERS = {"Authorization": "Bearer local-test-token"}
 BUDGET = {"budget_vnd": "1000", "lines": []}

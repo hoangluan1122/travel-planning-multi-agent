@@ -5,8 +5,8 @@ import pytest
 pytest.importorskip("google.adk")
 from test_adk_tools import ScriptedModel, fixture_data
 
-from app.agents import AgentError
-from app.models import Context, Place
+from app.core.base import AgentError
+from app.core.models import Context, Place
 from app.specialists.planner import PlannerSpecialist
 from app.specialists.recommendation import RecommendationRequest, RecommendationSpecialist
 
@@ -70,7 +70,7 @@ async def test_standalone_planner_uses_supplied_evidence():
 
 @pytest.mark.asyncio
 async def test_planner_repairs_daily_bounds_and_visit_window():
-    from app.models import ScheduleConstraints
+    from app.core.models import ScheduleConstraints
 
     data, draft = await fixture_data()
     data.constraints = ScheduleConstraints(

@@ -6,11 +6,11 @@ from datetime import datetime, timedelta
 import pytest
 from pydantic import ValidationError
 
-from app.browser_weather.coccoc import BrowserBlocked, CardUnavailable
-from app.browser_weather.models import BrowserWeatherRequest, BrowserWeatherResult, WeatherLocation
-from app.browser_weather.parsing import TZ, day_dates, location_matches, parse_stamp, parse_values
-from app.browser_weather.tool import BrowserWeatherTool, get_weather_from_browser
-from app.models import Context
+from app.core.models import Context
+from app.tools.browser_weather.coccoc import BrowserBlocked, CardUnavailable
+from app.tools.browser_weather.models import BrowserWeatherRequest, BrowserWeatherResult, WeatherLocation
+from app.tools.browser_weather.parsing import TZ, day_dates, location_matches, parse_stamp, parse_values
+from app.tools.browser_weather.tool import BrowserWeatherTool, get_weather_from_browser
 
 NOW = datetime(2026, 10, 22, 0, 15, tzinfo=TZ)
 
@@ -239,7 +239,7 @@ async def test_stale_widget_not_treated_as_fresh_forecast():
 def test_browser_weather_api_auth_and_schema(tmp_path):
     from fastapi.testclient import TestClient
 
-    from app.specialist_api import SpecialistSettings, create_app
+    from app.specialists.api import SpecialistSettings, create_app
 
     tool = BrowserWeatherTool(Adapter().session, now=lambda: NOW)
     app = create_app(

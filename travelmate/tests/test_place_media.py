@@ -3,8 +3,8 @@
 import httpx
 import pytest
 
-from app.models import Place
-from app.place_media import GooglePhotoProxy, WikipediaImages, titles_match
+from app.core.models import Place
+from app.tools.places.place_media import GooglePhotoProxy, WikipediaImages, titles_match
 
 
 def place(ident, name, types=("tomb",)):

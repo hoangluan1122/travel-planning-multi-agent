@@ -6,10 +6,10 @@ from types import SimpleNamespace
 import httpx
 import pytest
 
-from app.agents import AgentError
-from app.browser_places import BrowserPlaceTool, public_link, resolve_link
-from app.models import Context, PlaceSearchRequest
-from app.structured_hotel import StructuredHotelReader, parse_hotel
+from app.core.base import AgentError
+from app.core.models import Context, PlaceSearchRequest
+from app.tools.places.browser_places import BrowserPlaceTool, public_link, resolve_link
+from app.tools.places.structured_hotel import StructuredHotelReader, parse_hotel
 
 URL = "https://mgallery.accor.com/en/hotels/A5V2.html"
 
@@ -153,7 +153,7 @@ async def test_adk_place_assistant_uses_browser_tool():
     pytest.importorskip("google.adk")
     from test_adk_tools import ScriptedModel
 
-    from app.place_agent import PlaceAgentInput, PlaceAssistant
+    from app.place_agent.agent import PlaceAgentInput, PlaceAssistant
 
     agent = PlaceAssistant(
         lambda: ScriptedModel(calls=[{"name": "search_places", "args": {"keyword": ""}}]),
@@ -168,7 +168,7 @@ async def test_adk_place_assistant_uses_browser_tool():
 def test_browser_api_requires_auth_without_gemini():
     from fastapi.testclient import TestClient
 
-    from app.specialist_api import SpecialistSettings, create_app
+    from app.specialists.api import SpecialistSettings, create_app
 
     app = create_app(
         SpecialistSettings(travelmate_api_token="test-token"), overrides={"browser_places": tool_for([])}

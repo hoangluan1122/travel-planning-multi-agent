@@ -16,9 +16,9 @@ from agent_framework import (
     Message,
 )
 
-from app.agents import AgentError
-from app.maf_adapter import MafPlanner
-from app.models import Context
+from app.core.base import AgentError
+from app.core.llm.maf_adapter import MafPlanner
+from app.core.models import Context
 
 
 class ScriptedClient(FunctionInvocationLayer, ChatMiddlewareLayer, BaseChatClient):
@@ -166,7 +166,7 @@ def test_specialist_api_planner_engine_switch(tmp_path, monkeypatch):
     from fastapi.testclient import TestClient
     from test_specialist_api import HEADERS, settings
 
-    import app.specialist_api as api
+    import app.specialists.api as api
 
     data, draft = asyncio.run(fixture_data())
     used = []

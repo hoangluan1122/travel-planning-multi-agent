@@ -7,8 +7,8 @@ from typing import Literal
 
 from pydantic import Field, field_validator, model_validator
 
-from ..models import Model
-from ..osm_places import distance_m, normalized
+from app.core.models import Model
+from app.tools.places.osm_places import distance_m, normalized
 
 Feature = Literal[
     "nature",

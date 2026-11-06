@@ -5,7 +5,7 @@ import json
 from datetime import UTC, datetime
 from pathlib import Path
 
-from app.geo_places import GeoPlaceService, LocalityChoiceRequired, PublicGeoClient
+from app.tools.places.geo_places import GeoPlaceService, LocalityChoiceRequired, PublicGeoClient
 from scripts.audit_place_coverage import AuditTransport
 
 

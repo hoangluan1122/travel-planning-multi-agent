@@ -3,16 +3,16 @@ from typing import Literal
 
 from pydantic import Field, model_validator
 
-from ..agents import AgentError, BaseAgent
-from ..models import Context, Model, Place, ShortText
-from ..osm_places import normalized
-from ..tool_loop import ToolLoop, run_tool_loop
-from .recommendation_scoring import (
+from app.core.base import AgentError, BaseAgent
+from app.core.llm.tool_loop import ToolLoop, run_tool_loop
+from app.core.models import Context, Model, Place, ShortText
+from app.specialists.recommendation_scoring import (
     RecommendationContext,
     RecommendationItem,
     RejectedCandidate,
     prepare_recommendations,
 )
+from app.tools.places.osm_places import normalized
 
 
 class RecommendationRequest(Model):

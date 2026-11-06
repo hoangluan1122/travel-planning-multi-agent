@@ -12,21 +12,18 @@ from test_planning import payload
 
 pytest.importorskip("agent_framework")
 
-from app.agents import (
-    AgentError,
-    BudgetAgent,
-    MemoryAgent,
-    PlaceAgent,
-    PlannerAgent,
-    RecommendationAgent,
-    Registry,
-    WeatherAgent,
-)
+from app.agents.budget import BudgetAgent
+from app.agents.itinerary import PlannerAgent
+from app.agents.orchestrator import Orchestrator
+from app.agents.place import PlaceAgent
+from app.agents.recommendation import RecommendationAgent
+from app.agents.weather import WeatherAgent
+from app.agents.workflow_orchestrator import WorkflowOrchestrator
+from app.core.base import AgentError, Registry
+from app.core.models import Activity, Day, Draft, Preferences, TripRequest
 from app.main import Settings, create_app
-from app.models import Activity, Day, Draft, Preferences, TripRequest
-from app.orchestrator import Orchestrator
-from app.providers import DemoProvider
-from app.workflow_orchestrator import WorkflowOrchestrator
+from app.memory.preferences import MemoryAgent
+from app.tools.places.providers import DemoProvider
 
 ORCHESTRATORS = [Orchestrator, WorkflowOrchestrator]
 

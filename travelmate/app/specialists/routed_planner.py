@@ -5,11 +5,19 @@ from typing import Annotated, Literal
 
 from pydantic import Field, model_validator
 
-from ..adk_adapter import AdkPlanner
-from ..agents import AgentError, BaseAgent
-from ..models import Draft, Model, PlannerInput
-from .planner import PlannerSpecialist
-from .routing import OSRMProvider, Precedence, RoutePoint, RouteReport, RouteRequest, Visit, calculate_route
+from app.core.base import AgentError, BaseAgent
+from app.core.llm.adk_adapter import AdkPlanner
+from app.core.models import Draft, Model, PlannerInput
+from app.specialists.planner import PlannerSpecialist
+from app.specialists.routing import (
+    OSRMProvider,
+    Precedence,
+    RoutePoint,
+    RouteReport,
+    RouteRequest,
+    Visit,
+    calculate_route,
+)
 
 
 class VisitWindow(Model):
@@ -83,7 +91,7 @@ class RoutedPlan(Model):
 
 
 async def route_draft(data: RoutedPlannerInput, draft: Draft, provider):
-    from ..orchestrator import validate_draft
+    from app.agents.orchestrator import validate_draft
 
     validate_draft(data.trip, draft, data.places, data.constraints)
     places = {p.id: p for p in data.places.places}
