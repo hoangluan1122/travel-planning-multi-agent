@@ -7,7 +7,7 @@ pytest.importorskip("agent_framework")
 from test_adk_tools import ScriptedModel, fixture_data
 from test_maf_tools import ScriptedClient
 
-from app.engine_comparison import compare, markdown
+from app.evaluation.engine_comparison import compare, markdown
 
 
 @pytest.mark.asyncio

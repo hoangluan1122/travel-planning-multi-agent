@@ -2,8 +2,8 @@
 
 Khung chấm: 8 thành phần của khóa *AI Agents for Beginners* (Model, Tools, Knowledge,
 Context, Memory, Planning, Trust, Observability) cộng Evaluation. Agent được chấm là
-`PlaceAssistant` (`travelmate/app/place_agent.py`) chạy trong `LivePlaceAgent`
-(`travelmate/app/live_place_agent.py`) với nguồn thật `GeoGroundedProvider`
+`PlaceAssistant` (`travelmate/app/place_agent/agent.py`) chạy trong `LivePlaceAgent`
+(`travelmate/app/place_agent/live.py`) với nguồn thật `GeoGroundedProvider`
 (Photon/OpenStreetMap). Ngày chấm: 2026-11-05.
 
 ## Agent làm gì

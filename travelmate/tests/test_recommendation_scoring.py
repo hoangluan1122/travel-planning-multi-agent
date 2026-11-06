@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from app.models import Context
+from app.core.models import Context
 from app.specialists.recommendation import (
     RecommendationRanker,
     RecommendationRequest,
@@ -290,7 +290,7 @@ async def test_required_conflict_returns_before_any_llm_call():
 def test_scoring_api_runs_without_gemini_and_requires_auth():
     from fastapi.testclient import TestClient
 
-    from app.specialist_api import SpecialistSettings, create_app
+    from app.specialists.api import SpecialistSettings, create_app
 
     with TestClient(create_app(SpecialistSettings(travelmate_api_token="rec-test"))) as client:
         path = "/api/v1/agents/recommendation/score"

@@ -3,18 +3,16 @@ import asyncio
 import pytest
 from test_planning import payload
 
-from app.agents import (
-    BudgetAgent,
-    MemoryAgent,
-    PlaceAgent,
-    PlannerAgent,
-    RecommendationAgent,
-    Registry,
-    WeatherAgent,
-)
-from app.models import Context, TripRequest
-from app.orchestrator import Orchestrator
-from app.providers import DemoProvider
+from app.agents.budget import BudgetAgent
+from app.agents.itinerary import PlannerAgent
+from app.agents.orchestrator import Orchestrator
+from app.agents.place import PlaceAgent
+from app.agents.recommendation import RecommendationAgent
+from app.agents.weather import WeatherAgent
+from app.core.base import Registry
+from app.core.models import Context, TripRequest
+from app.memory.preferences import MemoryAgent
+from app.tools.places.providers import DemoProvider
 
 
 class FailedWeather(DemoProvider):
@@ -55,7 +53,7 @@ def test_adk_schema_compatible():
     pytest.importorskip("google.adk")
     from google.adk.agents import LlmAgent
 
-    from app.models import Draft
+    from app.core.models import Draft
 
     agent = LlmAgent(name="planner_test", model="gemini-2.5-flash", output_schema=Draft)
     assert agent.output_schema is Draft

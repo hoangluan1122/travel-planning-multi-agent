@@ -4,7 +4,7 @@ import httpx
 import pytest
 from pydantic import ValidationError
 
-from app.agents import AgentError
+from app.core.base import AgentError
 from app.specialists.routing import OSRMProvider, RouteMatrix, RouteRequest, optimize
 
 

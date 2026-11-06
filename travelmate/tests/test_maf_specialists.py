@@ -13,10 +13,10 @@ from test_live_place_agent import URL, Web, discovery, record
 from test_maf_tools import ScriptedClient
 from test_place_agent import Provider, call
 
-from app.agents import AgentError
-from app.live_place_agent import LivePlaceAgent, LivePlaceRequest
-from app.models import Context, Place
-from app.place_agent import PlaceAgentInput, PlaceAssistant
+from app.core.base import AgentError
+from app.core.models import Context, Place
+from app.place_agent.agent import PlaceAgentInput, PlaceAssistant
+from app.place_agent.live import LivePlaceAgent, LivePlaceRequest
 from app.specialists.recommendation import RecommendationRequest, RecommendationSpecialist
 
 
@@ -265,7 +265,7 @@ def test_specialist_api_recommendation_uses_maf_engine(tmp_path, monkeypatch):
     from fastapi.testclient import TestClient
     from test_specialist_api import HEADERS, settings
 
-    import app.specialist_api as api
+    import app.specialists.api as api
 
     used = []
 

@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from app.models import Context
+from app.core.models import Context
 from app.specialists.trip_budget import TripBudgetRequest, TripBudgetSpecialist, assess_trip_budget
 
 NOW = datetime(2026, 10, 22, tzinfo=UTC)
@@ -286,7 +286,7 @@ async def test_adk_callable_returns_same_deterministic_amounts():
 def test_trip_budget_api_auth_schema_and_result():
     from fastapi.testclient import TestClient
 
-    from app.specialist_api import SpecialistSettings, create_app
+    from app.specialists.api import SpecialistSettings, create_app
 
     with TestClient(create_app(SpecialistSettings(travelmate_api_token="test-token"))) as client:
         path = "/api/v1/agents/budget/trip"

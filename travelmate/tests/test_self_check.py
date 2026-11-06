@@ -5,16 +5,15 @@ from datetime import date, timedelta
 import pytest
 from test_planning import payload
 
-from app.agents import (
-    BudgetAgent,
-    MemoryAgent,
-    PlaceAgent,
-    PlannerAgent,
-    RecommendationAgent,
-    Registry,
-    WeatherAgent,
-)
-from app.models import (
+from app.agents.budget import BudgetAgent
+from app.agents.itinerary import PlannerAgent
+from app.agents.place import PlaceAgent
+from app.agents.planning import PlanningOrchestrator
+from app.agents.recommendation import RecommendationAgent
+from app.agents.self_check import feedback_from, review_draft
+from app.agents.weather import WeatherAgent
+from app.core.base import Registry
+from app.core.models import (
     Activity,
     Day,
     Draft,
@@ -25,9 +24,8 @@ from app.models import (
     WeatherDay,
     WeatherResult,
 )
-from app.planning import PlanningOrchestrator
-from app.providers import DemoProvider
-from app.self_check import feedback_from, review_draft
+from app.memory.preferences import MemoryAgent
+from app.tools.places.providers import DemoProvider
 
 D1 = date.today() + timedelta(days=2)
 D2 = D1 + timedelta(days=1)
@@ -173,8 +171,8 @@ async def test_demo_planner_reports_checks_without_revising():
 
 
 def test_feedback_names_what_to_keep_and_wishes_outrank_other_failures():
-    from app.models import CheckResult
-    from app.self_check import draft_score
+    from app.agents.self_check import draft_score
+    from app.core.models import CheckResult
 
     def c(ident, passed):
         return CheckResult(id=ident, label=ident, passed=passed, detail=f"{ident} detail")

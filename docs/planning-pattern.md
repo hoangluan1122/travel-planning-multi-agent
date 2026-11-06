@@ -1,7 +1,7 @@
 # Planning pattern (Bài 07) trong TravelMate
 
-Bật bằng `TRAVELMATE_ORCHESTRATOR=planning`. Mã: `travelmate/app/planning.py`, schema trong
-`travelmate/app/models.py` (`TravelPlan`, `TravelSubTask`, `PlanningTrace`).
+Bật bằng `TRAVELMATE_ORCHESTRATOR=planning`. Mã: `travelmate/app/agents/planning.py`, schema trong
+`travelmate/app/core/models.py` (`TravelPlan`, `TravelSubTask`, `PlanningTrace`).
 
 ## Ba bước của pattern
 

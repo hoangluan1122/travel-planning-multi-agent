@@ -3,10 +3,10 @@ from datetime import UTC, datetime, timedelta
 import pytest
 from pydantic import ValidationError
 
-from app.browser_places import BrowserPlaceResult, WebSource
-from app.live_place_agent import LivePlaceAgent, LivePlaceRequest
-from app.models import Context
-from app.structured_hotel import parse_hotel
+from app.core.models import Context
+from app.place_agent.live import LivePlaceAgent, LivePlaceRequest
+from app.tools.places.browser_places import BrowserPlaceResult, WebSource
+from app.tools.places.structured_hotel import parse_hotel
 
 URL = "https://mgallery.accor.com/en/hotels/A5V2.html"
 
@@ -190,7 +190,7 @@ def test_input_rejects_unsupported_or_ambiguous_contract(value):
 def test_ui_api_status_auth_origin_and_failed_sources():
     from fastapi.testclient import TestClient
 
-    from app.live_place_api import LivePlaceSettings, create_app
+    from app.place_agent.live_api import LivePlaceSettings, create_app
 
     web = Web([discovery(), discovery("blocked", places=[], sources=False)])
     app = create_app(LivePlaceSettings(travelmate_api_token="local-test"), LivePlaceAgent(web_tool=web))
@@ -220,7 +220,7 @@ def test_ui_api_status_auth_origin_and_failed_sources():
 
 
 def test_adk_configuration_cannot_silently_switch_to_workflow():
-    from app.live_place_api import LivePlaceSettings, create_app
+    from app.place_agent.live_api import LivePlaceSettings, create_app
 
     with pytest.raises(ValueError, match="GOOGLE_API_KEY"):
         create_app(LivePlaceSettings(live_place_mode="adk_llm", google_api_key=""))

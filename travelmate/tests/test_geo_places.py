@@ -4,10 +4,10 @@ from datetime import UTC, datetime
 import httpx
 import pytest
 
-from app.agents import AgentError
-from app.geo_places import GeoPlaceService, LocalityChoiceRequired, PublicGeoClient
-from app.live_place_agent import GeoGroundedProvider, LivePlaceAgent, LivePlaceRequest
-from app.models import Context, PlaceSearchRequest
+from app.core.base import AgentError
+from app.core.models import Context, PlaceSearchRequest
+from app.place_agent.live import GeoGroundedProvider, LivePlaceAgent, LivePlaceRequest
+from app.tools.places.geo_places import GeoPlaceService, LocalityChoiceRequired, PublicGeoClient
 
 
 def locality(identity=1, name="Cát Bà", **extra):
@@ -236,7 +236,7 @@ async def test_adk_geo_tools_reject_fabricated_output_and_submit_observed_ids():
 def test_api_location_choice_and_empty_are_normal_200_responses():
     from fastapi.testclient import TestClient
 
-    from app.live_place_api import LivePlaceSettings, create_app
+    from app.place_agent.live_api import LivePlaceSettings, create_app
 
     geo, _ = service(locations=[locality(), locality(2)], features=[])
     with TestClient(

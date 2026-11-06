@@ -1,8 +1,0 @@
-services:
-  api:
-    build: ./backend
-    ports:
-      - "8000:8000"
-    environment:
-      APP_ENV: development
-

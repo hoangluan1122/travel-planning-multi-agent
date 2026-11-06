@@ -6,8 +6,8 @@ import httpx
 import pytest
 from pydantic import ValidationError
 
-from app.agents import AgentError
-from app.models import Context
+from app.core.base import AgentError
+from app.core.models import Context
 from app.specialists.budget import BudgetRequest, BudgetSpecialist, CostLine
 from app.specialists.memory import MemoryRequest, MemorySpecialist
 from app.specialists.weather import WeatherRequest, WeatherSpecialist

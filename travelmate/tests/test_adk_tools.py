@@ -8,10 +8,10 @@ from google.adk.models.base_llm import BaseLlm
 from google.adk.models.llm_response import LlmResponse
 from google.genai import types
 
-from app.adk_adapter import AdkPlanner
-from app.agents import AgentError
-from app.models import Context, PlannerInput, TripRequest, WeatherResult
-from app.providers import DemoProvider
+from app.core.base import AgentError
+from app.core.llm.adk_adapter import AdkPlanner
+from app.core.models import Context, PlannerInput, TripRequest, WeatherResult
+from app.tools.places.providers import DemoProvider
 
 
 class ScriptedModel(BaseLlm):

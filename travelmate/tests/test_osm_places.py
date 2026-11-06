@@ -4,10 +4,10 @@ from urllib.parse import parse_qs
 import httpx
 import pytest
 
-from app.agents import AgentError
-from app.models import Context, PlaceSearchRequest
-from app.osm_places import OSMPlaceProvider, OSMSearchTool
-from app.place_locations import LocationChoiceRequired
+from app.core.base import AgentError
+from app.core.models import Context, PlaceSearchRequest
+from app.tools.places.osm_places import OSMPlaceProvider, OSMSearchTool
+from app.tools.places.place_locations import LocationChoiceRequired
 
 
 def locality(identity=1, name="Sa Pa"):
@@ -184,7 +184,7 @@ async def test_rate_limit_response_enforces_cooldown_no_retry():
 
 
 def test_place_api_no_longer_requires_maps_for_osm():
-    from app.place_api import PlaceSettings, create_app
+    from app.place_agent.api import PlaceSettings, create_app
 
     app = create_app(
         PlaceSettings(
@@ -203,7 +203,7 @@ async def test_real_adk_tools_use_osm_records_without_rewriting_them():
     pytest.importorskip("google.adk")
     from test_adk_tools import ScriptedModel
 
-    from app.place_agent import PlaceAgentInput, PlaceAssistant
+    from app.place_agent.agent import PlaceAgentInput, PlaceAssistant
 
     source, calls = provider()
     agent = PlaceAssistant(
@@ -228,7 +228,7 @@ async def test_adk_stops_for_locality_choice_instead_of_guessing():
     pytest.importorskip("google.adk")
     from test_adk_tools import ScriptedModel
 
-    from app.place_agent import PlaceAgentInput, PlaceAssistant
+    from app.place_agent.agent import PlaceAgentInput, PlaceAssistant
 
     source, calls = provider(locations=[locality(1), locality(3)])
     model = ScriptedModel(calls=[{"name": "search_places", "args": {"keyword": ""}}])
@@ -240,8 +240,8 @@ async def test_adk_stops_for_locality_choice_instead_of_guessing():
 def test_place_tools_api_does_not_need_gemini_or_maps():
     from fastapi.testclient import TestClient
 
-    from app.osm_places import OSMLocationTool
-    from app.specialist_api import SpecialistSettings, create_app
+    from app.specialists.api import SpecialistSettings, create_app
+    from app.tools.places.osm_places import OSMLocationTool
 
     source, _ = provider()
     app = create_app(

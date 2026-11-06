@@ -6,10 +6,10 @@ pytest.importorskip("google.adk")
 from fastapi.testclient import TestClient
 from test_adk_tools import ScriptedModel
 
-from app.agents import AgentError
-from app.models import Context, Place, PlaceResult
-from app.place_agent import PlaceAgentInput, PlaceAssistant
-from app.place_api import PlaceSettings, create_app
+from app.core.base import AgentError
+from app.core.models import Context, Place, PlaceResult
+from app.place_agent.agent import PlaceAgentInput, PlaceAssistant
+from app.place_agent.api import PlaceSettings, create_app
 
 
 class Provider:

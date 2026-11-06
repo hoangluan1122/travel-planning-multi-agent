@@ -6,13 +6,13 @@ import pytest
 from fastapi.testclient import TestClient
 from mcp.shared.memory import create_connected_server_and_client_session
 
-from app.a2a import agent_card
-from app.chat import ChatService
-from app.knowledge import Citation, KnowledgeAnswer
+from app.agents.concierge import ChatService
+from app.agents.guide import Citation, KnowledgeAnswer
+from app.core.models import Place, PlaceResult, WeatherDay, WeatherResult
 from app.main import Settings, build_services, create_app
-from app.mcp_server import create_mcp
-from app.models import Place, PlaceResult, WeatherDay, WeatherResult
-from app.providers import DemoProvider
+from app.protocols.a2a import agent_card
+from app.protocols.mcp_server import create_mcp
+from app.tools.places.providers import DemoProvider
 
 
 class Provider(DemoProvider):
@@ -194,7 +194,7 @@ def test_specialist_failure_is_a_failed_task():
 
 
 def test_mcp_over_http_requires_the_api_token():
-    from app.mcp_server import http_app
+    from app.protocols.mcp_server import http_app
 
     app = http_app(create_mcp(services()), "secret")
     with TestClient(app, base_url="http://127.0.0.1:8765") as client:  # MCP allows only localhost hosts

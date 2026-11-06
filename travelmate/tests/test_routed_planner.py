@@ -2,7 +2,7 @@ from datetime import UTC, datetime
 
 import pytest
 
-from app.models import Draft
+from app.core.models import Draft
 from app.specialists.routed_planner import RoutedPlannerInput, route_draft
 from app.specialists.routing import RouteMatrix
 
@@ -48,7 +48,7 @@ async def test_routed_plan_preserves_visits_and_exposes_infeasibility(finish, st
 async def test_routing_preserves_general_schedule_window():
     from test_adk_tools import fixture_data
 
-    from app.models import ScheduleConstraints
+    from app.core.models import ScheduleConstraints
 
     data, draft = await fixture_data()
     data.constraints = ScheduleConstraints(

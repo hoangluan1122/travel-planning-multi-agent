@@ -61,7 +61,7 @@ cần extra `postgres`) hoặc SQLite (`TRAVELMATE_DB`) khi không đặt URL; �
 
 ## MCP và A2A
 
-- **MCP:** `uv run python -m app.mcp_server` mở các tool `search_places`, `weather_forecast`,
+- **MCP:** `uv run python -m app.protocols.mcp_server` mở các tool `search_places`, `weather_forecast`,
   `ask_guide`, `plan_trip` cho Claude Desktop và các client MCP khác (cần extra `mcp`).
 - **A2A 1.0:** API ở cổng 8000 có Agent Card tại `/.well-known/agent-card.json` và endpoint
   JSON-RPC `/a2a` (`SendMessage`, `GetTask`), để agent khác giao việc cho TravelMate.
@@ -71,7 +71,7 @@ Chi tiết, cấu hình Claude Desktop và kết quả chạy thử: [`docs/mcp-
 ## Place Agent — dữ liệu thật
 
 ```powershell
-uv run uvicorn app.live_place_api:create_app --factory --host 127.0.0.1 --port 8001
+uv run uvicorn app.place_agent.live_api:create_app --factory --host 127.0.0.1 --port 8001
 ```
 
 Mở http://127.0.0.1:8001/. Hỗ trợ tìm lưu trú, ăn uống và tham quan qua
@@ -95,7 +95,7 @@ endpoint demo dùng dữ liệu giả lập có nhãn. Cấu hình `live` cần 
 
 Các agent dùng LLM (planner, routed planner, recommendation, Place Agent) chạy được bằng
 Google ADK (mặc định) hoặc Microsoft Agent Framework (MAF). Mỗi agent định nghĩa tool và
-điều kiện chấp nhận một lần; `app/tool_loop.py` chạy vòng lặp đó trên engine được chọn.
+điều kiện chấp nhận một lần; `app/core/llm/tool_loop.py` chạy vòng lặp đó trên engine được chọn.
 Để dùng MAF:
 
 ```powershell
@@ -106,13 +106,13 @@ rồi đặt `AGENT_ENGINE=maf` trong `.env` (`PLANNER_ENGINE` cũ vẫn đượ
 Place Agent dữ liệu thật dùng `LIVE_PLACE_MODE=maf_llm`.
 
 MAF mặc định trả lỗi tool về cho model, gọi thêm một lượt khi chạm giới hạn vòng lặp và
-chỉ dừng sớm khi tín hiệu đến từ middleware. `app/tool_loop.py` xử lý cả ba để ngân sách
+chỉ dừng sớm khi tín hiệu đến từ middleware. `app/core/llm/tool_loop.py` xử lý cả ba để ngân sách
 tool, ngân sách gọi model và điểm dừng sau khi chấp nhận giống hệt ADK.
 
 ### Orchestrator dạng MAF Workflow
 
 API lịch trình (`app.main`) có hai cách điều phối, chọn bằng `TRAVELMATE_ORCHESTRATOR`:
-`classic` (mặc định, `app/orchestrator.py`) hoặc `workflow` (`app/workflow_orchestrator.py`).
+`classic` (mặc định, `app/agents/orchestrator.py`) hoặc `workflow` (`app/agents/workflow_orchestrator.py`).
 Bản workflow là đồ thị executor của MAF:
 
 ```text
@@ -160,12 +160,56 @@ nhận, loại lỗi và thời gian vào `evaluation/engine-comparison-<UTC>/`.
 
 ## Cấu trúc
 
-- `app/`: API, schema, agent, provider và công cụ.
-- `frontend/`: các giao diện thử nghiệm.
-- `tests/`: kiểm thử tự động và fixture hồi quy.
-- `scripts/`: nhập dữ liệu tham chiếu và kiểm tra nguồn thật.
+`app/` được chia theo các phần của một agent: model, context, memory, tools, trust. Muốn
+đọc một agent, bắt đầu từ `app/agents/`. Muốn biết agent chạy trong khung nào, xem
+`app/core/base.py`.
+
+```text
+app/
+├─ main.py                 Máy chủ FastAPI: endpoint lịch trình, chat, giao diện (lệnh chạy không đổi)
+├─ core/                   Khung chung cho mọi agent
+│  ├─ base.py              BaseAgent: kiểm tra đầu vào/ra, giới hạn thời gian, log, telemetry
+│  ├─ models.py            Schema (Pydantic): TripRequest, Context, PlanResponse, BudgetResult…
+│  ├─ telemetry.py         OpenTelemetry (bật khi cần)
+│  └─ llm/                 MODEL: Gemini qua Microsoft Agent Framework hoặc Google ADK
+│     ├─ tool_loop.py      Vòng gọi công cụ có giới hạn số lần gọi model
+│     ├─ maf_clients.py    Tạo client Gemini cho MAF
+│     └─ adk_adapter.py, maf_adapter.py   Hai engine cho agent xếp lịch
+├─ agents/                 Các agent
+│  ├─ concierge.py         Trợ lý điều phối trong chat, chuyển cho chuyên gia (Multi-Agent)
+│  ├─ planning.py          Planning Agent: chia việc, giao việc, lập kế hoạch lại
+│  ├─ orchestrator.py, workflow_orchestrator.py   Hai cách chạy chuỗi agent lập lịch
+│  ├─ place.py, weather.py, recommendation.py     Địa điểm, thời tiết, xếp hạng theo sở thích
+│  ├─ itinerary.py, itinerary_tools.py           Xếp lịch từng ngày và công cụ của nó
+│  ├─ budget.py            Chi phí cả chuyến, so với ngân sách, gợi ý tiết kiệm
+│  ├─ guide.py             Hướng dẫn viên (Agentic RAG, trả lời có nguồn)
+│  ├─ self_check.py        Tự kiểm tra lịch (Metacognition)
+│  └─ rule_scheduler.py    Xếp lịch theo luật khi model lỗi
+├─ memory/                 MEMORY
+│  ├─ store.py             Cơ sở dữ liệu (SQLite/PostgreSQL): tài khoản, chuyến đi, chat, đánh giá
+│  └─ preferences.py       Memory Agent: đọc sở thích đã lưu (chỉ đọc)
+├─ tools/                  TOOLS: nguồn dữ liệu agent gọi, không tự quyết định
+│  ├─ places/              OpenStreetMap/Photon, vùng hành chính, ảnh, website chính thức
+│  ├─ browser_weather/     Đọc thời tiết từ trình duyệt
+│  ├─ prices/              Bảng giá vé và giá tham khảo có nguồn
+│  └─ http.py              Gọi HTTP có thử lại
+├─ trust/                  TRUST
+│  ├─ accounts.py          Đăng nhập (cookie HttpOnly, CSRF), quyền sở hữu, admin, đánh giá
+│  └─ mailer.py            Gửi email đặt lại mật khẩu
+├─ protocols/              mcp_server.py (MCP), a2a.py (A2A), summaries.py
+├─ specialists/            Bàn thử từng chuyên gia riêng lẻ (api.py, `python -m app.specialists`)
+├─ place_agent/            Ứng dụng Place Agent độc lập (cổng 8001)
+├─ evaluation/             Bộ đánh giá dùng trong test và scripts/
+└─ data/                   Bảng giá vé, giá tham khảo, ranh giới hành chính (JSON)
+```
+
+Ngoài `app/`:
+
+- `frontend/`: giao diện web (`travelmate-v2` là bản chính).
+- `tests/`: kiểm thử tự động, gồm cả kiểm thử giao diện trên trình duyệt.
+- `scripts/`: chạy đánh giá, nhập dữ liệu, gọi thử MCP/A2A.
 - `evaluation/`: phản hồi API, bằng chứng HTTP và kết quả kiểm thử.
-- `examples/`: đầu vào/ví dụ chạy thử.
+- `examples/`: đầu vào mẫu để chạy thử.
 
 ## Kiểm thử
 

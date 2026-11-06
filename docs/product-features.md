@@ -73,14 +73,14 @@ Tất cả màn hình trong thiết kế đã nối với backend thật. Không
   Server tự tạo bảng khi khởi động. `/health` cho biết đang dùng `"database": "postgresql"`.
 - **SQLite:** để trống `TRAVELMATE_DATABASE_URL` thì dùng file `TRAVELMATE_DB`
   (mặc định `travelmate.sqlite3`).
-- Câu lệnh SQL viết một lần, chạy được trên cả hai (`app/store.py`, lớp `Db`). Test nghiệp vụ chạy trên
+- Câu lệnh SQL viết một lần, chạy được trên cả hai (`app/memory/store.py`, lớp `Db`). Test nghiệp vụ chạy trên
   SQLite, và chạy cả trên PostgreSQL khi đặt `TRAVELMATE_TEST_DATABASE_URL` trỏ tới một database dùng
   riêng cho test. Bảng của database đó sẽ bị **xoá** trước mỗi test, nên đừng trỏ vào database thật.
 - Chuỗi kết nối chứa mật khẩu: chỉ đặt trong `.env` (không commit), không bao giờ được ghi log hay trả về.
 
 ## Khi Gemini lỗi hoặc hết hạn mức
 
-Lịch vẫn được tạo. Bộ xếp lịch theo luật (`app/rule_scheduler.py`) làm thay phần AI: ưu tiên địa điểm
+Lịch vẫn được tạo. Bộ xếp lịch theo luật (`app/agents/rule_scheduler.py`) làm thay phần AI: ưu tiên địa điểm
 khớp mong muốn, có bữa trưa trong 10:30–14:30, ngày mưa tối đa một điểm ngoài trời, không lặp địa
 điểm. Lịch có cảnh báo ghi rõ là xếp bằng luật, và phần tự kiểm tra ghi `scheduled_by: rules`.
 

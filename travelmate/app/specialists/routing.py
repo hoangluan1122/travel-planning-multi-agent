@@ -12,8 +12,8 @@ from urllib.parse import urlsplit
 import httpx
 from pydantic import Field, field_validator, model_validator
 
-from ..agents import AgentError, BaseAgent
-from ..models import Context, Model
+from app.core.base import AgentError, BaseAgent
+from app.core.models import Context, Model
 
 
 class RoutePoint(Model):

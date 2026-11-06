@@ -12,25 +12,22 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import AliasChoices, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from .accounts import session_from
-from .adk_adapter import AdkPlanner
-from .agents import (
-    AgentError,
-    BudgetAgent,
-    MemoryAgent,
-    PlaceAgent,
-    PlannerAgent,
-    RecommendationAgent,
-    Registry,
-    WeatherAgent,
-)
-from .chat import ChatRequest, ChatResponse, ChatSession
-from .models import PlaceResult, PlaceSearchRequest, PlanResponse, TripRequest
-from .orchestrator import Orchestrator
-from .place_media import GooglePhotoProxy
-from .providers import DemoProvider, LiveProvider
-from .store import StoreError
-from .telemetry import configure_telemetry
+from app.agents.budget import BudgetAgent
+from app.agents.concierge import ChatRequest, ChatResponse, ChatSession
+from app.agents.itinerary import PlannerAgent
+from app.agents.orchestrator import Orchestrator
+from app.agents.place import PlaceAgent
+from app.agents.recommendation import RecommendationAgent
+from app.agents.weather import WeatherAgent
+from app.core.base import AgentError, Registry
+from app.core.llm.adk_adapter import AdkPlanner
+from app.core.models import PlaceResult, PlaceSearchRequest, PlanResponse, TripRequest
+from app.core.telemetry import configure_telemetry
+from app.memory.preferences import MemoryAgent
+from app.memory.store import StoreError
+from app.tools.places.place_media import GooglePhotoProxy
+from app.tools.places.providers import DemoProvider, LiveProvider
+from app.trust.accounts import session_from
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +42,7 @@ class Settings(BaseSettings):
     agent_engine: Literal["adk", "maf"] = Field(
         default="adk", validation_alias=AliasChoices("agent_engine", "planner_engine")
     )
-    # classic: asyncio pipeline in app/orchestrator.py; workflow: MAF Workflow graph (needs --extra maf)
+    # classic: asyncio pipeline in app/agents/orchestrator.py; workflow: MAF Workflow graph (needs --extra maf)
     # planning: Planning pattern (LLM decomposes the request into subtasks, re-plans on misses)
     travelmate_orchestrator: Literal["classic", "workflow", "planning"] = "classic"
     # Live place/weather source: google (Places API, needs GOOGLE_MAPS_API_KEY) or
@@ -82,7 +79,7 @@ class Settings(BaseSettings):
 def memory_store(settings):
     if settings.travelmate_memory_user is None:
         return None
-    from .specialists.memory import MemorySpecialist
+    from app.specialists.memory import MemorySpecialist
 
     return MemorySpecialist(settings.travelmate_memory_db, settings.travelmate_memory_user)
 
@@ -91,10 +88,10 @@ def planning_agent(settings):
     """LLM Planning Agent in live mode; demo mode uses the deterministic core plan."""
     if settings.travelmate_mode != "live":
         return None
-    from .planning import PlanningAgent
+    from app.agents.planning import PlanningAgent
 
     if settings.agent_engine == "maf":
-        from .maf_clients import maf_gemini_client
+        from app.core.llm.maf_clients import maf_gemini_client
 
         return PlanningAgent(lambda: maf_gemini_client(settings.google_api_key, settings.gemini_model), "maf")
     return PlanningAgent(lambda: settings.gemini_model, "adk")
@@ -104,10 +101,10 @@ def concierge_agent(settings):
     """LLM concierge for the chat in live mode; demo mode routes by keywords."""
     if settings.travelmate_mode != "live":
         return None
-    from .chat import ConciergeAgent
+    from app.agents.concierge import ConciergeAgent
 
     if settings.agent_engine == "maf":
-        from .maf_clients import maf_gemini_client
+        from app.core.llm.maf_clients import maf_gemini_client
 
         return ConciergeAgent(lambda: maf_gemini_client(settings.google_api_key, settings.gemini_model), "maf")
     return ConciergeAgent(lambda: settings.gemini_model, "adk")
@@ -115,12 +112,12 @@ def concierge_agent(settings):
 
 def knowledge_agent(settings):
     """Agentic RAG guide: LLM in live mode, extractive quotes from the same sources in demo mode."""
-    from .knowledge import KnowledgeAgent, KnowledgeBase
+    from app.agents.guide import KnowledgeAgent, KnowledgeBase
 
     if settings.travelmate_mode != "live":
         return KnowledgeAgent(KnowledgeBase())
     if settings.agent_engine == "maf":
-        from .maf_clients import maf_gemini_client
+        from app.core.llm.maf_clients import maf_gemini_client
 
         return KnowledgeAgent(KnowledgeBase(), lambda: maf_gemini_client(settings.google_api_key, settings.gemini_model),
                               "maf")
@@ -129,8 +126,8 @@ def knowledge_agent(settings):
 
 def live_planner(settings):
     if settings.agent_engine == "maf":
-        from .maf_adapter import MafPlanner
-        from .maf_clients import maf_gemini_client
+        from app.core.llm.maf_adapter import MafPlanner
+        from app.core.llm.maf_clients import maf_gemini_client
 
         return MafPlanner(lambda: maf_gemini_client(settings.google_api_key, settings.gemini_model))
     return AdkPlanner(settings.gemini_model)
@@ -185,7 +182,7 @@ def build_services(settings=None, orchestrator=None, provider=None, chat=None, h
         if settings.travelmate_mode == "demo":
             provider = DemoProvider()
         elif settings.travelmate_place_provider == "open_data":
-            from .open_data_provider import OpenDataProvider
+            from app.tools.places.open_data_provider import OpenDataProvider
 
             provider = OpenDataProvider()
         else:
@@ -209,13 +206,13 @@ def build_services(settings=None, orchestrator=None, provider=None, chat=None, h
                 import agent_framework  # noqa: F401
             except ImportError:
                 raise ValueError("TRAVELMATE_ORCHESTRATOR=workflow requires the maf extra") from None
-            from .workflow_orchestrator import WorkflowOrchestrator
+            from app.agents.workflow_orchestrator import WorkflowOrchestrator
 
             orchestrator_cls = WorkflowOrchestrator
         else:
             orchestrator_cls = Orchestrator
         if settings.travelmate_orchestrator == "planning":
-            from .planning import PlanningOrchestrator
+            from app.agents.planning import PlanningOrchestrator
 
             orchestrator = PlanningOrchestrator(
                 registry, provider, planning_agent(settings), settings.travelmate_mode,
@@ -224,7 +221,7 @@ def build_services(settings=None, orchestrator=None, provider=None, chat=None, h
         else:
             orchestrator = orchestrator_cls(registry, settings.travelmate_mode, settings.travelmate_agent_timeout)
     if chat is None:
-        from .chat import ChatService
+        from app.agents.concierge import ChatService
 
         chat = ChatService(orchestrator, provider, concierge_agent(settings), settings.travelmate_agent_timeout,
                            knowledge_agent(settings))
@@ -235,7 +232,7 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
     settings = settings or Settings()
     configure_telemetry(settings.travelmate_telemetry, "travelmate-api")
     if store is None:
-        from .store import Store
+        from app.memory.store import Store
 
         store = Store(settings.travelmate_database_url or settings.travelmate_db, settings.travelmate_admin_email)
     services = build_services(settings, orchestrator, provider, chat, hidden_ids=store.hidden_place_ids)
@@ -364,12 +361,12 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
         return ChatResponse(session_id=session.id, reply=replies[0], replies=replies,
                             active_agent=session.active_agent, trip_id=trip_id)
 
-    from .accounts import create_accounts_router  # noqa: F811 (session_from imported at top)
+    from app.trust.accounts import create_accounts_router  # noqa: F811 (session_from imported at top)
 
     app.include_router(create_accounts_router(store, settings))
 
-    # A2A: Agent Card + JSON-RPC endpoint over the same chat sessions (app/a2a.py)
-    from .a2a import create_a2a_router
+    # A2A: Agent Card + JSON-RPC endpoint over the same chat sessions (app/protocols/a2a.py)
+    from app.protocols.a2a import create_a2a_router
 
     app.include_router(create_a2a_router(chat, settings.travelmate_api_token))
 

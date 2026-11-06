@@ -3,8 +3,8 @@ from typing import Literal
 
 from pydantic import Field, model_validator
 
-from ..agents import BaseAgent
-from ..models import Model, ShortText
+from app.core.base import BaseAgent
+from app.core.models import Model, ShortText
 
 
 class CostLine(Model):

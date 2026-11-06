@@ -1,6 +1,6 @@
 # Multi-Agent (Bài 08) trong TravelMate: Trợ lý AI dạng hand-off
 
-Mã: `travelmate/app/chat.py`, endpoint `POST /api/v1/chat` (`travelmate/app/main.py`), giao
+Mã: `travelmate/app/agents/concierge.py`, endpoint `POST /api/v1/chat` (`travelmate/app/main.py`), giao
 diện màn hình **Trợ lý AI** (`?view=chat` trong `frontend/travelmate-v2/integration.js`).
 
 ## Cách hoạt động

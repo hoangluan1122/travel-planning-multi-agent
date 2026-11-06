@@ -1,7 +1,7 @@
 from datetime import UTC, datetime
 
-from app.live_place_agent import PlaceTrace
-from app.place_agent_eval import keywords_from_trace, markdown, summarize
+from app.evaluation.place_agent_eval import keywords_from_trace, markdown, summarize
+from app.place_agent.live import PlaceTrace
 
 
 class Report:

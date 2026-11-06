@@ -4,10 +4,11 @@ from decimal import Decimal
 import pytest
 from fastapi.testclient import TestClient
 
-from app.agents import AgentError, MemoryAgent, Registry
+from app.agents.orchestrator import validate_draft
+from app.core.base import AgentError, Registry
+from app.core.models import Activity, Day, Draft, PlaceResult, TripRequest
 from app.main import Settings, create_app
-from app.models import Activity, Day, Draft, PlaceResult, TripRequest
-from app.orchestrator import validate_draft
+from app.memory.preferences import MemoryAgent
 
 
 def payload():

@@ -5,19 +5,16 @@ import json
 import pytest
 from test_planning import payload
 
-from app.agents import (
-    AgentError,
-    BudgetAgent,
-    MemoryAgent,
-    PlaceAgent,
-    PlannerAgent,
-    RecommendationAgent,
-    Registry,
-    WeatherAgent,
-)
-from app.models import Place, PlaceResult, TravelPlan, TripRequest
-from app.planning import PlanningAgent, PlanningOrchestrator, default_plan
-from app.providers import DemoProvider
+from app.agents.budget import BudgetAgent
+from app.agents.itinerary import PlannerAgent
+from app.agents.place import PlaceAgent
+from app.agents.planning import PlanningAgent, PlanningOrchestrator, default_plan
+from app.agents.recommendation import RecommendationAgent
+from app.agents.weather import WeatherAgent
+from app.core.base import AgentError, Registry
+from app.core.models import Place, PlaceResult, TravelPlan, TripRequest
+from app.memory.preferences import MemoryAgent
+from app.tools.places.providers import DemoProvider
 
 
 def plan_dict(searches=()):
@@ -93,7 +90,7 @@ async def test_planning_agent_repairs_a_rejected_plan_on_maf():
 
 
 def _ctx():
-    from app.models import Context
+    from app.core.models import Context
 
     return Context()
 

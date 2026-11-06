@@ -19,10 +19,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from app.geo_places import GeoPlaceService  # noqa: E402
-from app.live_place_agent import LivePlaceAgent, LivePlaceRequest  # noqa: E402
-from app.models import Context  # noqa: E402
-from app.specialist_api import SpecialistSettings, agent_model_factory  # noqa: E402
+from app.core.models import Context  # noqa: E402
+from app.place_agent.live import LivePlaceAgent, LivePlaceRequest  # noqa: E402
+from app.specialists.api import SpecialistSettings, agent_model_factory  # noqa: E402
+from app.tools.places.geo_places import GeoPlaceService  # noqa: E402
 
 CASES = [("Hội An", "restaurant"), ("Sa Pa", "hotel"), ("Đà Lạt", "attraction")]
 

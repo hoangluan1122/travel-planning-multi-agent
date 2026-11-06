@@ -1,25 +1,27 @@
-# Travel Planning Multi-Agent
+# Travel Planning Multi-Agent (TravelMate)
 
-Mã nguồn đang phát triển nằm trong [`travelmate/`](travelmate/). Xem
-[hướng dẫn chạy](travelmate/README.md).
+Hệ thống lập kế hoạch du lịch nhiều agent: trợ lý chat, lập lịch từng ngày, chi phí so với
+ngân sách, hướng dẫn viên có nguồn. Dữ liệu thật từ OpenStreetMap và Open-Meteo, model Gemini.
 
-Thư mục `backend/` và `docker-compose.yml` ở gốc là phiên bản khởi tạo trước đó.
+```text
+travel-planning-multi-agent/
+├─ travelmate/        Mã nguồn: backend, agent, giao diện, test (xem travelmate/README.md)
+│  ├─ app/            Backend, chia theo core · agents · memory · tools · trust · protocols
+│  ├─ frontend/       Giao diện web
+│  ├─ tests/          Kiểm thử tự động
+│  └─ scripts/        Đánh giá, nhập dữ liệu, gọi thử MCP/A2A
+└─ docs/              Giải thích từng pattern: multi-agent, planning, RAG, MCP/A2A, metacognition
+```
 
-## Chạy Place Agent
+## Chạy
 
 ```powershell
 cd travelmate
-uv sync --extra dev --extra ai --extra browser
-uv run uvicorn app.live_place_api:create_app --factory --host 127.0.0.1 --port 8001
+uv sync --extra dev --extra ai --extra maf --extra postgres
+uv run uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8000
 ```
 
-Mở http://127.0.0.1:8001/. Dữ liệu địa điểm lấy từ nguồn mạng thật.
+Mở http://127.0.0.1:8000/. Cấu hình (khoá Gemini, PostgreSQL) đặt trong `travelmate/.env`,
+xem `travelmate/.env.example`. Không commit `.env`.
 
-## Trạng thái ngày 23/10/2026
-
-- 513 kiểm thử Python đạt; kiểm tra giao diện đạt.
-- 14/15 lượt kiểm tra nguồn thật có kết quả trong 5 km. Lượt khách sạn Fansipan
-  có kết quả khi người dùng mở rộng lên 10 km.
-- Chưa hoàn tất xác minh mọi địa danh Việt Nam, tích hợp multi-agent và sản phẩm.
-- Bằng chứng kiểm thử nằm trong `travelmate/evaluation/`.
-
+Hướng dẫn đầy đủ và sơ đồ từng thư mục: [travelmate/README.md](travelmate/README.md).

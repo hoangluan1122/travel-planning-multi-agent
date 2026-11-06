@@ -1,8 +1,8 @@
 # Metacognition (Bài 09) trong TravelMate
 
 Chạy cùng Planning pattern (`TRAVELMATE_ORCHESTRATOR=planning`). Mã:
-`travelmate/app/self_check.py` (kiểm tra) và `PlanningOrchestrator.reviewed_draft`
-(`travelmate/app/planning.py`, vòng tự sửa).
+`travelmate/app/agents/self_check.py` (kiểm tra) và `PlanningOrchestrator.reviewed_draft`
+(`travelmate/app/agents/planning.py`, vòng tự sửa).
 
 ## Agent tự kiểm tra lịch trước khi trả lời
 

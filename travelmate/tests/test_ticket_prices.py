@@ -5,9 +5,9 @@ from decimal import Decimal
 import pytest
 from test_planning import payload
 
-from app.agents import BudgetAgent
-from app.models import Activity, BudgetInput, Context, Day, Draft, Place, PlaceResult, TripRequest
-from app.ticket_prices import apply_tickets, load_tickets
+from app.agents.budget import BudgetAgent
+from app.core.models import Activity, BudgetInput, Context, Day, Draft, Place, PlaceResult, TripRequest
+from app.tools.prices.ticket_prices import apply_tickets, load_tickets
 
 
 def place(ident, name, types=("attraction",), address="Huế, Việt Nam"):

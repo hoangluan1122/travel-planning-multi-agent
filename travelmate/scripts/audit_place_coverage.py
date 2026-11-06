@@ -16,10 +16,10 @@ from pathlib import Path
 
 import httpx
 
-from app.geo_places import GeoPlaceService, PublicGeoClient
-from app.live_place_agent import LivePlaceAgent, LivePlaceReport
-from app.live_place_api import LivePlaceSettings, create_app
-from app.vietnam_regions import load_catalog, name_key
+from app.place_agent.live import LivePlaceAgent, LivePlaceReport
+from app.place_agent.live_api import LivePlaceSettings, create_app
+from app.tools.places.geo_places import GeoPlaceService, PublicGeoClient
+from app.tools.places.vietnam_regions import load_catalog, name_key
 
 # Expected province is an independent boundary oracle; never an input substitute
 # for a failed locality lookup. A wrong/ambiguous locality is reported, not rescued.

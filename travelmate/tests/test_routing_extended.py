@@ -6,8 +6,8 @@ import httpx
 import pytest
 from pydantic import ValidationError
 
-from app.agents import AgentError
-from app.models import Context
+from app.core.base import AgentError
+from app.core.models import Context
 from app.specialists.routing import (
     OSRMProvider,
     RoadPath,
@@ -256,7 +256,7 @@ def test_replay_live_geometry_and_schedule_without_network():
 def test_route_api_auth_and_payload_without_gemini():
     from fastapi.testclient import TestClient
 
-    from app.specialist_api import SpecialistSettings, create_app
+    from app.specialists.api import SpecialistSettings, create_app
 
     app = create_app(
         SpecialistSettings(travelmate_api_token="route-test"),

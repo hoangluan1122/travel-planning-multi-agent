@@ -4,10 +4,10 @@ import httpx
 import pytest
 from fastapi.testclient import TestClient
 
-from app.agents import AgentError
+from app.core.base import AgentError
+from app.core.models import PlaceSearchRequest
 from app.main import Settings, create_app
-from app.models import PlaceSearchRequest
-from app.providers import LiveProvider
+from app.tools.places.providers import LiveProvider
 
 
 def record():

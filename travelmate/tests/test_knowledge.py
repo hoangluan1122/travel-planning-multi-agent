@@ -3,8 +3,8 @@ import json
 import httpx
 import pytest
 
-from app.chat import ChatService, Decision, HandOff, rule_decision
-from app.knowledge import (
+from app.agents.concierge import ChatService, Decision, HandOff, rule_decision
+from app.agents.guide import (
     AnswerDraft,
     Citation,
     KnowledgeAgent,
@@ -14,7 +14,7 @@ from app.knowledge import (
     paragraphs,
     topic_query,
 )
-from app.models import Context
+from app.core.models import Context
 
 TU_DUC = (
     "Lăng Tự Đức là một quần thể kiến trúc ở Huế, nơi chôn cất vua Tự Đức. Lăng được xây từ năm 1864 đến 1867.\n\n"
@@ -174,7 +174,7 @@ async def test_without_llm_quotes_the_best_passages():
 
 @pytest.mark.parametrize("text", ["Lăng Tự Đức có gì đặc biệt?", "giá vé Đại Nội", "Chùa Cầu mở cửa mấy giờ"])
 def test_rule_router_sends_place_questions_to_the_guide(text):
-    from app.chat import ChatSession
+    from app.agents.concierge import ChatSession
 
     assert rule_decision(ChatSession(), text).hand_off.agent == "guide_advisor"
 

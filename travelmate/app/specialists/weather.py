@@ -5,9 +5,9 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 import httpx
 from pydantic import Field, model_validator
 
-from ..agents import AgentError, BaseAgent
-from ..models import Model
-from ..provider_http import get_with_retry
+from app.core.base import AgentError, BaseAgent
+from app.core.models import Model
+from app.tools.http import get_with_retry
 
 
 class WeatherRequest(Model):

@@ -2,22 +2,19 @@ from datetime import date, timedelta
 
 import pytest
 
-from app.agents import (
-    AgentError,
-    BudgetAgent,
-    MemoryAgent,
-    PlaceAgent,
-    PlannerAgent,
-    RecommendationAgent,
-    Registry,
-    WeatherAgent,
-)
-from app.models import Place, PlaceResult, TripRequest, WeatherDay, WeatherResult
-from app.orchestrator import Orchestrator, validate_draft
-from app.planning import RULE_FALLBACK_WARNING, PlanningOrchestrator
-from app.providers import DemoProvider
-from app.rule_scheduler import rule_draft
-from app.self_check import review_draft
+from app.agents.budget import BudgetAgent
+from app.agents.itinerary import PlannerAgent
+from app.agents.orchestrator import Orchestrator, validate_draft
+from app.agents.place import PlaceAgent
+from app.agents.planning import RULE_FALLBACK_WARNING, PlanningOrchestrator
+from app.agents.recommendation import RecommendationAgent
+from app.agents.rule_scheduler import rule_draft
+from app.agents.self_check import review_draft
+from app.agents.weather import WeatherAgent
+from app.core.base import AgentError, Registry
+from app.core.models import Place, PlaceResult, TripRequest, WeatherDay, WeatherResult
+from app.memory.preferences import MemoryAgent
+from app.tools.places.providers import DemoProvider
 
 
 def place(ident, types):
