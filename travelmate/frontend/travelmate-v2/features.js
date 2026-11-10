@@ -137,12 +137,29 @@
   }
 
   // --- saved trips (account) -------------------------------------------------------------
-  const openTrip = trip => {
+  const openTrip = (trip, day = null) => {
     const record = {request: trip.request, result: trip.result, trip_id: trip.id, title: trip.title};
     save('tm-plans', [record, ...records().filter(r => r.result.request_id !== trip.result.request_id)].slice(0, 20));
     save('tm-current', trip.result.request_id);
-    location.href = `?view=plan&id=${encodeURIComponent(trip.result.request_id)}`;
+    const id = encodeURIComponent(trip.result.request_id);
+    location.replace(day === null ? `?view=plan&id=${id}` : `?view=day&id=${id}&day=${encodeURIComponent(day)}`);
   };
+  // A plan link opened in another tab or device: plans live per tab, so find it among the saved trips.
+  const planId = params.get('id');
+  if ((route === 'plan' || route === 'day') && planId && !records().some(r => r.result.request_id === planId)) {
+    const missing = () => render(emptyState('🗺️', 'Không mở được lịch trình này.', user()
+      ? 'Lịch trình không có trong tài khoản của bạn. Lịch chưa lưu chỉ mở được trong thẻ trình duyệt đã tạo ra nó.'
+      : 'Lịch trình chưa lưu chỉ mở được trong thẻ trình duyệt đã tạo ra nó. Nếu bạn đã lưu chuyến đi này, hãy đăng nhập để mở lại.',
+      user() ? tm.link('saved', 'Chuyến đi của tôi', 'button dark') + tm.link('create', 'Tạo chuyến đi')
+        : tm.link(`login&next=${encodeURIComponent(location.search)}`, 'Đăng nhập', 'button dark') + tm.link('create', 'Tạo chuyến đi')));
+    if (user()) {
+      render('<p class="tm-loading-line">Đang mở lịch trình…</p>');
+      get('/api/v1/me/trips')
+        .then(list => list.find(t => t.request_id === planId))
+        .then(t => t ? get(`/api/v1/me/trips/${encodeURIComponent(t.id)}`).then(trip => openTrip(trip, route === 'day' ? params.get('day') || '0' : null)) : missing())
+        .catch(missing);
+    } else missing();
+  }
   if (route === 'trip' && !needLogin()) {
     render('<p class="tm-loading-line">Đang mở chuyến đi…</p>');
     get(`/api/v1/me/trips/${encodeURIComponent(params.get('id') || '')}`).then(openTrip).catch(err => render(emptyState('⚠️', 'Không mở được chuyến đi.', esc(err.message), tm.link('saved', 'Chuyến đi của tôi', 'button dark'))));

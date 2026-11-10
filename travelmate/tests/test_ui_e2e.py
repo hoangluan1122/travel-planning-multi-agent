@@ -189,6 +189,15 @@ def test_guest_is_led_to_sign_in_and_keeps_the_trip(server, browser):
     page.wait_for_selector("#tm-plan-account .tm-badge")
     assert "Huế" in page.inner_text(".tm-plan-hero")
 
+    # The plan link works in a new tab too (plans are kept per tab): it is found among the saved trips.
+    assert "id=" in page.url
+    other = context.new_page()
+    other.on("pageerror", lambda exc: errors.append(str(exc)))
+    other.goto(page.url.replace("view=plan", "view=day") + "&day=1")
+    other.wait_for_selector(".tm-day-head")
+    assert "Ngày 2" in other.inner_text(".tm-day-head")
+    other.close()
+
     # Rename and delete use in-page dialogs.
     page.goto(f"{server}?view=saved")
     page.click("[data-rename]")

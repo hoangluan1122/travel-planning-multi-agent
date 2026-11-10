@@ -9,7 +9,7 @@
   const wmo = code => code==null?null:code===0?'☀️ Trời quang':code<=2?'🌤️ Ít mây':code===3?'☁️ Nhiều mây':code<=48?'🌫️ Sương mù':code<=57?'🌦️ Mưa phùn':code<=67?'🌧️ Mưa':code<=77?'❄️ Tuyết':code<=82?'🌧️ Mưa rào':code<=86?'❄️ Mưa tuyết':'⛈️ Dông';
   const kinds = {museum:'Bảo tàng',tomb:'Lăng tẩm',temple:'Đền cổ',archaeological_site:'Di tích khảo cổ',castle:'Thành / cung điện',monument:'Tượng đài',memorial:'Đài tưởng niệm',gallery:'Phòng trưng bày',attraction:'Điểm tham quan',viewpoint:'Điểm ngắm cảnh',park:'Công viên',beach:'Bãi biển',restaurant:'Nhà hàng',cafe:'Quán cà phê',fast_food:'Đồ ăn nhanh',food_court:'Khu ẩm thực',hotel:'Khách sạn'};
   const kind = p => (p?.types||[]).map(t=>kinds[t]).find(Boolean)||'';
-  const mapLink = p => p&&Number.isFinite(p.latitude)?`<a href="https://www.openstreetmap.org/?mlat=${p.latitude}&mlon=${p.longitude}#map=17/${p.latitude}/${p.longitude}" target="_blank" rel="noopener noreferrer">Xem trên bản đồ ↗</a>`:'';
+  const mapLink = p => p&&Number.isFinite(p.latitude)?`<a href="https://www.openstreetmap.org/?mlat=${p.latitude}&mlon=${p.longitude}#map=17/${p.latitude}/${p.longitude}" target="_blank" rel="noopener noreferrer">Xem trên bản đồ&nbsp;↗</a>`:'';
   const levels = {free:'Miễn phí',inexpensive:'₫ · bình dân',moderate:'₫₫ · vừa phải',expensive:'₫₫₫ · cao',very_expensive:'₫₫₫₫ · rất cao'};
   const safeUrl = u => /^(https:\/\/|\/api\/v1\/places\/photo\?)/.test(u||'') ? u : '';
   const photo = (p, cls='api-photo') => p?.photo && safeUrl(p.photo.url) ? `<figure class="${cls}"><img src="${esc(safeUrl(p.photo.url))}" alt="${esc(p.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()"><figcaption>${p.photo.source_url&&/^https:\/\//.test(p.photo.source_url)?`<a href="${esc(p.photo.source_url)}" target="_blank" rel="noopener noreferrer">${esc(p.photo.attribution)}</a>`:esc(p.photo.attribution)}</figcaption></figure>` : '';
@@ -26,10 +26,10 @@
   const ticketSource = p => p?.ticket?.sources?.length ? `<p class="api-meta">Nguồn giá vé: ${p.ticket.sources.filter(u=>/^https:\/\//.test(u)).map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(new URL(u).hostname.replace(/^www\./,''))}</a>`).join(', ')} · kiểm tra ${esc(p.ticket.checked)} · giá có thể thay đổi</p>` : '';
   const stars = p => p?.rating != null ? `<span class="api-rating">★ ${Number(p.rating).toFixed(1)}${p.rating_count?` (${Number(p.rating_count).toLocaleString('vi-VN')} đánh giá)`:''}</span>` : '';
   const hours = p => p?.opening_hours_raw ? `<details class="api-hours"><summary>Giờ mở cửa</summary><p>${p.opening_hours_raw.split('; ').map(esc).join('<br>')}</p></details>` : '';
-  const placeLinks = p => [p?.maps_url&&/^https:\/\//.test(p.maps_url)?`<a href="${esc(p.maps_url)}" target="_blank" rel="noopener noreferrer">Google Maps ↗</a>`:mapLink(p), p?.website_url&&/^https:\/\//.test(p.website_url)?`<a href="${esc(p.website_url)}" target="_blank" rel="noopener noreferrer">Website ↗</a>`:''].filter(Boolean).join(' · ');
+  const placeLinks = p => [p?.maps_url&&/^https:\/\//.test(p.maps_url)?`<a href="${esc(p.maps_url)}" target="_blank" rel="noopener noreferrer">Google Maps&nbsp;↗</a>`:mapLink(p), p?.website_url&&/^https:\/\//.test(p.website_url)?`<a href="${esc(p.website_url)}" target="_blank" rel="noopener noreferrer">Website&nbsp;↗</a>`:''].filter(Boolean).join(' · ');
   const nextDay = d => {const x=new Date(d+'T00:00:00Z');x.setUTCDate(x.getUTCDate()+1);return x.toISOString().slice(0,10)};
   const bookingLink = (p, request) => `https://www.booking.com/searchresults.html?${new URLSearchParams({ss:`${p.name}, ${request.destination}`,checkin:request.start_date,checkout:nextDay(request.end_date),group_adults:String(request.travelers),no_rooms:'1',lang:'vi'})}`;
-  const stays = (items, request) => items?.length ? `<h2>Nơi ở gợi ý</h2><p class="api-meta">Giá phòng theo đêm chưa có từ nguồn dữ liệu; bấm “Xem giá phòng” để xem giá thật cho đúng ngày và số người.</p><div class="api-grid">${items.map(p=>`<article class="api-card">${photo(p)}<h3>${esc(p.name)}</h3>${stars(p)}<p>${esc(p.address||'')}</p><p>${esc(price(p))}</p><p>${placeLinks(p)} · <a href="${esc(bookingLink(p, request))}" target="_blank" rel="noopener noreferrer">Xem giá phòng ↗</a></p></article>`).join('')}</div>` : '';
+  const stays = (items, request) => items?.length ? `<h2 class="tm-section-title">Nơi ở gợi ý</h2><p class="api-meta">Giá phòng theo đêm chưa có từ nguồn dữ liệu; bấm “Xem giá phòng” để xem giá thật cho đúng ngày và số người.</p><div class="api-grid">${items.map(p=>`<article class="api-card">${photo(p)}<h3>${esc(p.name)}</h3>${stars(p)}<p>${esc(p.address||'')}</p><p>${esc(price(p))}</p><p>${placeLinks(p)} · <a href="${esc(bookingLink(p, request))}" target="_blank" rel="noopener noreferrer">Xem giá phòng&nbsp;↗</a></p></article>`).join('')}</div>` : '';
   const agentLabels = {places:'Tìm địa điểm chung',place_search:'Tìm theo nhu cầu',weather:'Thời tiết',recommendation:'Xếp hạng',itinerary:'Xếp lịch',budget:'Chi phí'};
   const outcomeLabels = {ok:'tìm thấy',no_results:'không thấy',failed:'lỗi nguồn'};
   const planningTrace = t => !t ? '' : `<details class="api-card"><summary><strong>Agent đã lên kế hoạch thế nào</strong> · ${t.planner==='llm'?'Planning Agent (LLM)':'kế hoạch mặc định'} · ${t.rounds.length} vòng</summary>${t.rounds.map(r=>`<h4>Vòng ${r.round}</h4>${r.note?`<p class="api-meta">${esc(r.note)}</p>`:''}<ol>${r.plan.subtasks.map(s=>{const o=r.observations.find(x=>x.subtask_id===s.id);return `<li><strong>${esc(agentLabels[s.agent]||s.agent)}</strong>${s.inputs?.keyword?` · ${esc(s.inputs.category||'')} “${esc(s.inputs.keyword)}”`:''} — ${esc(s.goal)}${o?` <em>(${esc(outcomeLabels[o.outcome]||o.outcome)}${o.count?`, ${o.count} nơi`:''})</em>`:''}</li>`}).join('')}</ol>`).join('')}${t.rounds.length>1?'<p class="api-meta">Vòng sau được lập lại vì có lượt tìm không ra kết quả.</p>':''}</details>`;
@@ -200,7 +200,7 @@
     api('/api/v1/plans/preview',request,controller.signal).then(result=>{
       if(cancelled)return;
       const record={request,result};
-      const finish=()=>{save('tm-plans',[record,...records()].slice(0,20));save('tm-current',result.request_id);location.replace('?view=plan')};
+      const finish=()=>{save('tm-plans',[record,...records()].slice(0,20));save('tm-current',result.request_id);location.replace('?view=plan&id='+encodeURIComponent(result.request_id))};
       if(session()?.user)api('/api/v1/me/trips',{request,result}).then(t=>{record.trip_id=t.id}).catch(()=>{}).finally(finish);else finish();
     }).catch(error=>{
       if(cancelled)return;
@@ -215,8 +215,8 @@
     const dayIndex=Number(params.get('day')||0);
     const day=result.draft.days[dayIndex];
     const fmt=d=>new Date(d+'T00:00:00').toLocaleDateString('vi-VN',{weekday:'short',day:'2-digit',month:'2-digit'});
-    const cover=result.places.find(p=>p.photo);
     const firstPhoto=d=>d.activities.map(a=>places.get(a.place_id)).find(p=>p?.photo);
+    const cover=(route==='day'&&day&&firstPhoto(day))||result.draft.days.map(firstPhoto).find(Boolean)||result.places.find(p=>p.photo);
     const heading=`<section class="tm-plan-hero">${photo(cover,'tm-plan-cover')}<div class="tm-plan-hero-text"><span class="tm-pill">${result.mode==='demo'?'DEMO · DỮ LIỆU GIẢ LẬP':'BẢN PHÁC THẢO · CHƯA XÁC MINH'}</span><h1>${esc(request.destination)}</h1><div class="tm-chips"><span>📅 ${esc(fmt(request.start_date))} → ${esc(fmt(request.end_date))}</span><span>👥 ${request.travelers} người</span><span>💰 Ngân sách ${money(request.budget_vnd)}</span>${request.travel_style?`<span>Mức ${esc((styles[request.travel_style]||'').toLowerCase())}</span>`:''}<span>🗓️ ${result.draft.days.length} ngày · ${result.draft.days.reduce((n,d)=>n+d.activities.length,0)} điểm</span></div></div></section>`;
     const requestId=`<p class="api-meta tm-request-id">Mã yêu cầu: ${esc(result.request_id)}</p>`;
     if(route==='plan'){
