@@ -31,8 +31,9 @@ Nhập điểm đến trên web, nhận lịch trình từ **địa điểm th�
    ```
 
 3. Chạy `uv run uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8000`
-4. Mở http://127.0.0.1:8000/, vào **Cấu hình kết nối** nhập đúng `TRAVELMATE_API_TOKEN`,
-   rồi **Bắt đầu hành trình**. Một lịch 2 ngày mất khoảng 1 phút.
+4. Mở http://127.0.0.1:8000/, **Đăng ký** một tài khoản rồi **Tạo chuyến đi**. Một lịch 2 ngày
+   mất khoảng 1 phút. Muốn dùng `TRAVELMATE_API_TOKEN` thay cho tài khoản, mở trang với `?dev`
+   (ví dụ `/ui/travelmate-v2/index.html?dev`) để hiện mục **Cấu hình kết nối**.
 
 Kết quả: từng ngày có khung giờ, loại địa điểm, địa chỉ, link bản đồ OpenStreetMap, dự báo
 thời tiết; chi phí chưa biết được liệt kê theo tên, không coi là 0. Giới hạn của bản demo:

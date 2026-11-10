@@ -158,3 +158,50 @@ def test_member_and_admin_flows(server, browser):
 
     assert not errors, errors
     context.close()
+
+
+def test_guest_is_led_to_sign_in_and_keeps_the_trip(server, browser):
+    """A visitor starts from the home page, is asked to sign in only when planning, and loses nothing."""
+    errors = []
+    context = browser.new_context()
+    page = context.new_page()
+    page.on("pageerror", lambda exc: errors.append(str(exc)))
+
+    # Home: the quick form carries the destination into the trip form.
+    page.goto(server)
+    assert page.locator("footer.tm-footer").count() == 1
+    page.fill(".tm-quick input[name=destination]", "Huế")
+    page.click(".tm-quick button")
+    page.wait_for_url("**view=create**")
+    assert page.input_value("[data-form=create] [name=destination]") == "Huế"
+    page.wait_for_selector("[data-form=create] .tm-note")  # this server needs an account
+
+    # Planning as a guest goes to sign-in; signing up continues straight to the plan.
+    page.locator("[data-form=create]").evaluate("f => f.requestSubmit()")
+    page.wait_for_url("**view=login**")
+    page.click(".tm-auth-switch a[href*='view=signup']")
+    page.wait_for_selector("#tm-auth input[name=name]")
+    page.fill("#tm-auth input[name=name]", "Khách UI")
+    page.fill("#tm-auth input[name=email]", "guest@travelmate.test")
+    page.fill("#tm-auth input[name=password]", "test-guest-pass-1")
+    page.click("#tm-auth button")
+    page.wait_for_url("**view=plan**")
+    page.wait_for_selector("#tm-plan-account .tm-badge")
+    assert "Huế" in page.inner_text(".tm-plan-hero")
+
+    # Rename and delete use in-page dialogs.
+    page.goto(f"{server}?view=saved")
+    page.click("[data-rename]")
+    page.fill(".tm-dialog input", "Huế cuối tuần")
+    page.click(".tm-dialog button[value=ok]")
+    page.wait_for_selector(".tm-trip-card h3:has-text('Huế cuối tuần')")
+    page.click("[data-delete]")
+    page.click(".tm-dialog button[value=ok]")
+    page.wait_for_selector("text=Chưa có chuyến đi nào.")
+
+    # An unknown address gets a not-found page, not a blank one.
+    page.goto(f"{server}?view=khong-co")
+    assert "Không tìm thấy trang" in page.inner_text("main.visible")
+
+    assert not errors, errors
+    context.close()

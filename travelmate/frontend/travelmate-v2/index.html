@@ -1,8 +1,135 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TravelMate — Lên kế hoạch du lịch cùng AI</title><link rel="stylesheet" href="style.css"></head><body>
-<header><a class="brand" href="?view=home"><span class="mark">↗</span> travelmate<span class="dot">.</span></a><nav aria-label="Điều hướng chính"><a href="?view=home">Khám phá</a><a href="?view=chat">Trợ lý AI</a><a href="?view=day">Chuyến đi của tôi</a></nav><a class="avatar" href="?view=chat" aria-label="Mở trợ lý AI">L</a><button class="menu-toggle" aria-expanded="false" aria-label="Mở menu">☰</button></header>
-<main id="home" class="view"><section class="hero"><div class="hero-copy"><div class="eyebrow">ĐI XA HƠN. LO ÍT HƠN.</div><h1>Những chuyến đi.<br>Rất <em>riêng bạn.</em></h1><p>Một ý tưởng nhỏ. Một hành trình đáng nhớ.<br>Để TravelMate cùng bạn lên kế hoạch phần còn lại.</p><a class="button dark" href="?view=chat">Bắt đầu hành trình <span>↗</span></a><a class="quiet" href="?view=day">Khám phá lịch trình mẫu <span>→</span></a></div><div class="hero-photo"><img src="../travelmate-ui/assets/beach.jpg" alt="Bãi biển nhiệt đới, ảnh minh họa"><div class="photo-label"><span>CHẠM VÀO MỘT CHÚT BÌNH YÊN</span><strong>Chậm lại.<br>Thế giới vẫn chờ.</strong></div><div class="float-pill"><span class="pulse"></span> Lịch trình theo cách bạn thích <span>✧</span></div></div></section>
-<section class="intro"><div class="eyebrow">BẠN MƠ VỀ CHUYẾN ĐI. CHÚNG TÔI LO KẾ HOẠCH.</div><h2>Ít tab hơn.<br><span>Nhiều trải nghiệm hơn.</span></h2><div class="intro-bottom"><p>Từ nơi ở đến bữa ăn, từ một buổi sáng bên biển đến chiều dạo phố. Mọi thứ được kết nối trong một lịch trình của riêng bạn.</p><div class="steps"><div><b>01</b><span>Kể điều bạn thích</span></div><div><b>02</b><span>Cùng hoàn thiện kế hoạch</span></div><div><b>03</b><span>Sẵn sàng lên đường</span></div></div></div></section>
-<section class="editorial"><img src="../travelmate-ui/assets/hotel.jpg" alt="Không gian nghỉ dưỡng minh họa"><div><div class="eyebrow">MỘT CHUYẾN ĐI, NHIỀU KHẢ NĂNG</div><h2>Một nơi để ở.<br>Một ngày để nhớ.</h2><p>Xem từng ngày, chọn nơi muốn ghé và điều chỉnh mọi thứ theo nhịp của bạn.</p><a class="button dark" href="?view=day">Xem một ngày mẫu <span>↗</span></a></div></section><footer><a class="brand" href="?view=home">travelmate.</a><span>Đi theo cách của bạn.</span><small>Bản thiết kế · Ảnh và dữ liệu minh họa</small></footer></main>
-<main id="chat" class="view workspace"><aside class="sidebar"><div class="eyebrow">KHÔNG GIAN CỦA BẠN</div><button class="new-chat" id="reset">＋ Cuộc trò chuyện mới</button><div class="side-label">GẦN ĐÂY</div><button class="history active">Một chút biển, một chút phố <span>↗</span></button><div class="side-note"><span>✧</span><h3>Ý tưởng chưa cần hoàn hảo.</h3><p>Chỉ cần một nơi bạn muốn đến. Chúng ta sẽ bắt đầu từ đó.</p></div></aside><section class="conversation"><div class="chat-top"><span><i class="pulse"></i> TravelMate AI</span><small>Không gian lập kế hoạch</small></div><div class="chat-scroll"><div class="date-label">CHUYẾN ĐI MỚI</div><div class="user-message">Mình muốn đi Đà Nẵng 3 ngày, 2 người, ngân sách khoảng 5 triệu. Thích biển và đồ ăn địa phương.</div><div class="assistant-message"><span class="ai-icon">✧</span><div><h2>Một chút biển.<br>Một chút thảnh thơi.</h2><p>Mình đã phác thảo một hành trình nhẹ nhàng, dành chỗ cho cả biển, ẩm thực và những khoảng nghỉ.</p><p>Bạn muốn khởi hành ngày nào? Mình cần ngày đi để kiểm tra thông tin phù hợp hơn.</p><div class="context-chips"><span>Đà Nẵng</span><span>3 ngày · 2 người</span><span>5.000.000 ₫</span></div><div class="suggestions"><button data-prompt="Ưu tiên hoạt động miễn phí">Ưu tiên hoạt động miễn phí</button><button data-prompt="Mình muốn ở gần biển">Muốn ở gần biển</button></div></div></div><div id="messages" aria-live="polite"></div></div><form id="chat-form"><label class="sr-only" for="prompt">Yêu cầu chuyến đi</label><textarea id="prompt" placeholder="Kể thêm về chuyến đi của bạn…" rows="2"></textarea><div class="composer-bottom"><span>✧ Cùng hoàn thiện ý tưởng</span><button type="submit" aria-label="Gửi tin nhắn">↑</button></div></form><div class="disclaimer">Bản tương tác mẫu · Chưa kết nối AI hoặc dữ liệu trực tiếp</div></section><aside class="plan-panel"><div class="panel-label">BẢN PHÁC THẢO <span>Chưa xác nhận</span></div><h2>Đà Nẵng,<br>theo nhịp của bạn.</h2><p class="muted">3 ngày / 2 người / Chưa chọn ngày đi</p><div class="budget"><span>Ngân sách dự kiến</span><strong>5.000.000 <small>₫</small></strong><div class="budget-track"></div><small>Chưa tính chi phí · Cần thêm thông tin</small></div><div class="day-summary"><b>01</b><div><h3>Chạm biển, khám phá phố</h3><p>Nhận phòng · Biển · Ăn tối</p></div></div><div class="day-summary"><b>02</b><div><h3>Một ngày dành cho trải nghiệm</h3><p>Tham quan · Ẩm thực địa phương</p></div></div><div class="day-summary"><b>03</b><div><h3>Chậm lại trước khi về</h3><p>Cà phê · Dạo phố · Trả phòng</p></div></div><a class="button dark full" href="?view=day">Xem chi tiết ngày mẫu <span>↗</span></a><p class="tiny">Lịch trình minh họa, chưa kiểm tra tính khả dụng.</p></aside></main>
-<main id="day" class="view day-page"><div class="day-heading"><a class="back" href="?view=chat">← Quay lại kế hoạch</a><div class="eyebrow">ĐÀ NẴNG / 3 NGÀY / 2 NGƯỜI</div><div class="day-title"><h1>Chạm biển.<br><em>Chạm bình yên.</em></h1><a class="button outline" href="?view=chat">Điều chỉnh với AI <span>✧</span></a></div><div class="day-tabs"><button class="selected" data-day="1">Ngày 01 <span>Biển & thành phố</span></button><button data-day="2">Ngày 02 <span>Khám phá</span></button><button data-day="3">Ngày 03 <span>Thảnh thơi</span></button></div></div><div id="day-notice" role="status"></div><div class="day-layout"><section class="day-main"><article class="stay"><img src="../travelmate-ui/assets/hotel.jpg" alt="Ảnh nghỉ dưỡng minh họa, không phải khách sạn đã xác minh"><div class="stay-overlay"><span class="eyebrow">ĐIỂM DỪNG CHÂN CỦA BẠN</span><h2>Một nơi ở gần biển.</h2><p>Phương án lưu trú mẫu · 2 khách</p><button class="glass" data-detail="stay">Xem phương án lưu trú ↗</button></div><span class="image-credit">Ảnh minh họa</span></article><div class="schedule-title"><h2>Một ngày, vừa đủ.</h2><span>3 hoạt động gợi ý</span></div><article class="activity"><div class="time">14:00<span>01</span></div><div class="activity-content"><span class="eyebrow">NHẬN PHÒNG & NGHỈ NGƠI</span><h3>Đặt hành lý xuống.<br>Để kỳ nghỉ bắt đầu.</h3><p>Dành một khoảng nghỉ sau hành trình di chuyển. Giờ nhận phòng cần xác nhận với nơi lưu trú.</p><span class="tag">Khoảng 60 phút</span></div></article><article class="activity"><div class="time">16:00<span>02</span></div><div class="activity-content"><img src="../travelmate-ui/assets/beach.jpg" alt="Cảnh biển minh họa"><span class="eyebrow">MỘT CHÚT THIÊN NHIÊN</span><h3>Dạo biển, đón chiều xuống.</h3><p>Một buổi chiều không vội. Chọn bãi biển phù hợp sau khi xác nhận vị trí nơi ở và điều kiện thời tiết.</p><span class="tag">Ngoài trời · 90 phút</span></div></article><article class="activity"><div class="time">18:30<span>03</span></div><div class="activity-content"><img src="../travelmate-ui/assets/food.jpg" alt="Ẩm thực minh họa"><span class="eyebrow">KHÁM PHÁ QUA VỊ GIÁC</span><h3>Một bữa tối mang hương vị địa phương.</h3><p>Ưu tiên quán gần nơi lưu trú. Nhà hàng và món ăn cụ thể sẽ được đề xuất theo sở thích của bạn.</p><button class="text-link" data-detail="food">Xem gợi ý ăn uống ↗</button></div></article></section><aside class="day-aside"><div class="summary-card"><div class="eyebrow">NGÀY 01 / TÓM TẮT</div><h3>Đủ trải nghiệm.<br>Vẫn có khoảng nghỉ.</h3><div class="stat"><span>Nhịp di chuyển</span><strong>Nhẹ nhàng</strong></div><div class="stat"><span>Hoạt động</span><strong>3 gợi ý</strong></div><div class="stat"><span>Chi phí</span><strong>Chưa xác định</strong></div><div class="weather"><span>☁</span><div><b>Thời tiết chờ bạn chọn ngày</b><p>Dự báo sẽ được kiểm tra khi có ngày đi phù hợp.</p></div></div><a href="?view=chat" class="button dark full">Hoàn thiện kế hoạch ↗</a></div><div class="small-note">✧ <span>Đây là ngày mẫu để xem thiết kế. Địa điểm, ảnh và thời gian chưa phải lịch trình được xác nhận.</span></div></aside></div><footer><a class="brand" href="?view=home">travelmate.</a><small>Ảnh stock minh họa · Không cung cấp đặt phòng</small></footer></main>
-<dialog id="detail"><button id="close" aria-label="Đóng">×</button><div class="eyebrow">BẢN XEM TRƯỚC</div><h2 id="detail-title"></h2><p>Đây là tương tác minh họa giao diện. Danh sách địa điểm, ảnh thực tế, giá và tình trạng dịch vụ sẽ được cung cấp khi kết nối Backend.</p><a class="button dark" href="?view=chat">Trao đổi với trợ lý ↗</a></dialog><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TravelMate — Lên kế hoạch du lịch cùng AI</title>
+<meta name="description" content="TravelMate lập lịch trình du lịch Việt Nam theo từng ngày, ước tính chi phí so với ngân sách, xem thời tiết và trả lời câu hỏi bằng trợ lý AI.">
+<meta name="theme-color" content="#1c2434">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="refinement.css">
+<link rel="stylesheet" href="pages.css">
+<link rel="stylesheet" href="ui.css">
+</head>
+<body>
+<a class="tm-skip" href="#tm-main">Bỏ qua điều hướng</a>
+<header>
+  <a class="brand" href="?view=home"><span class="mark">↗</span> travelmate<span class="dot">.</span></a>
+  <nav aria-label="Điều hướng chính"></nav>
+  <a class="avatar tm-login" href="?view=login">Đăng nhập</a>
+  <button class="menu-toggle" aria-expanded="false" aria-label="Mở menu">☰</button>
+</header>
+
+<main id="home" class="view">
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">ĐI XA HƠN. LO ÍT HƠN.</div>
+      <h1>Những chuyến đi.<br>Rất <em>riêng bạn.</em></h1>
+      <p>Nhập điểm đến, ngày đi và ngân sách.<br>TravelMate tìm địa điểm, xem thời tiết và xếp lịch từng ngày cho bạn.</p>
+      <form class="tm-quick" method="get">
+        <input type="hidden" name="view" value="create">
+        <input name="destination" required minlength="2" maxlength="200" placeholder="Bạn muốn đi đâu? Ví dụ: Huế" aria-label="Điểm đến">
+        <button class="button dark">Lên lịch trình <span>↗</span></button>
+      </form>
+      <div class="tm-quick-chips" aria-label="Điểm đến gợi ý">
+        <span>Gợi ý:</span>
+        <a href="?view=create&destination=Hu%E1%BA%BF">Huế</a>
+        <a href="?view=create&destination=%C4%90%C3%A0%20N%E1%BA%B5ng">Đà Nẵng</a>
+        <a href="?view=create&destination=H%E1%BB%99i%20An">Hội An</a>
+        <a href="?view=create&destination=%C4%90%C3%A0%20L%E1%BA%A1t">Đà Lạt</a>
+        <a href="?view=create&destination=H%C3%A0%20N%E1%BB%99i">Hà Nội</a>
+      </div>
+      <a class="quiet" href="?view=chat">Hoặc trò chuyện với Trợ lý AI <span>→</span></a>
+    </div>
+    <div class="hero-photo">
+      <img src="../travelmate-ui/assets/beach.jpg" alt="Bãi biển nhiệt đới với hàng dừa">
+      <div class="photo-label"><span>CHẠM VÀO MỘT CHÚT BÌNH YÊN</span><strong>Chậm lại.<br>Thế giới vẫn chờ.</strong></div>
+      <div class="float-pill"><span class="pulse"></span> Lịch trình theo cách bạn thích <span>✧</span></div>
+    </div>
+  </section>
+
+  <section class="tm-section">
+    <div class="eyebrow">TRAVELMATE LÀM GÌ CHO BẠN</div>
+    <h2>Một kế hoạch.<br><span>Đủ để lên đường.</span></h2>
+    <div class="tm-feature-grid">
+      <a class="tm-feature" href="?view=create"><span class="tm-feature-ico">🗓️</span><h3>Lịch trình từng ngày</h3><p>Điểm tham quan và bữa ăn được xếp theo giờ, có tính thời tiết: hạn chế hoạt động ngoài trời vào ngày dự báo mưa.</p><b>Tạo chuyến đi →</b></a>
+      <a class="tm-feature" href="?view=create"><span class="tm-feature-ico">💰</span><h3>Chi phí so với ngân sách</h3><p>Ước tính vé tham quan, lưu trú, ăn uống, đi lại theo giá tham khảo có ghi nguồn, và cho biết ngân sách đủ hay thiếu.</p><b>Tính thử →</b></a>
+      <a class="tm-feature" href="?view=explore"><span class="tm-feature-ico">📍</span><h3>Địa điểm có thật</h3><p>Điểm tham quan, quán ăn, khách sạn lấy từ dữ liệu bản đồ mở, kèm vị trí, giờ mở cửa và giá vé khi có.</p><b>Tìm địa điểm →</b></a>
+      <a class="tm-feature" href="?view=chat"><span class="tm-feature-ico">💬</span><h3>Trợ lý AI tiếng Việt</h3><p>Hỏi tìm quán, giá vé, thời tiết, hoặc tính thử “nếu ở khách sạn 500k/đêm thì sao”. Mỗi câu được chuyển cho đúng chuyên gia.</p><b>Hỏi trợ lý →</b></a>
+    </div>
+  </section>
+
+  <section class="tm-section tm-section-soft">
+    <div class="eyebrow">ĐIỂM ĐẾN GỢI Ý</div>
+    <h2>Bắt đầu từ<br><span>một cái tên.</span></h2>
+    <div class="tm-dest-grid">
+      <a class="tm-dest d1" href="?view=create&destination=H%C3%A0%20N%E1%BB%99i"><small>MIỀN BẮC</small><h3>Hà Nội</h3><p>Phố cổ, hồ Gươm, ẩm thực đường phố</p></a>
+      <a class="tm-dest d2" href="?view=create&destination=Sa%20Pa"><small>MIỀN BẮC</small><h3>Sa Pa</h3><p>Núi cao, ruộng bậc thang, bản làng</p></a>
+      <a class="tm-dest d3" href="?view=create&destination=Hu%E1%BA%BF"><small>MIỀN TRUNG</small><h3>Huế</h3><p>Kinh thành, lăng tẩm, món Huế</p></a>
+      <a class="tm-dest d4" href="?view=create&destination=%C4%90%C3%A0%20N%E1%BA%B5ng"><small>MIỀN TRUNG</small><h3>Đà Nẵng</h3><p>Biển Mỹ Khê, Bà Nà, Ngũ Hành Sơn</p></a>
+      <a class="tm-dest d5" href="?view=create&destination=H%E1%BB%99i%20An"><small>MIỀN TRUNG</small><h3>Hội An</h3><p>Phố cổ, đèn lồng, làng nghề</p></a>
+      <a class="tm-dest d6" href="?view=create&destination=%C4%90%C3%A0%20L%E1%BA%A1t"><small>TÂY NGUYÊN</small><h3>Đà Lạt</h3><p>Đồi thông, hồ nước, khí hậu mát</p></a>
+      <a class="tm-dest d7" href="?view=create&destination=Nha%20Trang"><small>MIỀN TRUNG</small><h3>Nha Trang</h3><p>Vịnh biển, đảo, hải sản</p></a>
+      <a class="tm-dest d8" href="?view=create&destination=Ph%C3%BA%20Qu%E1%BB%91c"><small>MIỀN NAM</small><h3>Phú Quốc</h3><p>Đảo ngọc, bãi cát, hoàng hôn</p></a>
+    </div>
+  </section>
+
+  <section class="intro">
+    <div class="eyebrow">BẠN MƠ VỀ CHUYẾN ĐI. CHÚNG TÔI LO KẾ HOẠCH.</div>
+    <h2>Ít tab hơn.<br><span>Nhiều trải nghiệm hơn.</span></h2>
+    <div class="intro-bottom">
+      <p>Không cần mở mười trang để so giờ mở cửa, giá vé và dự báo thời tiết. Mọi thứ nằm trong một lịch trình bạn có thể sửa bất cứ lúc nào.</p>
+      <div class="steps">
+        <div><b>01</b><span>Nhập điểm đến, ngày đi, số người và ngân sách</span></div>
+        <div><b>02</b><span>TravelMate tìm địa điểm, xem thời tiết và xếp lịch</span></div>
+        <div><b>03</b><span>Bạn chỉnh sửa, lưu lại và lên đường</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="editorial">
+    <img src="../travelmate-ui/assets/hotel.jpg" alt="Khu nghỉ dưỡng bên hồ bơi">
+    <div>
+      <div class="eyebrow">TRỢ LÝ AI</div>
+      <h2>Hỏi một câu.<br>Có ngay gợi ý.</h2>
+      <p>Trợ lý hiểu tiếng Việt tự nhiên và có thể làm nhiều việc trong một câu hỏi.</p>
+      <div class="tm-ask-list">
+        <a href="?view=chat&q=T%C3%ACm%20qu%C3%A1n%20chay%20%E1%BB%9F%20Hu%E1%BA%BF">📍 Tìm quán chay ở Huế</a>
+        <a href="?view=chat&q=L%C4%83ng%20T%E1%BB%B1%20%C4%90%E1%BB%A9c%20c%C3%B3%20g%C3%AC%20%C4%91%E1%BA%B7c%20bi%E1%BB%87t%2C%20gi%C3%A1%20v%C3%A9%20bao%20nhi%C3%AAu%3F">📖 Lăng Tự Đức có gì đặc biệt, giá vé bao nhiêu?</a>
+        <a href="?view=chat&q=L%C3%AAn%20l%E1%BB%8Bch%20%C4%91i%20Hu%E1%BA%BF%202%20ng%C3%A0y%2C%202%20ng%C6%B0%E1%BB%9Di%2C%205%20tri%E1%BB%87u">🗓️ Lên lịch đi Huế 2 ngày, 2 người, 5 triệu</a>
+      </div>
+      <a class="button dark" href="?view=chat">Mở Trợ lý AI <span>↗</span></a>
+    </div>
+  </section>
+
+  <section class="tm-cta">
+    <h2>Sẵn sàng cho chuyến đi tiếp theo?</h2>
+    <p>Tạo tài khoản để lưu lịch trình, chỉnh sửa và giữ lại những nơi bạn thích.</p>
+    <div class="tm-cta-actions">
+      <a class="button light" href="?view=create">Tạo chuyến đi <span>↗</span></a>
+      <a class="button ghost" href="?view=signup" data-guest-only>Tạo tài khoản miễn phí</a>
+    </div>
+  </section>
+</main>
+
+<footer class="tm-footer">
+  <div class="tm-footer-top">
+    <div class="tm-footer-brand">
+      <a class="brand" href="?view=home">travelmate<span class="dot">.</span></a>
+      <p>Lên kế hoạch du lịch Việt Nam cùng AI: lịch trình, chi phí và thời tiết trong một nơi.</p>
+    </div>
+    <div class="tm-footer-links"><b>Khám phá</b><a href="?view=create">Tạo chuyến đi</a><a href="?view=explore">Tìm địa điểm</a><a href="?view=chat">Trợ lý AI</a></div>
+    <div class="tm-footer-links"><b>Của bạn</b><a href="?view=saved">Chuyến đi của tôi</a><a href="?view=favorites">Địa điểm yêu thích</a><a href="?view=profile">Tài khoản</a></div>
+  </div>
+  <div class="tm-footer-bottom">
+    <small id="tm-credit">Dữ liệu địa điểm © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">người đóng góp OpenStreetMap</a> · Thời tiết: <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></small>
+    <small>Chi phí là ước tính tham khảo. TravelMate không bán vé và không đặt phòng.</small>
+  </div>
+</footer>
+
+<script defer src="pages.js"></script>
+<script defer src="integration.js"></script>
+<script defer src="features.js"></script>
+</body>
+</html>
