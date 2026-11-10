@@ -388,7 +388,8 @@ class Store:
         request, result = json.loads(row["request"]), json.loads(row["result"])
         view = {"id": row["id"], "title": row["title"], "destination": request.get("destination"),
                 "start_date": request.get("start_date"), "end_date": request.get("end_date"),
-                "days": len(result.get("draft", {}).get("days", [])), "created_at": row["created_at"],
+                "days": len(result.get("draft", {}).get("days", [])), "request_id": result.get("request_id"),
+                "created_at": row["created_at"],
                 "updated_at": row["updated_at"]}
         if full:
             view.update(request=request, result=result)

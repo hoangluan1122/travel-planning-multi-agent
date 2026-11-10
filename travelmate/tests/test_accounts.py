@@ -166,6 +166,8 @@ def test_trips_are_saved_listed_renamed_and_private(env):
     assert trip["title"] == "Huế · 2 ngày" and len(trip["result"]["draft"]["days"]) == 2
     listed = client.get("/api/v1/me/trips", headers=headers).json()
     assert [t["id"] for t in listed] == [trip["id"]] and "result" not in listed[0]
+    # The list carries the plan's request id, so a plan link can be matched to the saved trip.
+    assert listed[0]["request_id"] == trip["result"]["request_id"]
     renamed = client.patch(f"/api/v1/me/trips/{trip['id']}", json={"title": "Huế mùa mưa"}, headers=headers)
     assert renamed.json()["title"] == "Huế mùa mưa"
     stranger, _ = signup(client, "b@example.com", "B")
