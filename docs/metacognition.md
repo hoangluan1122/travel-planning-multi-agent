@@ -13,8 +13,12 @@ Chạy cùng Planning pattern (`TRAVELMATE_ORCHESTRATOR=planning`). Mã:
 |---|---|
 | Mong muốn đã nêu | Mỗi lượt tìm theo nhu cầu có kết quả (ví dụ “lăng”, “vegetarian”) có ít nhất một địa điểm phù hợp trong lịch |
 | Bữa trưa | Ngày nào kéo qua trưa cũng có quán ăn bắt đầu trong khung 10:30–14:30 |
+| Bữa ăn cách nhau hợp lý | Mỗi ngày tối đa 3 quán ăn, bữa sau bắt đầu ít nhất 3 tiếng sau bữa trước (không xếp hai quán liền nhau) |
+| Điểm nổi tiếng | Có điểm nổi tiếng nhất trong danh sách, và mỗi ngày một điểm nổi tiếng khi đủ. “Nổi tiếng” là có trong bảng giá vé có nguồn (`app/data/ticket_prices.json`); các phần của một khu (Ngọ Môn, Điện Thái Hòa thuộc Đại Nội) tính là một |
 | Ngày mưa | Ngày có mã thời tiết mưa không xếp quá một điểm ngoài trời |
 | Không lặp | Không lặp một địa điểm qua nhiều ngày khi còn chỗ cùng loại chưa dùng |
+
+Trước khi xếp, một địa điểm có hai bản ghi trên bản đồ (ví dụ “Quán Cẩm” và “Quán Cẩm - Bún Bò Huế” cách nhau vài bước) được gộp làm một (`app/tools/places/same_place.py`), nên không bị đi hai lần dưới hai tên.
 
 Tiêu chí nào không có dữ liệu để đạt (không có quán ăn, không mưa, mong muốn không có ứng viên…)
 thì không áp dụng, nên agent không bị đòi điều không thể.

@@ -9,6 +9,7 @@ candidates, no rain in the forecast...), so the agent is never asked the impossi
 
 from app.core.models import CheckResult
 from app.tools.places.place_media import plain
+from app.tools.prices.ticket_prices import fame_rank
 
 MEAL_TYPES = {"restaurant", "fast_food", "food_court", "food", "meal_takeaway"}
 OUTDOOR_TYPES = {"park", "viewpoint", "beach", "peak", "nature_reserve", "zoo", "theme_park", "national_park",
@@ -16,6 +17,8 @@ OUTDOOR_TYPES = {"park", "viewpoint", "beach", "peak", "nature_reserve", "zoo", 
 RAIN_CODES = set(range(51, 68)) | set(range(80, 83)) | set(range(95, 100))
 LUNCH_FROM, LUNCH_TO = 10 * 60 + 30, 14 * 60 + 30
 MAX_OUTDOOR_ON_RAINY_DAY = 1
+MAX_MEALS_PER_DAY = 3
+MIN_MINUTES_BETWEEN_MEALS = 3 * 60
 
 
 def hhmm(minute):
@@ -59,6 +62,63 @@ def check_meals(draft, places):
         detail="Ngày nào kéo qua trưa cũng có quán ăn trong khung 10:30–14:30." if not missing else
         f"Thiếu quán ăn trong khung 10:30–14:30 các ngày: {', '.join(missing)}.",
     )]
+
+
+def check_meal_pacing(draft, places):
+    """No eating marathon: at most three meal places a day, each meal three hours after the last."""
+    problems = []
+    for day in draft.days:
+        meals = sorted((a for a in day.activities
+                        if a.place_id in places and MEAL_TYPES & set(places[a.place_id].types)),
+                       key=lambda a: a.start_minute)
+        if len(meals) > MAX_MEALS_PER_DAY:
+            problems.append(f"{day.date.isoformat()}: {len(meals)} quán ăn (tối đa {MAX_MEALS_PER_DAY})")
+        for before, after in zip(meals, meals[1:]):
+            if after.start_minute - before.start_minute < MIN_MINUTES_BETWEEN_MEALS:
+                problems.append(f"{day.date.isoformat()}: {places[before.place_id].name} {hhmm(before.start_minute)} "
+                                f"rồi {places[after.place_id].name} {hhmm(after.start_minute)}")
+    if not any(MEAL_TYPES & set(p.types) for p in places.values()):
+        return []
+    return [CheckResult(
+        id="meal_pacing", label="Bữa ăn cách nhau hợp lý", passed=not problems,
+        detail=f"Mỗi ngày tối đa {MAX_MEALS_PER_DAY} quán ăn, các bữa cách nhau ít nhất 3 tiếng." if not problems else
+        f"Bữa ăn quá dày: {'; '.join(problems)}. Thay bằng điểm tham quan hoặc quán cà phê.",
+    )]
+
+
+def famous_groups(places):
+    """Well-known sights among the candidates, best known first: one (group, first place) per site.
+
+    A place is well known when it matched the hand-made ticket table, which lists the sights a
+    visitor would expect to see (Đại Nội, the royal tombs...), each city's best known first.
+    Parts of one site (Ngọ Môn, Điện Thái Hòa in Đại Nội) share a group.
+    """
+    groups = {}
+    for p in places.values():
+        if p.ticket and p.ticket.group_id not in groups:
+            groups[p.ticket.group_id] = p
+    return sorted(groups.items(), key=lambda item: fame_rank(item[0]))
+
+
+def check_famous(draft, places):
+    """The best-known sight is on the plan, and one well-known sight per day when there are enough."""
+    groups = famous_groups(places)
+    if not groups:
+        return []
+    scheduled = {places[a.place_id].ticket.group_id for d in draft.days for a in d.activities
+                 if a.place_id in places and places[a.place_id].ticket}
+    need = min(len(groups), len(draft.days))
+    top_group, top_place = groups[0]
+    missing = [p.name for g, p in groups if g not in scheduled]
+    passed = top_group in scheduled and len(scheduled) >= need
+    if passed:
+        detail = f"Đã xếp {len(scheduled)} điểm nổi tiếng, có {top_place.name}."
+    elif top_group not in scheduled:
+        detail = f"Chưa có {top_place.name}, điểm nổi tiếng nhất trong danh sách."
+    else:
+        detail = (f"Mới có {len(scheduled)} điểm nổi tiếng cho {len(draft.days)} ngày; còn chưa xếp: "
+                  f"{', '.join(missing[:3])}.")
+    return [CheckResult(id="famous", label="Có các điểm tham quan nổi tiếng", passed=passed, detail=detail)]
 
 
 def check_rain(draft, places, weather):
@@ -108,8 +168,8 @@ def check_repeats(draft, places):
 def review_draft(draft, ranked, weather, wishes=()):
     """Run every check. wishes: (label, keyword, candidate place ids) per stated wish."""
     places = {p.id: p for p in ranked.places}
-    return (check_wishes(draft, places, wishes) + check_meals(draft, places)
-            + check_rain(draft, places, weather) + check_repeats(draft, places))
+    return (check_wishes(draft, places, wishes) + check_famous(draft, places) + check_meals(draft, places)
+            + check_meal_pacing(draft, places) + check_rain(draft, places, weather) + check_repeats(draft, places))
 
 
 def feedback_from(checks):

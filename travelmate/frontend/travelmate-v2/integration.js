@@ -189,7 +189,8 @@
     const controller=new AbortController();
     let cancelled=false;
     main.querySelector('#cancel-plan').onclick=()=>{cancelled=true;controller.abort();location.href='?view=create'};
-    const timer=setTimeout(()=>controller.abort(),180000);
+    // Up to three Gemini rounds (draft, then fixes the self-check asks for) can take a few minutes.
+    const timer=setTimeout(()=>controller.abort(),300000);
     // No per-agent progress is streamed yet: show elapsed time and what usually happens when.
     const started=Date.now(), statusLine=main.querySelector('#planning-status');
     const stages=[[0,'Đang tìm địa danh và địa điểm thật quanh điểm đến…'],[8,'Đang lấy dự báo thời tiết và xếp hạng địa điểm…'],[15,'Gemini đang sắp xếp lịch từng ngày (thường mất 30–90 giây)…'],[100,'Vẫn đang xử lý; chuyến nhiều ngày có thể lâu hơn…']];
