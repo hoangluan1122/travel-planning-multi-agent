@@ -81,8 +81,8 @@ Tất cả màn hình trong thiết kế đã nối với backend thật. Không
 ## Khi Gemini lỗi hoặc hết hạn mức
 
 Lịch vẫn được tạo. Bộ xếp lịch theo luật (`app/agents/rule_scheduler.py`) làm thay phần AI: ưu tiên địa điểm
-khớp mong muốn, có bữa trưa trong 10:30–14:30, ngày mưa tối đa một điểm ngoài trời, không lặp địa
-điểm. Lịch có cảnh báo ghi rõ là xếp bằng luật, và phần tự kiểm tra ghi `scheduled_by: rules`.
+khớp mong muốn, rồi đến các điểm nổi tiếng (mỗi khu một điểm), có bữa trưa trong 10:30–14:30, các bữa cách
+nhau ít nhất 3 tiếng, ngày mưa tối đa một điểm ngoài trời, không lặp địa điểm. Lịch có cảnh báo ghi rõ là xếp bằng luật, và phần tự kiểm tra ghi `scheduled_by: rules`.
 
 ## Tìm theo từ khoá
 

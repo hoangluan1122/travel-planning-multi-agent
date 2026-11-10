@@ -1,7 +1,8 @@
 """Rule-based itinerary used when the itinerary LLM is unavailable (quota, outage, timeout).
 
 It builds a schedule that satisfies the same self-check rules the LLM is held to:
-stated wishes first, lunch between 10:30 and 14:30, at most one outdoor stop on a rainy day,
+stated wishes first, then the well-known sights (one place per site, best-known first),
+lunch between 10:30 and 14:30, meals at least three hours apart, at most one outdoor stop on a rainy day,
 no place repeated while unused ones remain, every place from the ranked candidates. It is
 a sensible default, not a route optimisation: travel times between stops are not known.
 """
@@ -10,6 +11,7 @@ from datetime import timedelta
 
 from app.agents.self_check import MEAL_TYPES, OUTDOOR_TYPES, RAIN_CODES
 from app.core.models import Activity, Day, Draft
+from app.tools.prices.ticket_prices import fame_rank
 
 CAFE_TYPES = {"cafe", "coffee_shop", "bakery"}
 STAY_TYPES = {"hotel", "lodging", "hostel", "guest_house", "motel", "resort", "camp_site"}
@@ -41,8 +43,15 @@ def rule_draft(trip, places, weather=None, wish_ids=()):
     ranked = list(places.places)
     wish_ids = set(wish_ids)
     pools = {kind: [p for p in ranked if kind_of(p) == kind] for kind in ("sight", "meal", "cafe")}
-    # Places matching a stated wish go first, so every wish gets scheduled early in the trip.
-    pools["sight"].sort(key=lambda p: p.id not in wish_ids)
+    # Places matching a stated wish go first, so every wish gets scheduled early in the trip;
+    # then one place of each well-known site (ticket table), so the trip covers the famous sights.
+    famous = {}
+    for p in pools["sight"]:
+        if p.ticket and p.ticket.group_id not in famous:
+            famous[p.ticket.group_id] = p.id
+    order = sorted(famous, key=fame_rank)
+    famous_rank = {famous[g]: i for i, g in enumerate(order)}
+    pools["sight"].sort(key=lambda p: (p.id not in wish_ids, famous_rank.get(p.id, len(famous_rank))))
     pools["meal"].sort(key=lambda p: p.id not in wish_ids)
     used = set()
     rain = {d.date for d in (weather.days if weather else []) if d.weather_code in RAIN_CODES}
@@ -50,7 +59,7 @@ def rule_draft(trip, places, weather=None, wish_ids=()):
     total = (trip.end_date - trip.start_date).days + 1
     for index in range(total):
         day = trip.start_date + timedelta(days=index)
-        rainy, outdoor_today, today = day in rain, 0, set()
+        rainy, outdoor_today, today, sites_today = day in rain, 0, set(), set()
         activities = []
         for start, end, slot in SLOTS:
             pool = pools[slot]
@@ -58,8 +67,8 @@ def rule_draft(trip, places, weather=None, wish_ids=()):
                 continue
 
             def allowed(place):
-                if place.id in today:
-                    return False
+                if place.id in today or (place.ticket and place.ticket.group_id in sites_today):
+                    return False  # nor a second stop at the same site (Ngọ Môn after Đại Nội)
                 return not (rainy and slot == "sight" and outdoor_today >= 1 and OUTDOOR_TYPES & set(place.types))
 
             fresh = [p for p in pool if p.id not in used and allowed(p)]
@@ -72,6 +81,8 @@ def rule_draft(trip, places, weather=None, wish_ids=()):
                 outdoor_today += 1
             used.add(choice.id)
             today.add(choice.id)
+            if choice.ticket:
+                sites_today.add(choice.ticket.group_id)
             activities.append(Activity(place_id=choice.id, start_minute=start, end_minute=end))
         if not activities:  # only stays found: still return a valid day
             activities.append(Activity(place_id=ranked[index % len(ranked)].id, start_minute=540, end_minute=660))

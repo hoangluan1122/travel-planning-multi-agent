@@ -40,6 +40,18 @@ def load_tickets():
     return entries
 
 
+@lru_cache(maxsize=1)
+def table_order():
+    """Position of each ticket group in the table, which lists each city's best-known sight first."""
+    return {ticket.group_id: i for i, (_, _, ticket) in enumerate(load_tickets())}
+
+
+def fame_rank(group_id):
+    """Lower is better known; groups missing from the table (should not happen) rank last."""
+    order = table_order()
+    return order.get(group_id, len(order))
+
+
 def ticket_for(place, destination):
     if NOT_SIGHTS & set(place.types):
         return None
