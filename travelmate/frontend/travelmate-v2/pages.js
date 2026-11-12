@@ -9,7 +9,8 @@
     forgot: 'Quên mật khẩu', create: 'Tạo chuyến đi', loading: 'Đang lập kế hoạch', saved: 'Chuyến đi của tôi', trip: 'Chuyến đi',
     plan: 'Lịch trình', day: 'Chi tiết ngày', place: 'Địa điểm', edit: 'Chỉnh sửa lịch trình', favorites: 'Yêu thích',
     profile: 'Tài khoản', review: 'Viết đánh giá', admin: 'Quản trị · Tổng quan', 'admin-places': 'Quản trị · Địa điểm',
-    'admin-users': 'Quản trị · Người dùng', moderation: 'Quản trị · Kiểm duyệt',
+    'admin-users': 'Quản trị · Người dùng', moderation: 'Quản trị · Kiểm duyệt', 'admin-messages': 'Quản trị · Liên hệ',
+    about: 'Giới thiệu', pricing: 'Bảng giá', contact: 'Liên hệ', terms: 'Điều khoản sử dụng', privacy: 'Chính sách bảo mật',
   };
   window.travelmateRoutes = routes;
   const header = document.querySelector('header');

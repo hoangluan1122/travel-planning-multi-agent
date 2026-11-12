@@ -42,7 +42,7 @@ def server(tmp_path_factory):
         if instance.started:
             break
         time.sleep(0.1)
-    yield f"http://127.0.0.1:{port}/ui/travelmate-v2/index.html"
+    yield f"http://127.0.0.1:{port}/"
     instance.should_exit = True
     thread.join(timeout=10)
 
@@ -211,6 +211,44 @@ def test_guest_is_led_to_sign_in_and_keeps_the_trip(server, browser):
     # An unknown address gets a not-found page, not a blank one.
     page.goto(f"{server}?view=khong-co")
     assert "Không tìm thấy trang" in page.inner_text("main.visible")
+
+    assert not errors, errors
+    context.close()
+
+
+def test_company_pages_and_contact_inbox(server, browser):
+    """A visitor reads the pricing and privacy pages and writes in; an admin finds the message."""
+    errors = []
+    context = browser.new_context()
+    page = context.new_page()
+    page.on("pageerror", lambda exc: errors.append(str(exc)))
+
+    page.goto(f"{server}?view=pricing")
+    assert "Lập lịch trình bằng AI: 10 mỗi ngày" in page.inner_text(".tm-plan-card.featured")
+    page.click(".tm-footer a[href='?view=privacy']")
+    page.wait_for_selector("text=Bên thứ ba xử lý dữ liệu")
+    assert page.title() == "Chính sách bảo mật — TravelMate"
+
+    page.goto(f"{server}?view=contact&topic=partner")
+    assert page.input_value("#tm-contact [name=topic]") == "partner"
+    page.fill("#tm-contact [name=name]", "Khách hợp tác")
+    page.fill("#tm-contact [name=email]", "doitac@travelmate.test")
+    page.fill("#tm-contact [name=message]", "Công ty chúng tôi muốn dùng TravelMate cho khách.")
+    page.click("#tm-contact button")
+    page.wait_for_selector(".tm-sent")
+
+    # The admin (signed up in another test, or now) sees it under Quản trị → Liên hệ.
+    page.goto(f"{server}?view=login")
+    page.fill("#tm-auth input[name=email]", ADMIN[0])
+    page.fill("#tm-auth input[name=password]", ADMIN[1])
+    page.click("#tm-auth button")
+    page.wait_for_timeout(1500)
+    if "view=login" in page.url:
+        sign_up(page, server, ADMIN[0], ADMIN[1], "Quản trị")
+    page.goto(f"{server}?view=admin-messages")
+    page.wait_for_selector(".tm-message:has-text('Khách hợp tác')")
+    page.click(".tm-message button[data-status=done]")
+    page.wait_for_selector("text=Không có tin nhắn nào.")
 
     assert not errors, errors
     context.close()

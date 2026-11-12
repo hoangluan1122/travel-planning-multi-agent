@@ -68,6 +68,8 @@ def set_session_cookie(response, request, token):
 
 EMAIL = re.compile(r"^[^@\s]{1,64}@[^@\s]{1,190}\.[^@\s]{2,}$")
 LOGIN_WINDOW_S, LOGIN_ATTEMPTS = 15 * 60, 8
+CONTACT_WINDOW_S, CONTACT_MESSAGES = 60 * 60, 5
+CONTACT_TOPICS = ("support", "feedback", "partner", "privacy", "other")
 
 
 class Credentials(Model):
@@ -85,6 +87,26 @@ class Credentials(Model):
 class Signup(Credentials):
     password: str = Field(min_length=8, max_length=128)
     name: str = Field(min_length=1, max_length=80)
+
+
+class ContactMessage(Model):
+    name: str = Field(min_length=1, max_length=80)
+    email: str = Field(max_length=254)
+    topic: Literal[CONTACT_TOPICS] = "other"
+    message: str = Field(min_length=10, max_length=4000)
+    # Honeypot: hidden from people, filled in by bots. A message that has it is dropped quietly.
+    website: str = Field(default="", max_length=200)
+
+    @field_validator("email")
+    @classmethod
+    def valid_email(cls, value):
+        if not EMAIL.match(value.strip()):
+            raise ValueError("Email không hợp lệ")
+        return value.strip()
+
+
+class MessageUpdate(Model):
+    status: Literal["new", "done"]
 
 
 class Forgot(Model):
@@ -213,6 +235,7 @@ def create_accounts_router(store, settings, mailer=None):
                         getattr(settings, "travelmate_smtp_from", ""))
     bearer = HTTPBearer(auto_error=False)
     attempts: dict[str, deque] = defaultdict(deque)
+    contact_attempts: dict[str, deque] = defaultdict(deque)
 
     async def run(fn, *args, **kwargs):
         try:
@@ -246,7 +269,8 @@ def create_accounts_router(store, settings, mailer=None):
         window.append(now)
 
     def reset_link(request, token):
-        return f"{str(request.base_url).rstrip('/')}/ui/travelmate-v2/index.html?view=forgot&reset={token}"
+        base = getattr(settings, "travelmate_public_url", "") or str(request.base_url)
+        return f"{base.rstrip('/')}/?view=forgot&reset={token}"
 
     # --- accounts ------------------------------------------------------------------------
 
@@ -489,6 +513,37 @@ def create_accounts_router(store, settings, mailer=None):
     @router.post("/admin/reviews/{review_id}/moderate")
     async def moderate(review_id: str, data: Moderation, admin=Depends(admin_user)):
         await run(store.moderate, admin["id"], review_id, data.action, data.note)
+        return {"ok": True}
+
+    # --- contact form and its inbox ---------------------------------------------------------
+
+    @router.post("/contact")
+    async def contact(data: ContactMessage, request: Request, user=Depends(optional_user)):
+        window = contact_attempts[request.client.host if request.client else "-"]
+        now = time.monotonic()
+        while window and now - window[0] > CONTACT_WINDOW_S:
+            window.popleft()
+        if len(window) >= CONTACT_MESSAGES:
+            raise HTTPException(429, "Bạn đã gửi nhiều tin nhắn trong một giờ. Vui lòng thử lại sau.",
+                                headers={"Retry-After": "3600"})
+        window.append(now)
+        if data.website:
+            return {"ok": True}  # a bot filled the hidden field: accept, store nothing
+        await run(store.add_message, data.name, data.email, data.topic, data.message, user["id"] if user else None)
+        return {"ok": True}
+
+    @router.get("/admin/messages")
+    async def admin_messages(status: Literal["new", "done"] | None = None, admin=Depends(admin_user)):
+        return await run(store.messages, status)
+
+    @router.patch("/admin/messages/{message_id}")
+    async def admin_update_message(message_id: str, data: MessageUpdate, admin=Depends(admin_user)):
+        await run(store.update_message, admin["id"], message_id, data.status)
+        return {"ok": True}
+
+    @router.delete("/admin/messages/{message_id}")
+    async def admin_delete_message(message_id: str, admin=Depends(admin_user)):
+        await run(store.delete_message, admin["id"], message_id)
         return {"ok": True}
 
     return router
