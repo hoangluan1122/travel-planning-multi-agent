@@ -23,7 +23,7 @@
 
   const style = document.createElement('style');
   style.textContent = '.tm-table{width:100%;border-collapse:collapse;font-size:14px}.tm-table th,.tm-table td{border-bottom:1px solid #e5e2da;padding:8px;text-align:left;vertical-align:top}.tm-badge{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;background:#ece8dd}.tm-badge.pending{background:#fff1c2}.tm-badge.approved{background:#d8f0dd}.tm-badge.rejected,.tm-badge.hidden{background:#f6d6d6}.tm-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.tm-tabs a.active{background:#16302b;color:#fff}.tm-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.tm-stats .api-card strong{font-size:28px;display:block}.tm-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.tm-row input[type=time]{padding:6px}.tm-auth{max-width:440px}.tm-fav{font-size:22px;background:none;border:0;cursor:pointer}';
-  document.head.append(style);
+  document.head.prepend(style);  // before the stylesheets, so theme.css can restyle it
 
   // Header: avatar goes to the account; admins get a link to the admin area.
   const avatar = document.querySelector('header .avatar');
@@ -147,7 +147,7 @@
   // A plan link opened in another tab or device: plans live per tab, so find it among the saved trips.
   const planId = params.get('id');
   if ((route === 'plan' || route === 'day') && planId && !records().some(r => r.result.request_id === planId)) {
-    const missing = () => render(emptyState('🗺️', 'Không mở được lịch trình này.', user()
+    const missing = () => render(emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-map"></use></svg>', 'Không mở được lịch trình này.', user()
       ? 'Lịch trình không có trong tài khoản của bạn. Lịch chưa lưu chỉ mở được trong thẻ trình duyệt đã tạo ra nó.'
       : 'Lịch trình chưa lưu chỉ mở được trong thẻ trình duyệt đã tạo ra nó. Nếu bạn đã lưu chuyến đi này, hãy đăng nhập để mở lại.',
       user() ? tm.link('saved', 'Chuyến đi của tôi', 'button dark') + tm.link('create', 'Tạo chuyến đi')
@@ -162,14 +162,14 @@
   }
   if (route === 'trip' && !needLogin()) {
     render('<p class="tm-loading-line">Đang mở chuyến đi…</p>');
-    get(`/api/v1/me/trips/${encodeURIComponent(params.get('id') || '')}`).then(openTrip).catch(err => render(emptyState('⚠️', 'Không mở được chuyến đi.', esc(err.message), tm.link('saved', 'Chuyến đi của tôi', 'button dark'))));
+    get(`/api/v1/me/trips/${encodeURIComponent(params.get('id') || '')}`).then(openTrip).catch(err => render(emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-alert"></use></svg>', 'Không mở được chuyến đi.', esc(err.message), tm.link('saved', 'Chuyến đi của tôi', 'button dark'))));
   }
   if (route === 'saved' && user()) {
     const main = render(head(`XIN CHÀO, ${esc(user().name.toUpperCase())}`, 'Chuyến đi của bạn.', 'Mở lại, chỉnh sửa hoặc đổi tên các lịch trình đã lưu.', tm.link('create', 'Tạo chuyến đi', 'button dark') + tm.link('chat', 'Hỏi Trợ lý AI')) + '<div id="tm-trips"><p class="tm-loading-line">Đang tải…</p></div>');
     const box = main.querySelector('#tm-trips');
     const draw = list => {
       box.innerHTML = list.length ? `<div class="tm-trip-grid">${list.map(t => `<article class="tm-trip-card"><div class="eyebrow">${esc(dateRange(t.start_date, t.end_date))}</div><h3>${esc(t.title)}</h3><p>${esc(t.destination)} · ${t.days} ngày · cập nhật ${date(t.updated_at)}</p><div class="tm-row"><a class="button dark" href="?view=trip&id=${encodeURIComponent(t.id)}">Mở</a><a class="button outline" href="?view=edit&id=${encodeURIComponent(t.id)}">Chỉnh sửa</a>${btn('Đổi tên', `data-rename="${esc(t.id)}" data-title="${esc(t.title)}"`)}${btn('Xoá', `data-delete="${esc(t.id)}" data-title="${esc(t.title)}"`, 'button outline tm-danger-text')}</div></article>`).join('')}</div>`
-        : emptyState('🧳', 'Chưa có chuyến đi nào.', 'Tạo chuyến đầu tiên: nhập điểm đến, ngày đi và ngân sách.', tm.link('create', 'Tạo chuyến đi', 'button dark') + tm.link('explore', 'Tìm địa điểm'));
+        : emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-luggage"></use></svg>', 'Chưa có chuyến đi nào.', 'Tạo chuyến đầu tiên: nhập điểm đến, ngày đi và ngân sách.', tm.link('create', 'Tạo chuyến đi', 'button dark') + tm.link('explore', 'Tìm địa điểm'));
     };
     const load = () => get('/api/v1/me/trips').then(draw).catch(err => { box.innerHTML = `<p class="api-error">${esc(err.message)}</p>`; });
     box.onclick = async e => {
@@ -203,9 +203,9 @@
   // --- favourites ------------------------------------------------------------------------
   const card = (p, extra = '') => `<article class="api-card">${photo(p, 'api-thumb')}<h3><a href="?view=place&id=${encodeURIComponent(p.id)}">${esc(p.name)}</a></h3>${kind(p) ? `<p class="api-meta">${esc(kind(p))}</p>` : ''}<p>${esc(p.address || '')}</p><p>${esc(price(p))}</p>${extra}</article>`;
   if (route === 'favorites' && !needLogin()) {
-    const main = render(head('YÊU THÍCH', 'Những nơi bạn muốn ghé.', 'Bấm ♡ ở trang địa điểm để lưu. Địa điểm yêu thích có thể thêm vào lịch khi chỉnh sửa chuyến đi.') + '<div id="tm-favs"><p class="tm-loading-line">Đang tải…</p></div>');
+    const main = render(head('YÊU THÍCH', 'Những nơi bạn muốn ghé.', 'Bấm nút trái tim ở trang địa điểm để lưu. Địa điểm yêu thích có thể thêm vào lịch khi chỉnh sửa chuyến đi.') + '<div id="tm-favs"><p class="tm-loading-line">Đang tải…</p></div>');
     const box = main.querySelector('#tm-favs');
-    const load = () => get('/api/v1/me/favorites').then(list => { box.innerHTML = list.length ? `<div class="api-grid">${list.map(p => card(p, btn('Bỏ yêu thích', `data-unfav="${esc(p.id)}"`))).join('')}</div>` : emptyState('♡', 'Chưa có địa điểm yêu thích.', 'Tìm một nơi bạn thích rồi bấm ♡ để giữ lại cho chuyến đi sau.', tm.link('explore', 'Tìm địa điểm', 'button dark')); }).catch(err => { box.innerHTML = `<p class="api-error">${esc(err.message)}</p>`; });
+    const load = () => get('/api/v1/me/favorites').then(list => { box.innerHTML = list.length ? `<div class="api-grid">${list.map(p => card(p, btn('Bỏ yêu thích', `data-unfav="${esc(p.id)}"`))).join('')}</div>` : emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-heart"></use></svg>', 'Chưa có địa điểm yêu thích.', 'Tìm một nơi bạn thích rồi bấm trái tim để giữ lại cho chuyến đi sau.', tm.link('explore', 'Tìm địa điểm', 'button dark')); }).catch(err => { box.innerHTML = `<p class="api-error">${esc(err.message)}</p>`; });
     box.onclick = async e => { const id = e.target.dataset.unfav; if (id) { try { await del(`/api/v1/me/favorites/${encodeURIComponent(id)}`); notify('Đã bỏ khỏi yêu thích.'); load(); } catch (err) { notify(err.message); } } };
     load();
   }
@@ -214,14 +214,14 @@
   if (route === 'place') {
     const id = params.get('id');
     const main = render('<p class="tm-loading-line">Đang tải địa điểm…</p>');
-    if (!id) { render(emptyState('📍', 'Chưa chọn địa điểm.', 'Mở một địa điểm từ lịch trình, trang Khám phá hoặc Trợ lý AI.', tm.link('explore', 'Tìm địa điểm', 'button dark'))); return; }
+    if (!id) { render(emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-pin"></use></svg>', 'Chưa chọn địa điểm.', 'Mở một địa điểm từ lịch trình, trang Khám phá hoặc Trợ lý AI.', tm.link('explore', 'Tìm địa điểm', 'button dark'))); return; }
     const draw = data => {
       const p = data.place, u = user();
       const reviews = data.reviews.map(r => `<article class="api-card"><div class="tm-row"><strong>${esc(r.author)}</strong><span class="tm-stars">${starText(r.rating)}</span>${r.status !== 'approved' ? `<span class="tm-badge ${r.status}">${statusLabel[r.status]}</span>` : ''}</div><p>${esc(r.text)}</p><p class="api-meta">${date(r.updated_at)}${r.mine ? ' · đánh giá của bạn' : ''}${r.moderation_note && r.mine ? ` · Ghi chú kiểm duyệt: ${esc(r.moderation_note)}` : ''}</p>${u && !r.mine && r.status === 'approved' ? btn('Báo cáo', `data-report="${esc(r.id)}"`) : ''}</article>`).join('');
       const mine = data.reviews.find(r => r.mine);
       main.innerHTML = `<div class="page-shell tm-place"><button type="button" class="back" id="tm-back">← Quay lại</button>
         <div class="tm-place-top">${photo(p, 'tm-place-photo')}<div class="tm-place-info"><div class="eyebrow">${esc((kind(p) || 'ĐỊA ĐIỂM').toUpperCase())}${data.hidden ? ' · ĐANG ẨN (chỉ quản trị viên thấy)' : ''}</div>
-        <div class="tm-row tm-place-title"><h1>${esc(p.name)}</h1>${u ? `<button class="tm-fav" id="tm-fav" aria-pressed="${data.favorite}" aria-label="${data.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}" title="${data.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}">${data.favorite ? '♥' : '♡'}</button>` : ''}</div>
+        <div class="tm-row tm-place-title"><h1>${esc(p.name)}</h1>${u ? `<button class="tm-fav" id="tm-fav" aria-pressed="${data.favorite}" aria-label="${data.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}" title="${data.favorite ? 'Bỏ yêu thích' : 'Thêm yêu thích'}"><svg class="tm-i" aria-hidden="true"><use href="#i-heart"></use></svg></button>` : ''}</div>
         <p>${esc(p.address || 'Chưa có địa chỉ')}</p>${stars(p)}
         <p><strong>${data.average_rating != null ? `${data.average_rating}/5 từ ${data.review_count} đánh giá TravelMate` : 'Chưa có đánh giá TravelMate'}</strong></p>
         <p>${esc(price(p))}</p>${ticketSource(p)}${hours(p)}<p>${placeLinks(p)}</p>
@@ -239,7 +239,7 @@
         try { await api(`/api/v1/reviews/${b.dataset.report}/report`, {reason: reason.trim().slice(0, 300)}); b.replaceWith(Object.assign(document.createElement('span'), {className: 'api-meta', textContent: 'Đã gửi báo cáo cho quản trị viên.'})); } catch (err) { notify(err.message); }
       });
     };
-    get(`/api/v1/places/${encodeURIComponent(id)}`).then(draw).catch(err => render(err.auth ? loginGate('Đăng nhập để xem địa điểm này.') : emptyState('📍', 'Không tìm thấy địa điểm.', esc(err.message), tm.link('explore', 'Tìm địa điểm', 'button dark'))));
+    get(`/api/v1/places/${encodeURIComponent(id)}`).then(draw).catch(err => render(err.auth ? loginGate('Đăng nhập để xem địa điểm này.') : emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-pin"></use></svg>', 'Không tìm thấy địa điểm.', esc(err.message), tm.link('explore', 'Tìm địa điểm', 'button dark'))));
   }
 
   // --- review form -------------------------------------------------------------------------
@@ -262,13 +262,13 @@
         if (!await dialog({title: 'Xoá đánh giá của bạn?', ok: 'Xoá', danger: true})) return;
         try { await del(`/api/v1/places/${encodeURIComponent(id)}/review`); location.href = `?view=place&id=${encodeURIComponent(id)}`; } catch (err) { say(out, err.message); }
       });
-    }).catch(err => render(emptyState('📍', 'Không tìm thấy địa điểm.', esc(err.message), tm.link('explore', 'Tìm địa điểm', 'button dark'))));
+    }).catch(err => render(emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-pin"></use></svg>', 'Không tìm thấy địa điểm.', esc(err.message), tm.link('explore', 'Tìm địa điểm', 'button dark'))));
   }
 
   // --- edit a saved trip -------------------------------------------------------------------
   if (route === 'edit' && !needLogin()) {
     const id = params.get('id');
-    if (!id) { render(emptyState('✏️', 'Chọn chuyến đi để chỉnh sửa.', 'Chỉ chuyến đi đã lưu vào tài khoản mới chỉnh sửa được.', tm.link('saved', 'Chuyến đi của tôi', 'button dark'))); return; }
+    if (!id) { render(emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-pencil"></use></svg>', 'Chọn chuyến đi để chỉnh sửa.', 'Chỉ chuyến đi đã lưu vào tài khoản mới chỉnh sửa được.', tm.link('saved', 'Chuyến đi của tôi', 'button dark'))); return; }
     const main = render('<p class="tm-loading-line">Đang tải chuyến đi…</p>');
     const toMin = v => { const [h, m] = String(v).split(':').map(Number); return h * 60 + m; };
     Promise.all([get(`/api/v1/me/trips/${encodeURIComponent(id)}`), get('/api/v1/me/favorites')]).then(([trip, favs]) => {
@@ -285,7 +285,7 @@
           ${days.map((d, di) => `<section class="api-card"><h3>Ngày ${di + 1} · ${esc(fmtDate(d.date))}</h3>${d.activities.map((a, ai) => `<div class="tm-row tm-edit-row"><input type="time" value="${time(a.start_minute)}" data-day="${di}" data-act="${ai}" data-k="start_minute" aria-label="Giờ bắt đầu"> → <input type="time" value="${time(a.end_minute)}" data-day="${di}" data-act="${ai}" data-k="end_minute" aria-label="Giờ kết thúc"> <strong>${esc(places.get(a.place_id)?.name || a.place_id)}</strong> ${btn('Bỏ', `data-remove="${di}:${ai}" aria-label="Bỏ ${esc(places.get(a.place_id)?.name || '')} khỏi ngày ${di + 1}"`, 'button outline tm-small')}</div>`).join('')}
             <div class="tm-row"><select data-add-day="${di}" aria-label="Thêm địa điểm yêu thích"><option value="">+ Thêm địa điểm yêu thích…</option>${favs.map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('')}</select></div></section>`).join('')}
           <section class="api-card"><h3>Chi phí bạn tự nhập</h3><p class="api-meta">Ví dụ tiền khách sạn đã đặt, ngân sách ăn uống, vé xe. Các khoản này được cộng vào chi phí đã biết và ghi rõ “do bạn nhập”.</p><div id="tm-costs">${costRows()}</div>${btn('+ Thêm khoản chi', 'id="tm-cost-add"')}</section>
-          ${favs.length ? '' : `<p class="tm-note">Muốn thêm địa điểm vào lịch? Bấm ♡ ở trang địa điểm để đưa vào <a href="?view=favorites">Yêu thích</a>, rồi quay lại đây.</p>`}
+          ${favs.length ? '' : `<p class="tm-note">Muốn thêm địa điểm vào lịch? Bấm trái tim ở trang địa điểm để đưa vào <a href="?view=favorites">Yêu thích</a>, rồi quay lại đây.</p>`}
           <div class="tm-row tm-edit-save"><button class="button dark" id="tm-save-edit">Lưu thay đổi</button><a class="button outline" href="?view=saved">Huỷ</a></div>${status('tm-edit-status')}
           <p class="api-meta">Mỗi ngày cần ít nhất một hoạt động; giờ không được chồng nhau. Khi lưu, chi phí được tính lại và lịch được tự kiểm tra (bữa trưa, ngày mưa, lặp địa điểm).</p></div>`;
       };
@@ -329,12 +329,12 @@
           } catch (err) { say(out, err.message); }
         }
       });
-    }).catch(err => render(emptyState('⚠️', 'Không mở được chuyến đi.', esc(err.message), tm.link('saved', 'Chuyến đi của tôi', 'button dark'))));
+    }).catch(err => render(emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-alert"></use></svg>', 'Không mở được chuyến đi.', esc(err.message), tm.link('saved', 'Chuyến đi của tôi', 'button dark'))));
   }
 
   // --- admin -------------------------------------------------------------------------------
   const adminTabs = current => `<div class="tm-tabs">${[['admin', 'Tổng quan'], ['admin-users', 'Người dùng'], ['admin-places', 'Địa điểm'], ['moderation', 'Kiểm duyệt'], ['admin-messages', 'Liên hệ']].map(([v, t]) => `<a class="button outline ${v === current ? 'active' : ''}" href="?view=${v}">${t}</a>`).join('')}</div>`;
-  const adminOnly = () => { if (needLogin()) return false; if (user().role !== 'admin') { render(emptyState('🔒', 'Chỉ dành cho quản trị viên.', 'Tài khoản của bạn không có quyền vào khu vực này.', tm.link('home', 'Về trang chủ', 'button dark'))); return false; } return true; };
+  const adminOnly = () => { if (needLogin()) return false; if (user().role !== 'admin') { render(emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-lock"></use></svg>', 'Chỉ dành cho quản trị viên.', 'Tài khoản của bạn không có quyền vào khu vực này.', tm.link('home', 'Về trang chủ', 'button dark'))); return false; } return true; };
   const actionLabel = a => ({signup: 'Đăng ký', change_password: 'Đổi mật khẩu', delete_account: 'Xoá tài khoản', reset_requested: 'Tạo link đặt lại', reset_password: 'Đặt lại mật khẩu', hide_place: 'Ẩn địa điểm', show_place: 'Hiện địa điểm', note_place: 'Ghi chú địa điểm'}[a] || a.replace('set_role:', 'Đổi quyền: ').replace('set_status:', 'Trạng thái: ').replace('moderate:', 'Kiểm duyệt: '));
 
   if (route === 'admin' && adminOnly()) {

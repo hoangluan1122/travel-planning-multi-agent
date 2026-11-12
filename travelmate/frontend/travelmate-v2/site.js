@@ -25,10 +25,10 @@
       'TravelMate là trợ lý lập kế hoạch du lịch bằng AI: bạn nói đi đâu, đi mấy ngày, bao nhiêu người và bao nhiêu tiền, TravelMate trả về lịch trình từng ngày có địa điểm thật, thời tiết và chi phí ước tính.',
       link('create', 'Tạo chuyến đi', 'button dark') + link('chat', 'Hỏi Trợ lý AI'))}
       <div class="tm-feature-grid tm-about-grid">
-        <div class="tm-feature"><span class="tm-feature-ico">🗓️</span><h3>Lịch trình từng ngày</h3><p>Điểm tham quan, bữa ăn và quán cà phê được xếp theo giờ, ưu tiên các điểm nổi tiếng và tránh hoạt động ngoài trời vào ngày mưa.</p></div>
-        <div class="tm-feature"><span class="tm-feature-ico">💰</span><h3>Chi phí so với ngân sách</h3><p>Vé tham quan theo bảng giá có ghi nguồn; lưu trú, ăn uống, đi lại theo giá tham khảo; cho biết ngân sách đủ hay thiếu.</p></div>
-        <div class="tm-feature"><span class="tm-feature-ico">✅</span><h3>Tự kiểm tra trước khi trả lời</h3><p>Lịch được kiểm tra bằng quy tắc: có bữa trưa, bữa ăn không quá dày, không lặp địa điểm, có điểm nổi tiếng. Chưa đạt thì AI tự sửa.</p></div>
-        <div class="tm-feature"><span class="tm-feature-ico">💬</span><h3>Trợ lý AI tiếng Việt</h3><p>Mỗi câu hỏi được chuyển cho đúng chuyên gia: tìm địa điểm, hướng dẫn viên, thời tiết, chi phí hoặc lập lịch.</p></div>
+        <div class="tm-feature"><span class="tm-feature-ico"><svg class="tm-i" aria-hidden="true"><use href="#i-calendar"></use></svg></span><h3>Lịch trình từng ngày</h3><p>Điểm tham quan, bữa ăn và quán cà phê được xếp theo giờ, ưu tiên các điểm nổi tiếng và tránh hoạt động ngoài trời vào ngày mưa.</p></div>
+        <div class="tm-feature"><span class="tm-feature-ico"><svg class="tm-i" aria-hidden="true"><use href="#i-wallet"></use></svg></span><h3>Chi phí so với ngân sách</h3><p>Vé tham quan theo bảng giá có ghi nguồn; lưu trú, ăn uống, đi lại theo giá tham khảo; cho biết ngân sách đủ hay thiếu.</p></div>
+        <div class="tm-feature"><span class="tm-feature-ico"><svg class="tm-i" aria-hidden="true"><use href="#i-check"></use></svg></span><h3>Tự kiểm tra trước khi trả lời</h3><p>Lịch được kiểm tra bằng quy tắc: có bữa trưa, bữa ăn không quá dày, không lặp địa điểm, có điểm nổi tiếng. Chưa đạt thì AI tự sửa.</p></div>
+        <div class="tm-feature"><span class="tm-feature-ico"><svg class="tm-i" aria-hidden="true"><use href="#i-chat"></use></svg></span><h3>Trợ lý AI tiếng Việt</h3><p>Mỗi câu hỏi được chuyển cho đúng chuyên gia: tìm địa điểm, hướng dẫn viên, thời tiết, chi phí hoặc lập lịch.</p></div>
       </div>
       <section><h2>Dữ liệu đến từ đâu</h2>${list([
         'Địa điểm: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> (qua Photon và Overpass), dữ liệu cộng đồng theo giấy phép ODbL.',
@@ -98,7 +98,7 @@
       button.disabled = true; out.textContent = 'Đang gửi…';
       try {
         await api('/api/v1/contact', data);
-        form.outerHTML = `<div class="api-card tm-sent"><span class="tm-empty-ico" aria-hidden="true">✉️</span><h2>Đã gửi tin nhắn.</h2><p>Cảm ơn bạn. Chúng tôi sẽ trả lời qua ${esc(data.email)}.</p>${link('home', 'Về trang chủ')}</div>`;
+        form.outerHTML = `<div class="api-card tm-sent"><span class="tm-empty-ico" aria-hidden="true"><svg class="tm-i" aria-hidden="true"><use href="#i-mail"></use></svg></span><h2>Đã gửi tin nhắn.</h2><p>Cảm ơn bạn. Chúng tôi sẽ trả lời qua ${esc(data.email)}.</p>${link('home', 'Về trang chủ')}</div>`;
       } catch (err) { out.textContent = err.message; button.disabled = false; }
     };
   }
@@ -154,7 +154,7 @@
   if (route === 'admin-messages') {
     const u = user();
     if (!u) { render(tm.loginGate('Đăng nhập bằng tài khoản quản trị để xem tin nhắn.', '?view=admin-messages')); return; }
-    if (u.role !== 'admin') { render(tm.emptyState('🔒', 'Chỉ quản trị viên mới xem được trang này.', '', link('home', 'Về trang chủ', 'button dark'))); return; }
+    if (u.role !== 'admin') { render(tm.emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-lock"></use></svg>', 'Chỉ quản trị viên mới xem được trang này.', '', link('home', 'Về trang chủ', 'button dark'))); return; }
     const topicLabel = {support: 'Hỗ trợ', feedback: 'Góp ý', partner: 'Hợp tác', privacy: 'Quyền riêng tư', other: 'Khác'};
     const tabs = [['admin', 'Tổng quan'], ['admin-users', 'Người dùng'], ['admin-places', 'Địa điểm'], ['moderation', 'Kiểm duyệt'], ['admin-messages', 'Liên hệ']];
     const main = render(`<div class="tm-head tm-admin-head"><div class="eyebrow">KHÔNG GIAN QUẢN TRỊ</div><h1>Tin nhắn liên hệ.</h1></div>
@@ -169,7 +169,7 @@
         <div class="tm-row"><a class="button dark tm-small" href="mailto:${esc(m.email)}?subject=${encodeURIComponent('TravelMate: trả lời tin nhắn của bạn')}">Trả lời qua email</a>
         <button type="button" class="button outline tm-small" data-status="${m.status === 'new' ? 'done' : 'new'}" data-id="${esc(m.id)}">${m.status === 'new' ? 'Đánh dấu đã xử lý' : 'Đánh dấu chưa xử lý'}</button>
         <button type="button" class="button outline tm-small tm-danger-text" data-remove="${esc(m.id)}">Xoá</button></div></article>`).join('')
-        : tm.emptyState('📭', 'Không có tin nhắn nào.', filter.value === 'new' ? 'Mọi tin nhắn đã được xử lý.' : '');
+        : tm.emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-inbox"></use></svg>', 'Không có tin nhắn nào.', filter.value === 'new' ? 'Mọi tin nhắn đã được xử lý.' : '');
     }).catch(err => { box.innerHTML = `<p class="api-error">${esc(err.message)}</p>`; });
     filter.onchange = load;
     box.onclick = async e => {
