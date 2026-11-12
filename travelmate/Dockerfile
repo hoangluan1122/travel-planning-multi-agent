@@ -18,6 +18,7 @@ RUN useradd --create-home --uid 10001 travelmate && chown -R travelmate /app
 USER travelmate
 ENV PATH="/app/.venv/bin:$PATH" \
     TRAVELMATE_MODE=live \
+    TRAVELMATE_AGENT_TIMEOUT=120 \
     AGENT_ENGINE=maf \
     TRAVELMATE_ORCHESTRATOR=planning \
     TRAVELMATE_PLACE_PROVIDER=open_data
