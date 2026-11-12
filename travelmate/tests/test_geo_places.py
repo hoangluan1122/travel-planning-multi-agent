@@ -248,3 +248,20 @@ def test_api_location_choice_and_empty_are_normal_200_responses():
             "/api/v1/places/live", json={"destination": "Cát Bà", "location_id": "geonames:1"}
         )
         assert result.status_code == 200 and result.json()["status"] == "no_results"
+
+
+@pytest.mark.asyncio
+async def test_a_hanging_source_is_skipped_for_a_while_after_one_timeout():
+    count = 0
+
+    def handler(request):
+        nonlocal count
+        count += 1
+        raise httpx.ReadTimeout("hung", request=request)
+
+    client = PublicGeoClient(transport=httpx.MockTransport(handler), interval=0)
+    with pytest.raises(TimeoutError):
+        await client.get("https://photon.komoot.io/reverse", [])
+    with pytest.raises(AgentError, match="cooldown"):
+        await client.get("https://photon.komoot.io/api/", [("q", "Huế")])
+    assert count == 1

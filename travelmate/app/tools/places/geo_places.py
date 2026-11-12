@@ -205,7 +205,7 @@ class PublicGeoClient:
         self._last = 0.0
         self._cooldown = {}
 
-    async def get(self, url, params, ttl=300):
+    async def get(self, url, params, ttl=300, timeout=10):
         params = tuple(sorted(params))
         key = (url, params)
         async with self._lock:
@@ -222,7 +222,7 @@ class PublicGeoClient:
             try:
                 async with httpx.AsyncClient(
                     transport=self.transport,
-                    timeout=15,
+                    timeout=httpx.Timeout(timeout, connect=5),
                     follow_redirects=False,
                     headers={"User-Agent": "TravelMateResearch/0.3", "Accept": "application/json"},
                 ) as client:
@@ -245,6 +245,9 @@ class PublicGeoClient:
                 if not isinstance(payload, dict) or payload.get("error"):
                     raise ValueError("Invalid source payload")
             except httpx.TimeoutException:
+                # A server that hangs (Photon at capacity) would make every later search wait
+                # the full timeout again; fail fast for a while instead, as for a 5xx.
+                self._cooldown[host] = time.monotonic() + 60
                 raise TimeoutError("Geographic source timed out") from None
             except (httpx.HTTPError, ValueError, TypeError):
                 raise AgentError("Geographic source unavailable or invalid") from None
@@ -293,7 +296,7 @@ class GeoPlaceService:
                 f'nwr{around}["name"]["tourism"="attraction"]["wikidata"];);'
             )
         query = f"[out:json][timeout:12];{body}out tags center 150;"
-        payload, stamp, _, _ = await self.client.get(self.overpass_url, [("data", query)], ttl=3600)
+        payload, stamp, _, _ = await self.client.get(self.overpass_url, [("data", query)], ttl=3600, timeout=15)
         elements = payload.get("elements")
         if payload.get("remark") or not isinstance(elements, list) or len(elements) > 150:
             raise AgentError("Overpass reported partial results or an invalid payload")

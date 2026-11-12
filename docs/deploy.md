@@ -76,6 +76,17 @@ tin nhắn với Trợ lý AI mỗi ngày, làm mới lúc 0 giờ giờ Việt 
 xem số lượt còn lại trong **Tài khoản**; trang **Bảng giá** và **Điều khoản** hiện đúng con số đang cấu hình.
 Đặt `0` để bỏ giới hạn.
 
+## CI/CD
+
+- **CI** (`.github/workflows/ci.yml`, GitHub Actions, miễn phí cho repo công khai) chạy cho mỗi PR và mỗi commit lên `main`:
+  - **Lint and tests**: `ruff` và toàn bộ test, gồm cả bản chạy trên PostgreSQL (một database dùng một lần trong CI) và test trình duyệt.
+  - **Docker image**: build đúng image Render dùng, khởi động nó và kiểm tra `/health`, trang chủ, container không chạy bằng root.
+- **CD**: `render.yaml` đặt `autoDeployTrigger: checksPass`, nên Render chỉ deploy commit mới trên `main` **sau khi cả hai
+  job CI đều qua**. CI đỏ thì trang đang chạy giữ nguyên bản cũ.
+- Kiểm tra trên Render: **Settings → Build & Deploy → Auto-Deploy** phải là *After CI Checks Pass*. Blueprint tự đồng bộ
+  thiết lập này sau lần đẩy `render.yaml` mới lên `main`; nếu chưa, chọn tay.
+- Deploy tay khi cần: **Manual Deploy → Deploy latest commit** trên trang dịch vụ.
+
 ## Chạy image Docker trên máy
 
 ```bash

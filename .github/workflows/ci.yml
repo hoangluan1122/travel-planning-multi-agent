@@ -1,0 +1,83 @@
+# CI: lint, every test (SQLite and PostgreSQL, browser tests included) and the Docker image.
+# Render deploys main only after these checks pass (render.yaml: autoDeployTrigger: checksPass).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Lint and tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: travelmate
+    services:
+      # A throwaway database: the PostgreSQL variant of every account test runs against it.
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: travelmate_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      TRAVELMATE_TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/travelmate_test
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.11.19"
+          python-version: "3.12"
+          enable-cache: true
+          cache-dependency-glob: travelmate/uv.lock
+      - name: Install dependencies
+        run: uv sync --frozen --all-extras
+      - name: Install a browser for the UI tests
+        run: uv run playwright install --with-deps chromium
+      - name: Lint
+        run: uv run ruff check .
+      - name: Tests
+        run: uv run pytest -q -rs
+
+  docker:
+    name: Docker image
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the image Render deploys
+        run: docker build -t travelmate:ci travelmate
+      - name: Start it and check /health
+        run: |
+          docker run -d --name travelmate -p 8000:8000 \
+            -e GOOGLE_API_KEY=ci-placeholder-not-a-key \
+            -e TRAVELMATE_API_TOKEN=ci-operator-token \
+            travelmate:ci
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:8000/health; then echo; break; fi
+            sleep 2
+          done
+          curl -fsS http://127.0.0.1:8000/health | grep -q '"status":"ok"'
+          curl -fsS http://127.0.0.1:8000/ | grep -q '<title>TravelMate'
+          test "$(docker inspect -f '{{.Config.User}}' travelmate)" = "travelmate"
+      - name: Server log
+        if: always()
+        run: docker logs travelmate || true

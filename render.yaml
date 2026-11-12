@@ -10,7 +10,8 @@ services:
     dockerfilePath: ./travelmate/Dockerfile
     dockerContext: ./travelmate
     healthCheckPath: /health
-    autoDeploy: true
+    # Deploy a new commit on main only after GitHub Actions (.github/workflows/ci.yml) passes on it.
+    autoDeployTrigger: checksPass
     envVars:
       # Visitors must sign in to use the AI; this token is for the operator only (scripts, A2A).
       - key: TRAVELMATE_API_TOKEN
