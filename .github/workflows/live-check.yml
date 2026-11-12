@@ -1,0 +1,46 @@
+# Checks the live site on Render every 3 hours, the way a visitor would (and once a day makes a
+# real plan). A failed run is a failed workflow: GitHub emails the repository owner.
+# Setup (docs/deploy.md, "Canh trang đang chạy"): repository variable TRAVELMATE_URL, and for the
+# daily plan the secret TRAVELMATE_API_TOKEN. Without TRAVELMATE_URL the job is skipped.
+name: Live site check
+
+on:
+  schedule:
+    - cron: "17 */3 * * *"   # every 3 hours
+    - cron: "45 1 * * *"     # 08:45 Vietnam time: also one real plan (a few Gemini calls)
+  workflow_dispatch:
+    inputs:
+      plan:
+        description: "Also make one real plan (uses a few Gemini calls)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: live-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Live site
+    if: vars.TRAVELMATE_URL != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check the site
+        env:
+          SITE_URL: ${{ vars.TRAVELMATE_URL }}
+          TRAVELMATE_API_TOKEN: ${{ secrets.TRAVELMATE_API_TOKEN }}
+          WITH_PLAN: ${{ github.event.schedule == '45 1 * * *' || inputs.plan == true }}
+        run: |
+          if [ "$WITH_PLAN" = "true" ]; then
+            python travelmate/scripts/check_live_site.py "$SITE_URL" --plan
+          else
+            python travelmate/scripts/check_live_site.py "$SITE_URL"
+          fi

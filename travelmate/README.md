@@ -58,7 +58,7 @@ Trang chạy ở `/` (địa chỉ cũ `/ui/travelmate-v2/index.html` tự chuy�
 Bảng giá, Liên hệ (tin nhắn vào **Quản trị → Liên hệ**), Điều khoản sử dụng, Chính sách bảo mật;
 `robots.txt`, `sitemap.xml`, thẻ chia sẻ (Open Graph) và header bảo mật. Mỗi tài khoản có hạn mức AI
 mỗi ngày (`TRAVELMATE_DAILY_PLANS`, `TRAVELMATE_DAILY_CHATS`) để khoá Gemini miễn phí không bị một người
-dùng hết. Triển khai miễn phí bằng Render + Neon với `render.yaml` và `travelmate/Dockerfile`; GitHub Actions chạy test cho mỗi PR và Render chỉ deploy khi CI qua:
+dùng hết. Triển khai miễn phí bằng Render + Neon với `render.yaml` và `travelmate/Dockerfile`; GitHub Actions chạy test cho mỗi PR, Render chỉ deploy khi CI qua, và cứ 3 giờ một lần kiểm tra trang đang chạy (hỏng thì gửi email):
 [`docs/deploy.md`](../docs/deploy.md).
 
 ## Tài khoản và nghiệp vụ

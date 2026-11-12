@@ -87,6 +87,50 @@ xem số lượt còn lại trong **Tài khoản**; trang **Bảng giá** và **
   thiết lập này sau lần đẩy `render.yaml` mới lên `main`; nếu chưa, chọn tay.
 - Deploy tay khi cần: **Manual Deploy → Deploy latest commit** trên trang dịch vụ.
 
+## Canh trang đang chạy
+
+`.github/workflows/live-check.yml` chạy `travelmate/scripts/check_live_site.py` với trang thật. Workflow này miễn phí
+cho repo công khai, và hỏng thì GitHub gửi email cho bạn.
+
+Lịch chạy:
+
+- **3 giờ một lần**, script kiểm tra:
+  - Máy chủ thức dậy được. Gói miễn phí ngủ sau 15 phút, nên script chờ tối đa 3 phút.
+  - Cấu hình đúng: chế độ `live`, có token, dùng PostgreSQL.
+  - Trang chủ và mọi tệp giao diện tải được, có đủ header bảo mật.
+  - Các trang công khai, `robots.txt` và `sitemap.xml` mở được.
+  - API AI từ chối khách chưa đăng nhập.
+  - Các nguồn miễn phí còn trả lời: Open-Meteo, Photon và Wikipedia.
+- **Mỗi ngày lúc 8:45** (giờ Việt Nam), script tạo thêm **một lịch trình thật**. Lần này tốn vài lượt Gemini và không
+  tính vào hạn mức của tài khoản nào.
+
+Kết quả từng lần chạy nằm ở tab **Actions → Live site check**, dạng bảng.
+
+- ✗ là hỏng: workflow đỏ và GitHub gửi email.
+- ! là cảnh báo: ví dụ Photon sập nhưng Wikipedia vẫn thay được. Workflow vẫn xanh.
+
+Cài đặt (một lần), trên GitHub vào **Settings → Secrets and variables → Actions**:
+
+1. Tab **Variables** → **New repository variable**: tên `TRAVELMATE_URL`, giá trị là địa chỉ trang, ví dụ
+   `https://travelmate-xxxx.onrender.com` (không có `/` ở cuối). Chưa có biến này thì workflow tự bỏ qua.
+2. Tab **Secrets** → **New repository secret**: tên `TRAVELMATE_API_TOKEN`, giá trị copy từ Render (**Environment** →
+   `TRAVELMATE_API_TOKEN`). Không có secret này thì workflow vẫn chạy, chỉ bỏ phần tạo lịch trình thật.
+3. Chạy thử ngay: **Actions → Live site check → Run workflow** (tích *Also make one real plan* nếu muốn).
+
+Chạy trên máy:
+
+```bash
+python travelmate/scripts/check_live_site.py https://travelmate-xxxx.onrender.com
+```
+
+Thêm `--plan` và biến môi trường `TRAVELMATE_API_TOKEN` để tạo luôn một lịch trình thật.
+
+Lưu ý:
+
+- GitHub tắt lịch chạy của repo công khai nếu repo không có commit mới trong 60 ngày. Khi đó GitHub gửi email báo
+  trước; bấm **Enable workflow** ở tab Actions để bật lại.
+- Mỗi lần kiểm tra đánh thức trang trong vài phút. Việc này nằm trong 750 giờ miễn phí mỗi tháng của Render.
+
 ## Chạy image Docker trên máy
 
 ```bash
