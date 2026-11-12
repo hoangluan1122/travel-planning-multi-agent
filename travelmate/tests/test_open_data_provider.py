@@ -152,7 +152,7 @@ async def test_one_failed_category_is_partial_all_failed_is_error():
     partial = await OpenDataProvider(images=False, geo=FakeGeo(broken={"restaurant"})).search(trip())
     assert partial.places and any("không tải được" in w for w in partial.warnings)
     with pytest.raises(AgentError, match="không phản hồi"):
-        await OpenDataProvider(images=False, geo=FakeGeo(broken={"restaurant", "attraction"})).search(trip())
+        await OpenDataProvider(images=False, wiki=False, geo=FakeGeo(broken={"restaurant", "attraction"})).search(trip())
 
 
 @pytest.mark.asyncio
@@ -474,3 +474,41 @@ async def test_default_search_adds_heritage_landmarks_before_photon_heritage():
     assert ids.index("vm") < ids.index("t1") and "dup2" not in ids
     broken = await OpenDataProvider(images=False, geo=FakeGeo(broken={"overpass"})).search(trip())
     assert broken.places  # Overpass down: Photon lists still returned
+
+
+class FakeWiki:
+    def __init__(self, places=()):
+        self.places, self.calls = list(places), 0
+
+    async def nearby(self, location, radius_m):
+        self.calls += 1
+        return self.places
+
+
+def wiki_place(pageid, name):
+    return place(f"wikipedia:vi/{pageid}", ["tomb"], name).model_copy(update={"source": "wikipedia"})
+
+
+class HangingGeo(FakeGeo):
+    async def discover(self, location, category, radius_m, keyword=""):
+        self.discovered.append((category, radius_m, keyword))
+        raise TimeoutError("Geographic source timed out")
+
+
+@pytest.mark.asyncio
+async def test_photon_timeout_falls_back_to_wikipedia_sights_and_says_so():
+    wiki = FakeWiki([wiki_place(1, "Lăng Tự Đức"), wiki_place(2, "Chùa Thiên Mụ")])
+    result = await OpenDataProvider(images=False, geo=HangingGeo(), wiki=wiki).search(trip())
+    assert {p.name for p in result.places} == {"Lăng Tự Đức", "Chùa Thiên Mụ"}
+    assert result.stays == []
+    assert any("Wikipedia" in w for w in result.warnings)
+    assert not any(w.startswith("Địa điểm từ OpenStreetMap") for w in result.warnings)
+
+
+@pytest.mark.asyncio
+async def test_wikipedia_is_only_asked_when_photon_fails_and_an_empty_answer_still_fails():
+    wiki = FakeWiki([place("wikipedia:vi/1", ["tomb"], "Lăng Tự Đức")])
+    await OpenDataProvider(images=False, geo=FakeGeo(), wiki=wiki).search(trip())
+    assert wiki.calls == 0
+    with pytest.raises(AgentError, match="không phản hồi"):
+        await OpenDataProvider(images=False, geo=HangingGeo(), wiki=FakeWiki()).search(trip())

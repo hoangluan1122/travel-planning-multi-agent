@@ -16,11 +16,16 @@ from app.core.models import Context, PlaceResult, WeatherDay, WeatherResult
 from app.tools.places.geo_places import GeoPlaceService, LocalityChoiceRequired
 from app.tools.places.place_media import WikipediaImages, plain
 from app.tools.places.vietnam_regions import load_catalog
+from app.tools.places.wiki_places import WikipediaPlaces
 from app.tools.prices.ticket_prices import apply_tickets
 
 SOURCE_NOTE = (
     "Địa điểm từ OpenStreetMap qua Photon (dữ liệu cộng đồng, ODbL); có thể thiếu hoặc cũ, "
     "chưa xác minh giờ mở cửa, giá hay tình trạng hoạt động."
+)
+WIKI_NOTE = (
+    "Bản đồ OpenStreetMap (Photon) đang quá tải nên điểm tham quan được lấy từ Wikipedia tiếng Việt; "
+    "lần này có thể thiếu gợi ý quán ăn và nơi ở. Thử lại sau ít phút để có danh sách đầy đủ."
 )
 LOCALITY_TTL_S = 600
 # Lower ranks first. Within a rank the source's distance order is kept, so landmarks beat
@@ -131,7 +136,7 @@ class OpenDataProvider:
 
     def __init__(
         self, geo=None, weather=None, radius_m=5000, attractions=12, meals=5, cafes=2, max_parks=2,
-        heritage_radius_m=15000, heritage=8, stays=5, images=None,
+        heritage_radius_m=15000, heritage=8, stays=5, images=None, wiki=None,
     ):
         self.geo = geo or GeoPlaceService()
         self.weather = weather  # a WeatherSpecialist; created lazily
@@ -139,6 +144,8 @@ class OpenDataProvider:
         self.heritage_radius_m, self.heritage = heritage_radius_m, heritage
         self.stay_limit = stays
         self.images = images if images is not None else WikipediaImages()
+        # Sights when Photon is down (it often is: a free public server); False turns it off.
+        self.wiki = wiki if wiki is not None else WikipediaPlaces()
         self.pickers = {
             "attraction": lambda found: pick_attractions(found, attractions, max_parks),
             "restaurant": lambda found: pick_food(found, meals, cafes),
@@ -198,13 +205,17 @@ class OpenDataProvider:
 
     async def search(self, trip):
         location, warnings = await self.locate(trip.destination)
-        places, failures = [], 0
+        places, failures, from_wiki = [], 0, False
         for category, pick in self.pickers.items():
             try:
                 found, _, _ = await self.geo.discover(location, category, self.radius_m)
-            except AgentError:
-                failures += 1
-                continue
+            except (AgentError, TimeoutError):
+                found = await self.wiki.nearby(location, self.heritage_radius_m) if (
+                    category == "attraction" and self.wiki) else []
+                if not found:
+                    failures += 1
+                    continue
+                from_wiki = True
             places.extend(pick(found))
         places.extend(await self.heritage_sites(location, places))
         places = await self.images.enrich(places) if self.images else places
@@ -212,11 +223,14 @@ class OpenDataProvider:
         stays = await self.stays(location)
         if failures == len(self.pickers):
             raise AgentError("Nguồn địa điểm không phản hồi")
-        if failures:
+        if from_wiki:
+            warnings.append(WIKI_NOTE)
+        elif failures:
             warnings.append("Một nhóm địa điểm không tải được; danh sách có thể thiếu.")
         if not places:
             warnings.append(f"Không thấy địa điểm trong bán kính {self.radius_m // 1000} km quanh trung tâm.")
-        return PlaceResult(places=places, warnings=warnings + [SOURCE_NOTE], stays=stays)
+        from_osm = any(p.source != "wikipedia" for p in places + stays) or not places
+        return PlaceResult(places=places, warnings=warnings + ([SOURCE_NOTE] if from_osm else []), stays=stays)
 
     async def stays(self, location):
         """Nearby accommodation from OSM: names and locations only, no nightly prices."""
@@ -224,7 +238,7 @@ class OpenDataProvider:
             return []
         try:
             found, _, _ = await self.geo.discover(location, "hotel", self.radius_m)
-        except AgentError:
+        except (AgentError, TimeoutError):
             return []
         return unique_plausible(found)[: self.stay_limit]
 
@@ -237,7 +251,7 @@ class OpenDataProvider:
         landmarks = await self.landmarks(location, self.heritage_radius_m)
         try:
             found, _, _ = await self.geo.discover(location, "heritage", self.heritage_radius_m)
-        except AgentError:
+        except (AgentError, TimeoutError):
             found = []
         taken = {name_key(p) for p in already}
         landmarks = [p for p in unique_plausible(landmarks) if name_key(p) not in taken]
