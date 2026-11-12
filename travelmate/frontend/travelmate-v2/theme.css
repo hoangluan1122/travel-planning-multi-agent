@@ -34,10 +34,10 @@ header{height:72px;padding:0 max(32px,calc((100vw - 1240px)/2 + 32px));backgroun
 .brand{font-size:22px;letter-spacing:-.6px;color:var(--ink)}
 .brand .mark{background:var(--teal);color:#fff;border:0;width:32px;height:32px;line-height:32px;font-size:18px}
 .brand .dot{color:var(--coral)}
-nav{gap:6px;font-size:15px}
-nav a{padding:8px 14px;border-radius:999px;color:var(--ink-2);font-weight:500}
-nav a:hover{background:var(--teal-50);color:var(--teal-700)}
-nav a[aria-current=page]{color:var(--teal-700);background:var(--teal-50);font-weight:600}
+header nav{gap:10px;font-size:15px}
+header nav a{padding:9px 18px;border-radius:999px;color:var(--ink-2);font-weight:500;white-space:nowrap;line-height:1.3}
+header nav a:hover{background:var(--teal-50);color:var(--teal-700)}
+header nav a[aria-current=page]{color:var(--teal-700);background:var(--teal-50);font-weight:600}
 nav a[aria-current=page]::after{display:none}
 header nav a,header nav a[aria-current=page]{border-bottom:0;border-bottom-color:transparent}
 header .avatar.tm-login{background:var(--teal);color:#fff;height:40px;padding:0 20px;font-size:14px}
@@ -241,6 +241,14 @@ details.api-card li .tm-i{color:var(--teal)}
 .tm-tabs .button.active{background:var(--teal);color:#fff;border-color:var(--teal)}
 
 /* ==================== RESPONSIVE ==================== */
+@media (min-width:881px) and (max-width:1200px){
+  header nav{gap:4px}
+  header nav a{padding:9px 12px}
+}
+@media (min-width:881px) and (max-width:1100px){
+  header .avatar.tm-user{padding:4px}
+  header .avatar.tm-user span{display:none}
+}
 @media (max-width:1100px){
   .tm-plan-layout{grid-template-columns:1fr}
   .tm-plan-side{position:static}
