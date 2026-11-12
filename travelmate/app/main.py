@@ -1,12 +1,14 @@
 import asyncio
+import html
 import logging
 import secrets
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Literal
 from uuid import UUID
 
 from fastapi import Depends, FastAPI, HTTPException, Request
-from fastapi.responses import RedirectResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse, RedirectResponse, Response
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.staticfiles import StaticFiles
 from pydantic import AliasChoices, Field, field_validator
@@ -24,12 +26,61 @@ from app.core.llm.adk_adapter import AdkPlanner
 from app.core.models import PlaceResult, PlaceSearchRequest, PlanResponse, TripRequest
 from app.core.telemetry import configure_telemetry
 from app.memory.preferences import MemoryAgent
-from app.memory.store import StoreError
+from app.memory.store import VIETNAM, StoreError
 from app.tools.places.place_media import GooglePhotoProxy
 from app.tools.places.providers import DemoProvider, LiveProvider
 from app.trust.accounts import session_from
 
 logger = logging.getLogger(__name__)
+
+FRONTEND = Path(__file__).resolve().parent.parent / "frontend"
+INDEX = FRONTEND / "travelmate-v2" / "index.html"
+# Pages anyone can read; search engines index these and nothing else.
+PUBLIC_PAGES = {
+    "home": ("TravelMate — Lên kế hoạch du lịch cùng AI",
+             "Lập lịch trình du lịch Việt Nam theo từng ngày, ước tính chi phí so với ngân sách, xem thời tiết "
+             "và hỏi Trợ lý AI."),
+    "explore": ("Khám phá địa điểm — TravelMate", "Tìm điểm tham quan, quán ăn và khách sạn ở các điểm đến Việt Nam."),
+    "chat": ("Trợ lý AI du lịch — TravelMate", "Hỏi quán ăn, giá vé, thời tiết hoặc nhờ lập lịch trình bằng tiếng Việt."),
+    "create": ("Tạo chuyến đi — TravelMate", "Nhập điểm đến, ngày đi, số người và ngân sách để nhận lịch trình từng ngày."),
+    "about": ("Giới thiệu — TravelMate", "TravelMate là gì, làm được gì và dữ liệu đến từ đâu."),
+    "pricing": ("Bảng giá — TravelMate", "TravelMate miễn phí. Hạn mức sử dụng AI mỗi ngày và câu hỏi thường gặp."),
+    "contact": ("Liên hệ — TravelMate", "Gửi câu hỏi, góp ý hoặc đề nghị hợp tác cho TravelMate."),
+    "terms": ("Điều khoản sử dụng — TravelMate", "Điều khoản sử dụng dịch vụ TravelMate."),
+    "privacy": ("Chính sách bảo mật — TravelMate", "TravelMate thu thập dữ liệu gì, dùng vào việc gì và quyền của bạn."),
+}
+QUOTA_LABELS = {"plan": "lượt lập lịch trình", "chat": "tin nhắn với Trợ lý AI"}
+
+
+def seconds_to_midnight_vn():
+    now = datetime.now(VIETNAM)
+    tomorrow = (now + timedelta(days=1)).replace(hour=0, minute=0, second=0, microsecond=0)
+    return int((tomorrow - now).total_seconds()) + 1
+
+
+def page_html(view, base):
+    """index.html with the title, description, canonical link and share preview of one page."""
+    text = INDEX.read_text("utf-8")
+    page = PUBLIC_PAGES.get(view)
+    if page is None:  # private or unknown pages: keep them out of search results
+        return text.replace("<!--SEO-->", '<meta name="robots" content="noindex">')
+    title, description = (html.escape(x) for x in page)
+    url = html.escape(f"{base}/" + ("" if view == "home" else f"?view={view}"))
+    image = html.escape(f"{base}/ui/travelmate-ui/assets/beach.jpg")
+    seo = "\n".join([
+        f'<link rel="canonical" href="{url}">',
+        '<meta property="og:type" content="website">', '<meta property="og:site_name" content="TravelMate">',
+        '<meta property="og:locale" content="vi_VN">',
+        f'<meta property="og:title" content="{title}">', f'<meta property="og:description" content="{description}">',
+        f'<meta property="og:url" content="{url}">', f'<meta property="og:image" content="{image}">',
+        '<meta name="twitter:card" content="summary_large_image">',
+    ])
+    text = text.replace("<!--SEO-->", seo)
+    start, end = text.index("<title>"), text.index("</title>") + len("</title>")
+    text = text[:start] + f"<title>{title}</title>" + text[end:]
+    start = text.index('<meta name="description" content="')
+    end = text.index('">', start) + 2
+    return text[:start] + f'<meta name="description" content="{description}">' + text[end:]
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
@@ -68,6 +119,23 @@ class Settings(BaseSettings):
     travelmate_smtp_user: str = ""
     travelmate_smtp_password: str = ""
     travelmate_smtp_from: str = ""
+    # Public site. The address it is served at (https://…, used for links in emails, the
+    # sitemap and share previews), who runs it and how to reach them (shown on the legal pages).
+    travelmate_public_url: str = ""
+    travelmate_operator_name: str = ""
+    travelmate_contact_email: str = ""
+    # AI uses per signed-in user per day (Vietnam time); 0 = no limit. Admins and the
+    # operator token are not limited. Keeps a free Gemini key from being used up by one account.
+    travelmate_daily_plans: int = Field(default=10, ge=0)
+    travelmate_daily_chats: int = Field(default=60, ge=0)
+
+    @field_validator("travelmate_public_url")
+    @classmethod
+    def public_url_is_http(cls, value):
+        value = value.strip().rstrip("/")
+        if value and not value.startswith(("https://", "http://")):
+            raise ValueError("TRAVELMATE_PUBLIC_URL must start with https:// or http://")
+        return value
 
     @field_validator("travelmate_memory_user", mode="before")
     @classmethod
@@ -252,6 +320,42 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
         if user is None:
             raise HTTPException(401, "Invalid API token")
 
+    def daily_limit(kind):
+        return {"plan": settings.travelmate_daily_plans, "chat": settings.travelmate_daily_chats}[kind]
+
+    async def quota_owner(request, credentials, kind):
+        """The signed-in user to charge for one AI use, or None when nobody is limited.
+
+        Admins, the operator token and visitors on a server without accounts are not limited.
+        Raises 429 when today's uses are spent. Uses are counted after success (charge()).
+        """
+        limit = daily_limit(kind)
+        if not limit:
+            return None
+        if (credentials is not None and settings.travelmate_api_token
+                and secrets.compare_digest(credentials.credentials, settings.travelmate_api_token)):
+            return None
+        user, _ = await session_from(request, credentials, store)
+        if user is None or user["role"] == "admin":
+            return None
+        used = (await asyncio.to_thread(store.usage_today, user["id"])).get(kind, 0)
+        if used >= limit:
+            raise HTTPException(
+                429, f"Bạn đã dùng hết {limit} {QUOTA_LABELS[kind]} của hôm nay. Hạn mức được làm mới lúc 0 giờ "
+                     "(giờ Việt Nam).", headers={"Retry-After": str(seconds_to_midnight_vn())})
+        return user["id"]
+
+    async def charge(owner, kind):
+        if owner is None:
+            return
+        try:
+            await asyncio.to_thread(store.add_usage, owner, kind)
+        except Exception as exc:  # counting must never fail a request that already succeeded
+            logger.warning("usage outcome=failed error_type=%s", type(exc).__name__)
+
+    def public_base(request):
+        return settings.travelmate_public_url or str(request.base_url).rstrip("/")
+
     async def remember(places):
         try:
             await asyncio.to_thread(store.remember_places, [p.model_dump(mode="json") for p in places])
@@ -290,6 +394,27 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
             "signup_open": settings.travelmate_signup_open,
         }
 
+    @app.get("/api/v1/site")
+    async def site():
+        """What the public pages show: who runs the site, how to reach them, the daily limits."""
+        return {
+            "operator_name": settings.travelmate_operator_name,
+            "contact_email": settings.travelmate_contact_email,
+            "daily_plans": settings.travelmate_daily_plans,
+            "daily_chats": settings.travelmate_daily_chats,
+            "signup_open": settings.travelmate_signup_open,
+        }
+
+    @app.get("/api/v1/me/usage")
+    async def my_usage(request: Request, credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
+        user, _ = await session_from(request, credentials, store)
+        if user is None:
+            raise HTTPException(401, "Bạn cần đăng nhập, hoặc phiên đăng nhập đã hết hạn.")
+        used = await asyncio.to_thread(store.usage_today, user["id"])
+        admin = user["role"] == "admin"
+        return {kind: {"used": used.get(kind, 0), "limit": None if admin or not daily_limit(kind) else daily_limit(kind)}
+                for kind in ("plan", "chat")}
+
     @app.post("/api/v1/places/search", response_model=PlaceResult, dependencies=[Depends(authorize)])
     async def search_places(query: PlaceSearchRequest):
         try:
@@ -305,10 +430,13 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
             raise HTTPException(502, "Place lookup failed") from None
 
     @app.post("/api/v1/plans/preview", response_model=PlanResponse, dependencies=[Depends(authorize)])
-    async def preview(trip: TripRequest):
+    async def preview(trip: TripRequest, request: Request,
+                      credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
+        owner = await quota_owner(request, credentials, "plan")
         try:
             plan = await orchestrator.plan(trip)
             await remember(plan.places + plan.stays)
+            await charge(owner, "plan")
             return plan
         except TimeoutError:
             raise HTTPException(504, "Agent processing timed out") from None
@@ -329,6 +457,7 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
     async def chat_turn(data: ChatRequest, request: Request,
                         credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
         # Signed-in users' chats are saved to the database (and plans to their trips); others stay in memory.
+        charged = await quota_owner(request, credentials, "chat")
         user, _ = await session_from(request, credentials, store)
         owner = user["id"] if user else None
         trip_id = None
@@ -358,6 +487,7 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
         except Exception as exc:
             logger.warning("chat outcome=failed error_type=%s", type(exc).__name__)
             raise HTTPException(502, "Chat failed; retry shortly") from None
+        await charge(charged, "chat")
         return ChatResponse(session_id=session.id, reply=replies[0], replies=replies,
                             active_agent=session.active_agent, trip_id=trip_id)
 
@@ -371,16 +501,42 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
     app.include_router(create_a2a_router(chat, settings.travelmate_api_token))
 
     @app.get("/", include_in_schema=False)
-    async def frontend():
-        return RedirectResponse("/ui/travelmate-v2/index.html")
+    async def frontend(request: Request, view: str = "home"):
+        return HTMLResponse(page_html(view, public_base(request)), headers={"Cache-Control": "no-cache"})
+
+    @app.get("/ui/travelmate-v2/index.html", include_in_schema=False)
+    async def old_address(request: Request):
+        # The site lives at /; old links and bookmarks keep working.
+        query = request.url.query
+        return RedirectResponse("/" + (f"?{query}" if query else ""), status_code=301)
+
+    @app.get("/robots.txt", include_in_schema=False)
+    async def robots(request: Request):
+        return PlainTextResponse(f"User-agent: *\nDisallow: /api/\nSitemap: {public_base(request)}/sitemap.xml\n")
+
+    @app.get("/sitemap.xml", include_in_schema=False)
+    async def sitemap(request: Request):
+        base = html.escape(public_base(request))
+        urls = "".join(f"<url><loc>{base}/{'' if view == 'home' else '?view=' + view}</loc></url>"
+                       for view in PUBLIC_PAGES)
+        return Response('<?xml version="1.0" encoding="UTF-8"?>'
+                        f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>',
+                        media_type="application/xml")
 
     @app.middleware("http")
-    async def revalidate_ui(request, call_next):
-        # Make browsers revalidate UI files (ETag) so a restarted server never runs stale JS.
+    async def headers(request, call_next):
         response = await call_next(request)
+        # Make browsers revalidate UI files (ETag) so a restarted server never runs stale JS.
         if request.url.path.startswith("/ui/"):
             response.headers["Cache-Control"] = "no-cache"
+        # Basic hardening for a public site.
+        response.headers.setdefault("X-Content-Type-Options", "nosniff")
+        response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+        response.headers.setdefault("X-Frame-Options", "DENY")
+        response.headers.setdefault("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+        if request.url.scheme == "https":
+            response.headers.setdefault("Strict-Transport-Security", "max-age=31536000")
         return response
 
-    app.mount("/ui", StaticFiles(directory=Path(__file__).resolve().parent.parent / "frontend"), name="ui")
+    app.mount("/ui", StaticFiles(directory=FRONTEND), name="ui")
     return app

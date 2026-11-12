@@ -1,5 +1,5 @@
-"""Product data: accounts, sessions, saved trips, favourites, places seen, reviews, reports
-and the admin audit log, in PostgreSQL (TRAVELMATE_DATABASE_URL=postgresql://…) or, with no
+"""Product data: accounts, sessions, saved trips, favourites, places seen, reviews, reports,
+daily usage counts, contact messages and the admin audit log, in PostgreSQL (TRAVELMATE_DATABASE_URL=postgresql://…) or, with no
 URL, one SQLite file.
 
 Queries are written once with `?` placeholders; `Db` adapts them for psycopg.
@@ -19,6 +19,7 @@ import sqlite3
 import time
 import uuid
 from contextlib import closing
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 SESSION_TTL_S = 30 * 24 * 3600
@@ -75,7 +76,24 @@ CREATE INDEX IF NOT EXISTS chats_by_user ON chats(user_id, updated_at DESC);
 CREATE TABLE IF NOT EXISTS audit (
     id {AUTO_ID}, actor_id TEXT, action TEXT NOT NULL, target TEXT NOT NULL, at DOUBLE PRECISION NOT NULL
 );
+CREATE TABLE IF NOT EXISTS daily_usage (
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE, day TEXT NOT NULL, kind TEXT NOT NULL,
+    uses INTEGER NOT NULL, PRIMARY KEY (user_id, day, kind)
+);
+CREATE TABLE IF NOT EXISTS messages (
+    id TEXT PRIMARY KEY, user_id TEXT REFERENCES users(id) ON DELETE CASCADE, name TEXT NOT NULL,
+    email TEXT NOT NULL, topic TEXT NOT NULL, text TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new', 'done')), created_at DOUBLE PRECISION NOT NULL
+);
+CREATE INDEX IF NOT EXISTS messages_by_time ON messages(status, created_at DESC);
 """
+
+# Daily limits reset at midnight in Vietnam, where the users are.
+VIETNAM = timezone(timedelta(hours=7))
+
+
+def today_vn():
+    return datetime.now(VIETNAM).date().isoformat()
 
 
 try:  # PostgreSQL driver is optional (extra "postgres")
@@ -486,6 +504,58 @@ class Store:
             except INTEGRITY_ERRORS:
                 raise StoreError("Bạn đã báo cáo đánh giá này.", 409) from None
 
+    # --- daily usage (AI quotas) ----------------------------------------------------------------
+
+    def usage_today(self, user_id):
+        """{kind: count} for today (Vietnam time)."""
+        with closing(self.connect()) as db:
+            rows = db.execute("SELECT kind, uses FROM daily_usage WHERE user_id = ? AND day = ?",
+                              (user_id, today_vn())).fetchall()
+        return {r["kind"]: r["uses"] for r in rows}
+
+    def add_usage(self, user_id, kind):
+        """Count one use of kind today; returns today's new count."""
+        day = today_vn()
+        with closing(self.connect()) as db, db:
+            db.execute("INSERT INTO daily_usage (user_id, day, kind, uses) VALUES (?, ?, ?, 1) "
+                       "ON CONFLICT (user_id, day, kind) DO UPDATE SET uses = daily_usage.uses + 1", (user_id, day, kind))
+            return db.execute("SELECT uses FROM daily_usage WHERE user_id = ? AND day = ? AND kind = ?",
+                              (user_id, day, kind)).fetchone()["uses"]
+
+    # --- contact messages ----------------------------------------------------------------------
+
+    def add_message(self, name, email, topic, text, user_id=None):
+        message_id = str(uuid.uuid4())
+        with closing(self.connect()) as db, db:
+            db.execute("INSERT INTO messages (id, user_id, name, email, topic, text, created_at) "
+                       "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                       (message_id, user_id, name.strip(), email.strip(), topic, text.strip(), time.time()))
+        return message_id
+
+    def messages(self, status=None):
+        with closing(self.connect()) as db:
+            if status:
+                rows = db.execute("SELECT * FROM messages WHERE status = ? ORDER BY created_at DESC LIMIT 200",
+                                  (status,)).fetchall()
+            else:
+                rows = db.execute("SELECT * FROM messages ORDER BY created_at DESC LIMIT 200").fetchall()
+        return [{k: r[k] for k in ("id", "user_id", "name", "email", "topic", "text", "status", "created_at")}
+                for r in rows]
+
+    def update_message(self, actor_id, message_id, status):
+        with closing(self.connect()) as db, db:
+            if db.execute("SELECT 1 FROM messages WHERE id = ?", (message_id,)).fetchone() is None:
+                raise StoreError("Không tìm thấy tin nhắn.", 404)
+            db.execute("UPDATE messages SET status = ? WHERE id = ?", (status, message_id))
+            self.audit(db, actor_id, f"message:{status}", message_id)
+
+    def delete_message(self, actor_id, message_id):
+        with closing(self.connect()) as db, db:
+            if db.execute("SELECT 1 FROM messages WHERE id = ?", (message_id,)).fetchone() is None:
+                raise StoreError("Không tìm thấy tin nhắn.", 404)
+            db.execute("DELETE FROM messages WHERE id = ?", (message_id,))
+            self.audit(db, actor_id, "message:delete", message_id)
+
     # --- admin -------------------------------------------------------------------------------
 
     def stats(self):
@@ -503,6 +573,7 @@ class Store:
                 "reviews": one("SELECT COUNT(*) FROM reviews"),
                 "pending_reviews": one("SELECT COUNT(*) FROM reviews WHERE status = 'pending'"),
                 "open_reports": one("SELECT COUNT(*) FROM reports WHERE resolved = 0"),
+                "new_messages": one("SELECT COUNT(*) FROM messages WHERE status = 'new'"),
                 "recent": [{"action": r["action"], "target": r["target"], "actor": r["actor"], "at": r["at"]}
                            for r in recent],
             }

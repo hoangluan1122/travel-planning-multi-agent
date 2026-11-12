@@ -33,7 +33,7 @@ Nhập điểm đến trên web, nhận lịch trình từ **địa điểm th�
 3. Chạy `uv run uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8000`
 4. Mở http://127.0.0.1:8000/, **Đăng ký** một tài khoản rồi **Tạo chuyến đi**. Một lịch 2 ngày
    mất khoảng 1 phút. Muốn dùng `TRAVELMATE_API_TOKEN` thay cho tài khoản, mở trang với `?dev`
-   (ví dụ `/ui/travelmate-v2/index.html?dev`) để hiện mục **Cấu hình kết nối**.
+   (ví dụ `http://127.0.0.1:8000/?dev`) để hiện mục **Cấu hình kết nối**.
 
 Kết quả: từng ngày có khung giờ, loại địa điểm, địa chỉ, link bản đồ OpenStreetMap, dự báo
 thời tiết; chi phí chưa biết được liệt kê theo tên, không coi là 0. Giới hạn của bản demo:
@@ -51,6 +51,15 @@ qua các lượt. Chi tiết và kết quả chạy thật: [`docs/multi-agent.m
 Câu hỏi về một địa danh (lịch sử, giá vé, giờ mở cửa, đi lại) đi tới **Hướng dẫn viên**
 (Agentic RAG): agent tự tìm trong Wikipedia, Wikivoyage và bảng giá vé, trả lời kèm nguồn, và
 không được ghi con số nào không có trong nguồn. Xem [`docs/agentic-rag.md`](../docs/agentic-rag.md).
+
+## Đưa lên Internet
+
+Trang chạy ở `/` (địa chỉ cũ `/ui/travelmate-v2/index.html` tự chuyển về). Có sẵn các trang Giới thiệu,
+Bảng giá, Liên hệ (tin nhắn vào **Quản trị → Liên hệ**), Điều khoản sử dụng, Chính sách bảo mật;
+`robots.txt`, `sitemap.xml`, thẻ chia sẻ (Open Graph) và header bảo mật. Mỗi tài khoản có hạn mức AI
+mỗi ngày (`TRAVELMATE_DAILY_PLANS`, `TRAVELMATE_DAILY_CHATS`) để khoá Gemini miễn phí không bị một người
+dùng hết. Triển khai miễn phí bằng Render + Neon với `render.yaml` và `travelmate/Dockerfile`:
+[`docs/deploy.md`](../docs/deploy.md).
 
 ## Tài khoản và nghiệp vụ
 

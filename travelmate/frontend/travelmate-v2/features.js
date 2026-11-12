@@ -36,7 +36,7 @@
     const nav = document.querySelector('header nav');
     if (nav && u) {
       nav.insertAdjacentHTML('beforeend', `<a href="?view=favorites"${route === 'favorites' ? ' aria-current="page"' : ''}>Yêu thích</a>`);
-      if (u.role === 'admin') nav.insertAdjacentHTML('beforeend', `<a href="?view=admin"${['admin', 'admin-users', 'admin-places', 'moderation'].includes(route) ? ' aria-current="page"' : ''}>Quản trị</a>`);
+      if (u.role === 'admin') nav.insertAdjacentHTML('beforeend', `<a href="?view=admin"${['admin', 'admin-users', 'admin-places', 'moderation', 'admin-messages'].includes(route) ? ' aria-current="page"' : ''}>Quản trị</a>`);
     }
   }
   // Offers that only make sense before signing in.
@@ -56,7 +56,7 @@
   // --- login / signup / forgot -----------------------------------------------------------
   const next = params.get('next');
   const nextQ = next ? '&next=' + encodeURIComponent(next) : '';
-  const authShell = (eyebrow, title, text, body) => `<div class="tm-auth-layout"><div class="auth-visual"><img src="../travelmate-ui/assets/beach.jpg" alt=""><div><div class="eyebrow">MỌI HÀNH TRÌNH ĐỀU BẮT ĐẦU TỪ BẠN.</div><h2>Để những điều<br>đáng nhớ bắt đầu.</h2><p>Một tài khoản để lưu lịch trình, địa điểm yêu thích và các cuộc trò chuyện.</p></div></div>
+  const authShell = (eyebrow, title, text, body) => `<div class="tm-auth-layout"><div class="auth-visual"><img src="/ui/travelmate-ui/assets/beach.jpg" alt=""><div><div class="eyebrow">MỌI HÀNH TRÌNH ĐỀU BẮT ĐẦU TỪ BẠN.</div><h2>Để những điều<br>đáng nhớ bắt đầu.</h2><p>Một tài khoản để lưu lịch trình, địa điểm yêu thích và các cuộc trò chuyện.</p></div></div>
     <section class="tm-auth"><div class="eyebrow">${eyebrow}</div><h1>${title}</h1><p>${text}</p>${body}</section></div>`;
   if (route === 'login' || route === 'signup') {
     const login = route === 'login';
@@ -333,14 +333,14 @@
   }
 
   // --- admin -------------------------------------------------------------------------------
-  const adminTabs = current => `<div class="tm-tabs">${[['admin', 'Tổng quan'], ['admin-users', 'Người dùng'], ['admin-places', 'Địa điểm'], ['moderation', 'Kiểm duyệt']].map(([v, t]) => `<a class="button outline ${v === current ? 'active' : ''}" href="?view=${v}">${t}</a>`).join('')}</div>`;
+  const adminTabs = current => `<div class="tm-tabs">${[['admin', 'Tổng quan'], ['admin-users', 'Người dùng'], ['admin-places', 'Địa điểm'], ['moderation', 'Kiểm duyệt'], ['admin-messages', 'Liên hệ']].map(([v, t]) => `<a class="button outline ${v === current ? 'active' : ''}" href="?view=${v}">${t}</a>`).join('')}</div>`;
   const adminOnly = () => { if (needLogin()) return false; if (user().role !== 'admin') { render(emptyState('🔒', 'Chỉ dành cho quản trị viên.', 'Tài khoản của bạn không có quyền vào khu vực này.', tm.link('home', 'Về trang chủ', 'button dark'))); return false; } return true; };
   const actionLabel = a => ({signup: 'Đăng ký', change_password: 'Đổi mật khẩu', delete_account: 'Xoá tài khoản', reset_requested: 'Tạo link đặt lại', reset_password: 'Đặt lại mật khẩu', hide_place: 'Ẩn địa điểm', show_place: 'Hiện địa điểm', note_place: 'Ghi chú địa điểm'}[a] || a.replace('set_role:', 'Đổi quyền: ').replace('set_status:', 'Trạng thái: ').replace('moderate:', 'Kiểm duyệt: '));
 
   if (route === 'admin' && adminOnly()) {
     const main = render(`<div class="tm-head tm-admin-head"><div class="eyebrow">KHÔNG GIAN QUẢN TRỊ</div><h1>Tổng quan hệ thống.</h1></div>${adminTabs('admin')}<div id="tm-stats">Đang tải…</div>`);
     get('/api/v1/admin/stats').then(s => {
-      const cards = [['Người dùng', s.users, 'admin-users'], ['Quản trị viên', s.admins, 'admin-users'], ['Tài khoản bị khoá', s.locked_users, 'admin-users'], ['Chuyến đi đã lưu', s.trips, null], ['Địa điểm đã ghi nhận', s.places, 'admin-places'], ['Địa điểm đang ẩn', s.hidden_places, 'admin-places'], ['Đánh giá', s.reviews, 'moderation'], ['Chờ duyệt', s.pending_reviews, 'moderation'], ['Báo cáo chưa xử lý', s.open_reports, 'moderation']];
+      const cards = [['Người dùng', s.users, 'admin-users'], ['Quản trị viên', s.admins, 'admin-users'], ['Tài khoản bị khoá', s.locked_users, 'admin-users'], ['Chuyến đi đã lưu', s.trips, null], ['Địa điểm đã ghi nhận', s.places, 'admin-places'], ['Địa điểm đang ẩn', s.hidden_places, 'admin-places'], ['Đánh giá', s.reviews, 'moderation'], ['Chờ duyệt', s.pending_reviews, 'moderation'], ['Báo cáo chưa xử lý', s.open_reports, 'moderation'], ['Tin nhắn liên hệ mới', s.new_messages, 'admin-messages']];
       main.querySelector('#tm-stats').innerHTML = `<div class="tm-stats">${cards.map(([t, n, v]) => `<div class="api-card"><strong>${n}</strong>${v ? `<a href="?view=${v}">${t}</a>` : t}</div>`).join('')}</div>
         <h2>Hoạt động gần đây</h2><div class="tm-table-wrap"><table class="tm-table"><tr><th>Thời gian</th><th>Người thực hiện</th><th>Hành động</th></tr>${s.recent.map(r => `<tr><td>${date(r.at)}</td><td>${esc(r.actor || '—')}</td><td>${esc(actionLabel(r.action))}</td></tr>`).join('') || '<tr><td colspan="3">Chưa có hoạt động.</td></tr>'}</table></div>`;
     }).catch(err => { main.querySelector('#tm-stats').textContent = err.message; });

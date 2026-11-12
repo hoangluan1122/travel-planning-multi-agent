@@ -1,0 +1,38 @@
+# Render Blueprint: one free web service running travelmate/Dockerfile.
+# How to use it: docs/deploy.md. The database is a free Neon PostgreSQL (Render's free
+# PostgreSQL is deleted after 30 days), so its URL is entered by hand.
+services:
+  - type: web
+    name: travelmate
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./travelmate/Dockerfile
+    dockerContext: ./travelmate
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # Visitors must sign in to use the AI; this token is for the operator only (scripts, A2A).
+      - key: TRAVELMATE_API_TOKEN
+        generateValue: true
+      - key: GEMINI_MODEL
+        value: gemini-3.5-flash-lite
+      - key: TRAVELMATE_DAILY_PLANS
+        value: "10"
+      - key: TRAVELMATE_DAILY_CHATS
+        value: "60"
+      - key: TRAVELMATE_SIGNUP_OPEN
+        value: "true"
+      # Asked once when the Blueprint is created; never stored in this repository.
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: TRAVELMATE_DATABASE_URL
+        sync: false
+      - key: TRAVELMATE_ADMIN_EMAIL
+        sync: false
+      - key: TRAVELMATE_PUBLIC_URL
+        sync: false
+      - key: TRAVELMATE_OPERATOR_NAME
+        sync: false
+      - key: TRAVELMATE_CONTACT_EMAIL
+        sync: false

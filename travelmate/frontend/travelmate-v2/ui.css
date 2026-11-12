@@ -366,7 +366,7 @@ select{appearance:none;-webkit-appearance:none;background-image:url("data:image/
 .tm-footer{display:block;margin:64px 0 0;padding:44px max(64px,calc((100% - 1432px)/2)) 28px;border-top:1px solid var(--tm-line);background:#fafbfc;color:#5b6472}
 body:has(.tm-chat) .tm-footer{display:none}
 .tm-footer span{display:inline;font-size:inherit}
-.tm-footer-top{display:grid;grid-template-columns:minmax(0,2fr) 1fr 1fr;gap:40px}
+.tm-footer-top{display:grid;grid-template-columns:minmax(0,2fr) 1fr 1fr 1fr;gap:40px}
 .tm-footer .brand{color:var(--tm-navy)}
 .tm-footer-brand p{max-width:360px;margin-top:10px;font-size:13px}
 .tm-footer-links{display:grid;gap:10px;align-content:start;font-size:13px}
@@ -425,3 +425,44 @@ body:has(.tm-chat) .tm-footer{display:none}
   .tm-day-card,.api-card,.tm-stop,.tm-budget{break-inside:avoid}
   a{text-decoration:none}
 }
+
+/* ---- Company pages (site.js): about, pricing, contact, terms, privacy ---- */
+.tm-doc{max-width:860px;margin:0 auto}
+.tm-doc section{margin:34px 0}
+.tm-doc h2{font-size:22px;letter-spacing:-.4px;margin:0 0 10px}
+.tm-doc p,.tm-doc li{line-height:1.7;color:#3a4457}
+.tm-doc ul{padding-left:20px;margin:8px 0}
+.tm-doc li{margin:6px 0}
+.tm-doc a:not(.button),.tm-contact a:not(.button),.tm-faq a{color:#1f4fd1}
+.tm-doc .tm-cta p{color:rgba(255,255,255,.72)}
+.tm-about-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin:28px 0}
+.tm-about-grid .tm-feature{cursor:default}
+.tm-doc-cta{border-radius:24px;margin-top:40px}
+.tm-plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;max-width:900px;margin:10px 0 40px}
+.tm-plan-card{border:1px solid #e1e5ee;border-radius:24px;padding:28px;background:#fff;display:flex;flex-direction:column;gap:6px}
+.tm-plan-card.featured{border:2px solid #1c2434;box-shadow:0 18px 40px rgba(28,36,52,.08)}
+.tm-plan-card h2{margin:4px 0 0;font-size:28px}
+.tm-plan-card ul{padding-left:20px;margin:10px 0 18px;line-height:1.8;color:#3a4457;flex:1}
+.tm-plan-card .button{align-self:flex-start}
+.tm-price{font-size:30px;font-weight:700;margin:4px 0}
+.tm-price span{font-size:15px;font-weight:400;color:#647084}
+.tm-faq{max-width:900px}
+.tm-faq h2{font-size:24px}
+.tm-faq details{border-bottom:1px solid #e1e5ee;padding:16px 0}
+.tm-faq summary{cursor:pointer;font-weight:600;font-size:16px}
+.tm-faq details p{line-height:1.7;color:#3a4457;margin:10px 0 0}
+.tm-contact-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px;align-items:start}
+.tm-contact form .field{margin-bottom:14px}
+.tm-contact textarea{min-height:140px}
+.tm-contact-aside p{line-height:1.7}
+.tm-hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.tm-sent{text-align:center;padding:40px 24px}
+.tm-message h3{font-size:16px;margin:10px 0 6px}
+.tm-message-text{white-space:pre-wrap;line-height:1.6}
+.tm-usage-row{display:flex;justify-content:space-between;margin:12px 0 6px}
+.tm-usage-bar{height:8px;border-radius:99px;background:#eef1f6;overflow:hidden}
+.tm-usage-bar i{display:block;height:100%;background:#1f4fd1;border-radius:99px}
+@media (max-width:880px){
+  .tm-about-grid,.tm-plans,.tm-contact-grid{grid-template-columns:1fr}
+}
+.tm-usage a{color:#1f4fd1}
