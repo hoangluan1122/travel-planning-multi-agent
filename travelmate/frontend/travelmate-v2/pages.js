@@ -53,11 +53,11 @@
         <label class="field">Mức chi tiêu<select name="travel_style"><option value="budget">Tiết kiệm</option><option value="mid" selected>Vừa phải</option><option value="high">Cao cấp</option></select></label>
         <fieldset><legend>Điều bạn muốn trải nghiệm</legend><div class="choice-grid">${interests.map((t, i) => `<label class="choice"><input type="checkbox" name="interests" value="${t}" ${i < 2 ? 'checked' : ''}>${t}</label>`).join('')}</div></fieldset>
         <label class="field">Lưu ý khác<textarea name="notes" maxlength="1500" placeholder="Ví dụ: muốn đi chậm, có trẻ nhỏ, ăn chay, hạn chế di chuyển xa…" rows="3"></textarea></label>
-        <div class="form-status" role="status"></div><button class="button dark full">Lập lịch trình <span>✧</span></button></form>
-      <aside class="form-aside"><span class="orb">✧</span><h2>Chưa cần biết<br>mọi chi tiết.</h2><p>TravelMate tìm địa điểm, xem dự báo thời tiết rồi xếp lịch từng ngày. Thường mất khoảng một phút.</p>
+        <div class="form-status" role="status"></div><button class="button dark full">Lập lịch trình <span><svg class="tm-i" aria-hidden="true"><use href="#i-sparkle"></use></svg></span></button></form>
+      <aside class="form-aside"><span class="orb"><svg class="tm-i" aria-hidden="true"><use href="#i-sparkle"></use></svg></span><h2>Chưa cần biết<br>mọi chi tiết.</h2><p>TravelMate tìm địa điểm, xem dự báo thời tiết rồi xếp lịch từng ngày. Thường mất khoảng một phút.</p>
         <div class="mini-step"><b>01</b> Tìm điểm tham quan, quán ăn, nơi ở quanh điểm đến</div><div class="mini-step"><b>02</b> Xếp lịch theo giờ và tự kiểm tra lại</div><div class="mini-step"><b>03</b> Ước tính chi phí so với ngân sách của bạn</div>
         <a class="text-link" href="?view=chat">Hoặc bắt đầu bằng trò chuyện →</a>
-        <div class="prototype-note">✧ <span>Chi phí là ước tính tham khảo. TravelMate không đặt dịch vụ thay bạn.</span></div></aside></div></div>`);
+        <div class="prototype-note"><svg class="tm-i" aria-hidden="true"><use href="#i-sparkle"></use></svg> <span>Chi phí là ước tính tham khảo. TravelMate không đặt dịch vụ thay bạn.</span></div></aside></div></div>`);
   } else if (!routes[route]) {
     show(`<div class="page-shell tm-notfound"><div class="eyebrow">LỖI 404</div><h1>Không tìm thấy trang.</h1><p>Đường dẫn này không tồn tại hoặc đã được đổi.</p><div class="api-actions"><a class="button dark" href="?view=home">Về trang chủ</a><a class="button outline" href="?view=create">Tạo chuyến đi</a></div></div>`);
     document.title = 'Không tìm thấy trang — TravelMate';

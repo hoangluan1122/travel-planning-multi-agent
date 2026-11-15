@@ -105,7 +105,7 @@ def test_member_and_admin_flows(server, browser):
     page.click("#connected-view h3 a")
     page.wait_for_selector("#tm-fav")
     page.click("#tm-fav")
-    page.wait_for_function("document.querySelector('#tm-fav')?.textContent === '♥'")
+    page.wait_for_function("document.querySelector('#tm-fav')?.getAttribute('aria-pressed') === 'true'")
     place_id = page.evaluate("new URLSearchParams(location.search).get('id')")
     page.goto(f"{server}?view=review&id={place_id}")
     page.wait_for_selector("#tm-review")
