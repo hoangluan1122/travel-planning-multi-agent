@@ -204,7 +204,22 @@ class OpenDataProvider:
         )
 
     async def search(self, trip):
+        result, _ = await self.search_cacheable(trip)
+        return result
+
+    async def search_cacheable(self, trip):
+        """(PlaceResult, complete): complete is False when a source failed and a fallback filled in,
+        so a degraded list is not kept for a day (main.CachingProvider)."""
         location, warnings = await self.locate(trip.destination)
+        # Overpass is another server: its (often slow) landmark query runs while Photon answers.
+        landmarks = asyncio.create_task(self.landmarks(location, self.heritage_radius_m)) if self.heritage else None
+        try:
+            return await self._search(trip, location, warnings, landmarks)
+        finally:
+            if landmarks is not None and not landmarks.done():
+                landmarks.cancel()
+
+    async def _search(self, trip, location, warnings, landmarks):
         places, failures, from_wiki = [], 0, False
         for category, pick in self.pickers.items():
             try:
@@ -217,10 +232,14 @@ class OpenDataProvider:
                     continue
                 from_wiki = True
             places.extend(pick(found))
-        places.extend(await self.heritage_sites(location, places))
-        places = await self.images.enrich(places) if self.images else places
+        # Nearby stays (Photon) are fetched while heritage sites and photos (Wikimedia) load.
+        stays_task = asyncio.create_task(self.stays(location))
+        try:
+            places.extend(await self.heritage_sites(location, places, landmarks))
+            places = await self.images.enrich(places) if self.images else places
+        finally:
+            stays = await stays_task
         places = apply_tickets(places, trip.destination)
-        stays = await self.stays(location)
         if failures == len(self.pickers):
             raise AgentError("Nguồn địa điểm không phản hồi")
         if from_wiki:
@@ -230,7 +249,9 @@ class OpenDataProvider:
         if not places:
             warnings.append(f"Không thấy địa điểm trong bán kính {self.radius_m // 1000} km quanh trung tâm.")
         from_osm = any(p.source != "wikipedia" for p in places + stays) or not places
-        return PlaceResult(places=places, warnings=warnings + ([SOURCE_NOTE] if from_osm else []), stays=stays)
+        result = PlaceResult(places=places, warnings=warnings + ([SOURCE_NOTE] if from_osm else []), stays=stays)
+        landmarks_ok = landmarks is None or (landmarks.done() and landmarks.result() is not None)
+        return result, bool(places) and not failures and not from_wiki and landmarks_ok
 
     async def stays(self, location):
         """Nearby accommodation from OSM: names and locations only, no nightly prices."""
@@ -242,17 +263,20 @@ class OpenDataProvider:
             return []
         return unique_plausible(found)[: self.stay_limit]
 
-    async def heritage_sites(self, location, already):
-        """Royal tombs and historic temples often lie outside the city-centre radius."""
+    async def heritage_sites(self, location, already, pending=None):
+        """Royal tombs and historic temples often lie outside the city-centre radius.
+
+        pending: the landmark lookup already started by search(), to await instead of a new one.
+        """
         if not self.heritage:
             return []
         # Heritage-listed landmarks (Văn Miếu – Quốc Tử Giám) come first: Photon cannot find
         # them by tag. Both lookups are optional extras; the main lists stand on their own.
-        landmarks = await self.landmarks(location, self.heritage_radius_m)
         try:
             found, _, _ = await self.geo.discover(location, "heritage", self.heritage_radius_m)
         except (AgentError, TimeoutError):
             found = []
+        landmarks = (await pending if pending is not None else await self.landmarks(location, self.heritage_radius_m)) or []
         taken = {name_key(p) for p in already}
         landmarks = [p for p in unique_plausible(landmarks) if name_key(p) not in taken]
         taken |= {name_key(p) for p in landmarks}
@@ -262,11 +286,11 @@ class OpenDataProvider:
         return (landmarks[: (self.heritage + 1) // 2] + fresh)[: self.heritage]
 
     async def landmarks(self, location, radius_m, keyword=""):
-        """Overpass landmarks, or nothing when that source is down (it only adds to Photon)."""
+        """Overpass landmarks, or None when that source is down (it only adds to Photon)."""
         try:
             return await self.geo.landmarks(location, radius_m, keyword)
         except (AgentError, TimeoutError):
-            return []
+            return None
 
     async def search_places(self, query):
         location, warnings = await self.locate(query.destination)
@@ -297,7 +321,7 @@ class OpenDataProvider:
                 # A keyword usually names one landmark, and landmarks often lie outside the
                 # default 3 km (Ngũ Hành Sơn ~8 km, Tràng An ~6 km from the centre).
                 radius = max(query.radius_m, self.heritage_radius_m)
-                landmarks = await self.landmarks(location, radius, keyword)
+                landmarks = await self.landmarks(location, radius, keyword) or []
                 try:
                     named, _, _ = await self.geo.discover(location, "landmark", radius, keyword)
                 except (AgentError, TimeoutError):

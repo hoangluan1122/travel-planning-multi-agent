@@ -1,5 +1,5 @@
 """Product data: accounts, sessions, saved trips, favourites, places seen, reviews, reports,
-daily usage counts, contact messages and the admin audit log, in PostgreSQL (TRAVELMATE_DATABASE_URL=postgresql://…) or, with no
+daily usage counts, contact messages, cached place searches and the admin audit log, in PostgreSQL (TRAVELMATE_DATABASE_URL=postgresql://…) or, with no
 URL, one SQLite file.
 
 Queries are written once with `?` placeholders; `Db` adapts them for psycopg.
@@ -86,6 +86,9 @@ CREATE TABLE IF NOT EXISTS messages (
     status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new', 'done')), created_at DOUBLE PRECISION NOT NULL
 );
 CREATE INDEX IF NOT EXISTS messages_by_time ON messages(status, created_at DESC);
+CREATE TABLE IF NOT EXISTS place_cache (
+    key TEXT PRIMARY KEY, data TEXT NOT NULL, fetched_at DOUBLE PRECISION NOT NULL
+);
 """
 
 # Daily limits reset at midnight in Vietnam, where the users are.
@@ -328,6 +331,20 @@ class Store:
                 "INSERT INTO places (id, data, first_seen, last_seen) VALUES (?, ?, ?, ?) "
                 "ON CONFLICT(id) DO UPDATE SET data = excluded.data, last_seen = excluded.last_seen",
                 [(p["id"], json.dumps(p, ensure_ascii=False), now, now) for p in places])
+
+    def cached_places(self, key, max_age_s):
+        """A place search result (JSON dict) stored by cache_places, if younger than max_age_s."""
+        with closing(self.connect()) as db:
+            row = db.execute("SELECT data, fetched_at FROM place_cache WHERE key = ?", (key,)).fetchone()
+        if row is None or time.time() - row["fetched_at"] > max_age_s:
+            return None
+        return json.loads(row["data"])
+
+    def cache_places(self, key, data):
+        with closing(self.connect()) as db, db:
+            db.execute("INSERT INTO place_cache (key, data, fetched_at) VALUES (?, ?, ?) "
+                       "ON CONFLICT(key) DO UPDATE SET data = excluded.data, fetched_at = excluded.fetched_at",
+                       (key, json.dumps(data, ensure_ascii=False), time.time()))
 
     def hidden_place_ids(self):
         with closing(self.connect()) as db:

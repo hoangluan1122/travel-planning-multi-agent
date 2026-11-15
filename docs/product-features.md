@@ -78,6 +78,43 @@ Tất cả màn hình trong thiết kế đã nối với backend thật. Không
   riêng cho test. Bảng của database đó sẽ bị **xoá** trước mỗi test, nên đừng trỏ vào database thật.
 - Chuỗi kết nối chứa mật khẩu: chỉ đặt trong `.env` (không commit), không bao giờ được ghi log hay trả về.
 
+## Tạo lịch trình: chạy nền và tiến độ thật
+
+Một lịch trình mất từ khoảng 30 giây đến vài phút, tùy Gemini có phải thử lại không. Vì vậy việc tạo lịch trình
+chạy nền, không bắt trang giữ một yêu cầu mở suốt thời gian đó.
+
+Cách hoạt động:
+
+- `POST /api/v1/plans/jobs` trả về `job_id` ngay lập tức.
+- Trang gọi `GET /api/v1/plans/jobs/{job_id}` 2 giây một lần. Kết quả có:
+  - bước đang chạy thật: tìm địa điểm → tìm thêm theo yêu cầu → xếp hạng → Gemini xếp lịch (và lần sửa thứ mấy) →
+    tính chi phí → lưu;
+  - số giây đã trôi qua;
+  - kết quả hoặc lỗi.
+- Các orchestrator báo bước qua `report()` trong `app/agents/plan_jobs.py`. Hàm này đọc một context variable, nên
+  gọi ngoài một job thì không làm gì.
+- Người đã đăng nhập: lịch trình **tự lưu vào Chuyến đi của tôi** khi xong. Đóng trang giữa chừng cũng không mất.
+- Tải lại trang chờ thì tiếp tục theo dõi đúng job cũ, không tạo job mới.
+- Mỗi tài khoản chỉ chạy một lịch trình mỗi lúc. Bấm tạo lần thứ hai thì nhận `409` kèm `job_id` của job đang chạy.
+- Chỉ chủ của job xem được job đó: cùng tài khoản, hoặc cùng token vận hành.
+- Hạn mức mỗi ngày được kiểm tra trước khi job bắt đầu, và chỉ tính lượt khi lịch trình tạo xong.
+- `POST /api/v1/plans/preview` (chờ đến khi có kết quả) vẫn giữ cho script và bài kiểm tra trang thật.
+
+Job nằm trong bộ nhớ của máy chủ. Nếu máy chủ khởi động lại giữa chừng, trang báo "Không tìm thấy yêu cầu" để
+người dùng tạo lại.
+
+Để nhanh hơn, có ba thay đổi:
+
+- **Lưu kết quả tìm địa điểm 24 giờ** cho mỗi điểm đến, trong bảng `place_cache` của database. Kết quả vẫn còn
+  khi máy chủ miễn phí ngủ rồi thức dậy. Lần thứ hai tạo lịch trình cho cùng thành phố, bước tìm địa điểm giảm từ
+  khoảng 18 giây xuống khoảng 4 giây. Kết quả thiếu (một nguồn lỗi, phải dùng nguồn dự phòng như Wikipedia) không
+  được lưu.
+- **Photon và Overpass chạy song song.** Giới hạn tần suất áp dụng riêng cho từng máy chủ, nên Overpass chậm không
+  còn làm Photon phải chờ. Overpass chờ tối đa 8 giây.
+- **Ảnh và nơi ở tải cùng lúc** với di tích.
+
+Đo trên máy cho Huế: bước tìm địa điểm giảm từ 27 xuống 16 giây khi chưa có dữ liệu lưu sẵn.
+
 ## Khi Gemini lỗi hoặc hết hạn mức
 
 Lịch vẫn được tạo. Bộ xếp lịch theo luật (`app/agents/rule_scheduler.py`) làm thay phần AI: ưu tiên địa điểm

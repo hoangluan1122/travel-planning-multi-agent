@@ -1,6 +1,7 @@
 import asyncio
 from datetime import timedelta
 
+from app.agents.plan_jobs import report as report_stage
 from app.core.base import AgentError
 from app.core.models import (
     BudgetInput,
@@ -64,6 +65,7 @@ class Orchestrator:
         async def run(name, data):
             return await self.registry.get(name).run(data, context, self.timeout)
 
+        report_stage("places")
         memory = await run("memory", trip)
         results = await asyncio.gather(run("place", trip), run("weather", trip), return_exceptions=True)
         for result in results:
@@ -71,7 +73,9 @@ class Orchestrator:
                 raise result
         places = checked_places(results[0])
         weather = checked_weather(results[1])
+        report_stage("ranking")
         ranked = await run("recommendation", RecommendationInput(places=places, preferences=memory))
+        report_stage("scheduling")
         fallback = False
         try:
             draft = await run(
@@ -87,6 +91,7 @@ class Orchestrator:
 
             draft, fallback = rule_draft(trip, ranked, weather), True
             validate_draft(trip, draft, ranked)
+        report_stage("budget")
         budget = await run("budget", BudgetInput(trip=trip, draft=draft, places=ranked))
         response = plan_response(context, self.mode, draft, ranked, weather, budget, memory, places.stays)
         if fallback:

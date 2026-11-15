@@ -29,7 +29,7 @@ class Provider(DemoProvider):
         ])
 
 
-TABLES = "messages, daily_usage, audit, chats, reports, reviews, favorites, places, trips, resets, sessions, users"
+TABLES = "place_cache, messages, daily_usage, audit, chats, reports, reviews, favorites, places, trips, resets, sessions, users"
 
 
 @pytest.fixture(params=["sqlite", "postgresql"])

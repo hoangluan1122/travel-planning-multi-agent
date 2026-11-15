@@ -196,29 +196,33 @@ class PlaceMetadata(Model):
 
 
 class PublicGeoClient:
-    """Single-process bounded cache, coalescing and rate limit for public services."""
+    """Single-process bounded cache, coalescing and rate limit for public services.
+
+    The rate limit is per host: Photon and Overpass are different servers, so a slow
+    Overpass query does not hold up Photon lookups (and the other way round).
+    """
 
     def __init__(self, *, transport=None, interval=1.1):
         self.transport, self.interval = transport, interval
-        self._lock = asyncio.Lock()
+        self._locks = {}
         self._cache = {}
-        self._last = 0.0
+        self._last = {}
         self._cooldown = {}
 
     async def get(self, url, params, ttl=300, timeout=10):
         params = tuple(sorted(params))
         key = (url, params)
-        async with self._lock:
+        host = httpx.URL(url).host
+        async with self._locks.setdefault(host, asyncio.Lock()):
             now = time.monotonic()
             self._cache = {k: v for k, v in self._cache.items() if v[0] > now}
             if key in self._cache:
                 _, payload, stamp = self._cache[key]
                 return deepcopy(payload), stamp, True, url + "?" + urlencode(params)
-            host = httpx.URL(url).host
             if self._cooldown.get(host, 0) > now:
                 raise AgentError("Source cooldown active")
-            await asyncio.sleep(max(0, self.interval - (now - self._last)))
-            self._last = time.monotonic()
+            await asyncio.sleep(max(0, self.interval - (now - self._last.get(host, 0.0))))
+            self._last[host] = time.monotonic()
             try:
                 async with httpx.AsyncClient(
                     transport=self.transport,
@@ -296,7 +300,7 @@ class GeoPlaceService:
                 f'nwr{around}["name"]["tourism"="attraction"]["wikidata"];);'
             )
         query = f"[out:json][timeout:12];{body}out tags center 150;"
-        payload, stamp, _, _ = await self.client.get(self.overpass_url, [("data", query)], ttl=3600, timeout=15)
+        payload, stamp, _, _ = await self.client.get(self.overpass_url, [("data", query)], ttl=3600, timeout=8)
         elements = payload.get("elements")
         if payload.get("remark") or not isinstance(elements, list) or len(elements) > 150:
             raise AgentError("Overpass reported partial results or an invalid payload")

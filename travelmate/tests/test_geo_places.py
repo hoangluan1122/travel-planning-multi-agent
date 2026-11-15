@@ -265,3 +265,23 @@ async def test_a_hanging_source_is_skipped_for_a_while_after_one_timeout():
     with pytest.raises(AgentError, match="cooldown"):
         await client.get("https://photon.komoot.io/api/", [("q", "Huế")])
     assert count == 1
+
+
+@pytest.mark.asyncio
+async def test_a_slow_server_does_not_hold_up_another_one():
+    import asyncio
+
+    async def handler(request):
+        if request.url.host == "overpass-api.de":
+            await asyncio.sleep(0.3)
+        return httpx.Response(200, json={"type": "FeatureCollection", "features": []})
+
+    client = PublicGeoClient(transport=httpx.MockTransport(handler), interval=0)
+    finished = []
+
+    async def get(url):
+        await client.get(url, [])
+        finished.append(httpx.URL(url).host)
+
+    await asyncio.gather(get("https://overpass-api.de/api/interpreter"), get("https://photon.komoot.io/api/"))
+    assert finished == ["photon.komoot.io", "overpass-api.de"]
