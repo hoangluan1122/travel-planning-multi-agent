@@ -2,6 +2,7 @@ import asyncio
 import html
 import logging
 import secrets
+import unicodedata
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Literal
@@ -19,6 +20,7 @@ from app.agents.concierge import ChatRequest, ChatResponse, ChatSession
 from app.agents.itinerary import PlannerAgent
 from app.agents.orchestrator import Orchestrator
 from app.agents.place import PlaceAgent
+from app.agents.plan_jobs import PlanJobs
 from app.agents.recommendation import RecommendationAgent
 from app.agents.weather import WeatherAgent
 from app.core.base import AgentError, Registry
@@ -209,6 +211,48 @@ class Services:
             settings, provider, orchestrator, chat, photos)
 
 
+PLACE_CACHE_TTL_S = 24 * 3600
+
+
+class CachingProvider:
+    """Keeps a complete place search per destination for a day, in the product database.
+
+    The map lookups take ~15 s of every plan; a second plan for the same city reuses them.
+    A result where a source failed and a fallback filled in is not kept, so an outage does
+    not leave a thin list for a day. The database is the cache so it survives the free
+    server going to sleep.
+    """
+
+    def __init__(self, provider, store, name, ttl_s=PLACE_CACHE_TTL_S):
+        self.inner, self.store, self.name, self.ttl_s = provider, store, name, ttl_s
+
+    def __getattr__(self, name):
+        return getattr(self.inner, name)
+
+    def key(self, trip):
+        destination = " ".join(unicodedata.normalize("NFC", trip.destination).casefold().split())
+        return f"{self.name}:{destination}"
+
+    async def search(self, trip):
+        key = self.key(trip)
+        try:
+            cached = await asyncio.to_thread(self.store.cached_places, key, self.ttl_s)
+            if cached is not None:
+                return PlaceResult.model_validate(cached)
+        except Exception as exc:  # a broken cache must never break planning
+            logger.warning("place_cache read outcome=failed error_type=%s", type(exc).__name__)
+        if hasattr(self.inner, "search_cacheable"):
+            result, complete = await self.inner.search_cacheable(trip)
+        else:
+            result, complete = await self.inner.search(trip), True
+        if complete:
+            try:
+                await asyncio.to_thread(self.store.cache_places, key, result.model_dump(mode="json"))
+            except Exception as exc:
+                logger.warning("place_cache write outcome=failed error_type=%s", type(exc).__name__)
+        return result
+
+
 class HidingProvider:
     """Wraps a place provider so places an admin hid never reach searches, plans or the chat."""
 
@@ -234,7 +278,7 @@ class HidingProvider:
         return await self.filtered(await self.inner.search_places(query))
 
 
-def build_services(settings=None, orchestrator=None, provider=None, chat=None, hidden_ids=None):
+def build_services(settings=None, orchestrator=None, provider=None, chat=None, hidden_ids=None, place_cache=None):
     settings = settings or Settings()
     if settings.travelmate_mode == "live":
         if not settings.google_api_key or not settings.travelmate_api_token:
@@ -256,6 +300,8 @@ def build_services(settings=None, orchestrator=None, provider=None, chat=None, h
         else:
             photos = GooglePhotoProxy(settings.google_maps_api_key)
             provider = LiveProvider(settings.google_maps_api_key, photos=photos)
+        if place_cache is not None and settings.travelmate_mode == "live":
+            provider = CachingProvider(provider, place_cache, settings.travelmate_place_provider)
     if hidden_ids is not None:
         provider = HidingProvider(provider, hidden_ids)
     if orchestrator is None:
@@ -303,11 +349,13 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
         from app.memory.store import Store
 
         store = Store(settings.travelmate_database_url or settings.travelmate_db, settings.travelmate_admin_email)
-    services = build_services(settings, orchestrator, provider, chat, hidden_ids=store.hidden_place_ids)
+    services = build_services(settings, orchestrator, provider, chat, hidden_ids=store.hidden_place_ids,
+                              place_cache=store)
     settings, provider, orchestrator, chat, photos = (
         services.settings, services.provider, services.orchestrator, services.chat, services.photos)
     app = FastAPI(title="TravelMate API", version="0.1.0")
     app.state.chat, app.state.store = chat, store
+    app.state.plan_jobs = jobs = PlanJobs()
     bearer = HTTPBearer(auto_error=False)
 
     async def authorize(request: Request, credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
@@ -443,15 +491,77 @@ def create_app(settings=None, orchestrator=None, provider=None, chat=None, store
         except AgentError as exc:
             raise HTTPException(502, str(exc)) from None
         except Exception as exc:
-            # Never expose provider URLs containing keys, prompts or stack traces; log the type
-            # (and the root cause's type) so operators can tell a provider outage from a bug.
-            root = exc
-            while root.__cause__ is not None or root.__context__ is not None:
-                root = root.__cause__ or root.__context__
-            logger.warning(
-                "plan_preview outcome=failed error_type=%s root_type=%s", type(exc).__name__, type(root).__name__
-            )
+            log_plan_failure("plan_preview", exc)
             raise HTTPException(502, "Planning failed; check provider configuration and retry") from None
+
+    def log_plan_failure(event, exc):
+        # Never expose provider URLs containing keys, prompts or stack traces; log the type
+        # (and the root cause's type) so operators can tell a provider outage from a bug.
+        root = exc
+        while root.__cause__ is not None or root.__context__ is not None:
+            root = root.__cause__ or root.__context__
+        logger.warning("%s outcome=failed error_type=%s root_type=%s", event, type(exc).__name__, type(root).__name__)
+
+    async def job_owner(request, credentials):
+        """Whose jobs a request may see: the signed-in user, the operator token, or (no token set) anyone."""
+        if (credentials is not None and settings.travelmate_api_token
+                and secrets.compare_digest(credentials.credentials, settings.travelmate_api_token)):
+            return "operator", None
+        user, _ = await session_from(request, credentials, store)
+        if user is not None:
+            return f"user:{user['id']}", user
+        return "public", None
+
+    @app.post("/api/v1/plans/jobs", status_code=202, dependencies=[Depends(authorize)])
+    async def start_plan(trip: TripRequest, request: Request,
+                         credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
+        """Start a plan in the background; poll GET /api/v1/plans/jobs/{job_id} for its stage and result.
+
+        A signed-in user's plan is saved to their trips when it is ready, so closing the page
+        loses nothing. One plan at a time per account: a second start returns 409 with the
+        running job's id.
+        """
+        owner, user = await job_owner(request, credentials)
+        running = jobs.running_for(owner)
+        if running is not None:
+            raise HTTPException(409, {"message": "Bạn đang có một lịch trình đang được tạo. Đợi xong rồi tạo tiếp.",
+                                      "job_id": running.id})
+        quota = await quota_owner(request, credentials, "plan")
+
+        async def work(job):
+            try:
+                plan = await orchestrator.plan(trip)
+                await remember(plan.places + plan.stays)
+                await charge(quota, "plan")
+                result = plan.model_dump(mode="json")
+                if user is not None:
+                    job.update("saving", {})
+                    try:
+                        saved = await asyncio.to_thread(
+                            store.save_trip, user["id"], trip.model_dump(mode="json"), result,
+                            f"{trip.destination} · {len(plan.draft.days)} ngày")
+                        job.trip_id = saved["id"]
+                    except Exception as exc:  # the plan is still shown; the page can save it again
+                        logger.warning("plan_job save outcome=failed error_type=%s", type(exc).__name__)
+                job.result = result
+            except TimeoutError:
+                job.fail(504, "Quá thời gian xử lý. Vui lòng thử lại.")
+            except AgentError as exc:
+                job.fail(502, str(exc))
+            except Exception as exc:
+                log_plan_failure("plan_job", exc)
+                job.fail(502, "Chưa tạo được lịch trình. Vui lòng thử lại sau ít phút.")
+
+        return jobs.start(owner, work).view()
+
+    @app.get("/api/v1/plans/jobs/{job_id}", dependencies=[Depends(authorize)])
+    async def plan_job(job_id: str, request: Request,
+                       credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
+        owner, _ = await job_owner(request, credentials)
+        job = jobs.get(job_id, owner)
+        if job is None:
+            raise HTTPException(404, "Không tìm thấy yêu cầu tạo lịch trình này (có thể máy chủ vừa khởi động lại).")
+        return job.view()
 
     @app.post("/api/v1/chat", response_model=ChatResponse, dependencies=[Depends(authorize)])
     async def chat_turn(data: ChatRequest, request: Request,

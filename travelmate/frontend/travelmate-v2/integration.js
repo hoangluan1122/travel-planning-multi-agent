@@ -110,7 +110,9 @@
         throw Object.assign(Error(expired?'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.':'Bạn cần đăng nhập để dùng chức năng này.'),{auth:true});
       }
       if(response.status===422) throw Error('Thông tin chưa hợp lệ: '+(Array.isArray(body.detail)?body.detail.map(e=>`${e.loc.slice(1).join('.')}: ${e.msg}`).join('; '):'Kiểm tra lại biểu mẫu.'));
-      throw Error(response.status===504?'Quá thời gian xử lý. Vui lòng thử lại.':body.detail || `Máy chủ báo lỗi ${response.status}. Vui lòng thử lại.`);
+      // Some errors carry an object detail ({message, job_id}: a plan already running).
+      const detail=body.detail&&typeof body.detail==='object'&&!Array.isArray(body.detail)?body.detail:null;
+      throw Object.assign(Error(response.status===504?'Quá thời gian xử lý. Vui lòng thử lại.':detail?.message || body.detail || `Máy chủ báo lỗi ${response.status}. Vui lòng thử lại.`),{status:response.status,jobId:detail?.job_id});
     }
     return body;
   }
@@ -185,29 +187,62 @@
   if(route==='loading'){
     const request=read('tm-request',null);
     if(!request){empty();return}
-    const main=render(`<div class="tm-loading"><div class="tm-spinner" aria-hidden="true"></div><span class="tm-pill">${esc(request.destination)} · ${request.travelers} người</span><h1>Đang chuẩn bị<br>chuyến đi của bạn.</h1><ol class="tm-steps" id="tm-steps"><li>Tìm địa danh và địa điểm thật quanh điểm đến</li><li>Lấy dự báo thời tiết, xếp hạng địa điểm</li><li>Sắp xếp lịch từng ngày</li><li>Tự kiểm tra lịch và tính chi phí</li></ol><p role="status" id="planning-status" class="api-meta">Đang bắt đầu…</p><button class="button outline" id="cancel-plan">Hủy chờ kết quả</button></div>`);
-    const controller=new AbortController();
-    let cancelled=false;
-    main.querySelector('#cancel-plan').onclick=()=>{cancelled=true;controller.abort();location.href='?view=create'};
-    // Up to three Gemini rounds (draft, then fixes the self-check asks for) can take a few minutes.
-    const timer=setTimeout(()=>controller.abort(),300000);
-    // No per-agent progress is streamed yet: show elapsed time and what usually happens when.
-    const started=Date.now(), statusLine=main.querySelector('#planning-status');
-    const stages=[[0,'Đang tìm địa danh và địa điểm thật quanh điểm đến…'],[8,'Đang lấy dự báo thời tiết và xếp hạng địa điểm…'],[15,'Gemini đang sắp xếp lịch từng ngày (thường mất 30–90 giây)…'],[100,'Vẫn đang xử lý; chuyến nhiều ngày có thể lâu hơn…']];
-    const steps=[...main.querySelectorAll('#tm-steps li')];
-    const tick=setInterval(()=>{const s=Math.round((Date.now()-started)/1000);statusLine.textContent=`${stages.filter(([t])=>s>=t).pop()[1]} · ${s} giây`;const k=s<8?0:s<15?1:s<60?2:3;steps.forEach((li,i)=>{li.className=i<k?'done':i===k?'active':''})},1000);
+    const signedIn=!!session()?.user;
+    const main=render(`<div class="tm-loading"><div class="tm-spinner" aria-hidden="true"></div><span class="tm-pill">${esc(request.destination)} · ${request.travelers} người</span><h1>Đang chuẩn bị<br>chuyến đi của bạn.</h1><ol class="tm-steps" id="tm-steps"><li>Tìm địa danh, quán ăn, nơi ở và thời tiết</li><li>Chọn và xếp hạng địa điểm</li><li>Gemini xếp lịch từng ngày rồi tự kiểm tra</li><li>Tính chi phí và lưu chuyến đi</li></ol><p role="status" id="planning-status" class="api-meta">Đang bắt đầu…</p><p class="api-meta" id="planning-note">${signedIn?'Bạn có thể đóng trang này: lịch trình vẫn được tạo và tự lưu vào Chuyến đi của tôi.':'Thường mất từ 30 giây đến 2 phút.'}</p><button class="button outline" id="cancel-plan">Thôi chờ</button></div>`);
+    // The plan runs as a job on the server; this page only asks which stage it reached.
+    // The job id is kept for this tab, so a reload resumes the same job instead of starting another.
+    const STEP={queued:0,places:0,searching:0,ranking:1,scheduling:2,revising:2,budget:3,saving:3};
+    const statusLine=main.querySelector('#planning-status'), steps=[...main.querySelectorAll('#tm-steps li')];
+    const key=JSON.stringify(request), started=Date.now();
+    let stopped=false, timer=null, misses=0;
     steps[0].className='active';
-    controller.signal.addEventListener('abort',()=>clearInterval(tick));
-    api('/api/v1/plans/preview',request,controller.signal).then(result=>{
-      if(cancelled)return;
-      const record={request,result};
-      const finish=()=>{save('tm-plans',[record,...records()].slice(0,20));save('tm-current',result.request_id);location.replace('?view=plan&id='+encodeURIComponent(result.request_id))};
-      if(session()?.user)api('/api/v1/me/trips',{request,result}).then(t=>{record.trip_id=t.id}).catch(()=>{}).finally(finish);else finish();
-    }).catch(error=>{
-      if(cancelled)return;
+    const show=job=>{const k=STEP[job.stage]??0;steps.forEach((li,i)=>{li.className=i<k?'done':i===k?'active':''});statusLine.textContent=`${job.stage_label} · ${Math.round(job.elapsed_s)} giây`};
+    const forget=()=>{try{sessionStorage.removeItem('tm-job')}catch{}};
+    main.querySelector('#cancel-plan').onclick=()=>{stopped=true;clearTimeout(timer);forget();location.href=signedIn?'?view=saved':'?view=create'};
+    const fail=error=>{
+      if(stopped)return;
+      forget();
       if(error.auth){render(loginGate('Đăng nhập để TravelMate lập lịch trình. Thông tin bạn vừa nhập vẫn được giữ.','?view=loading'));return}
-      render(emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-alert"></use></svg>','Chưa tạo được lịch trình.',`<span class="api-error" role="alert">${esc(error.name==='AbortError'?'Đã hết thời gian chờ. Bạn có thể thử lại.':error.message)}</span>`,link('loading','Thử lại','button dark')+link('create','Sửa thông tin')));
-    }).finally(()=>{clearTimeout(timer);clearInterval(tick)});
+      render(emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-alert"></use></svg>','Chưa tạo được lịch trình.',`<span class="api-error" role="alert">${esc(error.message)}</span>`,link('loading','Thử lại','button dark')+link('create','Sửa thông tin')));
+    };
+    const done=job=>{
+      forget();
+      const result=job.result, record={request,result};
+      if(job.trip_id)record.trip_id=job.trip_id;  // the server already saved it to the user's trips
+      const finish=()=>{save('tm-plans',[record,...records()].slice(0,20));save('tm-current',result.request_id);location.replace('?view=plan&id='+encodeURIComponent(result.request_id))};
+      if(signedIn&&!job.trip_id)api('/api/v1/me/trips',{request,result}).then(t=>{record.trip_id=t.id}).catch(()=>{}).finally(finish);else finish();
+    };
+    const poll=async id=>{
+      if(stopped)return;
+      let job;
+      try{job=await api('/api/v1/plans/jobs/'+encodeURIComponent(id),null,undefined,'GET');misses=0}
+      catch(error){
+        // A dropped connection is retried; the server answering "no such job" or "sign in" is final.
+        if(error.auth||error.status===404||++misses>5){fail(error);return}
+        timer=setTimeout(()=>poll(id),3000);return;
+      }
+      if(stopped)return;
+      show(job);
+      if(job.status==='done'){done(job);return}
+      if(job.status==='failed'){fail(Error(job.error||'Chưa tạo được lịch trình. Vui lòng thử lại.'));return}
+      if(Date.now()-started>15*60*1000){fail(Error('Đã chờ quá lâu. Bạn có thể thử lại.'));return}
+      timer=setTimeout(()=>poll(id),2000);
+    };
+    (async()=>{
+      const pending=read('tm-job',null);
+      if(pending?.key===key){poll(pending.id);return}
+      try{
+        const job=await api('/api/v1/plans/jobs',request);
+        save('tm-job',{id:job.job_id,key});show(job);
+        timer=setTimeout(()=>poll(job.job_id),1500);
+      }catch(error){
+        if(error.jobId){  // a plan this account started earlier is still running: wait for it
+          main.querySelector('#planning-note').textContent='Bạn đang có một lịch trình khác đang được tạo; đang chờ nó xong.';
+          save('tm-job',{id:error.jobId,key});poll(error.jobId);return;
+        }
+        fail(error);
+      }
+    })();
   }
   if(route==='plan'||route==='day'){
     const record=current();if(!record){empty();return}

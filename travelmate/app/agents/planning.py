@@ -16,6 +16,7 @@ import logging
 from pydantic import ValidationError
 
 from app.agents.orchestrator import checked_places, checked_weather, plan_response, validate_draft
+from app.agents.plan_jobs import report as report_stage
 from app.agents.rule_scheduler import rule_draft
 from app.agents.self_check import draft_score, feedback_from, review_draft
 from app.core.base import AgentError, BaseAgent
@@ -201,6 +202,7 @@ class PlanningOrchestrator:
         async def run(name, data):
             return await self.registry.get(name).run(data, context, self.timeout)
 
+        report_stage("places")
         # The first plan needs only the request, so it runs alongside the core lookups.
         memory_task = asyncio.create_task(run("memory", trip))
         plan_task = asyncio.create_task(self.make_plan(trip, context))
@@ -233,6 +235,8 @@ class PlanningOrchestrator:
                     note="Kế hoạch sửa không có lượt tìm mới; giữ kết quả đã có.",
                 ))
                 break
+            if pending:
+                report_stage("searching")
             results = await self.run_searches(trip, pending, context)
             observations = [obs for _, _, obs in results]
             for task, result, obs in results:
@@ -267,12 +271,14 @@ class PlanningOrchestrator:
             warnings=memory.warnings,
         )
         candidates = PlaceResult(places=merged, warnings=places.warnings, stays=places.stays)
+        report_stage("ranking")
         ranked = await run("recommendation", RecommendationInput(places=candidates, preferences=preferences))
         wishes = [
             (f"“{task.inputs.keyword.strip()}”", task.inputs.keyword.strip(), {p.id for p in result.places})
             for task, result in found.values()
         ]
         draft, report = await self.reviewed_draft(trip, ranked, weather, preferences, wishes, run)
+        report_stage("budget")
         budget = await run("budget", BudgetInput(trip=trip, draft=draft, places=ranked))
         response = plan_response(context, self.mode, draft, ranked, weather, budget, preferences, places.stays)
         warnings = response.warnings
@@ -296,6 +302,7 @@ class PlanningOrchestrator:
         feedback, attempts, best = [], [], None
         scheduled_by = "llm" if can_revise else "demo"
         for round_no in range(1, MAX_SELF_CHECK_REVISIONS + 2):
+            report_stage("scheduling" if round_no == 1 else "revising", round=round_no)
             try:
                 draft = await run("planner", PlannerInput(
                     trip=trip, places=ranked, weather=weather, preferences=preferences, feedback=feedback,
