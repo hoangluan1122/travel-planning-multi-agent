@@ -67,6 +67,8 @@ class PlacePhoto(Model):
     url: str = Field(min_length=1, max_length=2000)
     attribution: str = Field(max_length=500)
     source_url: str | None = Field(default=None, max_length=2000)
+    # True: a photo of what the place serves (a dish), not of the place itself; shown as such.
+    illustration: bool = False
 
 
 class PriceRange(Model):

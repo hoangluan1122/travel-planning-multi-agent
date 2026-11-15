@@ -316,3 +316,12 @@ fieldset legend,.form-grid>.field>span,.form-grid label>b{color:var(--ink-2)}
 .tm-stats .api-card:has(a):hover{border-color:var(--teal-100);box-shadow:var(--shadow)}
 .tm-table-wrap{border-radius:var(--r);border-color:var(--line);background:var(--paper)}
 .tm-table th{background:var(--sand);color:var(--ink-2)}
+
+/* Photos: small thumbnails in the day timeline; illustrations (a dish, not the place) are labelled */
+.tm-mini-timeline li{align-items:center}
+.tm-mini-timeline li::before{top:50%;transform:translateY(-50%)}
+.tm-mini-timeline .tm-thumb{flex:none;width:40px;height:40px;border-radius:10px;object-fit:cover;background:var(--teal-50)}
+.tm-mini-timeline .tm-thumb-empty{display:inline-block;background:linear-gradient(135deg,var(--teal-50),#F3EADF)}
+figure.tm-illustration{position:relative}
+.tm-photo-badge{position:absolute;left:10px;top:10px;padding:3px 9px;border-radius:999px;background:rgba(15,42,48,.78);color:#fff;font-size:11px;font-weight:600;letter-spacing:.02em;pointer-events:none}
+.tm-plan-hero .tm-photo-badge{display:none}

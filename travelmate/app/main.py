@@ -212,6 +212,8 @@ class Services:
 
 
 PLACE_CACHE_TTL_S = 24 * 3600
+# Bump when what a place search returns changes (e.g. photos), so cached results are not reused.
+PLACE_CACHE_VERSION = 2
 
 
 class CachingProvider:
@@ -231,7 +233,7 @@ class CachingProvider:
 
     def key(self, trip):
         destination = " ".join(unicodedata.normalize("NFC", trip.destination).casefold().split())
-        return f"{self.name}:{destination}"
+        return f"{self.name}:v{PLACE_CACHE_VERSION}:{destination}"
 
     async def search(self, trip):
         key = self.key(trip)
