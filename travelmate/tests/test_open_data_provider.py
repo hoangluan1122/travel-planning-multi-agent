@@ -512,3 +512,21 @@ async def test_wikipedia_is_only_asked_when_photon_fails_and_an_empty_answer_sti
     assert wiki.calls == 0
     with pytest.raises(AgentError, match="không phản hồi"):
         await OpenDataProvider(images=False, geo=HangingGeo(), wiki=FakeWiki()).search(trip())
+
+
+@pytest.mark.asyncio
+async def test_stays_and_keyword_results_get_photos_too():
+    class Images:
+        def __init__(self):
+            self.asked = []
+
+        async def enrich(self, places):
+            self.asked.append([p.id for p in places])
+            return places
+
+    images = Images()
+    result = await OpenDataProvider(images=images, geo=FakeGeo(), stays=2, heritage=0).search(trip())
+    assert images.asked[-1][-2:] == [p.id for p in result.stays] == ["hotel-0", "hotel-1"]
+    await OpenDataProvider(images=images, geo=FakeGeo()).search_places(
+        PlaceSearchRequest(destination="Hội An", category="restaurant", keyword="restaurant", limit=3))
+    assert images.asked[-1] and all(i.startswith("restaurant") for i in images.asked[-1])

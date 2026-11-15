@@ -4,7 +4,7 @@ import httpx
 import pytest
 
 from app.core.models import Place
-from app.tools.places.place_media import GooglePhotoProxy, WikipediaImages, titles_match
+from app.tools.places.place_media import GooglePhotoProxy, WikipediaImages, dish_for, titles_match
 
 
 def place(ident, name, types=("tomb",)):
@@ -133,3 +133,47 @@ async def test_commons_nearby_needs_a_distinctive_shared_word():
     assert out[0].photo is not None
     generic, _ = router(geo(["File:Cafe in Hue city.jpg"]))  # only generic words shared
     assert (await WikipediaImages(transport=generic).enrich([place("c", "Hue Cafe", ["cafe"])]))[0].photo is None
+
+
+@pytest.mark.parametrize("name,types,title", [
+    ("Bún bò Huế Kim Đồng", ["restaurant"], "Bún bò Huế"),
+    ("COM TAM DAN DA", ["restaurant"], "Cơm tấm"),            # no accents: still matched
+    ("BBQ Nuong Khoi Hoi An", ["restaurant"], "Nướng"),
+    ("Quán cô Sáu Mì Quảng", ["restaurant"], "Mì Quảng"),
+    ("Phở Thìn", ["restaurant"], "Phở"),
+    ("Pho Hoi Restaurant", ["restaurant"], "Ẩm thực Việt Nam"),  # "pho" without accents may be "phố"
+    ("Lago Coffee House", ["cafe"], "Quán cà phê"),
+    ("Ganesh Indian Restaurant", ["restaurant"], "Ẩm thực Ấn Độ"),
+    ("Bảo tàng Hội An", ["museum"], None),                    # sights are never illustrated
+    ("Lẩu đài", ["hotel"], None),
+])
+def test_food_places_are_illustrated_by_the_dish_in_their_name(name, types, title):
+    found = dish_for(place("x", name, types))
+    assert (found[0] if found else None) == title
+
+
+@pytest.mark.asyncio
+async def test_a_restaurant_without_a_photo_gets_a_labelled_dish_illustration_fetched_once():
+    def article(request):
+        title = request.url.params.get("titles")
+        return {"query": {"pages": [{"title": title, "fullurl": "https://vi.wikipedia.org/wiki/x",
+                                     "thumbnail": {"source": f"https://upload.wikimedia.org/{len(title)}.jpg"}}]}}
+
+    transport, seen = router({("vi.wikipedia.org", "query", None): article})
+    out = await WikipediaImages(transport=transport).enrich([
+        place("a", "Bún bò Huế O Phượng", ["restaurant"]), place("b", "Bún bò Mệ Kéo", ["restaurant"]),
+    ])
+    for p in out:
+        assert p.photo.illustration and "minh hoạ" in p.photo.attribution and "không phải ảnh của quán" in p.photo.attribution
+    asked = [r for r in seen if r.url.params.get("titles") == "Bún bò Huế"]
+    assert len(asked) == 1
+
+
+@pytest.mark.asyncio
+async def test_english_names_of_sights_are_looked_up_on_english_wikipedia():
+    transport, seen = router({})
+    await WikipediaImages(transport=transport).enrich([
+        place("e", "Hoi An Museum of Traditional Medicine", ["museum"]), place("v", "Bảo tàng Gốm sứ", ["museum"]),
+    ])
+    english = {r.url.params.get("gsrsearch") for r in seen if r.url.host == "en.wikipedia.org"}
+    assert english == {"Hoi An Museum of Traditional Medicine"}  # Vietnamese names stay on vi.wikipedia

@@ -232,13 +232,15 @@ class OpenDataProvider:
                     continue
                 from_wiki = True
             places.extend(pick(found))
-        # Nearby stays (Photon) are fetched while heritage sites and photos (Wikimedia) load.
+        # Nearby stays (Photon) are fetched while heritage sites load; then photos for both.
         stays_task = asyncio.create_task(self.stays(location))
         try:
             places.extend(await self.heritage_sites(location, places, landmarks))
-            places = await self.images.enrich(places) if self.images else places
         finally:
             stays = await stays_task
+        if self.images:  # one pass for both: photos load concurrently within one time budget
+            enriched = await self.images.enrich(places + stays)
+            places, stays = enriched[:len(places)], enriched[len(places):]
         places = apply_tickets(places, trip.destination)
         if failures == len(self.pickers):
             raise AgentError("Nguồn địa điểm không phản hồi")
@@ -336,7 +338,10 @@ class OpenDataProvider:
             found = found + [p for p in extra if p.id not in seen and not seen.add(p.id)]
             found = keyword_filter(found, query.keyword)
             found.sort(key=lambda p: not keyword_matches(p, query.keyword))
-        return PlaceResult(places=unique_plausible(found)[: query.limit], warnings=warnings + [SOURCE_NOTE])
+        found = unique_plausible(found)[: query.limit]
+        # Places found for a stated wish ("mì Quảng") are often the ones a plan leads with: give them photos too.
+        found = await self.images.enrich(found) if self.images else found
+        return PlaceResult(places=found, warnings=warnings + [SOURCE_NOTE])
 
     async def forecast(self, trip):
         from app.specialists.weather import WeatherRequest, WeatherSpecialist

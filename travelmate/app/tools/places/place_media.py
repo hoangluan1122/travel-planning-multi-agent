@@ -60,6 +60,78 @@ def strip_html(text):
     return " ".join(re.sub(r"<[^>]+>", " ", text or "").split())
 
 
+FOOD_TYPES = {"restaurant", "cafe", "fast_food", "food_court", "bar", "pub", "ice_cream", "bakery"}
+STAY_TYPES = {"hotel", "hostel", "guest_house", "motel", "apartment", "resort", "camp_site", "lodging"}
+# Food places almost never have a photo of their own in free sources. A photo of the dish in
+# their name ("Bún bò Huế Kim Đồng"), labelled as an illustration, is honest and better than
+# none. (keywords, Vietnamese Wikipedia title, label, keywords also match without accents).
+# Without accents some words collide ("pho" is also "phố", "lau" is "lâu"), so those match
+# only with their accents.
+DISHES = [
+    (("bún bò",), "Bún bò Huế", "bún bò Huế", True),
+    (("phở",), "Phở", "phở", False),
+    (("cơm tấm",), "Cơm tấm", "cơm tấm", True),
+    (("bánh mì", "banh my"), "Bánh mì Việt Nam", "bánh mì", True),
+    (("cao lầu",), "Cao lầu", "cao lầu", True),
+    (("mì quảng",), "Mì Quảng", "mì Quảng", True),
+    (("bánh xèo",), "Bánh xèo", "bánh xèo", True),
+    (("bún chả",), "Bún chả", "bún chả", True),
+    (("bún riêu",), "Bún riêu cua", "bún riêu", True),
+    (("bánh canh",), "Bánh canh", "bánh canh", True),
+    (("bánh căn",), "Bánh căn", "bánh căn", True),
+    (("bánh khọt",), "Bánh khọt", "bánh khọt", True),
+    (("bánh bèo",), "Bánh bèo", "bánh bèo", True),
+    (("bánh cuốn",), "Bánh cuốn", "bánh cuốn", True),
+    (("cơm hến",), "Cơm hến", "cơm hến", True),
+    (("cơm gà",), "Cơm gà", "cơm gà", True),
+    (("hủ tiếu", "hu tiu"), "Hủ tiếu", "hủ tiếu", True),
+    (("nem nướng",), "Nem nướng", "nem nướng", True),
+    (("gỏi cuốn",), "Gỏi cuốn", "gỏi cuốn", True),
+    (("cơm chiên", "fried rice"), "Cơm chiên", "cơm chiên", True),
+    (("lẩu", "hotpot", "hot pot"), "Lẩu", "lẩu", False),
+    (("hải sản", "seafood"), "Hải sản", "hải sản", True),
+    (("ốc",), "Ốc", "ốc", False),
+    (("nướng", "bbq", "barbecue", "grill"), "Nướng", "đồ nướng", True),
+    (("chay", "vegetarian", "vegan"), "Ẩm thực chay", "món chay", True),
+    (("pizza", "pizzeria"), "Pizza", "pizza", True),
+    (("burger",), "Hamburger", "hamburger", True),
+    (("pasta", "spaghetti", "italian", "trattoria"), "Ẩm thực Ý", "món Ý", True),
+    (("sushi", "japanese", "ramen"), "Ẩm thực Nhật Bản", "món Nhật", True),
+    (("korean", "hàn quốc"), "Ẩm thực Triều Tiên", "món Hàn", True),
+    (("indian", "ấn độ", "curry"), "Ẩm thực Ấn Độ", "món Ấn", True),
+    (("steak", "bít tết", "beefsteak"), "Bít tết", "bít tết", True),
+    (("gà rán", "fried chicken"), "Gà rán", "gà rán", True),
+    (("trà sữa", "milk tea", "bubble tea"), "Trà sữa", "trà sữa", True),
+]
+
+
+def folded(text):
+    return " ".join(unicodedata.normalize("NFC", text or "").casefold().split())
+
+
+def has_word(text, word):
+    return re.search(rf"(?<!\w){re.escape(word)}(?!\w)", text) is not None
+
+
+def dish_for(place):
+    """(Wikipedia title, label) of what a food place serves, judged from its name and type; else None."""
+    types = set(place.types or [])
+    if not types & FOOD_TYPES:
+        return None
+    name, flat = folded(place.name), plain(place.name)
+    for words, title, label, accents_optional in DISHES:
+        for word in words:
+            if has_word(name, word) or (accents_optional and has_word(flat, plain(word))):
+                return title, label
+    if "cafe" in types or has_word(flat, "cafe") or has_word(flat, "coffee") or has_word(name, "cà phê"):
+        return "Quán cà phê", "quán cà phê"
+    return "Ẩm thực Việt Nam", "ẩm thực Việt Nam"
+
+
+def ascii_name(name):
+    return all(ord(ch) < 128 for ch in name)
+
+
 class WikipediaImages:
     """Free photos for places, tried in order of confidence; never fails a search.
 
@@ -70,11 +142,13 @@ class WikipediaImages:
     Commons photos carry the author and licence from the file's metadata.
     """
 
-    def __init__(self, transport=None, lang="vi", limit=30, concurrency=6, timeout=6, deadline_s=12):
+    def __init__(self, transport=None, lang="vi", limit=40, concurrency=6, timeout=6, deadline_s=12):
         self.transport, self.lang, self.limit = transport, lang, limit
         self.semaphore = asyncio.Semaphore(concurrency)
         self.timeout, self.deadline_s = timeout, deadline_s
         self.cache = {}
+        self.illustrations = {}  # Wikipedia title -> PlacePhoto (or None: the article has no photo)
+        self.illustration_locks = {}
 
     async def get(self, client, url, params):
         async with self.semaphore:
@@ -82,8 +156,8 @@ class WikipediaImages:
             response.raise_for_status()
             return response.json()
 
-    async def wikipedia(self, client, place):
-        data = await self.get(client, f"https://{self.lang}.wikipedia.org/w/api.php", {
+    async def wikipedia(self, client, place, lang=None):
+        data = await self.get(client, f"https://{lang or self.lang}.wikipedia.org/w/api.php", {
             "action": "query", "generator": "search", "gsrsearch": place.name, "gsrlimit": "1",
             "gsrnamespace": "0", "prop": "pageimages|info", "piprop": "thumbnail", "pithumbsize": "800",
             "inprop": "url",
@@ -154,10 +228,43 @@ class WikipediaImages:
                 return await self.commons_file(client, hit["title"])
         return None
 
+    async def wikipedia_en(self, client, place):
+        """English Wikipedia, for sights OpenStreetMap names in English ("Hoi An Museum of ...")."""
+        return await self.wikipedia(client, place, "en") if ascii_name(place.name) else None
+
+    async def illustration(self, client, title, label):
+        """The lead photo of a Wikipedia article about a dish, fetched once per title.
+
+        A failed lookup is not remembered, so the next search tries again.
+        """
+        async with self.illustration_locks.setdefault(title, asyncio.Lock()):
+            if title in self.illustrations:
+                return self.illustrations[title]
+            try:
+                data = await self.get(client, f"https://{self.lang}.wikipedia.org/w/api.php", {
+                    "action": "query", "titles": title, "redirects": "1", "prop": "pageimages|info",
+                    "piprop": "thumbnail", "pithumbsize": "800", "inprop": "url",
+                })
+            except (httpx.HTTPError, ValueError, KeyError, TypeError):
+                return None
+            pages = data.get("query", {}).get("pages", [])
+            thumb = ((pages[0].get("thumbnail") or {}).get("source", "")) if pages else ""
+            photo = PlacePhoto(
+                url=thumb, attribution=f"Ảnh minh hoạ {label} — Wikipedia, không phải ảnh của quán",
+                source_url=pages[0].get("fullurl"), illustration=True,
+            ) if is_wikimedia_image(thumb) else None
+            self.illustrations[title] = photo
+            return photo
+
     async def find(self, client, place):
         if place.id in self.cache:
             return self.cache[place.id]
-        sources = ([self.wikipedia] if PHOTO_KINDS & set(place.types) else []) + [self.wikidata, self.commons_nearby]
+        types = set(place.types or [])
+        if types & (FOOD_TYPES | STAY_TYPES):
+            sources = [self.wikidata, self.commons_nearby]
+        else:
+            sights = PHOTO_KINDS & types
+            sources = ([self.wikipedia, self.wikipedia_en] if sights else []) + [self.wikidata, self.commons_nearby]
         photo = None
         for source in sources:
             try:
@@ -166,6 +273,8 @@ class WikipediaImages:
                 photo = None
             if photo:
                 break
+        if photo is None and (dish := dish_for(place)):
+            photo = await self.illustration(client, *dish)
         self.cache[place.id] = photo
         return photo
 
