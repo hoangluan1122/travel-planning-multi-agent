@@ -1,3 +1,7 @@
+"""Memory specialist: saves, reads and deletes one identity's travel preferences (SQLite).
+
+Writes need confirmed=true. The plan flow only reads, through app/memory/preferences.py."""
+
 import asyncio
 import sqlite3
 from datetime import UTC, datetime

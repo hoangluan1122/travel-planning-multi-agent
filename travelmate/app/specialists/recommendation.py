@@ -1,3 +1,6 @@
+"""Recommendation specialist (standalone test bench): ranks given places by the traveller's
+preferences, by rules (RecommendationRanker) or with an LLM tool loop (RecommendationSpecialist)."""
+
 from datetime import UTC, datetime
 from typing import Literal
 
@@ -5,7 +8,7 @@ from pydantic import Field, model_validator
 
 from app.core.base import AgentError, BaseAgent
 from app.core.llm.tool_loop import ToolLoop, run_tool_loop
-from app.core.models import Context, Model, Place, ShortText
+from app.core.models import Model, Place, ShortText
 from app.specialists.recommendation_scoring import (
     RecommendationContext,
     RecommendationItem,
@@ -105,12 +108,6 @@ class RecommendationRanker(BaseAgent[RecommendationRequest, RecommendationReport
         if evaluation.required_conflicts:
             chosen = []
         return report_for(data, evaluation, chosen, "weighted_evidence_v1", now)
-
-
-async def rank_recommendations(request_json: str) -> dict:
-    """ADK-callable ranking tool; never creates new places, prices or feature facts."""
-    data = RecommendationRequest.model_validate_json(request_json)
-    return (await RecommendationRanker().run(data, Context())).model_dump(mode="json")
 
 
 class RecommendationSpecialist(BaseAgent[RecommendationRequest, RecommendationReport]):

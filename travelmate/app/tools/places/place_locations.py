@@ -1,3 +1,5 @@
+"""Shapes for choosing a place when a name matches several (e.g. two "Hội An")."""
+
 from typing import Literal
 
 from pydantic import Field

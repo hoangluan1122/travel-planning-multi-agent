@@ -1,3 +1,6 @@
+"""Place providers: DemoProvider (labelled sample data) and LiveProvider (Google Places API).
+The open-data provider lives in open_data_provider.py."""
+
 from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal
 from urllib.parse import quote

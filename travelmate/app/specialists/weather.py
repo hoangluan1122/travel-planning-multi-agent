@@ -1,3 +1,5 @@
+"""Weather specialist (standalone test bench): daily forecast from Open-Meteo for given coordinates."""
+
 from datetime import UTC, date, datetime, timedelta
 from typing import Literal
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError

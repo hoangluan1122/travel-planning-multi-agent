@@ -26,21 +26,20 @@ Nhập điểm đến trên web, nhận lịch trình từ **địa điểm th�
    TRAVELMATE_MODE=live
    TRAVELMATE_PLACE_PROVIDER=open_data
    AGENT_ENGINE=maf
-   TRAVELMATE_ORCHESTRATOR=workflow
+   TRAVELMATE_ORCHESTRATOR=planning
    TRAVELMATE_AGENT_TIMEOUT=120
    ```
 
 3. Chạy `uv run uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8000`
-4. Mở http://127.0.0.1:8000/, **Đăng ký** một tài khoản rồi **Tạo chuyến đi**. Một lịch 2 ngày
-   mất khoảng 1 phút. Muốn dùng `TRAVELMATE_API_TOKEN` thay cho tài khoản, mở trang với `?dev`
+4. Mở http://127.0.0.1:8000/, **Đăng ký** một tài khoản rồi **Tạo chuyến đi**. Lịch trình được
+   tạo nền, trang hiện từng bước; một lịch 2–3 ngày thường mất 25–40 giây. Muốn dùng `TRAVELMATE_API_TOKEN` thay cho tài khoản, mở trang với `?dev`
    (ví dụ `http://127.0.0.1:8000/?dev`) để hiện mục **Cấu hình kết nối**.
 
 Kết quả: từng ngày có khung giờ, loại địa điểm, địa chỉ, link bản đồ OpenStreetMap, dự báo
-thời tiết; chi phí chưa biết được liệt kê theo tên, không coi là 0. Giới hạn của bản demo:
-tên trùng (ví dụ "Hội An") tự chọn địa danh khớp nhất và báo rõ trong cảnh báo; chỉ lấy địa
-điểm trong 5 km quanh trung tâm (8 điểm tham quan, 4 quán ăn); chưa có giá, giờ mở cửa, ảnh,
-tuyến đường thật giữa các điểm, lưu trú, đặt chỗ hay tài khoản người dùng; lịch có thể lặp
-lại quán ăn khi nguồn có ít lựa chọn.
+thời tiết, ảnh (Wikipedia/Wikimedia; quán ăn dùng ảnh minh hoạ món, có ghi rõ) và nơi ở gần đó;
+chi phí chưa biết được liệt kê theo tên, không coi là 0. Giới hạn: tên trùng (ví dụ "Hội An") tự
+chọn địa danh khớp nhất và báo rõ trong cảnh báo; chưa có giờ mở cửa, tuyến đường thật giữa các
+điểm hay đặt chỗ; nơi ở hầu như chưa có ảnh; lịch có thể lặp lại quán ăn khi nguồn có ít lựa chọn.
 
 ## Trợ lý AI (Multi-Agent, hand-off)
 
@@ -121,9 +120,10 @@ tool, ngân sách gọi model và điểm dừng sau khi chấp nhận giống h
 
 ### Orchestrator dạng MAF Workflow
 
-API lịch trình (`app.main`) có hai cách điều phối, chọn bằng `TRAVELMATE_ORCHESTRATOR`:
-`classic` (mặc định, `app/agents/orchestrator.py`) hoặc `workflow` (`app/agents/workflow_orchestrator.py`).
-Bản workflow là đồ thị executor của MAF:
+API lịch trình có ba cách điều phối, chọn bằng `TRAVELMATE_ORCHESTRATOR` (xem `app/services.py`):
+`classic` (mặc định, `app/agents/orchestrator.py`), `workflow` (`app/agents/workflow_orchestrator.py`)
+hoặc `planning` (`app/agents/planning.py`: LLM chia việc và lập kế hoạch lại khi thiếu; bản chạy trên
+Render dùng cách này). Bản workflow là đồ thị executor của MAF:
 
 ```text
 memory ──► place ───┐
@@ -176,7 +176,14 @@ nhận, loại lỗi và thời gian vào `evaluation/engine-comparison-<UTC>/`.
 
 ```text
 app/
-├─ main.py                 Máy chủ FastAPI: endpoint lịch trình, chat, giao diện (lệnh chạy không đổi)
+├─ main.py                 Máy chủ FastAPI: chỉ ghép các phần dưới lại (lệnh chạy không đổi)
+├─ settings.py             Mọi cấu hình đọc từ biến môi trường / .env, có giải thích từng mục
+├─ services.py             Dựng agent và nguồn dữ liệu theo cấu hình (demo/live, ADK/MAF, orchestrator)
+├─ api/                    Các endpoint, mỗi file một nhóm
+│  ├─ plans.py             Tìm địa điểm, tạo lịch trình (chạy nền) và xem tiến độ
+│  ├─ chat.py              Trợ lý AI
+│  ├─ site.py              Trang web, robots.txt, sitemap.xml, /health, header bảo mật
+│  └─ deps.py              Ai đang gọi (token, đăng nhập), hạn mức AI mỗi ngày
 ├─ core/                   Khung chung cho mọi agent
 │  ├─ base.py              BaseAgent: kiểm tra đầu vào/ra, giới hạn thời gian, log, telemetry
 │  ├─ models.py            Schema (Pydantic): TripRequest, Context, PlanResponse, BudgetResult…
@@ -199,7 +206,8 @@ app/
 │  ├─ store.py             Cơ sở dữ liệu (SQLite/PostgreSQL): tài khoản, chuyến đi, chat, đánh giá
 │  └─ preferences.py       Memory Agent: đọc sở thích đã lưu (chỉ đọc)
 ├─ tools/                  TOOLS: nguồn dữ liệu agent gọi, không tự quyết định
-│  ├─ places/              OpenStreetMap/Photon, vùng hành chính, ảnh, website chính thức
+│  ├─ places/              OpenStreetMap/Photon, Wikipedia, vùng hành chính, ảnh, website chính thức;
+│  │                       provider_wrappers.py: lưu kết quả tìm 24 giờ, ẩn địa điểm admin đã ẩn
 │  ├─ browser_weather/     Đọc thời tiết từ trình duyệt
 │  ├─ prices/              Bảng giá vé và giá tham khảo có nguồn
 │  └─ http.py              Gọi HTTP có thử lại
@@ -227,12 +235,12 @@ Ngoài `app/`:
 uv run --no-sync pytest -q
 ```
 
-Lần kiểm tra ngày 23/10/2026: **513 passed**, 1 cảnh báo deprecation TestClient.
-Kiểm tra giao diện đạt. 15 lượt thử dữ liệu thật sau sửa có 14 lượt trả bản ghi
-trong 5 km; khách sạn Fansipan trả rỗng trong 5 km và có 5 bản ghi khi thử 10 km.
+Lần kiểm tra ngày 16/11/2026: **837 passed, 22 skipped**. Các test bị bỏ qua cần PostgreSQL;
+GitHub Actions chạy chúng với PostgreSQL thật cho mỗi PR. `uv run ruff check app scripts tests`
+kiểm tra kiểu viết.
 
-Bằng chứng: `evaluation/fix-verification-20261022T182826Z/` và
-`evaluation/fix-verification-20261022T183050Z/`.
+Bằng chứng các lần đo dữ liệu thật trước đây nằm trong `evaluation/` (ví dụ
+`evaluation/fix-verification-20261022T182826Z/`).
 
 Chưa xác minh mọi điểm đến Việt Nam. Tràng An còn cần kiểm tra nguồn đúng quần thể
 khu du lịch; Sầm Sơn cần kiểm tra sai số polygon tham chiếu. Giá, phòng trống,

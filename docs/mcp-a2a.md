@@ -9,7 +9,7 @@ Hai giao thức, hai vai trò:
 | Mã | `travelmate/app/protocols/mcp_server.py` | `travelmate/app/protocols/a2a.py` (gắn vào API ở cổng 8000) |
 | Client thử | `scripts/mcp_client.py` | `scripts/a2a_client.py` |
 
-API, MCP và A2A dùng chung các dịch vụ (`build_services` trong `app/main.py`): cùng nguồn dữ
+API, MCP và A2A dùng chung các dịch vụ (`build_services` trong `app/services.py`): cùng nguồn dữ
 liệu, cùng orchestrator, cùng các chuyên gia.
 
 ## MCP server

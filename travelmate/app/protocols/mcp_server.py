@@ -187,7 +187,8 @@ def main(argv=None):
     parser.add_argument("--http", action="store_true", help="serve Streamable HTTP instead of stdio")
     parser.add_argument("--port", type=int, default=8765)
     args = parser.parse_args(argv)
-    from app.main import Settings, build_services
+    from app.services import build_services
+    from app.settings import Settings
 
     settings = Settings()
     if not args.http:
