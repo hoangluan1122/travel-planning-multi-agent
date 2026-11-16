@@ -23,7 +23,7 @@ def main():
     parser.add_argument("messages", nargs="+")
     parser.add_argument("--url", default="http://127.0.0.1:8000")
     args = parser.parse_args()
-    from app.main import Settings
+    from app.settings import Settings
 
     token = Settings().travelmate_api_token
     headers = {"A2A-Version": "1.0", **({"Authorization": f"Bearer {token}"} if token else {})}

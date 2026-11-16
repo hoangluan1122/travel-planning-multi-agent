@@ -1,3 +1,6 @@
+"""Data shapes shared by agents, tools and the API (Pydantic): trip request, places,
+weather, draft days, budget and the final PlanResponse. Every model rejects unknown fields."""
+
 from datetime import date, datetime
 from decimal import Decimal
 from typing import Annotated, Literal

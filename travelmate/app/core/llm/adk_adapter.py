@@ -1,3 +1,5 @@
+"""The day-scheduling LLM on Google ADK: a bounded tool loop that only accepts validated drafts."""
+
 from app.agents.itinerary_tools import PLANNER_INSTRUCTION, make_planner_tools
 from app.core.base import AgentError
 from app.core.llm.tool_loop import ToolLoop, run_tool_loop

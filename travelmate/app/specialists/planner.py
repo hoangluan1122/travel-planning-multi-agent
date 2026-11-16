@@ -1,3 +1,5 @@
+"""Planner specialist (standalone test bench): schedules days from evidence the caller supplies."""
+
 from app.agents.orchestrator import validate_draft
 from app.core.base import AgentError, BaseAgent
 from app.core.llm.adk_adapter import AdkPlanner

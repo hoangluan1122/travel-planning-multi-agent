@@ -1,3 +1,5 @@
+"""Request and result shapes of the browser weather tool, with the evidence it read."""
+
 from datetime import date, datetime, time, timedelta
 from typing import Literal
 

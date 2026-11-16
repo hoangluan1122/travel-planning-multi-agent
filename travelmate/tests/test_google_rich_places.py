@@ -141,8 +141,8 @@ def test_photo_endpoint_redirects_only_issued_names(monkeypatch):
     settings = Settings(_env_file=None, travelmate_mode="live", travelmate_place_provider="google",
                         google_api_key="g", google_maps_api_key="maps-secret", travelmate_api_token="t")
     app = create_app(settings)
-    endpoint = next(r.endpoint for r in app.routes if getattr(r, "path", "") == "/api/v1/places/photo")
-    proxy = next(c.cell_contents for c in endpoint.__closure__ if isinstance(c.cell_contents, GooglePhotoProxy))
+    proxy = app.state.services.photos
+    assert isinstance(proxy, GooglePhotoProxy)
 
     async def fake_resolve(name):
         return "https://lh3.googleusercontent.com/p/x" if name in proxy.allowed else None

@@ -1,3 +1,5 @@
+"""Command line: `python -m app.tools.browser_weather --input request.json` reads the Cốc Cốc weather card."""
+
 import argparse
 import asyncio
 import sys

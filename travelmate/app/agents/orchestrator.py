@@ -1,3 +1,9 @@
+"""Classic orchestrator: runs the plan agents in order with asyncio.
+
+memory -> place + weather (in parallel) -> recommendation -> planner -> validate -> budget.
+The step rules (validate_draft, checked_places, checked_weather, plan_response) are shared
+with the MAF workflow and Planning orchestrators, so all three accept and reject the same plans."""
+
 import asyncio
 from datetime import timedelta
 

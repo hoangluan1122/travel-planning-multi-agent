@@ -1,3 +1,5 @@
+"""Budget specialist (standalone test bench): adds cost lines and compares them to a budget."""
+
 from decimal import Decimal
 from typing import Literal
 

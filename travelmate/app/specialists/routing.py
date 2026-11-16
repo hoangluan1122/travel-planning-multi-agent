@@ -13,7 +13,7 @@ import httpx
 from pydantic import Field, field_validator, model_validator
 
 from app.core.base import AgentError, BaseAgent
-from app.core.models import Context, Model
+from app.core.models import Model
 
 
 class RoutePoint(Model):
@@ -557,9 +557,3 @@ class RouteSpecialist(BaseAgent[RouteRequest, RouteReport]):
 
     async def execute(self, data, context):
         return await calculate_route(data, self.provider)
-
-
-async def plan_road_route(request_json: str) -> dict:
-    """ADK-callable driving route tool; coordinates/windows must come from input."""
-    data = RouteRequest.model_validate_json(request_json)
-    return (await RouteSpecialist().run(data, Context(), 50)).model_dump(mode="json")

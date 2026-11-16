@@ -1,3 +1,6 @@
+"""Browser weather tool: reads the weather card of Cốc Cốc search in an isolated browser
+(Playwright), keeping the card text (and optionally a screenshot) as evidence."""
+
 import asyncio
 import logging
 from datetime import datetime, timedelta
