@@ -1,5 +1,9 @@
 """Trip-budget assessment and reviewable cost-reduction proposals in VND."""
 
+# Đánh giá ngân sách chuyến đi và đề xuất cắt giảm có thể xem lại (VND). Mọi giá và lựa chọn đều do người
+# gọi đưa vào; chuyên gia chỉ tính toán. Thuộc 'bàn thử chuyên gia' (app/specialists): mỗi chuyên gia chạy
+# riêng lẻ để thử và chấm điểm, không gọi agent khác. Trang web chính không dùng file này trừ khi ghi rõ.
+
 import math
 from datetime import UTC, date, datetime, timedelta
 from decimal import ROUND_CEILING, Decimal
@@ -16,6 +20,7 @@ Category = Literal["accommodation", "meals", "transport", "visits", "other"]
 ZERO = Decimal("0")
 
 
+# Làm tròn LÊN đến đồng: không bao giờ ước tính thấp hơn thực tế.
 def dong(value: Decimal) -> Decimal:
     """Round each charge/reserve upward to a whole VND; never underestimate a cap."""
     return value.quantize(Decimal("1"), rounding=ROUND_CEILING)
@@ -27,6 +32,7 @@ def aware(value):
     return value
 
 
+# Một lựa chọn giá cho một khoản chi (ví dụ hai khách sạn khác giá).
 class PriceOption(Model):
     id: ShortText
     label: ShortText
@@ -64,6 +70,7 @@ class PriceOption(Model):
         return self
 
 
+# Một khoản chi: bắt buộc hay tuỳ chọn, các lựa chọn giá.
 class TripExpense(Model):
     id: ShortText
     label: ShortText
@@ -89,6 +96,7 @@ class TripExpense(Model):
         return self
 
 
+# Yêu cầu: các khoản chi, ngân sách, mức dự phòng.
 class TripBudgetRequest(Model):
     start_date: date
     end_date: date
@@ -204,6 +212,8 @@ def expense_dates(data, expense):
     return [data.start_date + timedelta(days=i) for i in range(count)]
 
 
+# Tính tổng một khoản chi theo số ngày/số người. Giá hết hạn, chưa biết hoặc ngoài ngày áp dụng thì không
+# dùng được (price_state khác usable).
 def calculate_line(data, expense, option, now):
     dates = expense_dates(data, expense)
     rooms = data.rooms or math.ceil(data.travelers / data.persons_per_room)
@@ -248,10 +258,12 @@ def calculate_line(data, expense, option, now):
     )
 
 
+# Cộng thêm phần trăm dự phòng.
 def with_reserve(value, pct):
     return value + dong(value * pct / Decimal("100"))
 
 
+# Đề xuất cắt giảm: đổi sang lựa chọn rẻ hơn, hoặc bỏ khoản tuỳ chọn nếu được phép.
 def propose(data, lines, cap, complete, now):
     baseline = sum((line.max_total_vnd or ZERO for line in lines), ZERO)
     opportunities = []
@@ -310,6 +322,7 @@ def propose(data, lines, cap, complete, now):
     )
 
 
+# Tính tổng, so với ngân sách, đề xuất cắt giảm.
 class TripBudgetSpecialist(BaseAgent[TripBudgetRequest, TripBudgetReport]):
     name, input_schema, output_schema = "trip_budget_specialist", TripBudgetRequest, TripBudgetReport
 
@@ -393,6 +406,7 @@ class TripBudgetSpecialist(BaseAgent[TripBudgetRequest, TripBudgetReport]):
         )
 
 
+# Bản công cụ (ADK) của chuyên gia này.
 async def assess_trip_budget(request_json: str) -> dict:
     """ADK-callable tool. All prices, sources and acceptable options are supplied input."""
     data = TripBudgetRequest.model_validate_json(request_json)

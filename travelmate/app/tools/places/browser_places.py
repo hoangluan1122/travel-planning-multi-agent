@@ -1,5 +1,8 @@
 """Bounded browser source discovery; snippets are NOT verified place records."""
 
+# Tìm nguồn web về địa điểm bằng trình duyệt. Đoạn trích tìm được KHÔNG phải bản ghi địa điểm đã xác minh.
+# Ứng dụng phụ, chạy riêng; trang web chính không dùng file này.
+
 import argparse
 import asyncio
 import hashlib
@@ -48,6 +51,7 @@ class BrowserPlaceResult(Model):
     warnings: list[str] = Field(default_factory=list)
 
 
+# Kiểm tra liên kết hiển thị; không bao giờ tải trang từ máy chủ lạ.
 def public_link(value):
     """Validate a display link. Unknown hosts are never fetched by this tool."""
     try:
@@ -68,6 +72,7 @@ def public_link(value):
         return None
 
 
+# Chỉ đọc header chuyển hướng của trang tìm kiếm, không đi theo.
 async def resolve_link(client, value):
     """Read only a search redirect header, never follow it to an arbitrary host."""
     if not public_link(value):
@@ -92,6 +97,7 @@ async def resolve_link(client, value):
         return None
 
 
+# Tìm, đọc kết quả, và đọc thêm trang chính thức/khách sạn nếu có.
 class BrowserPlaceTool(BaseAgent[PlaceSearchRequest, BrowserPlaceResult]):
     name, input_schema, output_schema = "browser_places", PlaceSearchRequest, BrowserPlaceResult
 

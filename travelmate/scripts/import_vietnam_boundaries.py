@@ -1,5 +1,8 @@
 """Reproducible, opt-in acquisition of reference boundaries, not POI demo data."""
 
+# Tải ranh giới hành chính các tỉnh và ghi ra app/data/vietnam_regions.json, chạy lại được để cập nhật. Chạy
+# tay khi cần, gọi nguồn thật; không nằm trong bộ test tự động.
+
 import hashlib
 import json
 from datetime import UTC, datetime

@@ -1,5 +1,7 @@
 """Deterministic, conservative parsers for the observed Cốc Cốc card layout."""
 
+# Đọc số liệu từ chữ trên ô thời tiết, theo cách thận trọng: không chắc thì báo lỗi thay vì đoán.
+
 import re
 import unicodedata
 from datetime import datetime, timedelta
@@ -22,6 +24,7 @@ def locality_key(text):
     return re.sub(r"\s+", "", text)
 
 
+# Tên địa điểm trên ô phải khớp nơi được hỏi.
 def location_matches(requested: WeatherLocation, label: str):
     parts = [p.strip() for p in label.split(",")]
     return (
@@ -40,6 +43,7 @@ def parse_stamp(text):
     return stamp, hour is not None
 
 
+# Các ngày phải liên tiếp; xử lý chuyển tháng/năm.
 def day_dates(anchor, labels):
     """Require consecutive labelled weekdays and days; handle month/year rollovers."""
     result = []
@@ -60,6 +64,7 @@ def number(text, unit):
     return float(match[1].replace(",", ".")) if match else None
 
 
+# Các số liệu thời tiết đọc từ nội dung chữ của ô.
 def parse_values(snapshot):
     metrics = snapshot.get("metrics", {})
     return WeatherValues(

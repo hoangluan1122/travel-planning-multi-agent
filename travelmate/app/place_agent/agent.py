@@ -1,5 +1,9 @@
 """Standalone Place Agent. No orchestration, booking or cross-user memory."""
 
+# Agent LLM tìm địa điểm với ba công cụ có giới hạn cứng (tìm, xem chi tiết, nộp). Mọi thông tin trong kết
+# quả phải lấy từ kết quả công cụ, nên LLM không bịa được địa điểm. Ứng dụng phụ, chạy riêng; trang web
+# chính không dùng file này.
+
 import logging
 from typing import Literal, Protocol
 from uuid import UUID
@@ -15,10 +19,12 @@ from app.tools.places.place_locations import LocationCandidate, LocationChoiceRe
 logger = logging.getLogger(__name__)
 
 
+# Yêu cầu tìm: điểm đến, loại, từ khoá.
 class PlaceAgentInput(PlaceSearchRequest):
     needs: str = Field(default="", max_length=1500)
 
 
+# Kết quả: địa điểm được chọn, kèm số lần đã gọi công cụ.
 class PlaceAgentOutput(Model):
     request_id: UUID
     status: Literal["candidates", "no_results", "partial", "provider_error", "needs_location"]
@@ -30,12 +36,14 @@ class PlaceAgentOutput(Model):
     web_discovery: BrowserPlaceResult | None = None
 
 
+# Giao diện nguồn địa điểm mà agent cần: tìm và xem chi tiết.
 class PlaceProvider(Protocol):
     async def search_places(self, query: PlaceSearchRequest) -> PlaceResult: ...
 
     async def get_details(self, place_id: str) -> Place: ...
 
 
+# Hướng dẫn cho LLM, sinh từ đúng các giới hạn công cụ.
 def place_instruction(max_searches, max_details, max_submissions):
     """Rules for the place discovery LLM, generated from the real tool budgets."""
     return (
@@ -62,6 +70,7 @@ def place_instruction(max_searches, max_details, max_submissions):
     )
 
 
+# Mỗi lần chạy có kho bằng chứng riêng: chỉ địa điểm đã thấy qua công cụ mới được nộp.
 class PlaceAssistant(BaseAgent[PlaceAgentInput, PlaceAgentOutput]):
     """LLM place discovery over three tools with hard budgets and a per-run evidence store.
 
@@ -103,6 +112,7 @@ class PlaceAssistant(BaseAgent[PlaceAgentInput, PlaceAgentOutput]):
 
         lock = asyncio.Lock()
 
+        # Công cụ 1: tìm trong điểm đến và loại đã cố định.
         async def search_places(keyword: str) -> dict:
             """Search the fixed destination and category, optionally filtered by a name keyword.
 
@@ -191,6 +201,7 @@ class PlaceAssistant(BaseAgent[PlaceAgentInput, PlaceAgentOutput]):
                     payload["note"] = "No candidates for this keyword; keywords filter names, try an empty keyword."
                 return payload
 
+        # Công cụ 2: xem lại bản ghi của một địa điểm đã tìm thấy.
         async def get_place_details(place_id: str) -> dict:
             """Refresh the record of a place found by search_places.
 
@@ -219,6 +230,7 @@ class PlaceAssistant(BaseAgent[PlaceAgentInput, PlaceAgentOutput]):
                 logger.info("place_tool request_id=%s tool=details", context.request_id)
                 return place.model_dump(mode="json")
 
+        # Công cụ 3: nộp danh sách id; thông tin lấy từ kết quả công cụ.
         async def submit_places(place_ids: list[str]) -> dict:
             """Submit the chosen places; every factual field is taken from tool results.
 

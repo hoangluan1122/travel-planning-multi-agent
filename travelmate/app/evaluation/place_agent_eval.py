@@ -7,6 +7,8 @@ searches and details used, keywords the LLM chose (from the trace), whether the 
 search was widened, whether every place is backed by a source, and latency.
 """
 
+# Đánh giá Place Agent LLM trên các trường hợp cố định, theo từng engine.
+
 import statistics
 import time
 

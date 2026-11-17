@@ -4,6 +4,9 @@ Selection is part of each declared test scenario, not an automatic production
 fallback. Empty POI results fail availability even if error handling is correct.
 """
 
+# Kiểm tra lại các lỗi xác định địa danh đã sửa, trên nguồn thật. Chạy tay khi cần, gọi nguồn thật; không
+# nằm trong bộ test tự động.
+
 import argparse
 import asyncio
 import json

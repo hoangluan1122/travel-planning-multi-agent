@@ -2,6 +2,9 @@
 
 Writes need confirmed=true. The plan flow only reads, through app/memory/preferences.py."""
 
+# Chuyên gia bộ nhớ: lưu, đọc, xoá sở thích du lịch của MỘT danh tính (SQLite). Trang web dùng nó qua
+# app/memory/preferences.py, chỉ để đọc. Ghi hoặc xoá bắt buộc confirmed=true (người dùng đồng ý).
+
 import asyncio
 import sqlite3
 from datetime import UTC, datetime
@@ -15,6 +18,7 @@ from app.core.base import AgentError, BaseAgent
 from app.core.models import Model, ShortText
 
 
+# Yêu cầu: đọc, lưu hoặc xoá; lưu/xoá phải có xác nhận.
 class MemoryRequest(Model):
     operation: Literal["read", "save", "forget"]
     preferences: list[ShortText] = Field(default_factory=list, max_length=20)
@@ -37,14 +41,18 @@ class MemoryReport(Model):
     status: Literal["found", "empty", "saved", "forgotten"]
 
 
+# Phiên bản dữ liệu đã đổi: phải đọc bản mới nhất trước khi cập nhật.
 class MemoryConflictError(AgentError):
     pass
 
 
+# Thiếu xác nhận của người dùng.
 class MemoryConsentError(AgentError):
     pass
 
 
+# Danh tính do máy chủ cấp lúc tạo, không lấy từ yêu cầu hay từ LLM, nên không ai đọc được sở thích của
+# người khác.
 class MemorySpecialist(BaseAgent[MemoryRequest, MemoryReport]):
     """Trusted host supplies user identity, never an LLM or request-body user_id.
 
@@ -65,6 +73,7 @@ class MemorySpecialist(BaseAgent[MemoryRequest, MemoryReport]):
             raise AgentError("Preferences must be nonempty and at most 200 characters")
         return await asyncio.to_thread(self._transaction, data)
 
+    # Mọi thao tác chạy trong một giao dịch SQLite.
     def _transaction(self, data):
         import json
 

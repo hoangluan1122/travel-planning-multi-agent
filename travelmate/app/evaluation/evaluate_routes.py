@@ -1,5 +1,7 @@
 """Small live routing benchmark; prints reproducible evidence, never a quality certification."""
 
+# Đo nhỏ về định tuyến trên dữ liệu thật: so thứ tự tối ưu với thứ tự 'gần nhất trước'.
+
 import asyncio
 import json
 import random
@@ -9,6 +11,7 @@ from datetime import UTC, datetime
 from app.specialists.routing import OSRMProvider, RouteRequest, optimize, schedule_order
 
 
+# Thứ tự tham lam: luôn đi tới điểm gần nhất chưa ghé (để so sánh).
 def nearest_order(matrix):
     remaining = set(range(1, len(matrix.point_ids)))
     order, current = [], 0

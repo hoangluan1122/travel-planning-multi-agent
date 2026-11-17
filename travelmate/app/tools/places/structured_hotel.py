@@ -1,5 +1,8 @@
 """Reviewed MGallery JSON-LD adapter. URL must come from discovered evidence."""
 
+# Đọc dữ liệu có cấu trúc (JSON-LD) trên trang một chuỗi khách sạn đã kiểm tra. URL phải đến từ bằng chứng
+# đã tìm được. Ứng dụng phụ, chạy riêng; trang web chính không dùng file này.
+
 import hashlib
 import json
 import re

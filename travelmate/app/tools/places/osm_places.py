@@ -4,6 +4,9 @@ The public Overpass default is for modest local research only. Configure a manag
 or self-hosted endpoint for a deployed application. No public Nominatim dependency.
 """
 
+# Tìm địa danh và địa điểm qua Overpass (OpenStreetMap), có giới hạn. Dùng bởi bàn thử chuyên gia và các
+# script đánh giá; trang web chính dùng geo_places.py.
+
 import asyncio
 import json
 import math
@@ -35,12 +38,14 @@ CATEGORIES = {
 }
 
 
+# Viết thường, bỏ dấu (kể cả chữ Đ).
 def normalized(value):
     # GeoNames also uses Latin eth (Ð/ð) for Vietnamese Đ in some names.
     value = unicodedata.normalize("NFD", value.casefold().replace("đ", "d").replace("ð", "d"))
     return " ".join("".join(c for c in value if unicodedata.category(c) != "Mn").split())
 
 
+# Chuỗi an toàn để đưa vào câu truy vấn Overpass.
 def ql_string(value):
     return json.dumps(value, ensure_ascii=False)
 
@@ -62,6 +67,7 @@ def distance_m(a, b):
     return 6371000 * 2 * math.asin(min(1, math.sqrt(x)))
 
 
+# Chỉ nhận địa chỉ web http(s) hợp lệ.
 def safe_web_url(value):
     if not isinstance(value, str) or len(value) > 2000:
         return None
@@ -79,6 +85,7 @@ def address_from(tags):
     return ", ".join(dict.fromkeys(p for p in parts if isinstance(p, str) and p.strip()))
 
 
+# Nguồn OSM: tìm địa danh, tìm địa điểm, xem chi tiết.
 class OSMPlaceProvider:
     def __init__(
         self,
@@ -297,6 +304,7 @@ class OSMPlaceProvider:
             raise AgentError("Invalid place details") from None
 
 
+# Bọc việc tìm địa danh thành agent.
 class OSMLocationTool(BaseAgent[LocationQuery, LocationResult]):
     name, input_schema, output_schema = "osm_locations", LocationQuery, LocationResult
 
@@ -313,6 +321,7 @@ class OSMLocationTool(BaseAgent[LocationQuery, LocationResult]):
         )
 
 
+# Bọc việc tìm địa điểm thành agent.
 class OSMSearchTool(BaseAgent[PlaceSearchRequest, PlaceDiscoveryResult]):
     name, input_schema, output_schema = "osm_places", PlaceSearchRequest, PlaceDiscoveryResult
 

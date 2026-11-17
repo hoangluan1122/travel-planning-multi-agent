@@ -1,5 +1,9 @@
 """Planner specialist (standalone test bench): schedules days from evidence the caller supplies."""
 
+# Chuyên gia xếp lịch chạy riêng: người gọi đưa sẵn địa điểm và thời tiết. Thuộc 'bàn thử chuyên gia'
+# (app/specialists): mỗi chuyên gia chạy riêng lẻ để thử và chấm điểm, không gọi agent khác. Trang web chính
+# không dùng file này trừ khi ghi rõ.
+
 from app.agents.orchestrator import validate_draft
 from app.core.base import AgentError, BaseAgent
 from app.core.llm.adk_adapter import AdkPlanner

@@ -4,6 +4,9 @@ Exercises the real FastAPI handlers in-process with the real agent and HTTP netw
 transport. Catalog checks are local. Live cases are representative, not exhaustive.
 """
 
+# Kiểm tra độ phủ địa điểm trên nhiều điểm đến bằng nguồn thật, có giới hạn số yêu cầu và lưu bằng chứng.
+# Chạy tay khi cần, gọi nguồn thật; không nằm trong bộ test tự động.
+
 import asyncio
 import csv
 import hashlib
@@ -67,6 +70,7 @@ CASES = [
 ]
 
 
+# Lớp HTTP: gọi thật, giới hạn tổng số yêu cầu, lưu dữ liệu thô làm bằng chứng, dừng khi nguồn báo quá tải.
 class AuditTransport(httpx.AsyncBaseTransport):
     """Actual HTTP, modest hard cap, raw evidence and stop-on-throttle circuit."""
 
@@ -212,6 +216,7 @@ async def audit_case(client, case, index, output):
     return result
 
 
+# Ghi báo cáo kết quả kiểm tra.
 def write_report(output, catalog_results, cases, transport):
     counts = Counter(r["outcome"] for r in cases)
     payload = dict(

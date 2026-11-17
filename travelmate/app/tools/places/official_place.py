@@ -4,6 +4,10 @@ Only server-reviewed source IDs are accepted. No arbitrary URL fetching, LLM
 extraction, seeded hotel facts, invented coordinates or offline fallback.
 """
 
+# Đọc thông tin liên hệ từ trang web chính thức của một địa điểm (hiện chỉ có một nguồn đã kiểm tra:
+# coupole-sapa), làm bằng chứng. Không phải công cụ tìm kiếm chung. Ứng dụng phụ, chạy riêng; trang web
+# chính không dùng file này.
+
 import argparse
 import asyncio
 import hashlib
@@ -42,6 +46,7 @@ class OfficialPlaceEvidence(Model):
     warnings: list[str]
 
 
+# Đọc HTML trang liên hệ (đã kiểm tra cấu trúc trang).
 class ContactParser(HTMLParser):
     """Small versioned adapter for the inspected public contact-page DOM."""
 
@@ -128,6 +133,7 @@ def parse_contact(html, fetched_at, digest):
     )
 
 
+# Tải trang chính thức và trích thông tin liên hệ kèm dấu thời gian.
 class OfficialPlaceTool(BaseAgent[OfficialPlaceRequest, OfficialPlaceEvidence]):
     name = "official_place"
     input_schema, output_schema = OfficialPlaceRequest, OfficialPlaceEvidence

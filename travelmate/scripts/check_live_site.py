@@ -9,6 +9,10 @@ fail. --plan needs TRAVELMATE_API_TOKEN (the operator token, never printed) and 
 Gemini calls. A markdown table goes to $GITHUB_STEP_SUMMARY when that is set.
 """
 
+# Kiểm tra trang đang chạy như một người dùng: máy chủ thức, cấu hình, trang chủ, các trang, bảo vệ API,
+# nguồn dữ liệu miễn phí, và (tuỳ chọn) tạo một lịch trình thật. GitHub Actions chạy script này 3 giờ một
+# lần (.github/workflows/live-check.yml); lỗi thì GitHub gửi email.
+
 import argparse
 import json
 import os
@@ -25,6 +29,7 @@ OK, WARN, FAIL = "ok", "warn", "fail"
 MARK = {OK: "✓", WARN: "!", FAIL: "✗"}
 
 
+# Phản hồi HTTP gọn: mã, header, nội dung.
 class Response:
     def __init__(self, status, headers, body):
         self.status, self.headers, self.body = status, headers, body
@@ -33,6 +38,7 @@ class Response:
         return json.loads(self.body)
 
 
+# Gửi một yêu cầu bằng thư viện chuẩn (không cần cài thêm gì).
 def request(url, data=None, token=None, timeout=30):
     headers = {"User-Agent": USER_AGENT, "Accept": "application/json, text/html"}
     body = None
@@ -50,6 +56,7 @@ def request(url, data=None, token=None, timeout=30):
         return Response(err.code, {k.lower(): v for k, v in err.headers.items()}, err.read().decode("utf-8", "replace"))
 
 
+# Chạy từng mục kiểm tra, ghi đạt/cảnh báo/lỗi cho mỗi mục.
 class Checker:
     def __init__(self, base, token=None, wake_s=180):
         self.base, self.token, self.wake_s = base.rstrip("/") + "/", token, wake_s
@@ -59,6 +66,7 @@ class Checker:
         self.results.append((name, status, detail))
         print(f"{MARK[status]} {name}: {detail}", flush=True)
 
+    # Một mục lỗi không làm dừng các mục sau.
     def check(self, name, fn):
         try:
             status, detail = fn()
@@ -71,6 +79,7 @@ class Checker:
 
     # The site
 
+    # Render miễn phí ngủ sau 15 phút không có ai; yêu cầu đầu tiên đánh thức (khoảng 1 phút).
     def wake(self):
         """A free Render service sleeps after 15 minutes idle; the first request wakes it (~1 min)."""
         started, last = time.monotonic(), "no answer"
@@ -86,6 +95,7 @@ class Checker:
             time.sleep(10)
         raise RuntimeError(f"/health không trả lời trong {self.wake_s} giây ({last})")
 
+    # /health phải báo đúng cấu hình đang chạy thật.
     def configuration(self):
         h = self.health
         problems = []
@@ -99,6 +109,7 @@ class Checker:
             return WARN, "đang dùng SQLite: tài khoản và chuyến đi mất sau mỗi lần deploy"
         return OK, f"live, {h.get('orchestrator')}, {h.get('place_provider')}, {h.get('database')}"
 
+    # Trang chủ và các file giao diện tải được, có header bảo mật.
     def home(self):
         res = request(self.url("/"))
         if res.status != 200 or "TravelMate" not in res.body:
@@ -123,6 +134,7 @@ class Checker:
                 bad.append(f"{path} → {res.status}")
         return (FAIL, "; ".join(bad)) if bad else (OK, "các trang công khai, robots.txt, sitemap.xml")
 
+    # API AI phải từ chối khi không có token (401).
     def guard(self):
         res = request(self.url("/api/v1/plans/preview"), data={})
         if res.status != 401:
@@ -137,6 +149,7 @@ class Checker:
             return FAIL, f"HTTP {res.status}: không tìm được điểm đến, không có thời tiết"
         return OK, "tìm điểm đến và thời tiết"
 
+    # Photon và Wikipedia: chỉ Photon lỗi thì cảnh báo (còn Wikipedia dự phòng), cả hai lỗi thì báo lỗi.
     def place_sources(self):
         photon = wiki = False
         try:
@@ -158,6 +171,7 @@ class Checker:
 
     # One real plan, end to end (Gemini included)
 
+    # Tạo một lịch trình thật bằng token vận hành (tốn một lượt Gemini).
     def plan(self):
         start = date.today() + timedelta(days=14)
         trip = {"destination": "Huế", "start_date": start.isoformat(), "end_date": (start + timedelta(days=1)).isoformat(),
@@ -200,12 +214,14 @@ class Checker:
         return self.results
 
 
+# Bảng kết quả cho trang tóm tắt của GitHub Actions.
 def summary(base, results):
     lines = [f"### Kiểm tra {base}", "", "| | Kiểm tra | Kết quả |", "|---|---|---|"]
     lines += [f"| {MARK[s]} | {name} | {detail.replace('|', '/')} |" for name, s, detail in results]
     return "\n".join(lines) + "\n"
 
 
+# Mã thoát 1 nếu có mục lỗi, để GitHub Actions báo đỏ.
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("url", help="địa chỉ trang, ví dụ https://travelmate.onrender.com")

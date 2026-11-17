@@ -6,6 +6,8 @@ submit gate and validation. The report records only agent, outcome, error type a
 latency: no prompts, drafts or model text.
 """
 
+# So sánh ADK và MAF trên cùng đầu vào: tỉ lệ được chấp nhận, loại lỗi, thời gian.
+
 import statistics
 import time
 from dataclasses import asdict, dataclass
@@ -13,6 +15,7 @@ from dataclasses import asdict, dataclass
 from app.core.models import Context
 
 
+# Kết quả một lần chạy.
 @dataclass
 class EngineRun:
     engine: str
@@ -56,6 +59,7 @@ async def run_once(engine, model_factory, case_name, data, run, timeout):
     return EngineRun(engine, agent.name, case_name, run, outcome, error_type, duration)
 
 
+# Gộp kết quả theo engine.
 def summarize(results, key=lambda r: r.engine):
     summary = {}
     for group in sorted({key(r) for r in results}):
@@ -77,6 +81,7 @@ def summarize(results, key=lambda r: r.engine):
     return summary
 
 
+# Chạy mỗi trường hợp `runs` lần trên mỗi engine.
 async def compare(cases, engines, runs=3, timeout=90):
     """cases: {name: PlannerInput | RecommendationRequest}; engines: {"adk"|"maf": model_factory}.
 
@@ -95,6 +100,7 @@ async def compare(cases, engines, runs=3, timeout=90):
     }
 
 
+# Báo cáo dạng bảng Markdown.
 def markdown(report, model):
     def table(title, rows):
         out = [

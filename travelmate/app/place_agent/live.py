@@ -5,6 +5,10 @@ adk_llm engine delegates search/refinement/selection to the existing ADK agent.
 Neither engine reads example/evaluation files or falls back to demo records.
 """
 
+# Place Agent dữ liệu thật: xác định địa danh, tìm địa điểm (GeoNames/Open-Meteo, Photon/OSM), kiểm tra
+# nguồn và xuất JSON. Có thể chạy theo luồng công cụ cố định hoặc bằng LLM (ADK/MAF). Ứng dụng phụ, chạy
+# riêng; trang web chính không dùng file này.
+
 import argparse
 import asyncio
 import hashlib
@@ -28,6 +32,7 @@ from app.tools.places.structured_hotel import URL_PATTERN, StructuredHotelReader
 logger = logging.getLogger(__name__)
 
 
+# Yêu cầu: điểm đến, loại, bán kính, khu vực, trang kết quả.
 class LivePlaceRequest(Model):
     destination: str = Field(min_length=2, max_length=120)
     category: Literal["hotel", "restaurant", "attraction"] = "hotel"
@@ -53,6 +58,7 @@ class LivePlaceRequest(Model):
         return self
 
 
+# Một bước đã làm, hiển thị trên giao diện để người dùng thấy agent làm gì.
 class PlaceTrace(Model):
     step: Literal["search", "validate", "details", "complete", "failed"]
     at: datetime
@@ -60,6 +66,7 @@ class PlaceTrace(Model):
     record_count: int = 0
 
 
+# Kết quả cùng trạng thái phải khớp với bằng chứng thu được.
 class LivePlaceReport(Model):
     request_id: UUID
     status: Literal[
@@ -103,6 +110,7 @@ class LivePlaceReport(Model):
         return self
 
 
+# Nguồn dùng trình duyệt; mỗi lần chạy có kho bằng chứng riêng.
 class GroundedBrowserProvider:
     """Per-invocation evidence store and real tools for either execution engine."""
 
@@ -190,6 +198,7 @@ class GroundedBrowserProvider:
         return place
 
 
+# Nguồn bản đồ: cố định địa danh và loại; chỉ id thấy từ nguồn mới được trả ra.
 class GeoGroundedProvider:
     """Pinned locality and category; only source-observed IDs may leave the agent."""
 
@@ -321,6 +330,7 @@ class GeoGroundedProvider:
         return exact.model_copy(deep=True)
 
 
+# Agent chính của ứng dụng này.
 class LivePlaceAgent(BaseAgent[LivePlaceRequest, LivePlaceReport]):
     name, input_schema, output_schema = "live_place_agent", LivePlaceRequest, LivePlaceReport
 

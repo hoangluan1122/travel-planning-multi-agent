@@ -1,6 +1,8 @@
 """Browser weather tool: reads the weather card of Cốc Cốc search in an isolated browser
 (Playwright), keeping the card text (and optionally a screenshot) as evidence."""
 
+# Ứng dụng phụ, chạy riêng; trang web chính không dùng file này.
+
 import asyncio
 import logging
 from datetime import datetime, timedelta
@@ -30,6 +32,7 @@ from app.tools.browser_weather.parsing import (
 logger = logging.getLogger(__name__)
 
 
+# Mở trang, tìm địa điểm, đọc từng ngày/giờ, giữ bằng chứng.
 class BrowserWeatherTool(BaseAgent[BrowserWeatherRequest, BrowserWeatherResult]):
     name = "browser_weather_tool"
     input_schema, output_schema = BrowserWeatherRequest, BrowserWeatherResult
@@ -188,6 +191,7 @@ class BrowserWeatherTool(BaseAgent[BrowserWeatherRequest, BrowserWeatherResult])
                 result.warnings.append("Không lưu được ảnh bằng chứng; vẫn giữ nội dung DOM đã đọc.")
 
 
+# Bản công cụ (ADK): chỉ nhận yêu cầu có cấu trúc, không nhận URL tuỳ ý.
 async def get_weather_from_browser(request_json: str) -> dict:
     """ADK function tool: pass BrowserWeatherRequest JSON, never arbitrary URLs.
 

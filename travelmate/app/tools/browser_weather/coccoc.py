@@ -4,6 +4,9 @@ Reads only rendered DOM. No hidden application state, network payload intercepti
 CAPTCHA bypass, personal browser profile or search-snippet forecast extraction.
 """
 
+# Bộ đọc giao diện ô thời tiết Cốc Cốc (kiểm tra với trang thật ngày 21/10/2026). Trang đổi giao diện thì
+# phải cập nhật file này.
+
 import sys
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -35,14 +38,17 @@ SNAPSHOT = """el => {
 }"""
 
 
+# Không thấy ô thời tiết trên trang.
 class CardUnavailable(Exception):
     pass
 
 
+# Trang chặn trình duyệt tự động: dừng lại.
 class BrowserBlocked(Exception):
     pass
 
 
+# Thao tác với ô thời tiết: tìm, đọc, chọn ngày, chọn giờ, chụp ảnh.
 class CoccocCard:
     def __init__(self, page):
         self.page = page
@@ -106,6 +112,7 @@ class CoccocCard:
         await self.page.locator(CARD).screenshot(path=str(path), timeout=3000)
 
 
+# Mở trình duyệt riêng; trang chính chỉ được điều hướng tới https://coccoc.com/search.
 @asynccontextmanager
 async def open_coccoc(*, channel=None, headless=True):
     from playwright.async_api import async_playwright

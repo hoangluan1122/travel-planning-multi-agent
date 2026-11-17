@@ -6,6 +6,8 @@ Lists the tools and the ticket resource, then calls search_places, weather_forec
 ask_guide for Huế. Uses the same .env as the API (live mode needs GOOGLE_API_KEY).
 """
 
+# Gọi máy chủ MCP của TravelMate như Claude Desktop: khởi động nó qua stdio.
+
 import asyncio
 import json
 import sys

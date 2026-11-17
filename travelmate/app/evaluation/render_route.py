@@ -1,5 +1,7 @@
 """Render a saved RoadReport as a self-contained HTML road-line preview."""
 
+# Vẽ kết quả định tuyến đã lưu thành một trang HTML xem trước đường đi.
+
 import argparse
 import math
 from html import escape
@@ -18,6 +20,7 @@ def render(report):
         raise ValueError("Preview requires validated road geometry")
     points = report.path.geometry.coordinates
 
+    # Phép chiếu Mercator: đổi kinh độ/vĩ độ thành toạ độ phẳng để vẽ.
     def mercator(lon, lat):
         lat = max(-85.0, min(85.0, lat))
         return math.radians(lon), math.log(math.tan(math.pi / 4 + math.radians(lat) / 2))

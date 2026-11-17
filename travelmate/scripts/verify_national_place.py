@@ -1,5 +1,8 @@
 """Manual, bounded acceptance checks against live sources and the local UI."""
 
+# Kiểm tra chấp nhận việc tìm địa điểm cả nước, trên nguồn thật và giao diện. Chạy tay khi cần, gọi nguồn
+# thật; không nằm trong bộ test tự động.
+
 import asyncio
 import json
 import sys
