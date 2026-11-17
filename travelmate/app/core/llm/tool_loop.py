@@ -11,6 +11,10 @@ state; is_done() reports whether that happened. Both runtimes then guarantee:
 The caller reads its accepted result after run_tool_loop returns.
 """
 
+# Vòng lặp 'model gọi công cụ' dùng chung cho mọi agent LLM. Model đọc hướng dẫn, gọi công cụ (tool), nhận
+# kết quả, gọi tiếp... đến khi một công cụ chấp nhận bài nộp (is_done() = True). File này đảm bảo ADK và MAF
+# cư xử giống nhau: lỗi công cụ dừng vòng lặp, giới hạn số lần gọi model, dừng ngay khi đã có kết quả.
+
 import asyncio
 import logging
 from contextlib import aclosing
@@ -24,6 +28,8 @@ logger = logging.getLogger(__name__)
 Engine = Literal["adk", "maf"]
 
 
+# Mô tả một vòng lặp: tên, hướng dẫn cho model, danh sách công cụ, câu hỏi đầu tiên, số lần gọi model tối
+# đa, thông báo khi vượt giới hạn, hàm báo 'đã xong'.
 @dataclass
 class ToolLoop:
     name: str
@@ -35,11 +41,13 @@ class ToolLoop:
     is_done: Callable[[], bool]
 
 
+# Mã lỗi tạm thời đáng thử lại: 429 (quá hạn mức) và 5xx (máy chủ lỗi).
 TRANSIENT_STATUS = {429, 500, 502, 503, 504}
 RETRY_DELAYS_S = (2.0, 5.0)  # provider 5xx come in short bursts; back off a little more each time
 RATE_LIMIT_DELAYS_S = (10.0, 20.0)  # 429 quotas are per minute, so wait longer
 
 
+# Lần theo chuỗi lỗi xem có phải lỗi 429 của Gemini không (tối đa 10 tầng).
 def is_rate_limited(exc):
     seen = 0
     while exc is not None and seen < 10:
@@ -51,6 +59,7 @@ def is_rate_limited(exc):
     return False
 
 
+# Lỗi tạm thời (mạng, 5xx, 429) thì thử lại; lỗi nghiệp vụ (AgentError) thì không.
 def is_transient(exc):
     """A provider hiccup worth one retry: 5xx/429 from the model API or a network timeout.
 
@@ -72,6 +81,8 @@ def is_transient(exc):
     return False
 
 
+# Chạy vòng lặp trên engine đã chọn; lỗi tạm thời được thử lại tối đa `retries` lần, chờ 2-5 giây (hoặc
+# 10-20 giây nếu bị giới hạn 429).
 async def run_tool_loop(engine: Engine, model_factory, loop: ToolLoop, context, retries=2) -> None:
     """model_factory returns an ADK model (engine adk) or a MAF chat client (engine maf).
 
@@ -98,6 +109,8 @@ async def run_tool_loop(engine: Engine, model_factory, loop: ToolLoop, context, 
             await asyncio.sleep(delays[min(attempt, len(delays) - 1)])
 
 
+# Bản chạy bằng Google ADK: tạo LlmAgent + phiên tạm trong bộ nhớ, đọc sự kiện đến khi is_done(), cuối cùng
+# xoá phiên.
 async def _run_adk(model_factory, loop, context):
     from google.adk.agents import LlmAgent
     from google.adk.agents.invocation_context import LlmCallsLimitExceededError
@@ -132,6 +145,8 @@ async def _run_adk(model_factory, loop, context):
             await sessions.delete_session(app_name=loop.name, user_id="request", session_id=session_id)
 
 
+# Bản chạy bằng Microsoft Agent Framework. MAF mặc định cư xử khác ADK nên cần hai middleware bên dưới để
+# giữ cùng đảm bảo.
 async def _run_maf(client_factory, loop, context):
     """MAF defaults differ from ADK in three ways; the middleware below restores the guarantees.
 
@@ -150,6 +165,7 @@ async def _run_maf(client_factory, loop, context):
         MiddlewareTermination,
     )
 
+    # Đếm số lần gọi model; vượt giới hạn thì dừng bằng AgentError.
     class ModelCallBudget(ChatMiddleware):
         def __init__(self):
             self.calls = 0
@@ -160,6 +176,8 @@ async def _run_maf(client_factory, loop, context):
                 raise AgentError(loop.budget_message)
             await call_next()
 
+    # Công cụ báo AgentError thì dừng cả vòng lặp (MAF mặc định gửi lỗi lại cho model và chạy tiếp); bài nộp
+    # được chấp nhận thì kết thúc ngay.
     class FailClosedTools(FunctionMiddleware):
         async def process(self, call_context, call_next):
             name = call_context.function.name
@@ -179,6 +197,7 @@ async def _run_maf(client_factory, loop, context):
             if loop.is_done():
                 raise MiddlewareTermination(f"{loop.name} accepted output")
 
+    # Mỗi lần chạy một client mới, để giới hạn và middleware không lẫn giữa các yêu cầu chạy song song.
     client = client_factory()
     # Backstop only: ModelCallBudget is the authoritative limit.
     client.function_invocation_configuration["max_iterations"] = loop.max_llm_calls
@@ -191,6 +210,7 @@ async def _run_maf(client_factory, loop, context):
     )
     try:
         await agent.run(loop.message, session=agent.create_session(session_id=str(context.request_id)))
+    # Lấy lại AgentError gốc bên trong lỗi middleware của MAF.
     except MiddlewareFailure as exc:
         if loop.is_done():
             return

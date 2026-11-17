@@ -4,6 +4,8 @@ Same tools, instruction and submit gate as AdkPlanner; app/core/llm/tool_loop.py
 ADK guarantees (fail-closed budgets, exact model-call limit, stop on acceptance).
 """
 
+# Bản MAF của planner: giống AdkPlanner, chỉ khác engine.
+
 from app.core.llm.adk_adapter import _Planner
 
 

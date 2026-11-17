@@ -7,6 +7,9 @@ GET  /api/v1/plans/jobs/{id}    its stage, then its result
 POST /api/v1/plans/preview      a plan in one request (kept for scripts and the live check)
 """
 
+# Endpoint địa điểm và lịch trình. Trang web dùng /plans/jobs (chạy nền, xem tiến độ); /plans/preview trả
+# lịch trình trong một yêu cầu, giữ lại cho script và kiểm tra trang thật.
+
 import asyncio
 import logging
 
@@ -20,11 +23,14 @@ from app.core.models import PlaceResult, PlaceSearchRequest, PlanResponse, TripR
 logger = logging.getLogger(__name__)
 
 
+# Tạo nhóm endpoint. Các hàm bên trong dùng biến của hàm ngoài (provider, orchestrator, jobs...).
 def create_plans_router(deps: ApiDeps, provider, orchestrator, jobs, photos=None):
     router = APIRouter()
+    # Gắn vào endpoint nào thì endpoint đó cần token hoặc đăng nhập.
     authorized = [Depends(deps.authorize)]
     store = deps.store
 
+    # Chuyển hướng tới ảnh Google mà không lộ khoá Google Maps.
     @router.get("/api/v1/places/photo", include_in_schema=False)
     async def place_photo(ref: str):
         # No bearer token: <img> tags cannot send one. Only photo names this server returned
@@ -39,6 +45,8 @@ def create_plans_router(deps: ApiDeps, provider, orchestrator, jobs, photos=None
             raise HTTPException(404, "Unknown photo")
         return RedirectResponse(uri, status_code=302, headers={"Cache-Control": "private, max-age=3000"})
 
+    # Tìm địa điểm theo từ khoá (ví dụ 'mì Quảng'); lỗi được đổi thành mã HTTP rõ ràng: 504 quá giờ, 502
+    # nguồn lỗi.
     @router.post("/api/v1/places/search", response_model=PlaceResult, dependencies=authorized)
     async def search_places(query: PlaceSearchRequest):
         try:
@@ -53,6 +61,7 @@ def create_plans_router(deps: ApiDeps, provider, orchestrator, jobs, photos=None
         except Exception:
             raise HTTPException(502, "Place lookup failed") from None
 
+    # Tạo lịch trình và chờ đến khi xong. Hạn mức được kiểm tra trước, trừ sau khi thành công.
     @router.post("/api/v1/plans/preview", response_model=PlanResponse, dependencies=authorized)
     async def preview(trip: TripRequest, request: Request, credentials: Credentials):
         owner = await deps.quota_owner(request, credentials, "plan")
@@ -69,6 +78,7 @@ def create_plans_router(deps: ApiDeps, provider, orchestrator, jobs, photos=None
             log_plan_failure("plan_preview", exc)
             raise HTTPException(502, "Planning failed; check provider configuration and retry") from None
 
+    # Endpoint trang web dùng. Trả về ngay mã job (202); trình duyệt hỏi tiến độ mỗi 2 giây.
     @router.post("/api/v1/plans/jobs", status_code=202, dependencies=authorized)
     async def start_plan(trip: TripRequest, request: Request, credentials: Credentials):
         """Start a plan in the background; poll GET /api/v1/plans/jobs/{job_id} for its stage and result.
@@ -78,12 +88,15 @@ def create_plans_router(deps: ApiDeps, provider, orchestrator, jobs, photos=None
         running job's id.
         """
         owner, user = await deps.job_owner(request, credentials)
+        # Mỗi người chỉ một lịch trình đang tạo; trả 409 kèm mã job đang chạy để trang theo dõi tiếp.
         running = jobs.running_for(owner)
         if running is not None:
             raise HTTPException(409, {"message": "Bạn đang có một lịch trình đang được tạo. Đợi xong rồi tạo tiếp.",
                                       "job_id": running.id})
         quota = await deps.quota_owner(request, credentials, "plan")
 
+        # Phần việc chạy nền: tạo lịch, lưu địa điểm, trừ lượt, lưu vào 'Chuyến đi của tôi' nếu đã đăng
+        # nhập. Mọi lỗi được ghi vào job thay vì ném ra ngoài.
         async def work(job):
             try:
                 plan = await orchestrator.plan(trip)
@@ -91,6 +104,7 @@ def create_plans_router(deps: ApiDeps, provider, orchestrator, jobs, photos=None
                 await deps.charge(quota, "plan")
                 result = plan.model_dump(mode="json")
                 if user is not None:
+                    # Báo tiến độ 'Đang lưu' cho trang.
                     job.update("saving", {})
                     try:
                         saved = await asyncio.to_thread(
@@ -110,6 +124,7 @@ def create_plans_router(deps: ApiDeps, provider, orchestrator, jobs, photos=None
 
         return jobs.start(owner, work).view()
 
+    # Trả trạng thái job: đang ở bước nào, hoặc kết quả, hoặc lỗi.
     @router.get("/api/v1/plans/jobs/{job_id}", dependencies=authorized)
     async def plan_job(job_id: str, request: Request, credentials: Credentials):
         owner, _ = await deps.job_owner(request, credentials)

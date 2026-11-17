@@ -5,6 +5,8 @@ returns a new GeminiChatClient. The underlying google-genai client is shared wit
 one factory's lifetime and closed when the context exits.
 """
 
+# Tạo client Gemini cho Microsoft Agent Framework từ khoá API và tên model.
+
 from contextlib import asynccontextmanager
 
 

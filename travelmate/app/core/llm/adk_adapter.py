@@ -1,10 +1,14 @@
 """The day-scheduling LLM on Google ADK: a bounded tool loop that only accepts validated drafts."""
 
+# Bọc vòng lặp xếp lịch cho engine ADK. Lớp _Planner dùng chung cho cả ADK và MAF (maf_adapter.py).
+
 from app.agents.itinerary_tools import PLANNER_INSTRUCTION, make_planner_tools
 from app.core.base import AgentError
 from app.core.llm.tool_loop import ToolLoop, run_tool_loop
 
 
+# Mỗi lần plan() tạo công cụ và trạng thái mới, nên các yêu cầu không ảnh hưởng nhau. Chỉ bản nháp đã qua
+# kiểm tra mới được nhận.
 class _Planner:
     """Request-isolated planner tool loop; only validated submissions are accepted."""
 
@@ -17,6 +21,7 @@ class _Planner:
         self.max_llm_calls = max_llm_calls
         self.max_submissions = max_submissions
 
+    # Chạy vòng lặp; không có bản nháp hợp lệ thì báo lỗi.
     async def plan(self, data, context):
         state, inspect_trip, submit_itinerary = make_planner_tools(data, context, self.max_submissions)
         loop = ToolLoop(
@@ -34,6 +39,7 @@ class _Planner:
         return state.accepted
 
 
+# ADK nhận thẳng tên model (ví dụ 'gemini-3.5-flash-lite').
 class AdkPlanner(_Planner):
     """ADK engine. Takes an ADK model instance or model name (not a factory)."""
 

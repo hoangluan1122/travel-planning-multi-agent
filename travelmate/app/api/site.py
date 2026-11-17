@@ -5,6 +5,10 @@ The web app is one HTML page (frontend/travelmate-v2/index.html) that shows a vi
 server, so links shared in chat apps and search results look right without JavaScript.
 """
 
+# Trang web công khai. Cả trang là một file index.html; mỗi màn hình là một ?view=. Máy chủ điền sẵn tiêu
+# đề, mô tả và thẻ chia sẻ (Open Graph) cho từng trang công khai, để Google và Facebook/Zalo hiển thị đúng
+# mà không cần chạy JavaScript.
+
 import asyncio
 import html
 from pathlib import Path
@@ -14,9 +18,11 @@ from fastapi.responses import HTMLResponse, PlainTextResponse, RedirectResponse,
 
 from app.api.deps import ApiDeps, Credentials
 
+# Thư mục frontend/ nằm cạnh thư mục app/.
 FRONTEND = Path(__file__).resolve().parent.parent.parent / "frontend"
 INDEX = FRONTEND / "travelmate-v2" / "index.html"
 # Pages anyone can read; search engines index these and nothing else.
+# Trang được phép xuất hiện trên Google: (tiêu đề, mô tả).
 PUBLIC_PAGES = {
     "home": ("TravelMate — Lên kế hoạch du lịch cùng AI",
              "Lập lịch trình du lịch Việt Nam theo từng ngày, ước tính chi phí so với ngân sách, xem thời tiết "
@@ -32,6 +38,7 @@ PUBLIC_PAGES = {
 }
 
 
+# Thay chỗ đánh dấu <!--SEO--> trong index.html bằng thẻ meta của trang. html.escape chống chèn mã HTML.
 def page_html(view, base):
     """index.html with the title, description, canonical link and share preview of one page."""
     text = INDEX.read_text("utf-8")
@@ -57,10 +64,12 @@ def page_html(view, base):
     return text[:start] + f'<meta name="description" content="{description}">' + text[end:]
 
 
+# Nhóm endpoint của trang web.
 def create_site_router(deps: ApiDeps):
     router = APIRouter()
     settings, store = deps.settings, deps.store
 
+    # Dùng cho Render và kiểm tra trang thật: máy chủ còn sống và đang chạy cấu hình nào (không có bí mật).
     @router.get("/health")
     async def health():
         """Liveness plus the configuration the live check verifies (no secrets)."""
@@ -76,6 +85,7 @@ def create_site_router(deps: ApiDeps):
             "signup_open": settings.travelmate_signup_open,
         }
 
+    # Thông tin hiển thị ở trang Liên hệ, Bảng giá, Điều khoản.
     @router.get("/api/v1/site")
     async def site():
         """What the public pages show: who runs the site, how to reach them, the daily limits."""
@@ -87,6 +97,7 @@ def create_site_router(deps: ApiDeps):
             "signup_open": settings.travelmate_signup_open,
         }
 
+    # Số lượt AI đã dùng hôm nay; admin không bị giới hạn (limit None).
     @router.get("/api/v1/me/usage")
     async def my_usage(request: Request, credentials: Credentials):
         """Today's AI uses of the signed-in user and their limits (None: not limited)."""
@@ -99,20 +110,24 @@ def create_site_router(deps: ApiDeps):
                        "limit": None if admin or not deps.daily_limit(kind) else deps.daily_limit(kind)}
                 for kind in ("plan", "chat")}
 
+    # Trang chủ và mọi màn hình: cùng một file HTML, khác phần SEO.
     @router.get("/", include_in_schema=False)
     async def frontend(request: Request, view: str = "home"):
         return HTMLResponse(page_html(view, deps.public_base(request)), headers={"Cache-Control": "no-cache"})
 
+    # Chuyển hướng vĩnh viễn (301) từ địa chỉ cũ.
     @router.get("/ui/travelmate-v2/index.html", include_in_schema=False)
     async def old_address(request: Request):
         # The site lives at /; old links and bookmarks keep working.
         query = request.url.query
         return RedirectResponse("/" + (f"?{query}" if query else ""), status_code=301)
 
+    # Cho phép máy tìm kiếm đọc trang, cấm đọc /api/.
     @router.get("/robots.txt", include_in_schema=False)
     async def robots(request: Request):
         return PlainTextResponse(f"User-agent: *\nDisallow: /api/\nSitemap: {deps.public_base(request)}/sitemap.xml\n")
 
+    # Danh sách trang công khai cho máy tìm kiếm.
     @router.get("/sitemap.xml", include_in_schema=False)
     async def sitemap(request: Request):
         base = html.escape(deps.public_base(request))
@@ -125,6 +140,8 @@ def create_site_router(deps: ApiDeps):
     return router
 
 
+# Middleware: chạy cho MỌI phản hồi. nosniff, chống nhúng trang vào iframe (DENY), tắt camera/micro/vị trí,
+# bắt buộc HTTPS (HSTS).
 async def security_headers(request, call_next):
     """HTTP middleware: hardening headers for a public site, and no stale UI files."""
     response = await call_next(request)

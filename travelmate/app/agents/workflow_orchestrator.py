@@ -11,6 +11,10 @@ both (fan-in). A new Workflow is built per request: workflow instances keep run
 state and are not meant to be shared by concurrent requests.
 """
 
+# Cách điều phối 'workflow': cùng luồng như orchestrator.py nhưng dựng thành đồ thị của Microsoft Agent
+# Framework. Mỗi bước là một executor; địa điểm và thời tiết chạy song song (fan-out), xếp hạng chờ cả hai
+# (fan-in).
+
 from dataclasses import dataclass, replace
 
 from app.agents.orchestrator import checked_places, checked_weather, plan_response, validate_draft
@@ -29,6 +33,7 @@ from app.core.models import (
 )
 
 
+# Gói dữ liệu đi qua các bước; mỗi bước điền phần của mình.
 @dataclass
 class PlanState:
     """Message passed along the graph; each step fills in its own field."""
@@ -47,6 +52,7 @@ class WorkflowOrchestrator:
         self.registry, self.mode, self.timeout = registry, mode, timeout
         self.checkpoint_storage = checkpoint_storage
 
+    # Dựng đồ thị: memory -> (place, weather) -> recommendation -> planner -> validate -> budget.
     def build(self, context):
         from typing import Never
 
@@ -122,6 +128,7 @@ class WorkflowOrchestrator:
             .build()
         )
 
+    # Chạy đồ thị và lấy PlanResponse ở bước cuối.
     async def plan(self, trip):
         context = Context()
         result = await self.build(context).run(trip)

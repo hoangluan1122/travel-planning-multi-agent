@@ -1,5 +1,8 @@
 """Budget agent: whole-trip cost against the budget, with savings when it does not fit."""
 
+# Agent chi phí: ước tính chi phí cả chuyến (vé có nguồn + giá tham khảo cho lưu trú, ăn uống, đi lại theo
+# mức chi tiêu) rồi so với ngân sách. Không vừa ngân sách thì gợi ý cắt giảm.
+
 import math
 from decimal import Decimal
 
@@ -12,6 +15,7 @@ COVERED = {"lodging": "Lưu trú", "food": "Ăn uống", "transport": "Di chuy�
 PART_LABELS = {"lodging": "Lưu trú", "food": "Ăn uống", "transport": "Di chuyển tại chỗ", "other": "Khoản khác"}
 
 
+# Định dạng tiền: 1500000 -> '1.500.000 ₫'.
 def vnd(value):
     return f"{Decimal(value):,.0f} ₫".replace(",", ".")
 
@@ -27,6 +31,8 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
 
     name, input_schema, output_schema = "budget", BudgetInput, BudgetResult
 
+    # Mỗi phần chi phí thành một BudgetLine có khoảng thấp-cao. Chi phí người dùng tự nhập thay cho giá tham
+    # khảo cùng loại.
     async def execute(self, data, context):
         trip = data.trip
         people = trip.travelers
@@ -201,6 +207,7 @@ class BudgetAgent(BaseAgent[BudgetInput, BudgetResult]):
             reference_area=city["label"] if city else None,
         )
 
+    # Gợi ý cắt giảm cụ thể, khoản lớn nhất trước; không tự áp dụng vào lịch.
     @staticmethod
     def savings(style, reference_parts, user, paid, data, over):
         """Concrete cuts off the high estimate, biggest first; none is applied automatically."""

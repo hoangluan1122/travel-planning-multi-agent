@@ -1,6 +1,9 @@
 """Data shapes shared by agents, tools and the API (Pydantic): trip request, places,
 weather, draft days, budget and the final PlanResponse. Every model rejects unknown fields."""
 
+# Mọi dạng dữ liệu đi qua hệ thống, viết bằng Pydantic. Pydantic tự kiểm tra kiểu, độ dài, khoảng giá trị;
+# dữ liệu sai bị từ chối ngay ở cửa vào. Đọc file này trước để hiểu agent trao đổi những gì.
+
 from datetime import date, datetime
 from decimal import Decimal
 from typing import Annotated, Literal
@@ -8,14 +11,18 @@ from uuid import UUID, uuid4
 
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
+# Chuỗi ngắn: tự cắt khoảng trắng hai đầu, 1-200 ký tự.
 ShortText = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=200)]
+# Mức chi tiêu: tiết kiệm / vừa phải / cao cấp.
 TravelStyle = Literal["budget", "mid", "high"]
 
 
+# Lớp cha của mọi model: từ chối trường lạ (extra='forbid') và số vô cực/NaN.
 class Model(BaseModel):
     model_config = ConfigDict(extra="forbid", allow_inf_nan=False)
 
 
+# Yêu cầu tạo chuyến đi mà người dùng nhập trên trang.
 class TripRequest(Model):
     destination: str = Field(min_length=2, max_length=200)
     start_date: date
@@ -27,6 +34,7 @@ class TripRequest(Model):
     # Spending level for the reference lodging/food/transport costs.
     travel_style: TravelStyle = "mid"
 
+    # Ngày đi không ở quá khứ; chuyến đi dài 1-14 ngày.
     @model_validator(mode="after")
     def validate_dates(self):
         if not self.destination.strip():
@@ -38,10 +46,12 @@ class TripRequest(Model):
         return self
 
 
+# Thông tin đi kèm mỗi yêu cầu; request_id dùng để nối log và trace.
 class Context(Model):
     request_id: UUID = Field(default_factory=uuid4)
 
 
+# Yêu cầu tìm địa điểm theo loại và từ khoá (trang Khám phá, chat).
 class PlaceSearchRequest(Model):
     destination: str = Field(min_length=2, max_length=200)
     category: Literal["attraction", "hotel", "restaurant"] = "attraction"
@@ -58,12 +68,14 @@ class PlaceSearchRequest(Model):
         return self
 
 
+# Sở thích dùng để xếp hạng: từ yêu cầu, có thể gộp thêm sở thích đã lưu.
 class Preferences(Model):
     interests: list[str]
     source: Literal["current_request_only", "request_and_saved_memory"] = "current_request_only"
     warnings: list[str] = Field(default_factory=list)
 
 
+# Ảnh của một địa điểm kèm ghi công tác giả (bắt buộc với ảnh Wikimedia).
 class PlacePhoto(Model):
     """A displayable image: an https URL or a same-origin proxy path, with its credit."""
 
@@ -74,6 +86,7 @@ class PlacePhoto(Model):
     illustration: bool = False
 
 
+# Khoảng giá mỗi người do nguồn cung cấp.
 class PriceRange(Model):
     """Per-person price range reported by the source (e.g. Google Places priceRange)."""
 
@@ -81,6 +94,7 @@ class PriceRange(Model):
     high_vnd: Decimal | None = Field(default=None, ge=0)
 
 
+# Giá vé lấy từ bảng giá có nguồn trích dẫn.
 class TicketInfo(Model):
     """Entrance fee from the curated, cited table in app/data/ticket_prices.json."""
 
@@ -94,6 +108,7 @@ class TicketInfo(Model):
     checked: date
 
 
+# Một địa điểm: điểm tham quan, quán ăn hoặc nơi ở. Trường nào nguồn không có thì để None, không bịa.
 class Place(Model):
     id: ShortText
     name: ShortText
@@ -120,6 +135,7 @@ class Place(Model):
     ticket: TicketInfo | None = None
 
 
+# Kết quả tìm địa điểm: danh sách địa điểm, cảnh báo cho người dùng và nơi ở.
 class PlaceResult(Model):
     places: list[Place]
     warnings: list[str] = Field(default_factory=list)
@@ -133,6 +149,7 @@ class PlaceResult(Model):
         return self
 
 
+# Thời tiết một ngày; weather_code theo chuẩn WMO của Open-Meteo.
 class WeatherDay(Model):
     date: date
     weather_code: int
@@ -143,11 +160,13 @@ class WeatherResult(Model):
     warnings: list[str] = Field(default_factory=list)
 
 
+# Đầu vào agent xếp hạng: địa điểm + sở thích.
 class RecommendationInput(Model):
     places: PlaceResult
     preferences: Preferences
 
 
+# Một hoạt động trong ngày: địa điểm nào, từ phút thứ mấy đến phút thứ mấy (540 = 9:00).
 class Activity(Model):
     place_id: str
     start_minute: int = Field(ge=0, le=1439)
@@ -160,15 +179,18 @@ class Activity(Model):
         return self
 
 
+# Một ngày trong lịch: 1-8 hoạt động.
 class Day(Model):
     date: date
     activities: list[Activity] = Field(min_length=1, max_length=8)
 
 
+# Bản nháp lịch trình: 1-14 ngày.
 class Draft(Model):
     days: list[Day] = Field(min_length=1, max_length=14)
 
 
+# Mọi thứ planner cần để xếp lịch.
 class PlannerInput(Model):
     trip: TripRequest
     places: PlaceResult
@@ -180,6 +202,7 @@ class PlannerInput(Model):
     # Problems the self-check found in a previous draft (metacognition); fix them if possible.
     feedback: list[str] = Field(default_factory=list, max_length=10)
 
+    # Ràng buộc chỉ được nhắc tới địa điểm có trong danh sách; ngày thời tiết phải nằm trong chuyến đi.
     @model_validator(mode="after")
     def consistent_evidence(self):
         ids = {p.id for p in self.places.places}
@@ -197,6 +220,7 @@ class PlannerInput(Model):
         return self
 
 
+# Khung giờ được phép ghé một địa điểm (ví dụ giờ mở cửa).
 class ScheduleWindow(Model):
     opens_minute: int = Field(ge=0, le=1439)
     closes_minute: int = Field(ge=1, le=1440)
@@ -209,6 +233,7 @@ class ScheduleWindow(Model):
         return self
 
 
+# Luật xếp lịch: giờ bắt đầu/kết thúc ngày, số hoạt động tối đa, điểm bắt buộc/loại trừ.
 class ScheduleConstraints(Model):
     day_start_minute: int = Field(default=0, ge=0, le=1439)
     day_end_minute: int = Field(default=1440, ge=1, le=1440)
@@ -230,9 +255,12 @@ class ScheduleConstraints(Model):
         return self
 
 
+# PlannerInput nhắc tới ScheduleConstraints trước khi lớp này được khai báo; dòng này cho Pydantic giải
+# quyết tham chiếu đó.
 PlannerInput.model_rebuild()
 
 
+# Chi phí người dùng tự biết, thay cho giá tham khảo cùng loại.
 class UserCost(Model):
     """A cost the user knows (hotel booked, food budget…); replaces the reference for its category."""
 
@@ -241,6 +269,7 @@ class UserCost(Model):
     amount_vnd: int = Field(gt=0, le=10_000_000_000)
 
 
+# Đầu vào agent ngân sách.
 class BudgetInput(Model):
     trip: TripRequest
     draft: Draft
@@ -250,6 +279,7 @@ class BudgetInput(Model):
     lodging_per_night_vnd: Decimal | None = Field(default=None, gt=0, max_digits=14, decimal_places=2)
 
 
+# Một dòng chi phí. kind: sourced = có nguồn, reference = giá tham khảo, user = người dùng nhập.
 class BudgetLine(Model):
     """One part of the trip cost; kind says where the number comes from."""
 
@@ -262,12 +292,14 @@ class BudgetLine(Model):
     sources: list[str] = Field(default_factory=list, max_length=5)
 
 
+# Gợi ý tiết kiệm và số tiền bớt được.
 class SavingTip(Model):
     label: str = Field(max_length=200)
     detail: str = Field(default="", max_length=500)
     saving_vnd: Decimal = Field(ge=0)  # off the high estimate
 
 
+# Kết quả tính chi phí cả chuyến so với ngân sách. Giá chưa biết nằm trong unknown_items, không bị coi là 0.
 class BudgetResult(Model):
     currency: Literal["VND"] = "VND"
     known_subtotal: Decimal
@@ -292,20 +324,25 @@ class BudgetResult(Model):
     reference_area: str | None = None
 
 
+# Phần dưới dùng cho Planning pattern: Planning Agent (LLM) viết một kế hoạch gồm các việc con (subtask),
+# mỗi việc giao cho một agent.
 AgentName = Literal["places", "place_search", "weather", "recommendation", "itinerary", "budget"]
 CORE = ("places", "weather", "recommendation", "itinerary", "budget")
 # Dependencies every plan must state, so the plan describes what will really happen.
+# Phụ thuộc bắt buộc: xếp hạng cần địa điểm, xếp lịch cần xếp hạng và thời tiết, ngân sách cần lịch.
 REQUIRED_EDGES = {"recommendation": {"places", "place_search"}, "itinerary": {"recommendation", "weather"},
                   "budget": {"itinerary"}}
 MAX_TARGETED_SEARCHES = 4
 MAX_REPLANS = 2
 
 
+# Tham số của một lượt tìm thêm địa điểm theo yêu cầu.
 class SubTaskInputs(Model):
     category: Literal["attraction", "restaurant", "hotel"] | None = None
     keyword: str = Field(default="", max_length=60)
 
 
+# Một việc con: id, agent làm, mục tiêu, phụ thuộc vào việc nào.
 class TravelSubTask(Model):
     id: str = Field(pattern=r"^[a-z][a-z0-9_-]{0,30}$")
     agent: AgentName
@@ -314,11 +351,14 @@ class TravelSubTask(Model):
     depends_on: list[str] = Field(default_factory=list, max_length=8)
 
 
+# Kế hoạch của Planning Agent. Validator dưới đây là 'cổng nộp bài': kế hoạch sai cấu trúc bị trả lại để LLM
+# sửa.
 class TravelPlan(Model):
     """Planning-pattern plan; validated as a submit gate (see app/agents/planning.py)."""
 
     subtasks: list[TravelSubTask] = Field(min_length=len(CORE), max_length=len(CORE) + MAX_TARGETED_SEARCHES)
 
+    # Kiểm tra kế hoạch chạy được: id không trùng, đủ 5 việc chính, phụ thuộc đúng, không có vòng lặp.
     @model_validator(mode="after")
     def executable(self):
         ids = [t.id for t in self.subtasks]
@@ -350,6 +390,7 @@ class TravelPlan(Model):
                 elif agent not in have:
                     raise ValueError(f"{task.id} ({task.agent}) must depend on a {agent} subtask")
         # Acyclic: repeatedly remove subtasks whose dependencies are done.
+        # Sắp xếp topo: lần lượt bỏ các việc đã đủ phụ thuộc; không bỏ được việc nào nghĩa là có vòng lặp.
         done, pending = set(), dict(by_id)
         while pending:
             ready = [i for i, t in pending.items() if set(t.depends_on) <= done]
@@ -364,12 +405,14 @@ class TravelPlan(Model):
         return [t for t in self.subtasks if t.agent == agent]
 
 
+# Kết quả quan sát sau khi chạy một việc con, đưa lại cho Planning Agent.
 class Observation(Model):
     subtask_id: str
     outcome: Literal["ok", "no_results", "failed"]
     count: int = 0
 
 
+# Một vòng lập kế hoạch (có thể lập lại khi thiếu kết quả).
 class PlanRound(Model):
     round: int
     plan: TravelPlan
@@ -377,12 +420,14 @@ class PlanRound(Model):
     note: str | None = Field(default=None, max_length=300)
 
 
+# Lịch sử lập kế hoạch, hiển thị ở mục 'Agent đã lên kế hoạch thế nào'.
 class PlanningTrace(Model):
     planner: Literal["llm", "default"]
     rounds: list[PlanRound]
 
 
 
+# Kết quả một mục tự kiểm tra (Metacognition).
 class CheckResult(Model):
     id: str = Field(max_length=80)
     label: str = Field(max_length=200)
@@ -395,6 +440,7 @@ class SelfCheckRound(Model):
     checks: list[CheckResult]
 
 
+# Báo cáo tự kiểm tra: số vòng sửa, vòng được chọn, ai xếp lịch.
 class SelfCheckReport(Model):
     """How the planner reviewed and revised its own draft before answering."""
 
@@ -406,6 +452,8 @@ class SelfCheckReport(Model):
     scheduled_by: Literal["llm", "rules", "demo", "manual"] = "llm"
 
 
+# Kết quả cuối cùng trả cho trang: lịch, địa điểm, thời tiết, chi phí, cảnh báo, nơi ở. status luôn là 'bản
+# nháp chưa xác minh'.
 class PlanResponse(Model):
     request_id: UUID
     mode: Literal["demo", "live"]

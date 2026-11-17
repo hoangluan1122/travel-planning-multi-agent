@@ -1,5 +1,7 @@
 """Itinerary agent: places into a day-by-day schedule (LLM when configured, else a demo schedule)."""
 
+# Agent xếp lịch: dùng LLM (Gemini) khi đã cấu hình, không thì xếp lịch mẫu cho chế độ demo.
+
 from datetime import timedelta
 
 from app.core.base import AgentError, BaseAgent

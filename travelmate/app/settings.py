@@ -4,6 +4,10 @@ Every option of the server is listed here with what it does. Values that hold a 
 (API keys, the database URL, the SMTP password) are never logged or returned by the API.
 """
 
+# Toàn bộ cấu hình của máy chủ. pydantic-settings tự đọc biến môi trường và file .env: tên biến là tên thuộc
+# tính viết hoa (ví dụ travelmate_mode -> TRAVELMATE_MODE). Giá trị sai kiểu sẽ làm máy chủ dừng ngay khi
+# khởi động, thay vì chạy với cấu hình hỏng.
+
 from pathlib import Path
 from typing import Literal
 from uuid import UUID
@@ -12,11 +16,14 @@ from pydantic import AliasChoices, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+# Mỗi thuộc tính là một biến cấu hình, kèm giá trị mặc định khi chạy ở máy.
 class Settings(BaseSettings):
+    # Đọc thêm file .env; bỏ qua biến lạ không khai báo ở đây.
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     # --- Mode and AI model ---------------------------------------------------------------
     # demo: labelled sample data, no keys needed; live: real sources and Gemini.
+    # demo: dữ liệu mẫu có nhãn, không cần khoá; live: dữ liệu thật và Gemini.
     travelmate_mode: Literal["demo", "live"] = "demo"
     # Operator token: full API access without an account (scripts, the live check).
     travelmate_api_token: str = ""
@@ -26,15 +33,18 @@ class Settings(BaseSettings):
     google_maps_api_key: str = ""
     gemini_model: str = "gemini-3.5-flash-lite"
     # Agent framework running the LLM agents: Google ADK or Microsoft Agent Framework.
+    # Khung chạy agent LLM. Tên cũ PLANNER_ENGINE vẫn được nhận.
     agent_engine: Literal["adk", "maf"] = Field(
         default="adk", validation_alias=AliasChoices("agent_engine", "planner_engine")
     )
     # How a plan is put together:
     # classic: asyncio pipeline in app/agents/orchestrator.py; workflow: MAF Workflow graph (needs --extra maf);
     # planning: Planning pattern (LLM decomposes the request into subtasks, re-plans on misses).
+    # Cách ghép các agent thành một lịch trình. Render dùng 'planning'.
     travelmate_orchestrator: Literal["classic", "workflow", "planning"] = "classic"
     # Live place/weather source: google (Places API, needs GOOGLE_MAPS_API_KEY) or
     # open_data (OpenStreetMap/Photon + Open-Meteo, no key).
+    # Nguồn địa điểm khi chạy live. Render dùng 'open_data' (miễn phí).
     travelmate_place_provider: Literal["google", "open_data"] = "google"
 
     # --- Memory and tracing --------------------------------------------------------------
@@ -69,9 +79,11 @@ class Settings(BaseSettings):
     travelmate_contact_email: str = ""
     # AI uses per signed-in user per day (Vietnam time); 0 = no limit. Admins and the
     # operator token are not limited. Keeps a free Gemini key from being used up by one account.
+    # Hạn mức mỗi tài khoản mỗi ngày, để khoá Gemini miễn phí không bị một người dùng hết.
     travelmate_daily_plans: int = Field(default=10, ge=0)
     travelmate_daily_chats: int = Field(default=60, ge=0)
 
+    # Kiểm tra địa chỉ công khai: bỏ dấu / cuối, bắt buộc http(s)://.
     @field_validator("travelmate_public_url")
     @classmethod
     def public_url_is_http(cls, value):
@@ -80,6 +92,7 @@ class Settings(BaseSettings):
             raise ValueError("TRAVELMATE_PUBLIC_URL must start with https:// or http://")
         return value
 
+    # Biến để trống trong .env nghĩa là chưa cấu hình (None), không phải lỗi UUID.
     @field_validator("travelmate_memory_user", mode="before")
     @classmethod
     def blank_memory_user_is_unset(cls, value):
