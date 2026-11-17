@@ -1,3 +1,6 @@
+// Giao diện của Place Agent độc lập (cổng 8001): gửi yêu cầu tìm, hiện kết quả kèm nguồn, chọn địa danh khi
+// tên trùng, phân trang, tải JSON. Mọi chữ được chèn bằng textContent nên không chèn được mã HTML.
+
 'use strict';
 const $ = id => document.getElementById(id);
 let lastResult = null;
@@ -7,6 +10,7 @@ let regions = [];
 function node(tag, text, cls) { const el = document.createElement(tag); el.textContent = text; if (cls) el.className = cls; return el; }
 function stamp(value) { const d = new Date(value); return Number.isNaN(d.getTime()) ? 'Chưa có thời điểm' : d.toLocaleString('vi-VN'); }
 function status(text, error = false) { $('status').textContent = text; $('status').dataset.error = String(error); }
+// Vẽ kết quả: mỗi địa điểm một thẻ, ghi rõ thông tin nào chưa xác minh.
 function render(data) {
   lastResult = data; $('cards').replaceChildren();
   for (const place of data.places || []) {
