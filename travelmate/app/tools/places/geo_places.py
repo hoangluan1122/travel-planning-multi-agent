@@ -4,6 +4,12 @@ GeoNames/Open-Meteo resolves populated places. Photon supplies OSM features;
 no public Nominatim dependency and no locality centre substituted for a POI.
 """
 
+# Lớp thấp nhất làm việc với bản đồ miễn phí:
+# - Open-Meteo geocoding (dữ liệu GeoNames) và Photon: đổi tên điểm đến thành toạ độ.
+# - Photon: tìm địa điểm quanh một toạ độ theo loại (tham quan, ăn uống, nơi ở) hoặc từ khoá.
+# - Overpass: tìm di tích/danh thắng theo mọi thẻ OSM (Photon chỉ đánh chỉ mục một thẻ mỗi nơi).
+# PublicGeoClient lo phần lịch sự với máy chủ công cộng: giới hạn tốc độ, bộ nhớ đệm, tạm nghỉ khi lỗi.
+
 import asyncio
 import json
 import math
@@ -22,6 +28,7 @@ from app.core.models import Model, Place
 from app.tools.places.osm_places import ATTRIBUTION, distance_m, normalized, safe_web_url
 from app.tools.places.vietnam_regions import load_catalog, name_key
 
+# Thẻ OpenStreetMap của từng loại địa điểm (ví dụ tourism:museum là điểm tham quan).
 TAGS = {
     "hotel": {
         "tourism:hotel",
@@ -71,6 +78,8 @@ LANDMARK_TYPES = {"religious": "temple", "wood": "attraction", "protected_area":
 # A destination is a settlement or a geographic/tourism landmark, not any
 # business with a matching name. In particular hotels and information booths
 # must not become the centre of a city search.
+# Thẻ được phép làm 'điểm đến': khu dân cư, danh thắng. Khách sạn hay quầy thông tin trùng tên không được
+# làm tâm tìm kiếm.
 DESTINATION_TAGS = {
     "place:city",
     "place:town",
@@ -112,6 +121,7 @@ VIETNAMESE_LETTERS = (
 )
 
 
+# Biểu thức chính quy cho Overpass: tên chứa các từ của từ khoá.
 def name_pattern(keyword):
     """Overpass regex for the keyword's words in a name, as alternations (byte-safe for UTF-8).
 
@@ -136,6 +146,7 @@ def name_pattern(keyword):
     return " +".join(parts)
 
 
+# Loại địa điểm dùng để xếp hạng, lấy từ thẻ danh thắng.
 def landmark_kind(tags):
     """The place type used for ranking: the sight tag, not whichever tag Photon would pick."""
     if tags.get("tourism") and tags["tourism"] != "yes":
@@ -149,6 +160,7 @@ def landmark_kind(tags):
     return "attraction"
 
 
+# Bỏ kết quả tìm mờ không liên quan tới tên đã nhập.
 def relevant_name(query, candidate):
     """Reject fuzzy search noise; aliases affect names only, never coordinates."""
     wanted, actual = name_key(query.split(",")[0]), name_key(candidate)
@@ -159,6 +171,7 @@ def relevant_name(query, candidate):
     return any(name in actual for name in names)
 
 
+# Một điểm đến đã xác định: tên, toạ độ, tỉnh, nguồn, phạm vi (quanh điểm/tỉnh/cả nước).
 class Locality(Model):
     id: str
     name: str
@@ -178,12 +191,14 @@ class Locality(Model):
     coordinate_kind: str = "reference_point"
 
 
+# Tên khớp nhiều nơi hoặc không khớp nơi nào: cần chọn lại. choices là các lựa chọn (có thể rỗng).
 class LocalityChoiceRequired(AgentError):
     def __init__(self, choices, reason):
         self.choices, self.reason = choices, reason
         super().__init__(reason)
 
 
+# Thông tin nguồn của một địa điểm (lấy lúc nào, từ đâu, có từ bộ nhớ đệm không).
 class PlaceMetadata(Model):
     distance_m: float = Field(ge=0)
     address_precision: str
@@ -195,6 +210,7 @@ class PlaceMetadata(Model):
     secondary_sources: list[str] = Field(default_factory=list)
 
 
+# Một client cho mọi máy chủ bản đồ, dùng chung trong cả tiến trình.
 class PublicGeoClient:
     """Single-process bounded cache, coalescing and rate limit for public services.
 
@@ -209,18 +225,23 @@ class PublicGeoClient:
         self._last = {}
         self._cooldown = {}
 
+    # Gọi GET có kiểm soát. Trả về (dữ liệu, thời điểm lấy, có từ bộ nhớ đệm không, địa chỉ đã gọi).
     async def get(self, url, params, ttl=300, timeout=10):
         params = tuple(sorted(params))
         key = (url, params)
         host = httpx.URL(url).host
+        # Mỗi máy chủ một khoá: các yêu cầu tới cùng máy chủ đi lần lượt, máy chủ khác không phải chờ.
         async with self._locks.setdefault(host, asyncio.Lock()):
             now = time.monotonic()
             self._cache = {k: v for k, v in self._cache.items() if v[0] > now}
             if key in self._cache:
                 _, payload, stamp = self._cache[key]
                 return deepcopy(payload), stamp, True, url + "?" + urlencode(params)
+            # Máy chủ vừa lỗi: báo lỗi ngay thay vì chờ nó thêm lần nữa.
             if self._cooldown.get(host, 0) > now:
                 raise AgentError("Source cooldown active")
+            # Giới hạn tốc độ: cách nhau ít nhất `interval` giây (chính sách dùng miễn phí của
+            # Photon/Overpass).
             await asyncio.sleep(max(0, self.interval - (now - self._last.get(host, 0.0))))
             self._last[host] = time.monotonic()
             try:
@@ -243,6 +264,7 @@ class PublicGeoClient:
                         content = bytearray()
                         async for part in response.aiter_bytes():
                             content.extend(part)
+                            # Chặn phản hồi quá lớn (tối đa 1 MB).
                             if len(content) > 1_000_000:
                                 raise ValueError("Source response too large")
                 payload = json.loads(content)
@@ -262,6 +284,7 @@ class PublicGeoClient:
             return payload, stamp, False, url + "?" + urlencode(params)
 
 
+# Các thao tác bản đồ ở mức cao: tìm điểm đến, tìm địa điểm, tìm danh thắng.
 class GeoPlaceService:
     def __init__(
         self,
@@ -275,6 +298,7 @@ class GeoPlaceService:
         self.geocoding_url = geocoding_url
         self.overpass_url = overpass_url
 
+    # Danh thắng có tên quanh điểm đến (Overpass), gần nhất trước.
     async def landmarks(self, location, radius_m, keyword=""):
         """Named sights around a locality from Overpass, nearest first.
 
@@ -320,6 +344,7 @@ class GeoPlaceService:
                 out.append(place)
         return out
 
+    # Đổi một kết quả Overpass thành Place; bỏ nơi không phải điểm tham quan.
     def parse_landmark(self, item, location, radius_m, stamp):
         tags = item.get("tags") or {}
         name = tags.get("name")
@@ -374,6 +399,7 @@ class GeoPlaceService:
         )
         return place, distance, level
 
+    # Thành phố trung tâm của tỉnh khi người dùng nhập tên tỉnh.
     async def province_seat(self, destination):
         """A city inside the current province named by the destination, or None.
 
@@ -430,6 +456,7 @@ class GeoPlaceService:
         seats.sort(key=lambda p: p.feature_code != "OSM:city")  # cities before towns, Photon order kept
         return seats[0] if seats else None
 
+    # Đổi một tỉnh (hoặc cả nước) trong danh mục thành Locality.
     def region_location(self, region):
         return Locality(
             id=region["id"],
@@ -446,6 +473,8 @@ class GeoPlaceService:
             attribution=region["attribution"],
         )
 
+    # Đổi tên điểm đến thành MỘT Locality. Hỏi Open-Meteo (GeoNames) trước, rồi đối chiếu với Photon. Chỉ
+    # trả về khi chắc chắn (đúng một kết quả khớp tên); còn lại ném LocalityChoiceRequired kèm các lựa chọn.
     async def resolve(self, destination, selected_id=None, search_scope="auto"):
         catalog = load_catalog()
         if search_scope == "country" or (
@@ -467,6 +496,7 @@ class GeoPlaceService:
                 if choices
                 else "Chưa khớp tên tỉnh/thành trong danh mục. Thử tên đầy đủ hoặc chọn tìm quanh địa danh.",
             )
+        # Hai nguồn độc lập: một nguồn lỗi vẫn dùng được nguồn kia; cả hai lỗi mới báo lỗi.
         geo_failed = False
         try:
             payload, stamp, _, _ = await self.client.get(
@@ -550,6 +580,7 @@ class GeoPlaceService:
             else "Chưa xác định được địa danh. Thử tên đầy đủ kèm tỉnh/thành hoặc địa danh lân cận.",
         )
 
+    # Tìm điểm đến bằng Photon (chỉ các loại thẻ trong DESTINATION_TAGS).
     async def resolve_photon(self, destination):
         payload, stamp, _, _ = await self.client.get(
             self.photon_url + "/api/",
@@ -609,6 +640,8 @@ class GeoPlaceService:
                 continue
         return list(choices.values())
 
+    # Tìm địa điểm một loại quanh điểm đến: có từ khoá thì tìm trong khung toạ độ, không thì lấy các nơi gần
+    # nhất.
     async def discover(self, location, category, radius_m, keyword=""):
         if location.scope != "nearby":
             return await self.discover_region(location, category, keyword)
@@ -662,6 +695,7 @@ class GeoPlaceService:
         results.sort(key=lambda p: (metadata[p.id].distance_m, normalized(p.name), p.id))
         return results, metadata, skipped
 
+    # Tìm trong cả một tỉnh: chia tỉnh thành vài ô và tìm từng ô (lấy mẫu, không duyệt hết).
     async def discover_region(self, location, category, keyword):
         # Bounded spatial sampling, not exhaustive pagination over the provider index.
         x0, y0, x1, y1 = location.bbox
@@ -737,6 +771,7 @@ class GeoPlaceService:
             ]
         return results, metadata, skipped
 
+    # Đổi một kết quả Photon thành Place, kiểm tra toạ độ và khoảng cách.
     def parse_feature(self, feature, category, location, radius_m, stamp, cache, retrieval):
         if not isinstance(feature, dict):
             raise ValueError("Feature must be an object")

@@ -15,6 +15,10 @@ Not implemented (answered with UnsupportedOperationError): streaming, push notif
 cancelling and listing tasks. Tasks are kept in memory.
 """
 
+# A2A (Agent-to-Agent, bản 1.0, JSON-RPC): agent khác giao việc cho TravelMate. Agent Card tại /.well-
+# known/agent-card.json mô tả TravelMate làm được gì; endpoint /a2a nhận SendMessage và GetTask. Mỗi tin
+# nhắn chạy một lượt của chat nhiều agent.
+
 import logging
 import secrets
 import uuid
@@ -62,6 +66,7 @@ SKILLS = [
 ]
 
 
+# Danh thiếp của agent: tên, mô tả, kỹ năng, cách xác thực.
 def agent_card(base_url, token_required):
     card = {
         "name": "TravelMate",
@@ -88,6 +93,7 @@ def now():
     return datetime.now(UTC).isoformat().replace("+00:00", "Z")
 
 
+# Phản hồi lỗi JSON-RPC.
 def rpc_error(request_id, code, message):
     return JSONResponse({"jsonrpc": "2.0", "id": request_id, "error": {"code": code, "message": message}})
 
@@ -96,16 +102,19 @@ def rpc_result(request_id, result):
     return JSONResponse({"jsonrpc": "2.0", "id": request_id, "result": result})
 
 
+# Agent cần người dùng bổ sung thông tin (ví dụ thiếu ngày đi).
 def needs_input(reply):
     return (reply.agent == "trip_planner" and reply.plan is None) or reply.text.rstrip().endswith("?")
 
 
+# Trạng thái task A2A: hoàn thành, cần thêm thông tin hoặc thất bại.
 def task_state(reply):
     if reply.failed:
         return "TASK_STATE_FAILED"
     return "TASK_STATE_INPUT_REQUIRED" if needs_input(reply) else "TASK_STATE_COMPLETED"
 
 
+# Kết quả có cấu trúc (địa điểm, lịch trình) đính kèm câu trả lời.
 def artifacts_for(reply):
     out = []
     if reply.places:
@@ -139,6 +148,7 @@ def message_text(message):
     return text, None
 
 
+# Các task được giữ trong bộ nhớ (có giới hạn số lượng).
 def create_a2a_router(chat, token):
     router = APIRouter()
     tasks: OrderedDict[str, dict] = OrderedDict()
@@ -158,6 +168,7 @@ def create_a2a_router(chat, token):
     async def card(request: Request):
         return JSONResponse(agent_card(str(request.base_url).rstrip("/"), bool(token)))
 
+    # Xử lý một yêu cầu JSON-RPC: kiểm tra token, phương thức, tham số rồi chạy.
     @router.post("/a2a", include_in_schema=False)
     async def rpc(request: Request):
         version = request.headers.get("A2A-Version")

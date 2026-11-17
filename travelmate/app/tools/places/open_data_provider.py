@@ -6,6 +6,12 @@ Coverage is community data, not an exhaustive or verified list, and the response
 say so.
 """
 
+# Nguồn địa điểm miễn phí đang chạy trên Render (không cần khoá API). Một lần tìm cho một chuyến đi:
+# 1. locate(): đổi tên điểm đến thành toạ độ (có thử bỏ chữ thừa và sửa lỗi gõ).
+# 2. Photon: điểm tham quan và quán ăn quanh trung tâm; Photon lỗi thì lấy điểm tham quan từ Wikipedia.
+# 3. Overpass: di tích, lăng tẩm ở xa trung tâm hơn (chạy song song với bước 2).
+# 4. Nơi ở gần đó, rồi ảnh cho tất cả, rồi giá vé từ bảng có nguồn.
+
 import asyncio
 import re
 import time
@@ -20,6 +26,7 @@ from app.tools.places.vietnam_regions import load_catalog
 from app.tools.places.wiki_places import WikipediaPlaces
 from app.tools.prices.ticket_prices import apply_tickets
 
+# Cảnh báo ghi nguồn OpenStreetMap (bắt buộc theo giấy phép ODbL).
 SOURCE_NOTE = (
     "Địa điểm từ OpenStreetMap qua Photon (dữ liệu cộng đồng, ODbL); có thể thiếu hoặc cũ, "
     "chưa xác minh giờ mở cửa, giá hay tình trạng hoạt động."
@@ -28,15 +35,18 @@ WIKI_NOTE = (
     "Bản đồ OpenStreetMap (Photon) đang quá tải nên điểm tham quan được lấy từ Wikipedia tiếng Việt; "
     "lần này có thể thiếu gợi ý quán ăn và nơi ở. Thử lại sau ít phút để có danh sách đầy đủ."
 )
+# Kết quả xác định điểm đến được nhớ 10 phút (tìm địa điểm và thời tiết dùng chung).
 LOCALITY_TTL_S = 600
 
 
+# Không có nơi nào ở Việt Nam khớp tên người dùng nhập.
 class DestinationNotFound(UserError):
     """No place in Vietnam matches what the traveller typed."""
 
 
 # Lower ranks first. Within a rank the source's distance order is kept, so landmarks beat
 # the nearest park or statue without leaving the search radius.
+# Thứ hạng loại điểm tham quan: số nhỏ là danh thắng mạnh hơn.
 ATTRACTION_RANK = {
     "museum": 0, "castle": 0, "tomb": 0, "temple": 0, "archaeological_site": 1, "attraction": 1, "gallery": 1, "viewpoint": 1,
     "monument": 2, "zoo": 2, "theme_park": 2, "aquarium": 2, "beach": 2, "cave_entrance": 2,
@@ -55,11 +65,13 @@ GENERIC_WORDS = ("trung tâm", "centre", "center", "nhà văn hóa")
 CITY_CODES = ("PPLC", "PPLA", "OSM:city", "PPLA2", "OSM:town")
 
 
+# Ưu tiên thành phố/thị xã khi chọn giữa nhiều nơi trùng tên.
 def city_rank(locality):
     code = locality.feature_code
     return CITY_CODES.index(code) if code in CITY_CODES else len(CITY_CODES)
 
 
+# Bỏ bản ghi OSM có tên là ghi chú hoặc mẩu tên, không phải tên địa điểm.
 def plausible_name(name):
     """Drop OSM records whose name is a note or a fragment, not a place name.
 
@@ -76,6 +88,7 @@ def name_key(place):
     return " ".join(place.name.casefold().split())
 
 
+# Bỏ tên rác và tên trùng.
 def unique_plausible(places):
     seen, out = set(), []
     for place in places:
@@ -98,6 +111,7 @@ def sight_like(place):
     return any(word in name for word in SIGHT_AREA_WORDS + HERITAGE_WORDS)
 
 
+# Danh thắng trước, tên có chữ di tích (lăng, chùa, đền...) trước, 'trung tâm' sau cùng.
 def attraction_rank(place):
     """Lower is a stronger sight: kind, heritage words in the name, generic centres last."""
     name = place.name.casefold() + " "
@@ -115,6 +129,8 @@ def rank_candidates(places, category):
     return sorted(places, key=attraction_rank) if category == "attraction" else places
 
 
+# Chọn điểm tham quan: danh thắng trước, nhưng không để một loại (ví dụ bảo tàng) chiếm hết danh sách; công
+# viên có giới hạn riêng.
 def pick_attractions(places, limit, max_parks, max_per_kind=5):
     """Landmarks first, but no single kind (e.g. museums) fills the whole list."""
     rank = attraction_rank
@@ -131,6 +147,7 @@ def pick_attractions(places, limit, max_parks, max_per_kind=5):
     return out
 
 
+# Chọn quán ăn (bữa chính) và quán cà phê theo số lượng cho mỗi loại.
 def pick_food(places, meals, cafes):
     places = unique_plausible(places)
     meal = [p for p in places if MEAL_TYPES & set(p.types)][:meals]
@@ -138,6 +155,8 @@ def pick_food(places, meals, cafes):
     return meal + cafe
 
 
+# Có cùng các hàm như các nguồn khác: search(trip), forecast(trip), search_places(query); agent không cần
+# biết đang dùng nguồn nào.
 class OpenDataProvider:
     """Implements search(trip), forecast(trip) and search_places(query) like the other providers."""
 
@@ -160,6 +179,7 @@ class OpenDataProvider:
         self._localities = {}
         self._lock = asyncio.Lock()
 
+    # Có khoá (lock) để nhiều yêu cầu cùng lúc không tra cùng một tên nhiều lần.
     async def locate(self, destination):
         """Resolve a destination to one locality, picking the top match when ambiguous.
 
@@ -182,6 +202,7 @@ class OpenDataProvider:
             self._localities[key] = (time.monotonic(), location, notes)
             return location, list(notes)
 
+    # Thử lần lượt: tên gốc -> tên bỏ chữ thừa -> tên nổi tiếng gần giống.
     async def resolve_destination(self, destination):
         """(locality, notes) for what the traveller typed, trying the second guesses in order."""
         try:
@@ -208,6 +229,7 @@ class OpenDataProvider:
             "hay tỉnh, ví dụ “Đà Lạt”, “Hạ Long”. TravelMate hiện chỉ lập lịch cho điểm đến trong Việt Nam."
         )
 
+    # Tên khớp nhiều nơi thì chọn nơi phù hợp nhất và ghi chú cho người dùng.
     async def resolve_one(self, destination):
         try:
             return await self.geo.resolve(destination, None, "nearby"), []
@@ -215,6 +237,7 @@ class OpenDataProvider:
             location, note = await self.pick_locality(destination, exc.choices)
             return location, [note]
 
+    # Chọn giữa nhiều nơi trùng tên; với tên tỉnh thì lấy thành phố của tỉnh đó.
     async def pick_locality(self, destination, choices):
         """Choose among ambiguous matches: for a province name, its city, never a namesake village.
 
@@ -249,10 +272,12 @@ class OpenDataProvider:
             "Ghi rõ tỉnh/thành nếu đây không phải nơi bạn muốn."
         )
 
+    # Kết quả tìm cho một chuyến đi (bỏ cờ 'đầy đủ').
     async def search(self, trip):
         result, _ = await self.search_cacheable(trip)
         return result
 
+    # Trả thêm cờ 'đầy đủ' để bộ nhớ đệm biết có nên lưu không.
     async def search_cacheable(self, trip):
         """(PlaceResult, complete): complete is False when a source failed and a fallback filled in,
         so a degraded list is not kept for a day (main.CachingProvider)."""
@@ -265,6 +290,7 @@ class OpenDataProvider:
             if landmarks is not None and not landmarks.done():
                 landmarks.cancel()
 
+    # Phần thân của việc tìm, theo các bước ở đầu file.
     async def _search(self, trip, location, warnings, landmarks):
         places, failures, from_wiki = [], 0, False
         for category, pick in self.pickers.items():
@@ -301,6 +327,7 @@ class OpenDataProvider:
         landmarks_ok = landmarks is None or (landmarks.done() and landmarks.result() is not None)
         return result, bool(places) and not failures and not from_wiki and landmarks_ok
 
+    # Nơi ở gần đó: chỉ tên và vị trí, không có giá phòng.
     async def stays(self, location):
         """Nearby accommodation from OSM: names and locations only, no nightly prices."""
         if not self.stay_limit:
@@ -311,6 +338,7 @@ class OpenDataProvider:
             return []
         return unique_plausible(found)[: self.stay_limit]
 
+    # Lăng tẩm, đền chùa cổ thường nằm xa trung tâm: tìm trong bán kính rộng hơn.
     async def heritage_sites(self, location, already, pending=None):
         """Royal tombs and historic temples often lie outside the city-centre radius.
 
@@ -333,6 +361,7 @@ class OpenDataProvider:
         fresh.sort(key=lambda p: not any(w in p.name.casefold() + " " for w in HERITAGE_WORDS))
         return (landmarks[: (self.heritage + 1) // 2] + fresh)[: self.heritage]
 
+    # Danh thắng từ Overpass; Overpass lỗi thì trả None (nó chỉ bổ sung cho Photon, không bắt buộc).
     async def landmarks(self, location, radius_m, keyword=""):
         """Overpass landmarks, or None when that source is down (it only adds to Photon)."""
         try:
@@ -340,6 +369,8 @@ class OpenDataProvider:
         except (AgentError, TimeoutError):
             return None
 
+    # Tìm theo từ khoá (trang Khám phá, chat, Planning Agent). Photon tìm mờ nên kết quả được lọc lại theo
+    # tên, có xét dấu tiếng Việt.
     async def search_places(self, query):
         location, warnings = await self.locate(query.destination)
         found, _, _ = await self.geo.discover(location, query.category, query.radius_m, query.keyword)
@@ -389,6 +420,7 @@ class OpenDataProvider:
         found = await self.images.enrich(found) if self.images else found
         return PlaceResult(places=found, warnings=warnings + [SOURCE_NOTE])
 
+    # Dự báo thời tiết Open-Meteo cho từng ngày của chuyến đi.
     async def forecast(self, trip):
         from app.specialists.weather import WeatherRequest, WeatherSpecialist
 
@@ -416,6 +448,7 @@ class OpenDataProvider:
         return WeatherResult(days=days, warnings=warnings + ["Thời tiết: dự báo Open-Meteo."])
 
 
+# Các từ của một chuỗi, viết thường.
 def words(text):
     return re.findall(r"\w+", unicodedata.normalize("NFC", text.casefold()))
 
@@ -435,6 +468,7 @@ KEYWORD_ENGLISH = {"chay": "vegetarian", "đồ chay": "vegetarian", "hải sả
                    "chùa": "pagoda", "bảo tàng": "museum", "chợ": "market", "biển": "beach"}
 
 
+# Tên chứa đúng từ khoá (cùng dấu), hoặc loại địa điểm đúng là thứ từ khoá nói tới.
 def keyword_matches(place, keyword):
     """Name contains the keyword with the same accents, or the place's type is what the keyword names."""
     wanted = words(keyword)
@@ -445,6 +479,7 @@ def keyword_matches(place, keyword):
     return bool(kinds & {t.casefold() for t in place.types})
 
 
+# Tên chứa các từ của từ khoá, bỏ qua dấu.
 def loosely_named(place, keyword):
     """The keyword's words appear in the name, ignoring accents ("pho" in "Phở Quân", not in "Phong")."""
     wanted = [plain(w) for w in words(keyword)]
@@ -452,6 +487,7 @@ def loosely_named(place, keyword):
     return bool(wanted) and any(name[i:i + len(wanted)] == wanted for i in range(len(name)))
 
 
+# Bỏ kết quả chỉ khớp khi bỏ dấu ('phở' không khớp 'phố').
 def keyword_filter(places, keyword):
     """Drop fuzzy matches that only agree once diacritics are removed.
 

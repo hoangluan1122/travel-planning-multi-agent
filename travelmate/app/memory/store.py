@@ -11,6 +11,11 @@ Security notes:
 - Every query is parameterised. Calls are synchronous; the API runs them in a worker thread.
 """
 
+# Cơ sở dữ liệu sản phẩm: tài khoản, phiên đăng nhập, chuyến đi, yêu thích, địa điểm, đánh giá, báo cáo,
+# lượt dùng AI, tin nhắn liên hệ, bộ nhớ đệm địa điểm và nhật ký admin. Chạy trên PostgreSQL (Render + Neon)
+# hoặc một file SQLite khi chạy ở máy, với cùng một bộ câu lệnh SQL. Các hàm ở đây là hàm đồng bộ (chặn);
+# API gọi chúng qua asyncio.to_thread để không chặn máy chủ.
+
 import hashlib
 import hmac
 import json
@@ -95,10 +100,12 @@ CREATE TABLE IF NOT EXISTS place_cache (
 VIETNAM = timezone(timedelta(hours=7))
 
 
+# Ngày hôm nay theo giờ Việt Nam (hạn mức AI reset lúc 0 giờ VN).
 def today_vn():
     return datetime.now(VIETNAM).date().isoformat()
 
 
+# Thư viện PostgreSQL là tuỳ chọn; không cài thì chỉ dùng SQLite.
 try:  # PostgreSQL driver is optional (extra "postgres")
     import psycopg
     from psycopg.rows import dict_row
@@ -113,12 +120,15 @@ def is_postgres_url(value):
     return str(value).startswith(("postgresql://", "postgres://"))
 
 
+# Một kết nối, dùng như nhau trên SQLite và PostgreSQL. Dùng với `with`: thành công thì commit, lỗi thì
+# rollback.
 class Db:
     """One connection with the same interface on SQLite and PostgreSQL; commits on success."""
 
     def __init__(self, conn, postgres):
         self.conn, self.postgres = conn, postgres
 
+    # SQLite dùng dấu ? cho tham số, PostgreSQL dùng %s: đổi tự động.
     def sql(self, statement):
         if self.postgres:
             return statement.replace("?", "%s").replace("GROUP_CONCAT(", "string_agg(")
@@ -147,6 +157,8 @@ class Db:
         self.conn.close()
 
 
+# Lỗi nghiệp vụ (email đã dùng, sai mật khẩu...) có câu thông báo an toàn để hiện cho người dùng, kèm mã
+# HTTP.
 class StoreError(Exception):
     """A business-rule failure with a message safe to show to the user."""
 
@@ -155,12 +167,14 @@ class StoreError(Exception):
         self.status = status
 
 
+# Băm mật khẩu bằng scrypt với muối ngẫu nhiên; không bao giờ lưu mật khẩu gốc.
 def hash_password(password):
     salt = secrets.token_bytes(16)
     digest = hashlib.scrypt(password.encode(), salt=salt, **SCRYPT)
     return f"scrypt${salt.hex()}${digest.hex()}"
 
 
+# So sánh thời gian cố định (compare_digest) để không lộ thông tin qua thời gian.
 def check_password(password, stored):
     try:
         _, salt, digest = stored.split("$")
@@ -170,16 +184,19 @@ def check_password(password, stored):
     return hmac.compare_digest(candidate.hex(), digest)
 
 
+# Chỉ lưu bản băm SHA-256 của token phiên: lộ cơ sở dữ liệu cũng không đăng nhập được.
 def token_hash(token):
     return hashlib.sha256(token.encode()).hexdigest()
 
 
+# Thông tin người dùng được phép trả ra ngoài (không có mật khẩu).
 def public_user(row):
     return {"id": row["id"], "email": row["email"], "name": row["name"], "role": row["role"],
             "status": row["status"], "interests": json.loads(row["interests"]), "created_at": row["created_at"],
             "last_login": row["last_login"]}
 
 
+# Mọi thao tác dữ liệu của sản phẩm. Mỗi hàm mở một kết nối, làm việc trong một giao dịch rồi đóng.
 class Store:
     def __init__(self, location, admin_email=""):
         """location: a postgresql:// URL, or a path to a SQLite file."""
@@ -200,6 +217,7 @@ class Store:
     def backend(self):
         return "postgresql" if self.postgres else "sqlite"
 
+    # Mở kết nối mới tới PostgreSQL hoặc SQLite.
     def connect(self):
         if self.postgres:
             return Db(psycopg.connect(self.location, row_factory=dict_row, connect_timeout=10), True)
@@ -209,12 +227,14 @@ class Store:
         conn.execute("PRAGMA journal_mode = WAL")
         return Db(conn, False)
 
+    # Ghi nhật ký thao tác của admin (ai, làm gì, với đối tượng nào).
     def audit(self, db, actor_id, action, target):
         db.execute("INSERT INTO audit (actor_id, action, target, at) VALUES (?, ?, ?, ?)",
                    (actor_id, action, target, time.time()))
 
     # --- accounts --------------------------------------------------------------------------
 
+    # Tài khoản đăng ký bằng TRAVELMATE_ADMIN_EMAIL thành admin.
     def signup(self, email, password, name):
         email = email.strip().casefold()
         role = "admin" if self.admin_email and email == self.admin_email else "user"
@@ -229,6 +249,8 @@ class Store:
             self.audit(db, user_id, "signup", user_id)
         return self.login(email, password)
 
+    # Đúng mật khẩu thì tạo token phiên mới; tài khoản bị khoá thì từ chối. Email không tồn tại vẫn băm mật
+    # khẩu một lần, để thời gian phản hồi không cho biết email nào có tài khoản.
     def login(self, email, password):
         email = email.strip().casefold()
         with closing(self.connect()) as db, db:
@@ -247,6 +269,7 @@ class Store:
             row = db.execute("SELECT * FROM users WHERE id = ?", (row["id"],)).fetchone()
         return token, public_user(row)
 
+    # Người dùng của một token phiên còn hạn, hoặc None.
     def user_for_token(self, token):
         with closing(self.connect()) as db:
             row = db.execute(
@@ -294,6 +317,7 @@ class Store:
             db.execute("DELETE FROM users WHERE id = ?", (user_id,))
             self.audit(db, None, "delete_account", user_id)
 
+    # Tạo token đặt lại mật khẩu dùng một lần, hết hạn sau 30 phút.
     def create_reset(self, email=None, user_id=None, actor_id=None):
         """Return (user, token) for a password reset, or (None, None) for an unknown email."""
         with closing(self.connect()) as db, db:
@@ -308,6 +332,7 @@ class Store:
             self.audit(db, actor_id or row["id"], "reset_requested", row["id"])
         return public_user(row), token
 
+    # Đặt mật khẩu mới bằng token; mọi phiên cũ bị đăng xuất.
     def reset_password(self, token, password):
         with closing(self.connect()) as db, db:
             row = db.execute("SELECT * FROM resets WHERE token_hash = ? AND used = 0 AND expires_at > ?",
@@ -321,6 +346,7 @@ class Store:
 
     # --- places seen by the app ---------------------------------------------------------------
 
+    # Lưu/cập nhật địa điểm đã hiển thị cho người dùng.
     def remember_places(self, places):
         """Upsert place snapshots (a Place model's JSON) so detail pages, favourites and reviews have data."""
         if not places:
@@ -332,6 +358,7 @@ class Store:
                 "ON CONFLICT(id) DO UPDATE SET data = excluded.data, last_seen = excluded.last_seen",
                 [(p["id"], json.dumps(p, ensure_ascii=False), now, now) for p in places])
 
+    # Bộ nhớ đệm tìm địa điểm (dùng bởi CachingProvider).
     def cached_places(self, key, max_age_s):
         """A place search result (JSON dict) stored by cache_places, if younger than max_age_s."""
         with closing(self.connect()) as db:
@@ -346,10 +373,12 @@ class Store:
                        "ON CONFLICT(key) DO UPDATE SET data = excluded.data, fetched_at = excluded.fetched_at",
                        (key, json.dumps(data, ensure_ascii=False), time.time()))
 
+    # Id các địa điểm admin đã ẩn.
     def hidden_place_ids(self):
         with closing(self.connect()) as db:
             return {r["id"] for r in db.execute("SELECT id FROM places WHERE hidden = 1")}
 
+    # Trang địa điểm: thông tin, điểm đánh giá, các đánh giá đã duyệt.
     def place(self, place_id, viewer=None):
         with closing(self.connect()) as db:
             row = db.execute("SELECT * FROM places WHERE id = ?", (place_id,)).fetchone()
@@ -397,6 +426,7 @@ class Store:
 
     # --- trips -------------------------------------------------------------------------------
 
+    # Lưu một chuyến đi (yêu cầu + kết quả) vào tài khoản.
     def save_trip(self, user_id, request, result, title):
         trip_id = str(uuid.uuid4())
         now = time.time()
@@ -430,6 +460,7 @@ class Store:
             view.update(request=request, result=result)
         return view
 
+    # Sửa tên hoặc lịch của chuyến đi; chỉ chủ sở hữu sửa được.
     def update_trip(self, user_id, trip_id, title=None, result=None, request=None):
         with closing(self.connect()) as db, db:
             if db.execute("SELECT 1 FROM trips WHERE id = ? AND user_id = ?", (trip_id, user_id)).fetchone() is None:
@@ -450,6 +481,7 @@ class Store:
 
     # --- chats --------------------------------------------------------------------------------
 
+    # Lưu (hoặc cập nhật) một cuộc chat của người dùng.
     def save_chat(self, user_id, chat_id, title, state):
         now = time.time()
         with closing(self.connect()) as db, db:
@@ -481,6 +513,7 @@ class Store:
 
     # --- reviews and reports -----------------------------------------------------------------
 
+    # Mỗi người một đánh giá cho một địa điểm; viết lại thì cập nhật.
     def upsert_review(self, user_id, place_id, rating, text):
         now = time.time()
         with closing(self.connect()) as db, db:
@@ -508,6 +541,8 @@ class Store:
                 "WHERE reviews.user_id = ? ORDER BY reviews.updated_at DESC", (user_id,)).fetchall()
         return [{**self.review_view(r, {"id": user_id}), "place_name": json.loads(r["place"])["name"]} for r in rows]
 
+    # Báo cáo một đánh giá (mỗi người một lần, không tự báo cáo đánh giá của mình); admin xem trong hàng chờ
+    # kiểm duyệt.
     def report_review(self, user_id, review_id, reason):
         with closing(self.connect()) as db, db:
             row = db.execute("SELECT user_id FROM reviews WHERE id = ? AND status = 'approved'", (review_id,)).fetchone()
@@ -523,6 +558,7 @@ class Store:
 
     # --- daily usage (AI quotas) ----------------------------------------------------------------
 
+    # Hạn mức AI: số lượt đã dùng hôm nay theo loại.
     def usage_today(self, user_id):
         """{kind: count} for today (Vietnam time)."""
         with closing(self.connect()) as db:
@@ -541,6 +577,7 @@ class Store:
 
     # --- contact messages ----------------------------------------------------------------------
 
+    # Tin nhắn từ trang Liên hệ, admin đọc ở mục Quản trị.
     def add_message(self, name, email, topic, text, user_id=None):
         message_id = str(uuid.uuid4())
         with closing(self.connect()) as db, db:
@@ -575,6 +612,7 @@ class Store:
 
     # --- admin -------------------------------------------------------------------------------
 
+    # Số liệu cho trang tổng quan của admin.
     def stats(self):
         with closing(self.connect()) as db:
             one = lambda sql: db.execute(sql.replace("COUNT(*)", "COUNT(*) AS n", 1)).fetchone()["n"]  # noqa: E731
@@ -605,6 +643,7 @@ class Store:
                 (like, like)).fetchall()
         return [{**public_user(r), "trip_count": r["trip_count"], "review_count": r["review_count"]} for r in rows]
 
+    # Admin đổi vai trò hoặc khoá tài khoản (có ghi nhật ký).
     def admin_update_user(self, actor_id, user_id, role=None, status=None):
         if user_id == actor_id and (role == "user" or status == "locked"):
             raise StoreError("Bạn không thể tự hạ quyền hoặc tự khoá tài khoản của mình.", 400)
@@ -636,6 +675,7 @@ class Store:
                  "review_count": r["review_count"], "favorite_count": r["favorite_count"],
                  "last_seen": r["last_seen"]} for r in rows]
 
+    # Admin ẩn/hiện địa điểm, ghi chú (có ghi nhật ký).
     def admin_update_place(self, actor_id, place_id, hidden=None, admin_note=None):
         with closing(self.connect()) as db, db:
             if db.execute("SELECT 1 FROM places WHERE id = ?", (place_id,)).fetchone() is None:
@@ -648,6 +688,7 @@ class Store:
                 self.audit(db, actor_id, "note_place", place_id)
         return self.place(place_id, {"role": "admin", "id": actor_id})
 
+    # Các đánh giá bị báo cáo đang chờ admin xem.
     def moderation_queue(self):
         with closing(self.connect()) as db:
             pending = db.execute(
@@ -668,6 +709,7 @@ class Store:
         return {"pending": [view(r) for r in pending],
                 "reported": [view(r, {"report_count": r["report_count"], "reasons": r["reasons"]}) for r in reported]}
 
+    # Admin giữ hoặc ẩn một đánh giá bị báo cáo.
     def moderate(self, actor_id, review_id, action, note=""):
         status = {"approve": "approved", "reject": "rejected", "hide": "hidden"}[action]
         with closing(self.connect()) as db, db:

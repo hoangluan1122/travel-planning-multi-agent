@@ -6,6 +6,8 @@ an entry's names, the trip is in that entry's city, and the place is a sight rat
 restaurant, cafe or hotel. Anything not in the table stays unpriced.
 """
 
+# Gắn giá vé có nguồn trích dẫn (app/data/ticket_prices.json) vào các điểm tham quan nổi tiếng.
+
 import json
 from datetime import date
 from decimal import Decimal
@@ -20,6 +22,7 @@ NOT_SIGHTS = {"restaurant", "cafe", "fast_food", "food_court", "food", "bar", "h
               "guest_house", "motel", "resort", "camp_site"}
 
 
+# Đọc bảng giá vé một lần.
 @lru_cache(maxsize=1)
 def load_tickets():
     raw = json.loads(TABLE.read_text("utf-8"))
@@ -46,12 +49,14 @@ def table_order():
     return {ticket.group_id: i for i, (_, _, ticket) in enumerate(load_tickets())}
 
 
+# Nơi đứng trước trong bảng là nơi nổi tiếng hơn.
 def fame_rank(group_id):
     """Lower is better known; groups missing from the table (should not happen) rank last."""
     order = table_order()
     return order.get(group_id, len(order))
 
 
+# Giá vé của một địa điểm nếu tên khớp một dòng trong bảng của thành phố đó.
 def ticket_for(place, destination):
     if NOT_SIGHTS & set(place.types):
         return None
@@ -62,6 +67,7 @@ def ticket_for(place, destination):
     return None
 
 
+# Gắn giá vé cho cả danh sách địa điểm.
 def apply_tickets(places, destination):
     out = []
     for place in places:

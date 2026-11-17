@@ -11,6 +11,8 @@ is not turned into some Vietnamese town; the caller says it was not found instea
 on the cleaned name: "Vịnh Hạ Long" is close to "Vĩnh Long", "Hạ Long" is not.
 """
 
+# Dùng ở open_data_provider.locate() khi bản đồ không tìm thấy tên người dùng nhập.
+
 import difflib
 import re
 

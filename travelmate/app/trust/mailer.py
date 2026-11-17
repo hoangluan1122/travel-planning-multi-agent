@@ -5,6 +5,8 @@ TRAVELMATE_SMTP_PASSWORD and TRAVELMATE_SMTP_FROM. Without a host the API logs t
 The password is never logged; send failures are logged by type only.
 """
 
+# Gửi email đặt lại mật khẩu qua SMTP (ví dụ Gmail với mật khẩu ứng dụng). Không cấu hình thì tắt.
+
 import logging
 import smtplib
 import ssl
@@ -19,6 +21,7 @@ class Mailer:
         self.sender = sender or user
         self.smtp = smtp
 
+    # Chỉ bật khi đã cấu hình máy chủ SMTP.
     @property
     def enabled(self):
         return bool(self.host and self.sender)

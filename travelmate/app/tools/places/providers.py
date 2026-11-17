@@ -1,6 +1,9 @@
 """Place providers: DemoProvider (labelled sample data) and LiveProvider (Google Places API).
 The open-data provider lives in open_data_provider.py."""
 
+# DemoProvider: dữ liệu mẫu có nhãn cho chế độ demo. LiveProvider: Google Places API (cần khoá, không dùng
+# trên Render).
+
 from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal
 from urllib.parse import quote
@@ -21,6 +24,7 @@ from app.core.models import (
 from app.tools.prices.ticket_prices import apply_tickets
 
 
+# Dữ liệu mẫu cố định, ghi rõ là mẫu, để chạy thử không cần khoá.
 class DemoProvider:
     async def search_places(self, query):
         result = await self.search(query)
@@ -65,6 +69,7 @@ GOOGLE_PRICE_LEVELS = {
 LABELS = {"attraction": "Tourist attractions", "hotel": "Hotels", "restaurant": "Restaurants"}
 
 
+# Đổi số tiền dạng Google sang Decimal VND.
 def google_money(value):
     """Google Money {currencyCode, units, nanos} to a VND Decimal; other currencies are ignored."""
     if not isinstance(value, dict) or value.get("currencyCode") != "VND":
@@ -72,6 +77,7 @@ def google_money(value):
     return Decimal(str(value.get("units") or 0))
 
 
+# Đổi một bản ghi Google thành Place; mọi thông tin lấy từ bản ghi, không đoán.
 def parse_google_place(item, fetched_at, photos=None):
     """Build a Place from a Places API (New) record; facts come only from the record."""
     range_raw = item.get("priceRange") or {}
@@ -109,6 +115,7 @@ def parse_google_place(item, fetched_at, photos=None):
     )
 
 
+# Địa điểm, ảnh, đánh giá, khoảng giá từ Google; thời tiết từ Open-Meteo.
 class LiveProvider:
     """Google Places API (New) for places, photos, ratings and price ranges; Open-Meteo weather."""
 

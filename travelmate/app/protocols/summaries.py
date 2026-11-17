@@ -1,5 +1,7 @@
 """Compact JSON views of places and plans, shared by the MCP server and the A2A endpoint."""
 
+# Dạng JSON gọn của địa điểm và lịch trình, dùng chung cho MCP và A2A (ít dữ liệu hơn PlanResponse đầy đủ).
+
 
 def place_summary(place):
     ticket = place.ticket
