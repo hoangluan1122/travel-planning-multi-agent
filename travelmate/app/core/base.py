@@ -25,6 +25,11 @@ class AgentError(Exception):
     pass
 
 
+class UserError(AgentError):
+    """An error whose message is written for the traveller (in Vietnamese) and is shown as is,
+    e.g. a destination that was not found. Other errors get a generic message instead."""
+
+
 class BaseAgent(ABC, Generic[InputT, OutputT]):
     name: str
     input_schema: type[InputT]

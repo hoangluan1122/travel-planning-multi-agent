@@ -8,7 +8,7 @@ import asyncio
 from datetime import timedelta
 
 from app.agents.plan_jobs import report as report_stage
-from app.core.base import AgentError
+from app.core.base import AgentError, UserError
 from app.core.models import (
     BudgetInput,
     Context,
@@ -112,11 +112,15 @@ class Orchestrator:
 
 
 def checked_places(result):
-    """Place lookup is required: any failure stops the plan."""
-    if isinstance(result, (asyncio.CancelledError, TimeoutError)):
+    """Place lookup is required: any failure stops the plan.
+
+    A UserError ("Không tìm thấy địa danh ...") tells the traveller what to change, so it is
+    passed on; anything else may hold provider details and becomes a generic message.
+    """
+    if isinstance(result, (asyncio.CancelledError, TimeoutError, UserError)):
         raise result
     if isinstance(result, BaseException):
-        raise AgentError("Place lookup failed; no reliable candidates available") from result
+        raise AgentError("Chưa tìm được địa điểm cho chuyến đi này. Vui lòng thử lại sau ít phút.") from result
     return result
 
 

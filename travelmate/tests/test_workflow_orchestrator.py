@@ -19,7 +19,7 @@ from app.agents.place import PlaceAgent
 from app.agents.recommendation import RecommendationAgent
 from app.agents.weather import WeatherAgent
 from app.agents.workflow_orchestrator import WorkflowOrchestrator
-from app.core.base import AgentError, Registry
+from app.core.base import AgentError, Registry, UserError
 from app.core.models import Activity, Day, Draft, Preferences, TripRequest
 from app.main import Settings, create_app
 from app.memory.preferences import MemoryAgent
@@ -79,9 +79,20 @@ async def test_place_failure_stops_plan_without_leaking_cause(orchestrator):
         async def search(self, trip):
             raise RuntimeError("private provider detail")
 
-    with pytest.raises(AgentError, match="Place lookup failed") as info:
+    with pytest.raises(AgentError, match="Chưa tìm được địa điểm") as info:
         await orchestrator(registry(FailedPlaces())).plan(trip())
     assert "private provider detail" not in str(info.value)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("orchestrator", ORCHESTRATORS)
+async def test_a_message_for_the_traveller_reaches_them(orchestrator):
+    class NotFound(DemoProvider):
+        async def search(self, trip):
+            raise UserError("Không tìm thấy địa danh “Bangkok” ở Việt Nam.")
+
+    with pytest.raises(UserError, match="Bangkok"):
+        await orchestrator(registry(NotFound())).plan(trip())
 
 
 @pytest.mark.asyncio
