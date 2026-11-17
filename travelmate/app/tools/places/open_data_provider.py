@@ -11,8 +11,9 @@ import re
 import time
 import unicodedata
 
-from app.core.base import AgentError
+from app.core.base import AgentError, UserError
 from app.core.models import Context, PlaceResult, WeatherDay, WeatherResult
+from app.tools.places.destination_names import cleaned, closest
 from app.tools.places.geo_places import GeoPlaceService, LocalityChoiceRequired
 from app.tools.places.place_media import WikipediaImages, plain
 from app.tools.places.vietnam_regions import load_catalog
@@ -28,6 +29,12 @@ WIKI_NOTE = (
     "lần này có thể thiếu gợi ý quán ăn và nơi ở. Thử lại sau ít phút để có danh sách đầy đủ."
 )
 LOCALITY_TTL_S = 600
+
+
+class DestinationNotFound(UserError):
+    """No place in Vietnam matches what the traveller typed."""
+
+
 # Lower ranks first. Within a rank the source's distance order is kept, so landmarks beat
 # the nearest park or statue without leaving the search radius.
 ATTRACTION_RANK = {
@@ -154,20 +161,59 @@ class OpenDataProvider:
         self._lock = asyncio.Lock()
 
     async def locate(self, destination):
-        """Resolve a destination to one locality, picking the top match when ambiguous."""
+        """Resolve a destination to one locality, picking the top match when ambiguous.
+
+        A name the map search does not know is tried again without extra words ("Hạ Long Bay")
+        and then as the well-known destination it is almost spelled as ("Đà Lạtt"). Errors are
+        UserErrors written for the traveller: not found (what to change), or the map is busy.
+        """
         key = destination.casefold().strip()
         async with self._lock:
             cached = self._localities.get(key)
             if cached and time.monotonic() - cached[0] < LOCALITY_TTL_S:
                 return cached[1], list(cached[2])
-            notes = []
             try:
-                location = await self.geo.resolve(destination, None, "nearby")
-            except LocalityChoiceRequired as exc:
-                location, note = await self.pick_locality(destination, exc.choices)
-                notes.append(note)
+                location, notes = await self.resolve_destination(destination)
+            except UserError:
+                raise
+            except (AgentError, TimeoutError) as exc:  # the map sources are down or too slow
+                raise UserError(f"Máy chủ bản đồ đang bận nên chưa tìm được “{destination}”. "
+                                "Vui lòng thử lại sau ít phút.") from exc
             self._localities[key] = (time.monotonic(), location, notes)
             return location, list(notes)
+
+    async def resolve_destination(self, destination):
+        """(locality, notes) for what the traveller typed, trying the second guesses in order."""
+        try:
+            return await self.resolve_one(destination)
+        except DestinationNotFound:
+            pass
+        shorter = cleaned(destination)
+        if shorter:
+            try:
+                return await self.resolve_one(shorter)
+            except DestinationNotFound:
+                pass
+        guess = closest(shorter or destination)
+        if guess:
+            try:
+                location, notes = await self.resolve_one(guess)
+            except DestinationNotFound:
+                pass
+            else:
+                note = f"Không tìm thấy “{destination}”; đang dùng “{guess}”. Sửa lại nếu đây không phải nơi bạn muốn."
+                return location, [note, *notes]
+        raise DestinationNotFound(
+            f"Không tìm thấy địa danh “{destination}” ở Việt Nam. Kiểm tra lại chính tả, hoặc ghi tên thành phố "
+            "hay tỉnh, ví dụ “Đà Lạt”, “Hạ Long”. TravelMate hiện chỉ lập lịch cho điểm đến trong Việt Nam."
+        )
+
+    async def resolve_one(self, destination):
+        try:
+            return await self.geo.resolve(destination, None, "nearby"), []
+        except LocalityChoiceRequired as exc:
+            location, note = await self.pick_locality(destination, exc.choices)
+            return location, [note]
 
     async def pick_locality(self, destination, choices):
         """Choose among ambiguous matches: for a province name, its city, never a namesake village.
@@ -195,7 +241,7 @@ class OpenDataProvider:
             if inside:
                 choices = inside + [p for p in choices if p not in inside]
         if not choices:
-            raise AgentError(f"Không tìm thấy địa danh “{destination}” ở Việt Nam")
+            raise DestinationNotFound(f"Không tìm thấy địa danh “{destination}” ở Việt Nam")
         location = choices[0]
         where = ", ".join(part for part in [location.name, location.admin1] if part)
         return location, (
@@ -243,7 +289,7 @@ class OpenDataProvider:
             places, stays = enriched[:len(places)], enriched[len(places):]
         places = apply_tickets(places, trip.destination)
         if failures == len(self.pickers):
-            raise AgentError("Nguồn địa điểm không phản hồi")
+            raise UserError("Nguồn địa điểm không phản hồi. Vui lòng thử lại sau ít phút.")
         if from_wiki:
             warnings.append(WIKI_NOTE)
         elif failures:

@@ -7,7 +7,7 @@ import pytest
 from fastapi.testclient import TestClient
 from test_planning import payload
 
-from app.core.base import AgentError
+from app.core.base import AgentError, UserError
 from app.core.models import Place, PlaceSearchRequest, TripRequest
 from app.main import Settings, create_app
 from app.specialists.weather import ForecastDay, WeatherReport
@@ -530,3 +530,52 @@ async def test_stays_and_keyword_results_get_photos_too():
     await OpenDataProvider(images=images, geo=FakeGeo()).search_places(
         PlaceSearchRequest(destination="Hội An", category="restaurant", keyword="restaurant", limit=3))
     assert images.asked[-1] and all(i.startswith("restaurant") for i in images.asked[-1])
+
+
+class PickyGeo(FakeGeo):
+    """Knows only some names, like the map search: "Hạ Long Bay" and typos are not found."""
+
+    def __init__(self, known=(), down=False):
+        super().__init__()
+        self.known, self.down, self.asked = set(known), down, []
+
+    async def resolve(self, destination, selected_id, scope):
+        self.asked.append(destination)
+        if self.down:
+            raise AgentError("Both locality providers unavailable")
+        if destination not in self.known:
+            raise LocalityChoiceRequired([], "none")
+        return locality(name=destination)
+
+
+def trip_to(destination):
+    return TripRequest(**{**payload(), "destination": destination})
+
+
+@pytest.mark.asyncio
+async def test_extra_words_around_the_name_are_dropped():
+    geo = PickyGeo(known={"Hạ Long"})
+    result = await OpenDataProvider(images=False, geo=geo).search(trip_to("Hạ Long Bay"))
+    assert result.places and geo.asked == ["Hạ Long Bay", "Hạ Long"]
+
+
+@pytest.mark.asyncio
+async def test_a_typo_of_a_known_destination_is_used_and_said():
+    geo = PickyGeo(known={"Đà Lạt"})
+    result = await OpenDataProvider(images=False, geo=geo).search(trip_to("Đà Lạtt"))
+    assert result.places
+    assert any("Không tìm thấy “Đà Lạtt”; đang dùng “Đà Lạt”" in w for w in result.warnings)
+
+
+@pytest.mark.asyncio
+async def test_a_place_outside_vietnam_says_what_to_change():
+    with pytest.raises(UserError) as info:
+        await OpenDataProvider(images=False, geo=PickyGeo()).search(trip_to("Bangkok"))
+    message = str(info.value)
+    assert "Không tìm thấy địa danh “Bangkok”" in message and "chính tả" in message and "Việt Nam" in message
+
+
+@pytest.mark.asyncio
+async def test_map_outage_is_a_readable_retry_message():
+    with pytest.raises(UserError, match="Máy chủ bản đồ đang bận"):
+        await OpenDataProvider(images=False, geo=PickyGeo(down=True)).search(trip_to("Đà Lạt"))
