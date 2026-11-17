@@ -1,5 +1,8 @@
 """Auditable preference scores and eligibility checks over supplied evidence."""
 
+# Chấm điểm ứng viên theo tiêu chí có thể kiểm tra lại: sở thích, khoảng cách, giá, thời tiết. Tiêu chí nào
+# không có dữ liệu thì không tính, và trọng số các tiêu chí còn lại được chia lại.
+
 import math
 from datetime import datetime
 from decimal import Decimal
@@ -72,6 +75,7 @@ ALIASES = {
 }
 
 
+# Một đặc điểm của địa điểm kèm nguồn (ví dụ 'có chỗ trong nhà').
 class FeatureEvidence(Model):
     feature: Feature
     value: bool = Field(strict=True)
@@ -85,6 +89,7 @@ class FeatureEvidence(Model):
         return value.strip()
 
 
+# Giá của ứng viên kèm nguồn và thời điểm kiểm tra.
 class CandidatePrice(Model):
     min_vnd: Decimal = Field(ge=0, max_digits=14, decimal_places=2)
     max_vnd: Decimal = Field(ge=0, max_digits=14, decimal_places=2)
@@ -117,6 +122,7 @@ class RecommendationOrigin(Model):
         return value
 
 
+# Trọng số các tiêu chí; tổng phải dương.
 class RecommendationWeights(Model):
     interests: float = Field(default=0.5, ge=0, le=1)
     proximity: float = Field(default=0.2, ge=0, le=1)
@@ -130,6 +136,7 @@ class RecommendationWeights(Model):
         return self
 
 
+# Ngữ cảnh chấm điểm: điểm xuất phát, giá tối đa, rủi ro thời tiết...
 class RecommendationContext(Model):
     origin: RecommendationOrigin | None = None
     max_distance_m: float | None = Field(default=None, gt=0, le=500000)
@@ -158,6 +165,7 @@ class RecommendationContext(Model):
         return self
 
 
+# Điểm một tiêu chí kèm nguồn và giải thích.
 class CriterionScore(Model):
     criterion: str
     value: float = Field(ge=0, le=1)
@@ -182,6 +190,7 @@ class RecommendationItem(Model):
     ) = None
 
 
+# Ứng viên bị loại và lý do.
 class RejectedCandidate(Model):
     place_id: str
     reasons: list[str]
@@ -195,6 +204,8 @@ class RecommendationEvaluation(Model):
     warnings: list[str]
 
 
+# Chấm điểm từng ứng viên: loại ứng viên bị người dùng loại trừ hoặc không đủ điều kiện, tính điểm theo
+# trọng số đã chia lại.
 def prepare_recommendations(data, now):
     if not isinstance(now, datetime) or now.tzinfo is None or now.utcoffset() is None:
         raise ValueError("Recommendation clock must return an aware datetime")

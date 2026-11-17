@@ -4,6 +4,9 @@ Both forward everything else to the provider they wrap, so agents use them like 
 provider itself: `HidingProvider(CachingProvider(OpenDataProvider(), store, "open_data"), ...)`.
 """
 
+# Hai lớp bọc quanh nguồn địa điểm. __getattr__ chuyển mọi thuộc tính khác sang nguồn bên trong, nên các
+# agent dùng lớp bọc y như dùng nguồn gốc.
+
 import asyncio
 import logging
 import unicodedata
@@ -12,11 +15,14 @@ from app.core.models import PlaceResult
 
 logger = logging.getLogger(__name__)
 
+# Kết quả tìm địa điểm được dùng lại trong 24 giờ.
 PLACE_CACHE_TTL_S = 24 * 3600
 # Bump when what a place search returns changes (e.g. photos), so cached results are not reused.
+# Tăng số này khi đổi dữ liệu trả về để bỏ qua kết quả cũ đã lưu.
 PLACE_CACHE_VERSION = 2
 
 
+# Bộ nhớ đệm: lần tạo lịch thứ hai cho cùng thành phố bỏ qua ~15 giây tra bản đồ.
 class CachingProvider:
     """Keeps a complete place search per destination for a day, in the product database.
 
@@ -32,6 +38,7 @@ class CachingProvider:
     def __getattr__(self, name):
         return getattr(self.inner, name)
 
+    # Khoá lưu: tên nguồn + phiên bản + điểm đến đã chuẩn hoá.
     def key(self, trip):
         # "Đà Nẵng", "đà nẵng" and " Đà  Nẵng " share one entry.
         destination = " ".join(unicodedata.normalize("NFC", trip.destination).casefold().split())
@@ -40,12 +47,15 @@ class CachingProvider:
     async def search(self, trip):
         key = self.key(trip)
         try:
+            # Cơ sở dữ liệu là thao tác chặn, chạy ở luồng riêng để không chặn máy chủ.
             cached = await asyncio.to_thread(self.store.cached_places, key, self.ttl_s)
             if cached is not None:
                 return PlaceResult.model_validate(cached)
         except Exception as exc:  # a broken cache must never break planning
             logger.warning("place_cache read outcome=failed error_type=%s", type(exc).__name__)
         # Providers that can tell a complete result from a fallback say so; others are trusted.
+        # Chỉ lưu kết quả đầy đủ. Kết quả có nguồn lỗi (dùng nguồn dự phòng) không lưu, để sự cố không để
+        # lại danh sách thiếu suốt một ngày.
         if hasattr(self.inner, "search_cacheable"):
             result, complete = await self.inner.search_cacheable(trip)
         else:
@@ -58,6 +68,7 @@ class CachingProvider:
         return result
 
 
+# Lọc địa điểm admin đã ẩn khỏi mọi kết quả: tìm kiếm, lịch trình, chat.
 class HidingProvider:
     """Wraps a place provider so places an admin hid never reach searches, plans or the chat."""
 
@@ -67,6 +78,7 @@ class HidingProvider:
     def __getattr__(self, name):
         return getattr(self.inner, name)
 
+    # Lọc cả danh sách địa điểm lẫn nơi ở.
     async def filtered(self, result):
         hidden = await asyncio.to_thread(self.hidden_ids)
         if not hidden:

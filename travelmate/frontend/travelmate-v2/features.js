@@ -1,3 +1,6 @@
+// Các tính năng cần tài khoản: đăng nhập/đăng ký, hồ sơ, chuyến đi đã lưu, sửa lịch, yêu thích, trang địa
+// điểm, đánh giá, và khu vực admin. Dùng các hàm chung từ window.tm (integration.js).
+
 /* Account, trips, favourites, place pages, reviews, trip editing and admin screens.
    Uses helpers exposed by integration.js (window.tm). Everything shown comes from the API;
    user text is always escaped. */
@@ -6,6 +9,7 @@
   const tm = window.tm;
   if (!tm) return;
   const {api, render, esc, money, time, kind, photo, price, stars, hours, placeLinks, ticketSource, read, save, records, session, route, params, fmtDate, dateRange, emptyState, head, loginGate, dialog, notify} = tm;
+  // Viết tắt gọi API theo phương thức HTTP.
   const get = path => api(path, null, undefined, 'GET');
   const del = path => api(path, null, undefined, 'DELETE');
   const patch = (path, data) => api(path, data, undefined, 'PATCH');
@@ -42,11 +46,14 @@
   // Offers that only make sense before signing in.
   if (user()) document.querySelectorAll('[data-guest-only]').forEach(e => { e.hidden = true; });
 
+  // Chưa đăng nhập thì hiện màn hình mời đăng nhập (và trả true).
   function needLogin() {
     if (user()) return false;
     render(loginGate('Trang này gắn với tài khoản của bạn.'));
     return true;
   }
+  // Sau khi đăng nhập: lưu hồ sơ vào localStorage (token nằm trong cookie HttpOnly, không lưu), rồi tới
+  // trang `next` hoặc Chuyến đi của tôi.
   const signedIn = (data, next) => {
     localStorage.setItem('tm-session', JSON.stringify({user: data.user}));  // the token stays in the HttpOnly cookie
     location.href = next && next.startsWith('?') ? next : '?view=saved';
@@ -137,6 +144,7 @@
   }
 
   // --- saved trips (account) -------------------------------------------------------------
+  // Mở một chuyến đi đã lưu bằng trang lịch trình.
   const openTrip = (trip, day = null) => {
     const record = {request: trip.request, result: trip.result, trip_id: trip.id, title: trip.title};
     save('tm-plans', [record, ...records().filter(r => r.result.request_id !== trip.result.request_id)].slice(0, 20));
@@ -146,6 +154,7 @@
   };
   // A plan link opened in another tab or device: plans live per tab, so find it among the saved trips.
   const planId = params.get('id');
+  // Link lịch trình mở ở tab hoặc máy khác: tải từ tài khoản nếu đã đăng nhập.
   if ((route === 'plan' || route === 'day') && planId && !records().some(r => r.result.request_id === planId)) {
     const missing = () => render(emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-map"></use></svg>', 'Không mở được lịch trình này.', user()
       ? 'Lịch trình không có trong tài khoản của bạn. Lịch chưa lưu chỉ mở được trong thẻ trình duyệt đã tạo ra nó.'
@@ -183,6 +192,7 @@
   }
 
   // Plan page: save to account / edit.
+  // Trang lịch trình: nút lưu vào tài khoản / sửa lịch.
   const planBox = document.querySelector('#tm-plan-account');
   if (planBox) {
     const id = params.get('id') || read('tm-current', '');
@@ -266,6 +276,8 @@
   }
 
   // --- edit a saved trip -------------------------------------------------------------------
+  // Sửa lịch: đổi giờ, thêm/bớt địa điểm, dời ngày, xếp lại tự động; máy chủ kiểm tra lại và tính lại chi
+  // phí.
   if (route === 'edit' && !needLogin()) {
     const id = params.get('id');
     if (!id) { render(emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-pencil"></use></svg>', 'Chọn chuyến đi để chỉnh sửa.', 'Chỉ chuyến đi đã lưu vào tài khoản mới chỉnh sửa được.', tm.link('saved', 'Chuyến đi của tôi', 'button dark'))); return; }
@@ -334,6 +346,7 @@
 
   // --- admin -------------------------------------------------------------------------------
   const adminTabs = current => `<div class="tm-tabs">${[['admin', 'Tổng quan'], ['admin-users', 'Người dùng'], ['admin-places', 'Địa điểm'], ['moderation', 'Kiểm duyệt'], ['admin-messages', 'Liên hệ']].map(([v, t]) => `<a class="button outline ${v === current ? 'active' : ''}" href="?view=${v}">${t}</a>`).join('')}</div>`;
+  // Chỉ admin mới vào được các trang quản trị.
   const adminOnly = () => { if (needLogin()) return false; if (user().role !== 'admin') { render(emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-lock"></use></svg>', 'Chỉ dành cho quản trị viên.', 'Tài khoản của bạn không có quyền vào khu vực này.', tm.link('home', 'Về trang chủ', 'button dark'))); return false; } return true; };
   const actionLabel = a => ({signup: 'Đăng ký', change_password: 'Đổi mật khẩu', delete_account: 'Xoá tài khoản', reset_requested: 'Tạo link đặt lại', reset_password: 'Đặt lại mật khẩu', hide_place: 'Ẩn địa điểm', show_place: 'Hiện địa điểm', note_place: 'Ghi chú địa điểm'}[a] || a.replace('set_role:', 'Đổi quyền: ').replace('set_status:', 'Trạng thái: ').replace('moderate:', 'Kiểm duyệt: '));
 

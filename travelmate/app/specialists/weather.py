@@ -1,5 +1,8 @@
 """Weather specialist (standalone test bench): daily forecast from Open-Meteo for given coordinates."""
 
+# Thuộc 'bàn thử chuyên gia' (app/specialists): mỗi chuyên gia chạy riêng lẻ để thử và chấm điểm, không gọi
+# agent khác. Trang web chính không dùng file này trừ khi ghi rõ.
+
 from datetime import UTC, date, datetime, timedelta
 from typing import Literal
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -12,6 +15,7 @@ from app.core.models import Model
 from app.tools.http import get_with_retry
 
 
+# Toạ độ, múi giờ và khoảng ngày cần dự báo.
 class WeatherRequest(Model):
     latitude: float = Field(ge=-90, le=90)
     longitude: float = Field(ge=-180, le=180)
@@ -50,6 +54,7 @@ class WeatherReport(Model):
     provider_attempts: int = Field(default=0, ge=0, le=3)
 
 
+# Gọi Open-Meteo (có thử lại) và kiểm tra dữ liệu trả về.
 class WeatherSpecialist(BaseAgent[WeatherRequest, WeatherReport]):
     name, input_schema, output_schema = "weather_specialist", WeatherRequest, WeatherReport
 

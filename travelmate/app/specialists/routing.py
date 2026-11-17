@@ -1,5 +1,10 @@
 """Exact small-day routing with directed road-time matrices and visit windows."""
 
+# Tính đường đi trong ngày chính xác cho số ít điểm: lấy ma trận thời gian lái xe từ OSRM (máy chủ định
+# tuyến miễn phí trên dữ liệu OpenStreetMap), rồi thử mọi thứ tự ghé để tìm thứ tự đi ít thời gian nhất mà
+# vẫn đúng khung giờ. Thuộc 'bàn thử chuyên gia' (app/specialists): mỗi chuyên gia chạy riêng lẻ để thử và
+# chấm điểm, không gọi agent khác. Trang web chính không dùng file này trừ khi ghi rõ.
+
 import asyncio
 import math
 import time
@@ -16,6 +21,7 @@ from app.core.base import AgentError, BaseAgent
 from app.core.models import Model
 
 
+# Một điểm trên đường đi: id, toạ độ.
 class RoutePoint(Model):
     id: str = Field(min_length=1, max_length=100)
     latitude: float = Field(ge=-90, le=90)
@@ -34,6 +40,7 @@ class RoutePoint(Model):
         return value
 
 
+# Một điểm cần ghé: thời gian ở lại, khung giờ được phép.
 class Visit(RoutePoint):
     duration_minutes: int = Field(ge=1, le=1440, strict=True)
     opens_minute: int = Field(default=0, ge=0, le=1439, strict=True)
@@ -52,11 +59,13 @@ class Visit(RoutePoint):
         return self
 
 
+# Ràng buộc thứ tự: điểm A phải ghé trước điểm B.
 class Precedence(Model):
     before_id: str
     after_id: str
 
 
+# Yêu cầu: điểm xuất phát, các điểm ghé, giờ bắt đầu/kết thúc ngày.
 class RouteRequest(Model):
     origin: RoutePoint
     visits: list[Visit] = Field(min_length=1, max_length=8)
@@ -103,6 +112,7 @@ class SnappedPoint(Model):
     distance_m: float = Field(ge=0, le=200.01)
 
 
+# Ma trận thời gian (giây) và quãng đường (mét) giữa mọi cặp điểm.
 class RouteMatrix(Model):
     point_ids: list[str]
     durations_seconds: list[list[float | None]]
@@ -215,6 +225,7 @@ class RoadPath(Model):
         return self
 
 
+# Kết quả: thứ tự ghé, thời gian đi lại, so với thứ tự ban đầu, các chặng.
 class RouteReport(Model):
     status: Literal["feasible", "infeasible"]
     schedule: list[ScheduledVisit]
@@ -239,6 +250,7 @@ class RouteReport(Model):
     infeasibility_reasons: list[str] = Field(default_factory=list)
 
 
+# Gọi OSRM: ma trận thời gian (table) và đường đi cụ thể (route).
 class OSRMProvider:
     def __init__(self, base_url="https://router.project-osrm.org", transport=None):
         # Server config only. Never accept provider URLs from an untrusted request.
@@ -391,6 +403,7 @@ class OSRMProvider:
             raise AgentError("Road geometry unavailable or invalid") from None
 
 
+# Thử một thứ tự ghé: tính giờ đến từng điểm; trễ khung giờ thì None.
 def schedule_order(data, matrix, order):
     positions = {data.visits[index - 1].id: rank for rank, index in enumerate(order)}
     if any(positions[p.before_id] >= positions[p.after_id] for p in data.precedence):
@@ -479,6 +492,7 @@ def route_legs(data, matrix, schedule):
     return legs
 
 
+# Thử mọi hoán vị thứ tự ghé (chỉ khả thi với ít điểm) và giữ thứ tự tốt nhất.
 def optimize(data: RouteRequest, matrix: RouteMatrix):
     if matrix.point_ids != [p.id for p in route_points(data)]:
         raise AgentError("Matrix does not match route points")
@@ -520,6 +534,7 @@ def optimize(data: RouteRequest, matrix: RouteMatrix):
     )
 
 
+# Lấy ma trận rồi tối ưu.
 async def calculate_route(data, provider):
     raw = await provider.matrix(route_points(data))
     matrix = RouteMatrix.model_validate(raw.model_dump() if isinstance(raw, RouteMatrix) else raw)

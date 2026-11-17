@@ -1,5 +1,8 @@
 """Opt-in network/UI acceptance check; never part of the offline unit suite."""
 
+# Kiểm tra Place Agent dữ liệu thật qua mạng và giao diện. Chạy tay khi cần, gọi nguồn thật; không nằm trong
+# bộ test tự động.
+
 import asyncio
 import json
 from pathlib import Path

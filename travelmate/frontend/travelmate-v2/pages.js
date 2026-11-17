@@ -1,9 +1,13 @@
+// Chạy đầu tiên trên mọi trang: thanh điều hướng (đánh dấu mục đang xem), menu trên điện thoại, thông báo
+// nhỏ ở cuối màn hình (toast), và hiện màn hình theo ?view=.
+
 /* App shell: navigation, page titles, the trip form, the not-found screen and small shared helpers.
    Screens that show data are rendered by integration.js and features.js. */
 (() => {
   'use strict';
   const params = new URLSearchParams(location.search);
   const route = params.get('view') || 'home';
+  // Tên từng màn hình, dùng làm tiêu đề tab.
   const routes = {
     home: 'Lên kế hoạch du lịch cùng AI', explore: 'Khám phá', chat: 'Trợ lý AI', login: 'Đăng nhập', signup: 'Đăng ký',
     forgot: 'Quên mật khẩu', create: 'Tạo chuyến đi', loading: 'Đang lập kế hoạch', saved: 'Chuyến đi của tôi', trip: 'Chuyến đi',

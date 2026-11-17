@@ -11,6 +11,9 @@ for the job's task, so agents need no extra parameter and calls outside a job do
 Jobs live in this process's memory: one web process (Render free) is the deployment target.
 """
 
+# Chạy tạo lịch trình như một việc nền. Trang nhận mã job ngay rồi hỏi tiến độ mỗi 2 giây, thay vì giữ một
+# kết nối HTTP mở 30 giây đến vài phút. Tiến độ được báo qua report() từ bên trong orchestrator.
+
 import asyncio
 import contextvars
 import time
@@ -18,9 +21,12 @@ import uuid
 from collections import OrderedDict
 from dataclasses import dataclass, field
 
+# Biến ngữ cảnh: mỗi task asyncio có giá trị riêng, nên report() biết đang báo cho job nào mà không cần
+# truyền tham số qua mọi agent.
 _PROGRESS = contextvars.ContextVar("plan_progress", default=None)
 
 # What the page shows for each stage, in pipeline order.
+# Câu hiển thị trên trang cho từng bước.
 STAGES = {
     "queued": "Đang bắt đầu…",
     "places": "Đang tìm địa danh, quán ăn, nơi ở và dự báo thời tiết…",
@@ -33,6 +39,7 @@ STAGES = {
 }
 
 
+# Gọi ngoài job (ví dụ trong test) thì không làm gì.
 def report(stage, **info):
     """Tell the job running this plan (if any) which stage it reached."""
     callback = _PROGRESS.get()
@@ -40,6 +47,7 @@ def report(stage, **info):
         callback(stage, info)
 
 
+# Trạng thái một job: đang chạy/xong/lỗi, bước hiện tại, kết quả hoặc lỗi.
 @dataclass
 class PlanJob:
     id: str
@@ -55,13 +63,16 @@ class PlanJob:
     trip_id: str | None = None
     task: asyncio.Task | None = field(default=None, repr=False)
 
+    # Cập nhật bước; job đã xong thì bỏ qua.
     def update(self, stage, info):
         if stage in STAGES and self.status == "running":
             self.stage, self.round = stage, info.get("round")
 
+    # Ghi lỗi kèm mã HTTP để trang hiển thị.
     def fail(self, status, message):
         self.status, self.error_status, self.error, self.finished = "failed", status, message, time.time()
 
+    # Dạng JSON trả cho trang.
     def view(self):
         label = STAGES[self.stage]
         if self.stage in {"scheduling", "revising"} and self.round and self.round > 1:
@@ -79,6 +90,7 @@ class PlanJob:
         }
 
 
+# Quản lý mọi job trong bộ nhớ: mỗi người một job đang chạy; job xong được giữ 1 giờ, tối đa 500 job.
 class PlanJobs:
     """At most one running job per owner; finished jobs are kept for keep_s, at most max_jobs."""
 
@@ -86,6 +98,7 @@ class PlanJobs:
         self.keep_s, self.max_jobs = keep_s, max_jobs
         self.jobs = OrderedDict()
 
+    # Xoá job cũ để bộ nhớ không tăng mãi.
     def prune(self):
         now = time.time()
         for job_id, job in list(self.jobs.items()):
@@ -97,13 +110,16 @@ class PlanJobs:
                 break
             del self.jobs[oldest.id]
 
+    # Job đang chạy của một người, nếu có.
     def running_for(self, owner):
         return next((j for j in self.jobs.values() if j.owner == owner and j.status == "running"), None)
 
+    # Người khác hỏi job không phải của mình thì nhận None (404).
     def get(self, job_id, owner):
         job = self.jobs.get(job_id)
         return job if job is not None and job.owner == owner else None
 
+    # Tạo job và chạy work(job) trong một task nền.
     def start(self, owner, work):
         """Run work(job) in the background; work sets job.result (and job.trip_id) or raises.
 
@@ -116,6 +132,7 @@ class PlanJobs:
         job.task = asyncio.create_task(self._run(job, work))
         return job
 
+    # Gắn biến tiến độ cho task, chạy công việc, ghi lỗi nếu có.
     async def _run(self, job, work):
         _PROGRESS.set(job.update)  # this task's own context: inner tasks inherit it
         try:

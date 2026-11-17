@@ -1,5 +1,8 @@
 """Memory agent: the trip's interests plus the user's saved preferences (read-only)."""
 
+# Agent sở thích (Memory): lấy sở thích trong yêu cầu, gộp thêm sở thích đã lưu nếu máy chủ cấu hình. Chỉ
+# đọc; không bao giờ ghi. Sở thích đã lưu là dữ liệu, không được chèn vào prompt như mệnh lệnh.
+
 import logging
 
 from app.core.base import BaseAgent
@@ -24,6 +27,7 @@ class MemoryAgent(BaseAgent[TripRequest, Preferences]):
     def __init__(self, store=None):
         self.store = store  # a MemorySpecialist, or None for request-only memory
 
+    # Không đọc được sở thích đã lưu thì vẫn chạy với sở thích trong yêu cầu, kèm cảnh báo.
     async def execute(self, data, context):
         if self.store is None:
             return Preferences(interests=data.interests)

@@ -6,6 +6,8 @@ two doors apart. Two places are the same when one name, word by word, begins the
 (at least two words, so "Chùa" alone never matches) and they lie within NEAR_METERS.
 """
 
+# Nhận ra một địa điểm được bản đồ ghi hai lần (hai id khác nhau) để lịch không ghé một nơi hai lần.
+
 import math
 import re
 
@@ -25,11 +27,14 @@ def meters(a, b):
     return 6_371_000 * math.hypot(dx, dy)
 
 
+# Hai bản ghi là một nơi khi tên ngắn hơn (ít nhất 2 từ) là phần đầu của tên dài hơn, và hai điểm ở rất gần
+# nhau (NEAR_METERS).
 def same_place(a, b):
     short, long = sorted((words(a.name), words(b.name)), key=len)
     return len(short) >= 2 and long[:len(short)] == short and meters(a, b) <= NEAR_METERS
 
 
+# Đếm số thông tin có: giá vé, ảnh, giờ mở cửa, website, đánh giá. Bản ghi nhiều thông tin hơn được giữ.
 def richness(place):
     return sum(bool(x) for x in (place.ticket, place.photo, place.opening_hours_raw, place.website_url,
                                  place.rating))

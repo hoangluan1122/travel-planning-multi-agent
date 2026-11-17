@@ -1,5 +1,8 @@
 """Local runnable application for one live Place Agent, without the demo workflow."""
 
+# Máy chủ của Place Agent dữ liệu thật: uvicorn app.place_agent.live_api:create_app --factory --port 8001.
+# Ứng dụng phụ, chạy riêng; trang web chính không dùng file này.
+
 import asyncio
 import secrets
 from pathlib import Path

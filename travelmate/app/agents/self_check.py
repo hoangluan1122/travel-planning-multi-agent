@@ -7,6 +7,9 @@ Each check passes trivially when the data needed to satisfy it does not exist (n
 candidates, no rain in the forecast...), so the agent is never asked the impossible.
 """
 
+# Metacognition: lịch tự kiểm tra trước khi trả lời. Mỗi hàm check_* chấm một tiêu chí và trả về đạt/không
+# đạt kèm giải thích; lỗi được gửi lại cho LLM để sửa.
+
 from app.core.models import CheckResult
 from app.tools.places.place_media import plain
 from app.tools.prices.ticket_prices import fame_rank
@@ -21,10 +24,12 @@ MAX_MEALS_PER_DAY = 3
 MIN_MINUTES_BETWEEN_MEALS = 3 * 60
 
 
+# Đổi số phút trong ngày thành 'HH:MM' (540 -> '09:00').
 def hhmm(minute):
     return f"{minute // 60:02d}:{minute % 60:02d}"
 
 
+# Mỗi mong muốn có địa điểm phù hợp thì phải có ít nhất một nơi trong lịch.
 def check_wishes(draft, places, wishes):
     """Each stated wish that has matching candidates gets at least one scheduled place."""
     scheduled = {a.place_id for d in draft.days for a in d.activities}
@@ -45,6 +50,7 @@ def check_wishes(draft, places, wishes):
     return results
 
 
+# Ngày nào kéo qua giờ trưa thì phải có bữa trưa trong khoảng 10:30-14:30.
 def check_meals(draft, places):
     """A day that spans lunchtime includes a meal place starting between 10:30 and 14:30."""
     if not any(MEAL_TYPES & set(p.types) for p in places.values()):
@@ -64,6 +70,7 @@ def check_meals(draft, places):
     )]
 
 
+# Không ăn liên tục: tối đa 3 bữa một ngày, mỗi bữa cách nhau 3 giờ.
 def check_meal_pacing(draft, places):
     """No eating marathon: at most three meal places a day, each meal three hours after the last."""
     problems = []
@@ -86,6 +93,8 @@ def check_meal_pacing(draft, places):
     )]
 
 
+# Các khu nổi tiếng có trong bảng giá vé; các phần của một khu (Ngọ Môn, Điện Thái Hòa trong Đại Nội) tính
+# là một.
 def famous_groups(places):
     """Well-known sights among the candidates, best known first: one (group, first place) per site.
 
@@ -100,6 +109,7 @@ def famous_groups(places):
     return sorted(groups.items(), key=lambda item: fame_rank(item[0]))
 
 
+# Có nơi nổi tiếng nhất, và mỗi ngày một nơi nổi tiếng khi đủ lựa chọn.
 def check_famous(draft, places):
     """The best-known sight is on the plan, and one well-known sight per day when there are enough."""
     groups = famous_groups(places)
@@ -121,6 +131,7 @@ def check_famous(draft, places):
     return [CheckResult(id="famous", label="Có các điểm tham quan nổi tiếng", passed=passed, detail=detail)]
 
 
+# Ngày mưa: tối đa một hoạt động ngoài trời nếu có lựa chọn trong nhà.
 def check_rain(draft, places, weather):
     """On rainy days, at most one outdoor place when indoor alternatives exist."""
     rainy = {d.date for d in weather.days if d.weather_code in RAIN_CODES}
@@ -142,6 +153,7 @@ def check_rain(draft, places, weather):
     )]
 
 
+# Không lặp một địa điểm qua nhiều ngày khi còn nơi cùng loại chưa dùng.
 def check_repeats(draft, places):
     """A place is not repeated across days while unused places of the same kind remain."""
     days_of = {}
@@ -165,6 +177,7 @@ def check_repeats(draft, places):
     )]
 
 
+# Chạy mọi tiêu chí trên một bản nháp.
 def review_draft(draft, ranked, weather, wishes=()):
     """Run every check. wishes: (label, keyword, candidate place ids) per stated wish."""
     places = {p.id: p for p in ranked.places}
@@ -172,6 +185,7 @@ def review_draft(draft, ranked, weather, wishes=()):
             + check_meal_pacing(draft, places) + check_rain(draft, places, weather) + check_repeats(draft, places))
 
 
+# Chuyển các tiêu chí không đạt thành góp ý gửi cho LLM.
 def feedback_from(checks):
     """Failed checks to fix, plus the passing ones to keep, for the itinerary LLM.
 

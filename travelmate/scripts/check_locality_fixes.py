@@ -1,5 +1,8 @@
 """Small live resolver investigation; retain actual source bytes and choices."""
 
+# Thử nhanh việc xác định địa danh trên nguồn thật, lưu dữ liệu thô. Chạy tay khi cần, gọi nguồn thật; không
+# nằm trong bộ test tự động.
+
 import asyncio
 import json
 from datetime import UTC, datetime

@@ -4,6 +4,9 @@ Both engines expose the same two tools and the same submit gate, so a plan accep
 by one engine would be accepted by the other. Only the loop runtime differs.
 """
 
+# Hai công cụ planner LLM được dùng: inspect_trip (đọc dữ liệu chuyến đi) và submit_itinerary (nộp lịch).
+# LLM chỉ đọc dữ liệu qua công cụ và mọi bài nộp đều bị kiểm tra, nên nó không thể bịa địa điểm.
+
 import json
 import logging
 
@@ -46,6 +49,7 @@ PLANNER_INSTRUCTION = (
 MAX_EVIDENCE_READS = 3
 
 
+# Trạng thái riêng của một lần xếp lịch: số lần đã nộp và bản nháp được chấp nhận.
 class PlannerToolState:
     def __init__(self):
         self.accepted: Draft | None = None
@@ -53,6 +57,7 @@ class PlannerToolState:
         self.submissions = 0
 
 
+# Tạo công cụ mới cho mỗi yêu cầu (closure trên dữ liệu của yêu cầu đó).
 def make_planner_tools(data, context, max_submissions):
     """Build request-scoped tool closures over fresh state.
 
@@ -63,6 +68,7 @@ def make_planner_tools(data, context, max_submissions):
 
     state = PlannerToolState()
 
+    # Giá và giờ mở cửa chưa biết được ghi là UNKNOWN, không bao giờ là 0.
     def inspect_trip() -> dict:
         """Read authoritative trip constraints, candidate places and weather observations.
         Missing prices and opening hours are UNKNOWN, never zero.
@@ -73,6 +79,7 @@ def make_planner_tools(data, context, max_submissions):
         logger.info("agent_tool request_id=%s tool=inspect_trip", context.request_id)
         return data.model_dump(mode="json")
 
+    # Kiểm tra bài nộp (validate_draft). Sai thì trả lỗi để LLM sửa; quá số lần nộp thì dừng.
     def submit_itinerary(draft_json: str) -> dict:
         """Submit a JSON itinerary; repair returned validation errors and resubmit.
 

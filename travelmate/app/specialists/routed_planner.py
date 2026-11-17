@@ -1,5 +1,9 @@
 """Planner with deterministic routing post-validation, not multi-agent delegation."""
 
+# Xếp lịch rồi kiểm tra đường đi thật từng ngày (OSRM): giờ đi lại giữa các điểm, khung giờ mở cửa. Thuộc
+# 'bàn thử chuyên gia' (app/specialists): mỗi chuyên gia chạy riêng lẻ để thử và chấm điểm, không gọi agent
+# khác. Trang web chính không dùng file này trừ khi ghi rõ.
+
 from datetime import date
 from typing import Annotated, Literal
 
@@ -41,6 +45,7 @@ class DayConstraints(Model):
     precedence: list[Precedence] = Field(default_factory=list, max_length=28)
 
 
+# Đầu vào xếp lịch + ràng buộc đi lại cho từng ngày.
 class RoutedPlannerInput(PlannerInput):
     route_days: list[DayConstraints] = Field(min_length=1, max_length=14)
 
@@ -90,6 +95,7 @@ class RoutedPlan(Model):
     warnings: list[str]
 
 
+# Với mỗi ngày của lịch: tính đường đi theo thứ tự đã xếp và báo nếu không kịp.
 async def route_draft(data: RoutedPlannerInput, draft: Draft, provider):
     from app.agents.orchestrator import validate_draft
 
@@ -157,6 +163,7 @@ async def route_draft(data: RoutedPlannerInput, draft: Draft, provider):
     )
 
 
+# Xếp lịch bằng LLM rồi kiểm tra đường đi bằng route_draft.
 class RoutedPlannerSpecialist(BaseAgent[RoutedPlannerInput, RoutedPlan]):
     name, input_schema, output_schema = "routed_planner", RoutedPlannerInput, RoutedPlan
 

@@ -1,5 +1,7 @@
 """Local smoke harness for real OSM tools; no LLM key required."""
 
+# Chạy thử nhanh công cụ OSM thật, không cần khoá LLM.
+
 import argparse
 import asyncio
 import sys

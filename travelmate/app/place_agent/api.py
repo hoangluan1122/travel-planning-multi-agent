@@ -1,5 +1,8 @@
 """Run only Place Agent: uvicorn app.place_agent.api:create_app --factory."""
 
+# API chỉ chạy Place Agent (bản thử nghiệm đầu). Ứng dụng phụ, chạy riêng; trang web chính không dùng file
+# này.
+
 import secrets
 from typing import Literal
 

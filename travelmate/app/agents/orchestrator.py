@@ -4,6 +4,9 @@ memory -> place + weather (in parallel) -> recommendation -> planner -> validate
 The step rules (validate_draft, checked_places, checked_weather, plan_response) are shared
 with the MAF workflow and Planning orchestrators, so all three accept and reject the same plans."""
 
+# Cách điều phối 'classic': gọi các agent theo thứ tự bằng asyncio. File này còn chứa các luật chung mà ba
+# cách điều phối cùng dùng (validate_draft, checked_places, checked_weather, plan_response).
+
 import asyncio
 from datetime import timedelta
 
@@ -19,6 +22,9 @@ from app.core.models import (
 )
 
 
+# Kiểm tra lịch do LLM viết. Lịch phải có đúng từng ngày của chuyến đi theo thứ tự, chỉ dùng địa điểm có
+# thật trong danh sách, không trùng giờ, không lặp địa điểm trong ngày và theo đúng ràng buộc. Sai một điều
+# là từ chối.
 def validate_draft(trip, draft, places, constraints=None):
     from app.core.models import ScheduleConstraints
 
@@ -61,18 +67,23 @@ def validate_draft(trip, draft, places, constraints=None):
         raise AgentError("Planner omitted required places")
 
 
+# registry: danh bạ agent; mode: demo/live; timeout: giây tối đa cho mỗi agent.
 class Orchestrator:
     def __init__(self, registry, mode="demo", timeout=45):
         self.registry, self.mode, self.timeout = registry, mode, timeout
 
+    # Luồng: sở thích -> địa điểm + thời tiết (song song) -> xếp hạng -> xếp lịch -> kiểm tra -> chi phí.
     async def plan(self, trip):
         context = Context()
 
         async def run(name, data):
             return await self.registry.get(name).run(data, context, self.timeout)
 
+        # Báo tiến độ cho trang (chỉ có tác dụng khi chạy trong một job).
         report_stage("places")
         memory = await run("memory", trip)
+        # return_exceptions=True: một bên lỗi không huỷ bên kia; lỗi được xử lý ở
+        # checked_places/checked_weather.
         results = await asyncio.gather(run("place", trip), run("weather", trip), return_exceptions=True)
         for result in results:
             if isinstance(result, asyncio.CancelledError):
@@ -93,6 +104,7 @@ class Orchestrator:
         except Exception:
             if getattr(self.registry.get("planner"), "llm", None) is None or not ranked.places:
                 raise
+            # LLM xếp lịch lỗi (hết hạn mức, mất kết nối): xếp lịch theo luật để người dùng vẫn có lịch.
             from app.agents.rule_scheduler import rule_draft  # the itinerary LLM failed: schedule by rules
 
             draft, fallback = rule_draft(trip, ranked, weather), True
@@ -111,6 +123,7 @@ class Orchestrator:
 # result and the same errors for the same inputs.
 
 
+# Địa điểm là bắt buộc: lỗi thì dừng cả lịch trình.
 def checked_places(result):
     """Place lookup is required: any failure stops the plan.
 
@@ -124,6 +137,7 @@ def checked_places(result):
     return result
 
 
+# Thời tiết là tuỳ chọn: lỗi chỉ thành một cảnh báo.
 def checked_weather(result):
     """Weather is optional: a failure becomes an explicit unverified-weather warning."""
     if isinstance(result, asyncio.CancelledError):
@@ -133,6 +147,7 @@ def checked_weather(result):
     return result
 
 
+# Gom kết quả các agent thành PlanResponse, gộp cảnh báo của mọi bước.
 def plan_response(context, mode, draft, ranked, weather, budget, memory=None, stays=()):
     return PlanResponse(
         request_id=context.request_id,

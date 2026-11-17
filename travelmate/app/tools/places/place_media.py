@@ -6,6 +6,11 @@ sees a same-origin path, and only photo names this process handed out can be fet
 the endpoint cannot be used to spend the key on arbitrary requests.
 """
 
+# Ảnh cho địa điểm, miễn phí và không lộ khoá API:
+# - WikipediaImages: ảnh từ Wikipedia/Wikidata/Commons, chỉ nhận khi chắc đúng là địa điểm đó; quán ăn không
+# có ảnh thì dùng ảnh minh hoạ món ăn (có ghi rõ).
+# - GooglePhotoProxy: ảnh Google Places qua máy chủ, để trình duyệt không thấy khoá Google.
+
 import asyncio
 import math
 import re
@@ -24,17 +29,20 @@ PHOTO_KINDS = {"museum", "castle", "attraction", "gallery", "viewpoint", "monume
 GOOGLE_PHOTO_NAME = re.compile(r"^places/[A-Za-z0-9_-]{1,300}/photos/[A-Za-z0-9_-]{1,600}$")
 
 
+# Viết thường và bỏ dấu tiếng Việt để so tên.
 def plain(text):
     """Casefold and strip Vietnamese diacritics so "Lăng Tự Đức" matches "lang tu duc"."""
     text = unicodedata.normalize("NFD", text.casefold().replace("đ", "d"))
     return " ".join("".join(ch for ch in text if not unicodedata.combining(ch)).split())
 
 
+# Chỉ nhận ảnh từ máy chủ của Wikimedia (https).
 def is_wikimedia_image(url):
     parts = urlsplit(url)
     return parts.scheme == "https" and (parts.hostname or "").endswith(".wikimedia.org")
 
 
+# Tên này chứa tên kia (bỏ qua dấu và hoa thường): 'Điện Thái Hòa' khớp 'Điện Thái Hòa (Hoàng thành Huế)'.
 def titles_match(place_name, title):
     a, b = plain(place_name), plain(title)
     return bool(a and b) and (a in b or b in a)
@@ -45,6 +53,7 @@ GENERIC_TOKENS = {"hue", "hoi", "lat", "nang", "viet", "nam", "vietnam", "city",
 EARTH_KM = 6371.0
 
 
+# Khoảng cách giữa hai toạ độ (km).
 def distance_km(lat1, lon1, lat2, lon2):
     p1, p2 = math.radians(lat1), math.radians(lat2)
     dp, dl = p2 - p1, math.radians(lon2 - lon1)
@@ -52,6 +61,7 @@ def distance_km(lat1, lon1, lat2, lon2):
     return 2 * EARTH_KM * math.asin(math.sqrt(a))
 
 
+# Các từ đặc trưng của tên: dài từ 4 chữ cái, không phải từ chung chung (tên thành phố, 'cafe', 'hotel'...).
 def name_tokens(name):
     return {t for t in re.split(r"[^a-z0-9]+", plain(name)) if len(t) >= 4 and t not in GENERIC_TOKENS}
 
@@ -60,6 +70,7 @@ def strip_html(text):
     return " ".join(re.sub(r"<[^>]+>", " ", text or "").split())
 
 
+# Loại địa điểm ăn uống và lưu trú: mỗi nhóm tìm ảnh theo cách khác nhau.
 FOOD_TYPES = {"restaurant", "cafe", "fast_food", "food_court", "bar", "pub", "ice_cream", "bakery"}
 STAY_TYPES = {"hotel", "hostel", "guest_house", "motel", "apartment", "resort", "camp_site", "lodging"}
 # Food places almost never have a photo of their own in free sources. A photo of the dish in
@@ -67,6 +78,8 @@ STAY_TYPES = {"hotel", "hostel", "guest_house", "motel", "apartment", "resort", 
 # none. (keywords, Vietnamese Wikipedia title, label, keywords also match without accents).
 # Without accents some words collide ("pho" is also "phố", "lau" is "lâu"), so those match
 # only with their accents.
+# Từ khoá trong tên quán -> bài Wikipedia về món đó. Cột cuối: có được khớp khi không dấu không (False với
+# các từ dễ nhầm như 'pho' = phở/phố).
 DISHES = [
     (("bún bò",), "Bún bò Huế", "bún bò Huế", True),
     (("phở",), "Phở", "phở", False),
@@ -105,14 +118,17 @@ DISHES = [
 ]
 
 
+# Viết thường, chuẩn hoá Unicode, giữ dấu.
 def folded(text):
     return " ".join(unicodedata.normalize("NFC", text or "").casefold().split())
 
 
+# Từ đứng riêng (không phải một phần của từ khác).
 def has_word(text, word):
     return re.search(rf"(?<!\w){re.escape(word)}(?!\w)", text) is not None
 
 
+# Món ăn của một quán, đoán từ tên; không phải quán ăn thì None.
 def dish_for(place):
     """(Wikipedia title, label) of what a food place serves, judged from its name and type; else None."""
     types = set(place.types or [])
@@ -128,10 +144,12 @@ def dish_for(place):
     return "Ẩm thực Việt Nam", "ẩm thực Việt Nam"
 
 
+# Tên không dấu (thường là tên tiếng Anh) thì tìm thêm trên Wikipedia tiếng Anh.
 def ascii_name(name):
     return all(ord(ch) < 128 for ch in name)
 
 
+# Các nguồn được thử theo độ tin cậy; không tìm được ảnh không bao giờ làm hỏng việc tìm.
 class WikipediaImages:
     """Free photos for places, tried in order of confidence; never fails a search.
 
@@ -150,12 +168,14 @@ class WikipediaImages:
         self.illustrations = {}  # Wikipedia title -> PlacePhoto (or None: the article has no photo)
         self.illustration_locks = {}
 
+    # Gọi API với giới hạn số yêu cầu đồng thời.
     async def get(self, client, url, params):
         async with self.semaphore:
             response = await client.get(url, params={"format": "json", "formatversion": "2", **params})
             response.raise_for_status()
             return response.json()
 
+    # Ảnh đầu bài Wikipedia có tiêu đề trùng tên địa điểm.
     async def wikipedia(self, client, place, lang=None):
         data = await self.get(client, f"https://{lang or self.lang}.wikipedia.org/w/api.php", {
             "action": "query", "generator": "search", "gsrsearch": place.name, "gsrlimit": "1",
@@ -175,6 +195,7 @@ class WikipediaImages:
             source_url=page.get("fullurl"),
         )
 
+    # Đường dẫn ảnh và ghi công tác giả của một file trên Commons.
     async def commons_file(self, client, title):
         data = await self.get(client, "https://commons.wikimedia.org/w/api.php", {
             "action": "query", "titles": title, "prop": "imageinfo", "iiprop": "url|extmetadata",
@@ -193,6 +214,7 @@ class WikipediaImages:
             source_url=info.get("descriptionurl"),
         )
 
+    # Ảnh (P18) của thực thể Wikidata trùng tên và ở gần (toạ độ P625).
     async def wikidata(self, client, place):
         found = await self.get(client, "https://www.wikidata.org/w/api.php", {
             "action": "wbsearchentities", "search": place.name, "language": self.lang, "uselang": self.lang,
@@ -215,6 +237,7 @@ class WikipediaImages:
                 return await self.commons_file(client, f"File:{image}")
         return None
 
+    # Ảnh Commons chụp gần đó có tên file chứa từ đặc trưng của tên địa điểm.
     async def commons_nearby(self, client, place):
         tokens = name_tokens(place.name)
         if not tokens:
@@ -256,6 +279,8 @@ class WikipediaImages:
             self.illustrations[title] = photo
             return photo
 
+    # Thứ tự nguồn: quán ăn/nơi ở: Wikidata -> Commons; điểm tham quan: Wikipedia tiếng Việt -> tiếng Anh ->
+    # Wikidata -> Commons; cuối cùng là ảnh minh hoạ món ăn.
     async def find(self, client, place):
         if place.id in self.cache:
             return self.cache[place.id]
@@ -278,6 +303,7 @@ class WikipediaImages:
         self.cache[place.id] = photo
         return photo
 
+    # Thêm ảnh cho nhiều địa điểm cùng lúc, trong giới hạn thời gian; hết giờ thì giữ những ảnh đã có.
     async def enrich(self, places):
         """Return places with a free photo added where one clearly matches, within a time budget."""
         wanted = [p for p in places if p.photo is None][: self.limit]
@@ -297,6 +323,7 @@ class WikipediaImages:
         return [p.model_copy(update={"photo": found[p.id]}) if p.id in found else p for p in places]
 
 
+# Chỉ phục vụ tên ảnh mà chính máy chủ đã trả ra, để khoá Google không bị dùng cho yêu cầu tuỳ ý.
 class GooglePhotoProxy:
     """Remembers photo names returned by Places searches and resolves them to image URLs."""
 
@@ -306,6 +333,7 @@ class GooglePhotoProxy:
         self.resolved = {}
         self.max_names, self.ttl_s = max_names, ttl_s
 
+    # Ghi nhớ tên ảnh hợp lệ và trả về đường dẫn qua máy chủ.
     def register(self, name):
         if not GOOGLE_PHOTO_NAME.fullmatch(name):
             return None

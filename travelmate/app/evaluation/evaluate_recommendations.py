@@ -1,5 +1,7 @@
 """Replay Recommendation over previously fetched real Place records, without network."""
 
+# Chạy lại agent xếp hạng trên địa điểm thật đã lưu, không cần mạng.
+
 import argparse
 import asyncio
 import json

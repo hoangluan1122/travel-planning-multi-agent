@@ -18,6 +18,11 @@ says which agent answered and why it was chosen. Without an LLM, or if it fails,
 keyword router makes the decision so the chat keeps working.
 """
 
+# Trợ lý AI trong chat (Multi-Agent pattern). Mỗi tin nhắn đi qua Concierge: nó tự trả lời (chào hỏi, hỏi
+# lại) hoặc chuyển cho chuyên gia: địa điểm, lịch trình, chi phí, thời tiết, hướng dẫn viên. Cuộc chat nhớ
+# thông tin qua các lượt ('đi Huế' rồi '2 người, 5 triệu' là cùng một chuyến). Không có LLM hoặc LLM lỗi thì
+# một bộ định tuyến theo từ khoá quyết định thay.
+
 import asyncio
 import json
 import logging
@@ -49,7 +54,9 @@ from app.tools.prices.cost_reference import STYLES
 
 logger = logging.getLogger(__name__)
 
+# Tên các chuyên gia mà Concierge được phép chuyển việc tới.
 Specialist = Literal["place_finder", "trip_planner", "budget_advisor", "weather_advisor", "guide_advisor"]
+# Tên hiển thị của từng agent trong khung chat.
 AGENT_LABELS = {
     "concierge": "Trợ lý điều phối",
     "place_finder": "Chuyên gia địa điểm",
@@ -59,25 +66,31 @@ AGENT_LABELS = {
     "guide_advisor": "Hướng dẫn viên",
 }
 CATEGORY_LABELS = {"attraction": "điểm tham quan", "restaurant": "quán ăn", "hotel": "nơi ở"}
+# Mã thời tiết WMO -> mô tả tiếng Việt (lấy mô tả của mốc đầu tiên >= mã).
 WMO = [(0, "trời quang"), (2, "ít mây"), (3, "nhiều mây"), (48, "sương mù"), (57, "mưa phùn"), (67, "mưa"),
        (77, "tuyết"), (82, "mưa rào"), (86, "mưa tuyết"), (99, "dông")]
 # OpenStreetMap tags are mostly English: try these before widening to an empty keyword.
+# Tên trên OpenStreetMap thường bằng tiếng Anh: tìm không ra thì thử từ tiếng Anh.
 SYNONYMS = {"chay": "vegetarian", "đồ chay": "vegetarian", "hải sản": "seafood", "cà phê": "cafe",
             "bún bò": "bun bo", "phở": "pho", "lăng": "tomb", "chùa": "pagoda", "bảo tàng": "museum",
             "biển": "beach", "chợ": "market"}
+# Phiên chat trong bộ nhớ sống 2 giờ, tối đa 200 phiên; LLM chỉ đọc 12 tin gần nhất.
 SESSION_TTL_S = 2 * 3600
 MAX_SESSIONS = 200
 HISTORY_FOR_LLM = 12
 
 
+# Mã WMO -> mô tả tiếng Việt.
 def weather_label(code):
     return next((label for top, label in WMO if code <= top), "không rõ")
 
 
+# Định dạng tiền: 1500000 -> '1.500.000 ₫'.
 def money(value):
     return f"{Decimal(value):,.0f} ₫".replace(",", ".")
 
 
+# Thông tin chuyến đi thu thập dần qua các lượt chat (ô trống = chưa biết).
 class TripSlots(Model):
     destination: str | None = Field(default=None, max_length=200)
     start_date: date | None = None
@@ -88,6 +101,7 @@ class TripSlots(Model):
     notes: str = Field(default="", max_length=500)
     travel_style: TravelStyle | None = None
 
+    # Gộp thông tin mới vào thông tin cũ; ô nào có giá trị mới thì ghi đè.
     def merged(self, update):
         data = self.model_dump()
         for key, value in update.model_dump(exclude_unset=True).items():
@@ -96,6 +110,7 @@ class TripSlots(Model):
         return TripSlots.model_validate(data)
 
 
+# Mô tả những gì đã biết để nhắc lại cho người dùng.
 def describe_slots(slots):
     parts = []
     if slots.destination:
@@ -111,12 +126,14 @@ def describe_slots(slots):
     return ", ".join(parts)
 
 
+# Tham số tìm địa điểm mà Concierge truyền cho chuyên gia địa điểm.
 class PlaceQuery(Model):
     destination: str | None = Field(default=None, max_length=200)
     category: Literal["attraction", "restaurant", "hotel"] = "attraction"
     keyword: str = Field(default="", max_length=60)
 
 
+# Một lần chuyển việc: cho chuyên gia nào, vì sao, kèm thông tin trích từ tin nhắn.
 class HandOff(Model):
     agent: Specialist
     reason: str = Field(min_length=3, max_length=200)
@@ -126,6 +143,7 @@ class HandOff(Model):
     question: str | None = Field(default=None, max_length=300)
 
 
+# Quyết định của Concierge cho một tin nhắn: tự trả lời, hoặc chuyển việc.
 class Decision(Model):
     """What the concierge does with one user message; validated as a submit gate."""
 
@@ -147,6 +165,7 @@ class Decision(Model):
                     raise ValueError("place_finder needs place_query (category, keyword, destination)")
         return self
 
+    # Câu hỏi ghép ('lập lịch và tính chi phí') chạy lịch trình trước, vì chi phí cần lịch.
     def hand_offs(self):
         """Primary hand-off first, then the others; the planner before costs/weather that need its plan."""
         if self.action != "hand_off":
@@ -161,6 +180,7 @@ class Decision(Model):
         return sorted(out, key=lambda h: order.get(h.agent, 1))
 
 
+# Một tin nhắn: ai gửi, agent nào trả lời, vì sao, kèm địa điểm/lịch/nguồn nếu có.
 class ChatMessage(Model):
     role: Literal["user", "assistant"]
     text: str = Field(max_length=4000)
@@ -174,11 +194,13 @@ class ChatMessage(Model):
     at: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
 
+# Dữ liệu trang gửi lên: mã phiên (nếu có) và tin nhắn.
 class ChatRequest(Model):
     session_id: str | None = Field(default=None, max_length=64)
     message: str = Field(min_length=1, max_length=1000)
 
 
+# Dữ liệu trả về trang cho một lượt chat.
 class ChatResponse(Model):
     session_id: str
     reply: ChatMessage
@@ -188,6 +210,7 @@ class ChatResponse(Model):
     trip_id: str | None = None  # the plan in this turn, saved to the signed-in user's trips
 
 
+# Một cuộc chat: tin nhắn, thông tin chuyến đi, chuyên gia đang trả lời, lịch gần nhất.
 class ChatSession:
     def __init__(self, session_id=None, owner=None):
         self.id = session_id or str(uuid.uuid4())
@@ -199,6 +222,7 @@ class ChatSession:
         self.last_trip: TripRequest | None = None
         self.touched = time.monotonic()
 
+    # Lưu phiên chat vào cơ sở dữ liệu dạng JSON.
     def dump(self):
         """JSON-safe state for the database (the last plan is kept; it is what costs questions use)."""
         return {
@@ -209,6 +233,7 @@ class ChatSession:
             "last_trip": self.last_trip.model_dump(mode="json") if self.last_trip else None,
         }
 
+    # Dựng lại phiên chat từ cơ sở dữ liệu.
     @classmethod
     def load(cls, session_id, owner, data):
         session = cls(session_id, owner)
@@ -227,6 +252,7 @@ class ChatSession:
         return session
 
 
+# Kho phiên chat trong bộ nhớ, có hạn sống; không chia sẻ giữa nhiều tiến trình.
 class SessionStore:
     """In-memory sessions with a TTL; a demo store, not shared across processes."""
 
@@ -238,6 +264,7 @@ class SessionStore:
         session.touched = time.monotonic()
         return session
 
+    # Chỉ trả phiên của đúng người sở hữu; không có thì tạo phiên mới.
     def get(self, session_id, owner=None):
         now = time.monotonic()
         for key in [k for k, s in self.sessions.items() if now - s.touched > SESSION_TTL_S]:
@@ -284,6 +311,8 @@ CONCIERGE_INSTRUCTION = (
 )
 
 
+# Concierge dùng LLM: đọc hội thoại qua công cụ rồi nộp quyết định; quyết định sai cấu trúc bị trả lại để
+# sửa.
 class ConciergeAgent:
     """LLM router over read_conversation/decide with a validated decision."""
 
@@ -293,6 +322,7 @@ class ConciergeAgent:
     async def decide(self, session, context):
         state = {"decision": None, "reads": 0, "submissions": 0}
 
+        # Công cụ cho LLM: ngày hôm nay, tin nhắn gần đây, thông tin chuyến đi đã biết.
         def read_conversation() -> dict:
             """Read today's date, recent messages, the known trip details, the active agent and
             whether a plan exists."""
@@ -310,6 +340,7 @@ class ConciergeAgent:
                 "has_plan": session.last_plan is not None,
             }
 
+        # Công cụ cho LLM: nộp quyết định (kiểm tra bằng model Decision).
         def decide(decision_json: str) -> dict:
             """Submit the routing decision; returns errors to fix, or acceptance.
 
@@ -373,11 +404,13 @@ LODGING_PRICE = re.compile(
     r"\s*(k\b|nghìn|ngàn|tr\b|triệu|đ\b|₫|vnd)?", re.I)
 
 
+# Nhận mức chi tiêu trong câu ('tiết kiệm', 'sang').
 def style_in(text):
     lowered = text.casefold()
     return next((style for style, pattern in STYLE_WORDS if re.search(pattern, lowered)), None)
 
 
+# Đọc giá phòng người dùng nhắc tới ('khách sạn 500k/đêm' -> 500000).
 def lodging_price(text):
     """A price per room per night the user mentions ("khách sạn 500k/đêm"), in VND, else None."""
     match = LODGING_PRICE.search(text)
@@ -395,6 +428,7 @@ def lodging_price(text):
 DAYS = re.compile(r"(\d{1,2})\s*ngày", re.I)
 
 
+# Đọc ngày trong câu: dạng 2026-12-01 hoặc 1/12; thiếu năm thì lấy năm nay, ngày đã qua thì sang năm sau.
 def found_dates(text):
     today = date.today()
     dates = []
@@ -414,6 +448,7 @@ def found_dates(text):
     return dates
 
 
+# Trích thông tin chuyến đi bằng luật từ khoá; không chắc thì để trống.
 def extract_slots(text):
     """Trip details a keyword parser can read with confidence; anything unclear stays unset."""
     data = {}
@@ -441,6 +476,7 @@ def extract_slots(text):
 SPLIT = re.compile(r"\s+(?:và|rồi|sau đó|với lại|kèm|cùng với)\s+|;|\?\s+", re.I)
 
 
+# Bộ định tuyến theo từ khoá, dùng khi không có LLM hoặc LLM lỗi.
 def rule_decision(session, text):
     """Keyword router used without an LLM or when the concierge fails; splits compound questions."""
     slots = extract_slots(text)
@@ -457,6 +493,7 @@ def rule_decision(session, text):
     return single_rule_decision(session, text, slots)
 
 
+# Định tuyến một câu hỏi đơn theo từ khoá.
 def single_rule_decision(session, text, slots):
     lowered = text.casefold()
     for agent, pattern in ROUTES:
@@ -480,6 +517,7 @@ def single_rule_decision(session, text, slots):
     ))
 
 
+# Câu hỏi 'nếu...thì' về chi phí: đổi số người, mức chi tiêu, ngân sách, giá phòng.
 def what_if(text, trip):
     """Changes to try from a "what if" question: (descriptions, trip update, lodging price per night)."""
     changes, update, lodging = [], {}, lodging_price(text)
@@ -504,6 +542,7 @@ def money_range(low, high):
     return money(low) if low == high else f"{money(low)} – {money(high)}"
 
 
+# Câu trả lời chi phí bằng tiếng Việt; mọi con số lấy từ BudgetResult.
 def budget_text(b, trip=None):
     """A short Vietnamese answer from a BudgetResult; every number comes from it."""
     if b.verdict == "unknown" or b.total_high_vnd is None:
@@ -545,6 +584,7 @@ def budget_text(b, trip=None):
     return text
 
 
+# Điều phối một lượt chat: chọn chuyên gia (route) rồi gọi đúng hàm chuyên gia bên dưới.
 class ChatService:
     def __init__(self, orchestrator, provider, concierge=None, timeout=60, guide=None):
         self.orchestrator, self.provider, self.concierge = orchestrator, provider, concierge
@@ -552,6 +592,7 @@ class ChatService:
         self.timeout = timeout
         self.store = SessionStore()
 
+    # Ưu tiên Concierge LLM; lỗi hoặc quá giờ thì dùng luật từ khoá.
     async def route(self, session, text, context):
         if self.concierge is not None:
             try:
@@ -568,6 +609,8 @@ class ChatService:
         session, replies = await self.handle_turn(session_id, text, owner)
         return session, replies[0]
 
+    # Một lượt: thêm tin nhắn -> quyết định -> gọi từng chuyên gia -> lưu trả lời. Chuyên gia lỗi thì trả
+    # câu xin lỗi, không làm hỏng cả lượt.
     async def handle_turn(self, session_id, text, owner=None, session=None):
         session = session or self.store.get(session_id, owner)
         context = Context()
@@ -598,6 +641,7 @@ class ChatService:
 
     # --- specialists ----------------------------------------------------------------------
 
+    # Chuyên gia địa điểm: tìm theo từ khoá, thử từ đồng nghĩa tiếng Anh, cuối cùng tìm rộng không từ khoá.
     async def place_finder(self, session, hand, context):
         query = hand.place_query or PlaceQuery()
         destination = query.destination or session.slots.destination
@@ -629,6 +673,8 @@ class ChatService:
             f"Mình tìm được {len(places)} {label} ở {destination}{about}: {names}.{note}"
         ))
 
+    # Chuyên gia lịch trình: thiếu thông tin thì hỏi tiếp; đủ thì gọi orchestrator lập lịch như trang Tạo
+    # chuyến đi.
     async def trip_planner(self, session, hand, context):
         slots = session.slots
         missing = [label for value, label in [
@@ -665,6 +711,8 @@ class ChatService:
             f"Mình đã lập lịch {len(plan.draft.days)} ngày ở {trip.destination} — {days}.{check}"
         ))
 
+    # Chuyên gia chi phí: tính cho lịch gần nhất, và tính thử khi người dùng hỏi 'nếu...' (không sửa lịch đã
+    # lưu).
     async def budget_advisor(self, session, hand, context):
         plan, trip = session.last_plan, session.last_trip
         if plan is None:
@@ -690,12 +738,14 @@ class ChatService:
             "(Đây là tính thử, lịch đã lưu không đổi.)"
         ))
 
+    # Gọi thẳng BudgetAgent để tính chi phí.
     @staticmethod
     async def cost(trip, plan, lodging):
         data = BudgetInput.model_construct(trip=trip, draft=plan.draft, places=PlaceResult(places=plan.places),
                                            user_costs=[], lodging_per_night_vnd=lodging)
         return await BudgetAgent().execute(data, Context())
 
+    # Chuyên gia thời tiết: dự báo Open-Meteo cho điểm đến và ngày đã biết.
     async def weather_advisor(self, session, hand, context):
         slots = session.slots
         if not slots.destination:
@@ -711,6 +761,7 @@ class ChatService:
         return ChatMessage(role="assistant", agent="weather_advisor",
                            text=f"Dự báo ở {slots.destination} — {days}. Nguồn: Open-Meteo.")
 
+    # Hướng dẫn viên: trả lời có nguồn về lịch sử, giá vé, giờ mở cửa.
     async def guide_advisor(self, session, hand, context):
         question = (hand.question or session.messages[-1].text).strip()
         answer = await self.guide.ask(question, context, session.slots.destination)

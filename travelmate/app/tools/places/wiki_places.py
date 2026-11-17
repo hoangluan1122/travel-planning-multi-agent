@@ -7,6 +7,9 @@ palaces, museums, markets). Only titles that name a sight are kept: wards, distr
 rivers, schools and historical events also have coordinates.
 """
 
+# Nguồn dự phòng: điểm tham quan quanh điểm đến lấy từ Wikipedia tiếng Việt (tìm theo toạ độ), dùng khi
+# Photon/OpenStreetMap không phản hồi.
+
 import math
 import re
 import unicodedata
@@ -49,6 +52,8 @@ def folded(text):
     return " ".join(unicodedata.normalize("NFC", text).casefold().split())
 
 
+# Đoán loại điểm tham quan từ tiêu đề bài viết (bảo tàng, lăng, chùa...); không phải điểm tham quan thì
+# None.
 def sight_type(title):
     """The place type for a Wikipedia title that names a sight, else None."""
     name = folded(PAREN.sub("", title))
@@ -70,12 +75,14 @@ def meters(lat1, lon1, lat2, lon2):
     return 2 * 6_371_000 * math.asin(math.sqrt(a))
 
 
+# Lỗi mạng chỉ trả danh sách rỗng.
 class WikipediaPlaces:
     """nearby(location, radius_m) -> sights as Place records, photo first then nearest; [] on failure."""
 
     def __init__(self, transport=None, lang="vi", timeout=8, limit=100):
         self.transport, self.lang, self.timeout, self.limit = transport, lang, timeout, limit
 
+    # Các bài Wikipedia có toạ độ trong bán kính (tối đa 10 km).
     async def pages(self, location, radius_m):
         params = {
             "action": "query", "format": "json", "formatversion": "2", "generator": "geosearch",
@@ -93,6 +100,7 @@ class WikipediaPlaces:
             raise ValueError("Invalid geosearch payload")
         return pages
 
+    # Điểm tham quan quanh điểm đến: có ảnh trước, gần trước; bỏ các phần của một khu đã có.
     async def nearby(self, location, radius_m):
         try:
             pages = await self.pages(location, radius_m)
@@ -114,6 +122,7 @@ class WikipediaPlaces:
         found.sort(key=lambda row: (row[0].photo is None, row[1]))
         return [place for place, _, _ in found]
 
+    # Đổi một bài Wikipedia thành Place.
     def place(self, page, location, stamp):
         """(Place, metres from the centre, folded name of the site it is part of) or None."""
         title = page["title"]

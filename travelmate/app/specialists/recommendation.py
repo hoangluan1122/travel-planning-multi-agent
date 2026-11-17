@@ -1,6 +1,9 @@
 """Recommendation specialist (standalone test bench): ranks given places by the traveller's
 preferences, by rules (RecommendationRanker) or with an LLM tool loop (RecommendationSpecialist)."""
 
+# Thuộc 'bàn thử chuyên gia' (app/specialists): mỗi chuyên gia chạy riêng lẻ để thử và chấm điểm, không gọi
+# agent khác. Trang web chính không dùng file này trừ khi ghi rõ.
+
 from datetime import UTC, datetime
 from typing import Literal
 
@@ -18,6 +21,7 @@ from app.specialists.recommendation_scoring import (
 from app.tools.places.osm_places import normalized
 
 
+# Ứng viên (địa điểm có sẵn), sở thích và ngữ cảnh chấm điểm.
 class RecommendationRequest(Model):
     candidates: list[Place] = Field(min_length=1, max_length=30)
     interests: list[ShortText] = Field(default_factory=list, max_length=20)
@@ -49,6 +53,7 @@ class RecommendationRequest(Model):
         return self
 
 
+# Danh sách được chọn kèm điểm từng tiêu chí và lý do loại.
 class RecommendationReport(Model):
     places: list[Place]
     method: str = "llm_ranking_of_supplied_candidates"
@@ -60,6 +65,7 @@ class RecommendationReport(Model):
     evaluated_at: datetime | None = None
 
 
+# Đóng gói kết quả từ phần chấm điểm (recommendation_scoring.py).
 def report_for(data, evaluation, ids, method, now):
     evidence = {p.id: p for p in data.candidates}
     details = {item.place_id: item for item in evaluation.items}
@@ -85,6 +91,7 @@ def report_for(data, evaluation, ids, method, now):
     )
 
 
+# Xếp hạng bằng luật, không cần LLM hay mạng.
 class RecommendationRanker(BaseAgent[RecommendationRequest, RecommendationReport]):
     """Deterministic baseline usable without an LLM or external network calls."""
 
@@ -110,6 +117,8 @@ class RecommendationRanker(BaseAgent[RecommendationRequest, RecommendationReport
         return report_for(data, evaluation, chosen, "weighted_evidence_v1", now)
 
 
+# Xếp hạng bằng LLM: LLM chỉ được chọn trong ứng viên có sẵn; ứng viên không đủ điều kiện bị chặn ở bước
+# nộp.
 class RecommendationSpecialist(BaseAgent[RecommendationRequest, RecommendationReport]):
     name, input_schema, output_schema = (
         "recommendation_specialist",
@@ -137,6 +146,7 @@ class RecommendationSpecialist(BaseAgent[RecommendationRequest, RecommendationRe
         eligible = {item.place_id for item in evaluation.items}
         evidence = {p.id: p.model_copy(deep=True) for p in data.candidates if p.id in eligible}
 
+        # Công cụ cho LLM: đọc ứng viên và sở thích.
         def inspect_candidates() -> dict:
             """Read the supplied factual candidate records and requested interests."""
             nonlocal reads
@@ -151,6 +161,7 @@ class RecommendationSpecialist(BaseAgent[RecommendationRequest, RecommendationRe
                 "limit": data.limit,
             }
 
+        # Công cụ cho LLM: nộp thứ tự (id không trùng, có trong ứng viên).
         def submit_ranking(place_ids: list[str]) -> dict:
             """Submit unique candidate IDs in preferred order, up to the request limit."""
             nonlocal submissions, accepted

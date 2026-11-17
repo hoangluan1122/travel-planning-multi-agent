@@ -18,6 +18,10 @@ so prices and opening hours cannot be invented. Without an LLM, `extractive_answ
 quotes the best passages instead.
 """
 
+# Hướng dẫn viên (Agentic RAG): LLM tự quyết định tìm gì trong Wikipedia, Wikivoyage và bảng giá vé, rồi trả
+# lời kèm nguồn. Mỗi con số trong câu trả lời phải xuất hiện trong đoạn trích dẫn, nên LLM không bịa được
+# giá hay giờ mở cửa.
+
 import asyncio
 import json
 import logging
@@ -46,16 +50,19 @@ STOPWORDS = {
 NUMBER = re.compile(r"\d[\d.,:]*\d|\d")
 
 
+# Tách câu thành các từ đã bỏ dấu, dùng để chấm độ liên quan.
 def terms(text):
     return {t for t in re.split(r"[^a-z0-9]+", plain(text)) if t and t not in STOPWORDS}
 
 
+# Các số trong văn bản, bỏ dấu phân cách, để so số trong câu trả lời với nguồn.
 def numbers(text):
     """Multi-digit numbers with separators removed: '200.000 ₫' and '200,000' both give '200000'."""
     found = {re.sub(r"[.,:]", "", n) for n in NUMBER.findall(text)}
     return {n for n in found if len(n) >= 2}
 
 
+# Một đoạn văn lấy từ nguồn, có id để trích dẫn.
 class Passage(Model):
     id: str
     source: Source
@@ -64,6 +71,7 @@ class Passage(Model):
     text: str = Field(max_length=PASSAGE_CHARS + 200)
 
 
+# Một nguồn được trích trong câu trả lời.
 class Citation(Model):
     id: str
     source: Source
@@ -71,6 +79,7 @@ class Citation(Model):
     url: str
 
 
+# Câu trả lời cuối cùng kèm nguồn; answered_by cho biết LLM hay trích nguyên văn.
 class KnowledgeAnswer(Model):
     status: Literal["answered", "partial", "not_found"]
     text: str = Field(min_length=1, max_length=1200)
@@ -79,6 +88,7 @@ class KnowledgeAnswer(Model):
     answered_by: Literal["llm", "extractive"] = "llm"
 
 
+# Bài nộp của LLM; validator kiểm tra trích dẫn và số liệu.
 class AnswerDraft(Model):
     status: Literal["answered", "partial", "not_found"]
     text: str = Field(min_length=1, max_length=1200)
@@ -97,6 +107,7 @@ TAIL_SECTIONS = re.compile(
 )
 
 
+# Cắt bài viết thành đoạn ngắn theo từng mục.
 def paragraphs(text):
     """Split page text into passages of at most PASSAGE_CHARS within each section.
 
@@ -147,11 +158,13 @@ QUESTION_PHRASES = re.compile(
 )
 
 
+# Lấy tên địa danh trong câu hỏi.
 def topic_query(question):
     """The place or topic in a question: "Lăng Tự Đức có gì đặc biệt?" → "Lăng Tự Đức"."""
     return " ".join(QUESTION_PHRASES.sub(" ", question).split()) or question
 
 
+# Độ liên quan của một đoạn với câu hỏi (đếm từ trùng).
 def score(query_terms, title, text):
     """Overlap score; 0 when neither the title nor two words of the passage match (off-topic)."""
     hits = len(query_terms & terms(text))
@@ -161,6 +174,8 @@ def score(query_terms, title, text):
     return hits + 2 * title_hits + (0.5 if hits and numbers(text) else 0)
 
 
+# Tìm kiếm miễn phí trên Wikipedia, Wikivoyage và bảng giá vé; lỗi mạng chỉ trả về rỗng, không làm hỏng câu
+# trả lời.
 class KnowledgeBase:
     """Free retrieval over Wikipedia, Wikivoyage and the ticket table; never raises on network errors."""
 
@@ -169,12 +184,14 @@ class KnowledgeBase:
         self.pages_per_search, self.top_k = pages_per_search, top_k
         self.cache = {}
 
+    # Gọi API MediaWiki (Wikipedia/Wikivoyage).
     async def api(self, client, host, params):
         response = await client.get(f"https://{host}/w/api.php",
                                     params={"format": "json", "formatversion": "2", **params})
         response.raise_for_status()
         return response.json()
 
+    # Tìm bài viết rồi tải nội dung văn bản của vài bài đầu.
     async def page_texts(self, client, host, query):
         key = (host, query)
         if key in self.cache:
@@ -200,6 +217,7 @@ class KnowledgeBase:
         self.cache[key] = pages
         return pages
 
+    # Giá vé trong bảng có nguồn, khớp theo tên địa danh.
     def tickets(self, query, destination):
         """Ticket entries whose sight name matches the query; a city name alone lists that city's sights."""
         asked = plain(query)
@@ -233,6 +251,7 @@ class KnowledgeBase:
             out.append((ticket.label, ticket.sources[0], text))
         return out
 
+    # Tìm trong một nguồn và xếp các đoạn theo độ liên quan.
     async def search(self, query, source, destination=None):
         """Return (title, url, text, source) passages ranked by overlap with the query."""
         query_terms = terms(query) | terms(destination or "")
@@ -259,6 +278,7 @@ class KnowledgeBase:
         return [(t, u, x, source) for s, t, u, x in candidates if s > 0][: self.top_k]
 
 
+# Trả lời không cần LLM: trích nguyên văn hai đoạn tốt nhất kèm nguồn.
 def extractive_answer(passages, searches):
     """No-LLM answer: quote the two best passages with their sources."""
     if not passages:
@@ -288,11 +308,13 @@ KNOWLEDGE_INSTRUCTION = (
 )
 
 
+# Agent hướng dẫn viên: LLM nếu có, không thì trích nguyên văn.
 class KnowledgeAgent:
     def __init__(self, base, model_factory=None, engine="adk", max_llm_calls=7, max_searches=4):
         self.base, self.model_factory, self.engine = base, model_factory, engine
         self.max_llm_calls, self.max_searches = max_llm_calls, max_searches
 
+    # Trả lời một câu hỏi; LLM lỗi thì dùng đoạn đã tìm để trích nguyên văn.
     async def ask(self, question, context, destination=None):
         retrieved: dict[str, Passage] = {}
         found_by: dict[str, list[Passage]] = {}
@@ -318,6 +340,7 @@ class KnowledgeAgent:
         if self.model_factory is None:
             return await quoted()
 
+        # Công cụ cho LLM: tìm trong một nguồn (giới hạn số lần tìm).
         async def search_knowledge(query: str, source: str) -> dict:
             """Search one source and return passages with ids to cite.
 
@@ -349,6 +372,7 @@ class KnowledgeAgent:
                 return {"passages": [], "note": "Nothing found; try another query, language or source."}
             return {"passages": [{"id": p.id, "title": p.title, "text": p.text} for p in passages]}
 
+        # Công cụ cho LLM: nộp câu trả lời; trích dẫn sai hoặc số không có trong nguồn thì bị trả lại.
         def submit_answer(answer_json: str) -> dict:
             """Submit the answer; returns errors to fix, or acceptance.
 

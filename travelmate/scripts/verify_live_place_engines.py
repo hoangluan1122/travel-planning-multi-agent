@@ -9,6 +9,9 @@ names stay in the report because they are public source data, not user input.
 Writes evaluation/live-place-engines-<UTC>/.
 """
 
+# Kiểm tra Place Agent LLM trên ADK và MAF với Gemini thật. Chạy tay khi cần, gọi nguồn thật; không nằm
+# trong bộ test tự động.
+
 import asyncio
 import json
 import sys

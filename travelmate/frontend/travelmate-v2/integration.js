@@ -1,9 +1,18 @@
+// Phần lõi của giao diện: gọi API và vẽ các màn hình chính.
+// Cả trang là một file index.html; mỗi màn hình là một ?view= (create, loading, plan, day, explore,
+// chat...). Mọi thứ nằm trong một hàm tự chạy (() => {...})() để không lộ biến ra ngoài; các hàm dùng chung
+// được đưa ra window.tm cho features.js và site.js dùng.
+
 /* Same-origin API integration. Provider credentials never enter the browser. */
 (() => {
   'use strict';
+  // Màn hình hiện tại lấy từ tham số ?view= trên địa chỉ.
   const params = new URLSearchParams(location.search);
   const route = params.get('view') || 'home';
+  // Thoát ký tự HTML: mọi chữ từ máy chủ/người dùng phải qua esc() trước khi chèn vào trang, chống chèn mã
+  // (XSS).
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  // Các hàm định dạng nhỏ: tiền, giờ (phút -> HH:MM), biểu tượng thời tiết, loại địa điểm, link bản đồ.
   const money = value => Number(value).toLocaleString('vi-VN') + ' ₫';  // never break between the number and ₫
   const time = value => `${String(Math.floor(value / 60)).padStart(2,'0')}:${String(value % 60).padStart(2,'0')}`;
   const wmo = code => code==null?null:code===0?'<svg class="tm-i" aria-hidden="true"><use href="#i-sun"></use></svg> Trời quang':code<=2?'<svg class="tm-i" aria-hidden="true"><use href="#i-cloud-sun"></use></svg> Ít mây':code===3?'<svg class="tm-i" aria-hidden="true"><use href="#i-cloud"></use></svg> Nhiều mây':code<=48?'<svg class="tm-i" aria-hidden="true"><use href="#i-fog"></use></svg> Sương mù':code<=57?'<svg class="tm-i" aria-hidden="true"><use href="#i-drizzle"></use></svg> Mưa phùn':code<=67?'<svg class="tm-i" aria-hidden="true"><use href="#i-rain"></use></svg> Mưa':code<=77?'<svg class="tm-i" aria-hidden="true"><use href="#i-snow"></use></svg> Tuyết':code<=82?'<svg class="tm-i" aria-hidden="true"><use href="#i-rain"></use></svg> Mưa rào':code<=86?'<svg class="tm-i" aria-hidden="true"><use href="#i-snow"></use></svg> Mưa tuyết':'<svg class="tm-i" aria-hidden="true"><use href="#i-storm"></use></svg> Dông';
@@ -11,10 +20,12 @@
   const kind = p => (p?.types||[]).map(t=>kinds[t]).find(Boolean)||'';
   const mapLink = p => p&&Number.isFinite(p.latitude)?`<a href="https://www.openstreetmap.org/?mlat=${p.latitude}&mlon=${p.longitude}#map=17/${p.latitude}/${p.longitude}" target="_blank" rel="noopener noreferrer">Xem trên bản đồ&nbsp;↗</a>`:'';
   const levels = {free:'Miễn phí',inexpensive:'₫ · bình dân',moderate:'₫₫ · vừa phải',expensive:'₫₫₫ · cao',very_expensive:'₫₫₫₫ · rất cao'};
+  // Chỉ cho phép ảnh https hoặc ảnh qua máy chủ (/api/v1/places/photo).
   const safeUrl = u => /^(https:\/\/|\/api\/v1\/places\/photo\?)/.test(u||'') ? u : '';
   // An illustration is a photo of what a place serves (a dish), not of the place: it says so on the image.
   const photo = (p, cls='api-photo') => p?.photo && safeUrl(p.photo.url) ? `<figure class="${cls}${p.photo.illustration?' tm-illustration':''}"><img src="${esc(safeUrl(p.photo.url))}" alt="${esc(p.photo.illustration?p.photo.attribution:p.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">${p.photo.illustration?'<span class="tm-photo-badge">Ảnh minh hoạ</span>':''}<figcaption>${p.photo.source_url&&/^https:\/\//.test(p.photo.source_url)?`<a href="${esc(p.photo.source_url)}" target="_blank" rel="noopener noreferrer">${esc(p.photo.attribution)}</a>`:esc(p.photo.attribution)}</figcaption></figure>` : '';
   const vnd = v => Number(v).toLocaleString('vi-VN') + ' ₫';
+  // Giá của một địa điểm: giá vé có nguồn, khoảng giá, hoặc mức giá.
   const price = p => {
     if (p?.estimated_visit_cost_vnd != null) return `Giá tham khảo: ${vnd(p.estimated_visit_cost_vnd)}`;
     const t = p?.ticket;
@@ -30,11 +41,14 @@
   const placeLinks = p => [p?.maps_url&&/^https:\/\//.test(p.maps_url)?`<a href="${esc(p.maps_url)}" target="_blank" rel="noopener noreferrer">Google Maps&nbsp;↗</a>`:mapLink(p), p?.website_url&&/^https:\/\//.test(p.website_url)?`<a href="${esc(p.website_url)}" target="_blank" rel="noopener noreferrer">Website&nbsp;↗</a>`:''].filter(Boolean).join(' · ');
   const nextDay = d => {const x=new Date(d+'T00:00:00Z');x.setUTCDate(x.getUTCDate()+1);return x.toISOString().slice(0,10)};
   const bookingLink = (p, request) => `https://www.booking.com/searchresults.html?${new URLSearchParams({ss:`${p.name}, ${request.destination}`,checkin:request.start_date,checkout:nextDay(request.end_date),group_adults:String(request.travelers),no_rooms:'1',lang:'vi'})}`;
+  // Mục 'Nơi ở gợi ý' ở cuối trang lịch trình.
   const stays = (items, request) => items?.length ? `<h2 class="tm-section-title">Nơi ở gợi ý</h2><p class="api-meta">Giá phòng theo đêm chưa có từ nguồn dữ liệu; bấm “Xem giá phòng” để xem giá thật cho đúng ngày và số người.</p><div class="api-grid">${items.map(p=>`<article class="api-card">${photo(p)}<h3>${esc(p.name)}</h3>${stars(p)}<p>${esc(p.address||'')}</p><p>${esc(price(p))}</p><p>${placeLinks(p)} · <a href="${esc(bookingLink(p, request))}" target="_blank" rel="noopener noreferrer">Xem giá phòng&nbsp;↗</a></p></article>`).join('')}</div>` : '';
   const agentLabels = {places:'Tìm địa điểm chung',place_search:'Tìm theo nhu cầu',weather:'Thời tiết',recommendation:'Xếp hạng',itinerary:'Xếp lịch',budget:'Chi phí'};
   const outcomeLabels = {ok:'tìm thấy',no_results:'không thấy',failed:'lỗi nguồn'};
+  // Hai mục mở rộng: 'Agent đã lên kế hoạch thế nào' và 'Agent tự kiểm tra'.
   const planningTrace = t => !t ? '' : `<details class="api-card"><summary><strong>Agent đã lên kế hoạch thế nào</strong> · ${t.planner==='llm'?'Planning Agent (LLM)':'kế hoạch mặc định'} · ${t.rounds.length} vòng</summary>${t.rounds.map(r=>`<h4>Vòng ${r.round}</h4>${r.note?`<p class="api-meta">${esc(r.note)}</p>`:''}<ol>${r.plan.subtasks.map(s=>{const o=r.observations.find(x=>x.subtask_id===s.id);return `<li><strong>${esc(agentLabels[s.agent]||s.agent)}</strong>${s.inputs?.keyword?` · ${esc(s.inputs.category||'')} “${esc(s.inputs.keyword)}”`:''} — ${esc(s.goal)}${o?` <em>(${esc(outcomeLabels[o.outcome]||o.outcome)}${o.count?`, ${o.count} nơi`:''})</em>`:''}</li>`}).join('')}</ol>`).join('')}${t.rounds.length>1?'<p class="api-meta">Vòng sau được lập lại vì có lượt tìm không ra kết quả.</p>':''}</details>`;
   const selfCheck = r => { if(!r) return ''; const chosen = r.rounds.find(x=>x.round===r.chosen_round) || r.rounds[r.rounds.length-1]; const failed = chosen.checks.filter(c=>!c.passed).length; return `<details class="api-card"${failed?' open':''}><summary><strong>Agent tự kiểm tra</strong> · ${failed?`còn ${failed} điểm chưa đạt`:'đạt mọi tiêu chí'}${r.revisions?` · đã tự sửa ${r.revisions} lần`:''}</summary><ul>${chosen.checks.map(c=>`<li>${c.passed?'<svg class="tm-i" aria-hidden="true"><use href="#i-check"></use></svg>':'<svg class="tm-i" aria-hidden="true"><use href="#i-alert"></use></svg>'} <strong>${esc(c.label)}</strong> — ${esc(c.detail)}</li>`).join('')||'<li>Không có tiêu chí nào áp dụng cho chuyến này.</li>'}</ul>${r.rounds.length>1?`<p class="api-meta">Đã kiểm tra ${r.rounds.length} bản nháp; hiển thị bản ${r.chosen_round} (ít lỗi nhất). ${r.rounds.map(x=>`Bản ${x.round}: ${x.checks.filter(c=>!c.passed).length} lỗi`).join(' · ')}.</p>`:''}</details>`; };
+  // Đọc/ghi sessionStorage (bộ nhớ của tab), bỏ qua lỗi khi trình duyệt chặn.
   const read = (key, fallback) => {try {return JSON.parse(sessionStorage.getItem(key)) ?? fallback} catch {return fallback}};
   const save = (key, value) => sessionStorage.setItem(key, JSON.stringify(value));
   const link = (view, text, cls = 'button outline') => `<a class="${cls}" href="?view=${view}">${text}</a>`;
@@ -45,6 +59,7 @@
   const emptyState = (icon, title, text, actions = '') => `<div class="tm-empty"><span class="tm-empty-ico" aria-hidden="true">${icon}</span><h2>${title}</h2><p>${text}</p>${actions ? `<div class="api-actions">${actions}</div>` : ''}</div>`;
   const head = (eyebrow, title, text = '', actions = '') => `<div class="tm-head"><div class="eyebrow">${eyebrow}</div><h1>${title}</h1>${text ? `<p>${text}</p>` : ''}${actions ? `<div class="api-actions">${actions}</div>` : ''}</div>`;
   // In-page replacements for confirm()/prompt()/alert(): resolves to true, the typed text, or null when cancelled.
+  // Hộp thoại trong trang thay cho confirm()/prompt() của trình duyệt.
   const dialog = ({title, text = '', input = null, ok = 'Đồng ý', danger = false}) => new Promise(resolve => {
     const d = document.createElement('dialog');
     d.className = 'tm-dialog';
@@ -60,6 +75,7 @@
   style.textContent += '.chat-log{display:flex;flex-direction:column;gap:12px;max-height:60vh;overflow:auto;padding:8px 0;margin:16px 0}.chat-msg{max-width:min(760px,92%);padding:14px 18px;border-radius:18px}.chat-msg p{margin:4px 0}.chat-msg.user{align-self:flex-end;background:#16302b;color:#fff}.chat-msg.bot{align-self:flex-start;background:#f3f1ea}.chat-agent{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:#16302b;color:#fff;border-radius:999px;padding:3px 10px;margin-bottom:4px}.chat-form{display:flex;gap:8px}.chat-form input{flex:1;padding:12px 16px;border-radius:999px;border:1px solid #ccc;font:inherit}.chat-places{margin-top:10px}.chat-place h4{margin:4px 0}';
   style.textContent += '.tm-verdict{padding:10px 14px;border-radius:12px;font-weight:600}.tm-bar{position:relative;display:flex;height:18px;border-radius:9px;background:#eef0f4;overflow:visible;margin:16px 0}.tm-bar span{display:block;height:100%}.tm-bar span:first-child{border-radius:9px 0 0 9px}.tm-bar b{position:absolute;top:-5px;bottom:-5px;width:2px;background:#111}.tm-budget-table{width:100%;border-collapse:collapse;font-size:14px}.tm-budget-table td{padding:8px 6px;border-top:1px solid #eef0f4;vertical-align:top}.tm-budget-table td:nth-child(2){white-space:nowrap;font-weight:600}.tm-budget-table i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px}';
   document.head.prepend(style);  // before the stylesheets, so theme.css can restyle it
+  // Thanh báo khi máy chủ không phản hồi.
   const banner = document.createElement('div');
   banner.className = 'api-banner';
   banner.innerHTML = '<span id="api-health" role="status"></span><details><summary>Cấu hình kết nối</summary><label>Token truy cập backend (nếu được yêu cầu) <input type="password" id="api-token" autocomplete="off"></label><button id="token-save" type="button">Áp dụng</button><small> Token được lưu trên trình duyệt này (mọi tab). Dán đúng giá trị TRAVELMATE_API_TOKEN, không nhập API key Gemini tại đây.</small></details>';
@@ -67,6 +83,7 @@
   document.querySelector('header').after(banner);
   banner.querySelector('details').hidden = !dev;
   // Accept a pasted .env line or a quoted value; keep the token for every tab on this browser.
+  // Token vận hành (chế độ ?dev): dán được cả dòng TRAVELMATE_API_TOKEN=... từ file .env.
   const cleanToken = value => value.trim().replace(/^TRAVELMATE_API_TOKEN\s*=\s*/i,'').replace(/^["']+|["']+$/g,'').trim();
   const readToken = () => {try {return JSON.parse(localStorage.getItem('tm-token')) || read('tm-token','')} catch {return read('tm-token','')}};
   const tokenInput = document.querySelector('#api-token');
@@ -82,6 +99,7 @@
   tokenInput.addEventListener('change', applyToken);
   tokenInput.addEventListener('keydown', e => {if(e.key==='Enter'){e.preventDefault();applyToken()}});
   const credit = document.querySelector('#tm-credit');
+  // Hỏi /health một lần khi mở trang để biết chế độ chạy và có cần đăng nhập không.
   const health = fetch('/health').then(r => {if (!r.ok) throw Error(); return r.json()}).then(h => {
     banner.hidden = h.mode !== 'demo' && !dev;
     document.querySelector('#api-health').textContent = h.mode === 'demo' ? 'Chế độ demo: dữ liệu giả lập, không phải địa điểm thật.'
@@ -95,6 +113,8 @@
 
   // The session token lives in an HttpOnly cookie the page cannot read; only the profile is kept here.
   const session = () => {try {const s=JSON.parse(localStorage.getItem('tm-session'));if(s?.token){delete s.token;localStorage.setItem('tm-session',JSON.stringify(s))}return s?.user?s:null} catch {return null}};
+  // Hàm gọi API dùng chung. Luôn gửi header X-Requested-With (chống CSRF); phiên đăng nhập đi kèm bằng
+  // cookie. Lỗi được ném ra kèm mã HTTP và mã job (nếu có) để nơi gọi xử lý.
   async function api(path, data, signal, method='POST') {
     const headers = {'Content-Type':'application/json','X-Requested-With':'travelmate'};
     // A signed-in user's session unlocks the API; otherwise the operator token, if any.
@@ -117,6 +137,7 @@
     }
     return body;
   }
+  // Thay nội dung màn hình hiện tại và cập nhật tiêu đề tab.
   function render(content) {
     document.querySelectorAll('main.view').forEach(e=>e.classList.remove('visible'));
     let main=document.querySelector('#connected-view');
@@ -125,8 +146,10 @@
     const title=window.travelmateRoutes?.[route];if(title)document.title=`${title} — TravelMate`;
     return main;
   }
+  // Lịch trình đã tạo trong tab này (sessionStorage), và lịch đang xem.
   const records = () => read('tm-plans',[]);
   const current = () => records().find(p=>p.result.request_id===(params.get('id')||read('tm-current','')));
+  // Chia sẻ các hàm cho features.js và site.js.
   window.tm = {api, render, esc, money, time, wmo, kind, photo, price, stars, hours, placeLinks, ticketSource, mapLink, link, read, save, records, session, route, params, fmtDate, dateRange, emptyState, head, loginGate, needsLogin, health, dialog, notify};
   const warnings = (items, open = false) => { const list = [...new Set(items)]; return list.length?`<details class="api-warning tm-notes"${open?' open':''}><summary><svg class="tm-i" aria-hidden="true"><use href="#i-alert"></use></svg><strong>Lưu ý</strong><span class="tm-count">${list.length}</span></summary><ul>${list.map(w=>`<li>${esc(w)}</li>`).join('')}</ul></details>`:''; };
   const budgetLegacy = b => `<div class="api-card"><h3>Chi phí đã có dữ liệu: ${money(b.known_subtotal)}</h3><p>${b.status==='incomplete'?'Chưa đủ dữ liệu để kết luận tổng chi phí.':b.status==='over_budget'?'Chi phí đã biết vượt ngân sách.':'Các khoản đã tính nằm trong ngân sách.'}</p>${b.estimated_low_vnd!=null?`<p><strong>Ước tính theo khoảng giá nguồn: ${money(b.estimated_low_vnd)} – ${money(b.estimated_high_vnd)}</strong> (chưa gồm các khoản bên dưới)</p><details${(b.estimate_basis||[]).some(x=>x.includes('do bạn nhập'))?' open':''}><summary>Cách tính</summary><ul>${b.estimate_basis.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`:(b.estimate_basis||[]).length?`<details${b.estimate_basis.some(x=>x.includes('do bạn nhập'))?' open':''}><summary>Đã tính gồm</summary><ul>${b.estimate_basis.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`:''}${b.unknown_items.length?`<p>Chưa tính được: ${b.unknown_items.map(esc).join(', ')}. Không coi các khoản này là 0.</p>`:''}</div>`;
@@ -135,6 +158,8 @@
   const colors = {tickets: '#F26B4F', places: '#8FB36A', lodging: '#0E7C7B', food: '#E9A23B', transport: '#3C7CA8', other: '#8C6BB1'};
   const costKinds = {sourced: 'có nguồn', reference: 'giá tham khảo', user: 'do bạn nhập'};
   const span = (lo, hi) => Number(lo) === Number(hi) ? money(lo) : `${money(lo)} – ${money(hi)}`;
+  // Khối chi phí: thanh màu theo từng loại so với ngân sách, bảng chi tiết, gợi ý tiết kiệm, khoản chưa
+  // biết giá.
   const budget = b => {
     if (!b.lines || !b.lines.length || b.verdict === 'unknown' || b.total_high_vnd == null) return budgetLegacy(b);
     const cap = Number(b.budget_vnd), top = Math.max(cap, Number(b.total_high_vnd)) || 1;
@@ -155,6 +180,7 @@
   };
   const empty = () => render(emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-map"></use></svg>', 'Chưa có lịch trình để hiển thị.', 'Tạo một chuyến đi mới, hoặc mở lại chuyến đã lưu trong tài khoản.', link('create', 'Tạo chuyến đi', 'button dark') + link('saved', 'Chuyến đi của tôi')));
 
+  // --- Màn hình Tạo chuyến đi: điền sẵn ngày, kiểm tra, lưu yêu cầu rồi sang màn hình chờ ---
   if(route==='create'){
     const form=document.querySelector('[data-form=create]'), el=form.elements, status=form.querySelector('.form-status');
     const previous=read('tm-request',null);
@@ -185,6 +211,8 @@
       location.href=await needsLogin()?'?view=login&next='+encodeURIComponent('?view=loading'):'?view=loading';
     },true);
   }
+  // --- Màn hình chờ: bắt đầu job tạo lịch, hỏi tiến độ mỗi 2 giây, hiện từng bước. Tải lại trang vẫn theo
+  // dõi tiếp nhờ mã job lưu trong tab (tm-job) ---
   if(route==='loading'){
     const request=read('tm-request',null);
     if(!request){empty();return}
@@ -192,6 +220,7 @@
     const main=render(`<div class="tm-loading"><div class="tm-spinner" aria-hidden="true"></div><span class="tm-pill">${esc(request.destination)} · ${request.travelers} người</span><h1>Đang chuẩn bị<br>chuyến đi của bạn.</h1><ol class="tm-steps" id="tm-steps"><li>Tìm địa danh, quán ăn, nơi ở và thời tiết</li><li>Chọn và xếp hạng địa điểm</li><li>Gemini xếp lịch từng ngày rồi tự kiểm tra</li><li>Tính chi phí và lưu chuyến đi</li></ol><p role="status" id="planning-status" class="api-meta">Đang bắt đầu…</p><p class="api-meta" id="planning-note">${signedIn?'Bạn có thể đóng trang này: lịch trình vẫn được tạo và tự lưu vào Chuyến đi của tôi.':'Thường mất từ 30 giây đến 2 phút.'}</p><button class="button outline" id="cancel-plan">Thôi chờ</button></div>`);
     // The plan runs as a job on the server; this page only asks which stage it reached.
     // The job id is kept for this tab, so a reload resumes the same job instead of starting another.
+    // Ánh xạ bước của máy chủ sang 4 bước hiển thị trên trang.
     const STEP={queued:0,places:0,searching:0,ranking:1,scheduling:2,revising:2,budget:3,saving:3};
     const statusLine=main.querySelector('#planning-status'), steps=[...main.querySelectorAll('#tm-steps li')];
     const key=JSON.stringify(request), started=Date.now();
@@ -213,6 +242,8 @@
       const finish=()=>{save('tm-plans',[record,...records()].slice(0,20));save('tm-current',result.request_id);location.replace('?view=plan&id='+encodeURIComponent(result.request_id))};
       if(signedIn&&!job.trip_id)api('/api/v1/me/trips',{request,result}).then(t=>{record.trip_id=t.id}).catch(()=>{}).finally(finish);else finish();
     };
+    // Hỏi trạng thái job; xong thì lưu kết quả và chuyển sang trang lịch trình, lỗi thì hiện thông báo kèm
+    // nút Thử lại.
     const poll=async id=>{
       if(stopped)return;
       let job;
@@ -245,6 +276,8 @@
       }
     })();
   }
+  // --- Trang lịch trình (và trang một ngày): ảnh bìa, thẻ từng ngày có ảnh nhỏ, chi phí, cảnh báo, nơi ở
+  // ---
   if(route==='plan'||route==='day'){
     const record=current();if(!record){empty();return}
     const {request,result}=record;
@@ -253,6 +286,7 @@
     const day=result.draft.days[dayIndex];
     const fmt=d=>new Date(d+'T00:00:00').toLocaleDateString('vi-VN',{weekday:'short',day:'2-digit',month:'2-digit'});
     // Covers show the places themselves: a real photo first, an illustration only if there is none.
+    // Ảnh bìa và ảnh đầu thẻ ngày chỉ dùng ảnh thật của địa điểm, không dùng ảnh minh hoạ.
     const real=p=>p?.photo&&!p.photo.illustration;
     const firstPhoto=d=>{const ps=d.activities.map(a=>places.get(a.place_id));return ps.find(real)||ps.find(p=>p?.photo)};
     const cover=(route==='day'&&day&&firstPhoto(day))||result.draft.days.map(d=>d.activities.map(a=>places.get(a.place_id)).find(real)).find(Boolean)||result.places.find(real)||result.draft.days.map(firstPhoto).find(Boolean);
@@ -269,12 +303,14 @@
       }).join('')+'</ol>'+warnings(result.warnings));
     }else empty();
   }
+  // --- Chuyến đi đã tạo khi chưa đăng nhập (chỉ trong tab này) ---
   if(route==='saved'&&!session()?.user){
     const list=records();
     render(head('CHUYẾN ĐI CỦA TÔI','Chuyến đi của bạn.','Đây là các lịch trình tạo trong lần truy cập này. Đăng nhập để lưu lâu dài, chỉnh sửa và mở lại trên thiết bị khác.',link('create','Tạo chuyến đi','button dark')+link('login&next=%3Fview%3Dsaved','Đăng nhập'))
       +(list.length?`<div class="tm-trip-grid">${list.map(({request,result})=>`<article class="tm-trip-card"><div class="eyebrow">${esc(dateRange(request.start_date,request.end_date))}</div><h3>${esc(request.destination)}</h3><p>${result.draft.days.length} ngày · ${request.travelers} người · ngân sách ${money(request.budget_vnd)}</p><div class="tm-row">${link(`plan&id=${encodeURIComponent(result.request_id)}`,'Mở lịch trình','button dark')}</div></article>`).join('')}</div>`
         :emptyState('<svg class="tm-i" aria-hidden="true"><use href="#i-luggage"></use></svg>','Chưa có chuyến đi nào.','Nhập điểm đến, ngày đi và ngân sách để có bản lịch trình đầu tiên.',link('create','Tạo chuyến đi','button dark')+link('chat','Hỏi Trợ lý AI'))));
   }
+  // --- Trang Khám phá: tìm địa điểm theo điểm đến, loại và từ khoá ---
   if(route==='explore'){
     const last=read('tm-explore',null);
     const q={destination:(params.get('destination')||last?.query.destination||'').slice(0,200),category:params.get('category')||last?.query.category||'attraction',keyword:(params.get('keyword')||(params.has('destination')?'':last?.query.keyword)||'').slice(0,120)};
@@ -307,6 +343,7 @@
     else if(params.has('destination')&&q.destination)search();
     else status.textContent='Nhập một thành phố rồi bấm “Tìm địa điểm”.';
   }
+  // --- Trợ lý AI: khung chat, gợi ý câu hỏi, lịch sử hội thoại (nếu đăng nhập) ---
   if(route==='chat'){
     // Multi-agent chat: the concierge hands each message to one specialist; the badge shows who answered and why.
     const badges={concierge:'Trợ lý điều phối',place_finder:'Chuyên gia địa điểm',trip_planner:'Chuyên gia lịch trình',budget_advisor:'Chuyên gia chi phí',weather_advisor:'Chuyên gia thời tiết',guide_advisor:'Hướng dẫn viên'};
@@ -319,6 +356,7 @@
     const placeCard=p=>`<article class="api-card chat-place">${photo(p,'api-thumb')}<h4><a href="?view=place&id=${encodeURIComponent(p.id)}">${esc(p.name)}</a></h4>${kind(p)?`<p class="api-meta">${esc(kind(p))}</p>`:''}<p>${esc(p.address||'')}</p><p>${esc(price(p))}</p><p>${placeLinks(p)}</p></article>`;
     const bubble=m=>m.role==='user'?`<div class="chat-msg user"><p>${esc(m.text)}</p></div>`:`<div class="tm-msg-row"><span class="tm-agent-ico" aria-hidden="true">${icons[m.agent]||'<svg class="tm-i" aria-hidden="true"><use href="#i-sparkle"></use></svg>'}</span><div class="chat-msg bot"><div class="chat-agent">${esc(badges[m.agent]||m.agent||'Trợ lý')}</div>${m.reason?`<p class="api-meta">Vì sao chọn: ${esc(m.reason)}</p>`:''}<p>${esc(m.text)}</p>${m.citations?.length?`<p class="api-meta">Nguồn: ${m.citations.filter(c=>/^https:\/\//.test(c.url)).map(c=>`<a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">[${esc(c.id)}] ${esc(c.title)}</a>`).join(' · ')}</p>`:''}${m.places?.length?`<div class="api-grid chat-places">${m.places.slice(0,6).map(placeCard).join('')}</div>`:''}${m.login?`<p>${link('login&next=%3Fview%3Dchat','Đăng nhập','button dark')} ${link('signup&next=%3Fview%3Dchat','Tạo tài khoản')}</p>`:''}${m.plan_id?`<p>${m.trip_id?link(`trip&id=${encodeURIComponent(m.trip_id)}`,'Mở lịch trình (đã lưu vào Chuyến đi của tôi) →'):link(`plan&id=${encodeURIComponent(m.plan_id)}`,'Mở lịch trình đầy đủ →')}</p>`:''}</div></div>`;
     const draw=()=>{log.innerHTML=state.messages.map(bubble).join('')||`<div class="tm-chat-empty"><span class="tm-chat-logo"><svg class="tm-i" aria-hidden="true"><use href="#i-sparkle"></use></svg></span><h2>Bạn muốn đi đâu?</h2><p class="api-meta">Hỏi về địa điểm, lịch trình, chi phí hay thời tiết. Có thể hỏi nhiều việc trong một câu.</p><div class="tm-idea-grid">${ideas.slice(0,4).map(chip).join('')}</div></div>`;main.querySelector('.tm-chip-row').hidden=!state.messages.length;log.scrollTop=log.scrollHeight};
+    // Gửi một tin nhắn và vẽ các câu trả lời (có thể từ nhiều chuyên gia).
     const send=async text=>{
       state.messages.push({role:'user',text});draw();button.disabled=true;input.value='';
       const waiting=document.createElement('div');waiting.className='tm-typing';waiting.setAttribute('role','status');waiting.innerHTML='<i></i><i></i><i></i><small>Đang chuyển cho chuyên gia phù hợp… lập lịch có thể mất 1–2 phút</small>';log.append(waiting);log.scrollTop=log.scrollHeight;

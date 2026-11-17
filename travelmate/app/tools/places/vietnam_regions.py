@@ -1,5 +1,8 @@
 """Versioned reference regions and pure-Python point-in-polygon filtering."""
 
+# Ranh giới 34 tỉnh/thành (sau sáp nhập 2025) và các tỉnh cũ, đọc từ app/data/vietnam_regions.json. Dùng để
+# biết một toạ độ có nằm trong tỉnh không (thuật toán điểm-trong-đa-giác, viết bằng Python thuần).
+
 import json
 import re
 from datetime import datetime
@@ -9,12 +12,14 @@ from pathlib import Path
 from app.tools.places.osm_places import normalized
 
 
+# Khoá so tên tỉnh: bỏ dấu, bỏ 'tỉnh', 'thành phố', khoảng trắng.
 def name_key(value):
     text = normalized(value).replace("_", " ")
     text = re.sub(r"^(tinh|thanh pho|tp\.?|province|city)\s+", "", text)
     return re.sub(r"[^a-z0-9]", "", text)
 
 
+# Thuật toán ray casting: đếm số cạnh tia ngang cắt qua; lẻ là ở trong.
 def in_ring(lon, lat, ring):
     inside = False
     for (ax, ay), (bx, by) in zip(ring, ring[1:] + ring[:1]):
@@ -30,6 +35,7 @@ def in_ring(lon, lat, ring):
     return inside
 
 
+# Ở trong đa giác ngoài và không ở trong lỗ nào.
 def polygon_contains(geometry, lon, lat):
     polygons = geometry["coordinates"] if geometry["type"] == "MultiPolygon" else [geometry["coordinates"]]
     return any(
@@ -38,6 +44,7 @@ def polygon_contains(geometry, lon, lat):
     )
 
 
+# Đọc file một lần rồi giữ trong bộ nhớ (lru_cache).
 @lru_cache(maxsize=1)
 def load_catalog():
     return RegionCatalog(
@@ -52,6 +59,7 @@ class RegionCatalog:
         self.current = [r for r in self.regions.values() if not r["historical"]]
         assert len(self.current) == 34
 
+    # Tỉnh có tên/bí danh trùng khớp tuyệt đối (không khớp mờ để tránh nhầm làng trùng tên).
     def matches(self, query):
         # Province names are exact aliases, never fuzzy matches to unrelated villages.
         key = name_key(query)
@@ -64,6 +72,7 @@ class RegionCatalog:
                 matches.append(region)
         return sorted(matches, key=lambda r: (r["historical"], r["name"]))
 
+    # Toạ độ có nằm trong tỉnh không; kiểm tra khung bao trước cho nhanh.
     def contains(self, identity, lon, lat):
         regions = self.current if identity == "vn:country" else [self.regions[identity]]
         for region in regions:
@@ -72,6 +81,7 @@ class RegionCatalog:
                 return True
         return False
 
+    # Cả nước như một vùng lớn bao mọi tỉnh.
     def country(self):
         boxes = [r["bbox"] for r in self.current]
         box = [

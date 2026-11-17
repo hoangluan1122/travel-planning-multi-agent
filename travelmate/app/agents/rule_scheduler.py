@@ -7,6 +7,9 @@ no place repeated while unused ones remain, every place from the ranked candidat
 a sensible default, not a route optimisation: travel times between stops are not known.
 """
 
+# Xếp lịch theo luật, không cần LLM. Dùng khi Gemini lỗi (hết hạn mức, mất kết nối, quá giờ) để người dùng
+# vẫn nhận được lịch.
+
 from datetime import timedelta
 
 from app.agents.self_check import MEAL_TYPES, OUTDOOR_TYPES, RAIN_CODES
@@ -27,6 +30,7 @@ SLOTS = [
 ]
 
 
+# Phân loại địa điểm: bữa ăn, cà phê, nơi ở hay tham quan.
 def kind_of(place):
     types = set(place.types)
     if types & MEAL_TYPES:
@@ -38,6 +42,8 @@ def kind_of(place):
     return "sight"
 
 
+# Mỗi ngày đi qua các khung giờ cố định (SLOTS); mỗi khung lấy một địa điểm đúng loại: nơi người dùng yêu
+# cầu trước, rồi nơi nổi tiếng. Ngày mưa ưu tiên trong nhà; không lặp địa điểm khi còn nơi chưa dùng.
 def rule_draft(trip, places, weather=None, wish_ids=()):
     """A Draft for every trip day from ranked places (best first)."""
     ranked = list(places.places)

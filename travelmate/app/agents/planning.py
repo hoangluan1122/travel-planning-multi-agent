@@ -9,6 +9,12 @@ sees those observations and revises the plan (at most MAX_REPLANS rounds). Every
 is returned with the plan so users can see how the agent planned.
 """
 
+# Cách điều phối 'planning' (đang chạy trên Render), theo Planning pattern:
+# 1. Planning Agent (LLM) đọc yêu cầu và viết kế hoạch gồm các việc con (TravelPlan).
+# 2. Orchestrator giao từng việc cho agent phù hợp; tìm thêm địa điểm theo mong muốn của người dùng.
+# 3. Tìm không ra thì lập kế hoạch lại (tối đa MAX_REPLANS lần).
+# 4. Xếp lịch, tự kiểm tra (Metacognition), sửa lịch nếu cần, rồi tính chi phí.
+
 import asyncio
 import json
 import logging
@@ -68,6 +74,8 @@ PLANNING_INSTRUCTION = (
 )
 
 
+# LLM lập kế hoạch qua hai công cụ: inspect_request (đọc yêu cầu) và submit_plan (nộp kế hoạch, bị kiểm tra
+# bởi TravelPlan).
 class PlanningAgent:
     """LLM planner over two tools (inspect_request, submit_plan) with a validated submit gate."""
 
@@ -78,6 +86,7 @@ class PlanningAgent:
     async def plan(self, trip, context, previous=None, observations=()):
         state = {"accepted": None, "reads": 0, "submissions": 0}
 
+        # Khi lập lại, LLM thấy cả kế hoạch cũ và kết quả từng việc con.
         def inspect_request() -> dict:
             """Read the trip request, the allowed agents and, when re-planning, the previous plan
             with what each subtask returned."""
@@ -98,6 +107,7 @@ class PlanningAgent:
                 "observations": [o.model_dump() for o in observations],
             }
 
+        # Kế hoạch sai cấu trúc thì trả lỗi để LLM sửa.
         def submit_plan(plan_json: str) -> dict:
             """Submit the plan; returns validation errors to fix, or acceptance.
 
@@ -135,6 +145,7 @@ class PlanningAgent:
         return state["accepted"]
 
 
+# Kế hoạch cố định không cần LLM: chỉ 5 bước chính. Dùng khi LLM lỗi.
 def default_plan(trip, previous=None, observations=()):
     """Deterministic plan (no LLM): the core steps only."""
     return TravelPlan(subtasks=[
@@ -147,6 +158,7 @@ def default_plan(trip, previous=None, observations=()):
     ])
 
 
+# Việc con 'tìm thêm địa điểm theo từ khoá', bọc thành agent để có timeout, log và trace như mọi agent.
 class PlaceQueryAgent(BaseAgent[PlaceSearchRequest, PlaceResult]):
     """A targeted place_search subtask, as an agent so it gets spans, timeouts and logs."""
 
@@ -159,6 +171,7 @@ class PlaceQueryAgent(BaseAgent[PlaceSearchRequest, PlaceResult]):
         return await self.provider.search_places(data)
 
 
+# Chạy kế hoạch bằng các agent trong registry.
 class PlanningOrchestrator:
     """Runs a TravelPlan with the registry agents; re-plans when targeted searches come up empty."""
 
@@ -167,6 +180,8 @@ class PlanningOrchestrator:
         self.mode, self.timeout = mode, timeout
         self.search_agent = PlaceQueryAgent(provider)
 
+    # Gọi Planning Agent trong giới hạn thời gian; lỗi hay treo thì dùng kế hoạch mặc định để chuyến đi
+    # không bị chặn.
     async def make_plan(self, trip, context, previous=None, observations=()):
         if self.planner is None:
             return default_plan(trip, previous, observations), "default"
@@ -183,6 +198,7 @@ class PlanningOrchestrator:
             )
             return default_plan(trip, previous, observations), "default"
 
+    # Chạy song song các lượt tìm theo từ khoá; mỗi lượt cho một quan sát: ok / no_results / failed.
     async def run_searches(self, trip, tasks, context):
         async def one(task):
             query = PlaceSearchRequest(destination=trip.destination, category=task.inputs.category,
@@ -196,6 +212,7 @@ class PlanningOrchestrator:
 
         return await asyncio.gather(*(one(t) for t in tasks))
 
+    # Hàm chính, các bước theo thứ tự bên dưới.
     async def plan(self, trip):
         context = Context()
 
@@ -204,6 +221,8 @@ class PlanningOrchestrator:
 
         report_stage("places")
         # The first plan needs only the request, so it runs alongside the core lookups.
+        # Bước 1: lập kế hoạch và đọc sở thích chạy song song với việc tìm địa điểm + thời tiết, để tiết
+        # kiệm thời gian.
         memory_task = asyncio.create_task(run("memory", trip))
         plan_task = asyncio.create_task(self.make_plan(trip, context))
         core = await asyncio.gather(run("place", trip), run("weather", trip), return_exceptions=True)
@@ -217,6 +236,7 @@ class PlanningOrchestrator:
             plan_task.cancel()
             memory_task.cancel()
             raise
+        # Bước 2: chờ kế hoạch (của LLM hoặc mặc định).
         plan, planner_kind = await plan_task
         rounds = []
 
@@ -226,6 +246,7 @@ class PlanningOrchestrator:
 
         found, executed = {}, set()
         observations = []
+        # Bước 3: chạy các lượt tìm theo yêu cầu; lượt nào không có kết quả thì nhờ LLM lập lại kế hoạch.
         for round_no in range(MAX_REPLANS + 1):
             pending = [t for t in plan.of("place_search") if signature(t) not in executed]
             if round_no and not pending:
@@ -254,6 +275,7 @@ class PlanningOrchestrator:
 
         memory = await memory_task
         # Targeted results first (they answer stated needs), then the broad search; no duplicates.
+        # Bước 4: gộp kết quả: địa điểm người dùng yêu cầu đứng trước, rồi đến danh sách chung; bỏ trùng.
         merged, seen = [], set()
         for task, result in found.values():
             for place in result.places:
@@ -271,13 +293,17 @@ class PlanningOrchestrator:
             warnings=memory.warnings,
         )
         candidates = PlaceResult(places=merged, warnings=places.warnings, stays=places.stays)
+        # Bước 5: xếp hạng theo sở thích.
         report_stage("ranking")
         ranked = await run("recommendation", RecommendationInput(places=candidates, preferences=preferences))
+        # Mong muốn cụ thể của người dùng; bước tự kiểm tra xem lịch đã đáp ứng chưa.
         wishes = [
             (f"“{task.inputs.keyword.strip()}”", task.inputs.keyword.strip(), {p.id for p in result.places})
             for task, result in found.values()
         ]
+        # Bước 6: xếp lịch + tự kiểm tra + sửa.
         draft, report = await self.reviewed_draft(trip, ranked, weather, preferences, wishes, run)
+        # Bước 7: tính chi phí và đóng gói kết quả.
         report_stage("budget")
         budget = await run("budget", BudgetInput(trip=trip, draft=draft, places=ranked))
         response = plan_response(context, self.mode, draft, ranked, weather, budget, preferences, places.stays)
@@ -290,6 +316,8 @@ class PlanningOrchestrator:
             "warnings": warnings,
         })
 
+    # Metacognition: xếp lịch, tự chấm theo danh sách tiêu chí (self_check.py), rồi đưa lỗi cho LLM sửa. Giữ
+    # bản tốt nhất (ít lỗi nhất).
     async def reviewed_draft(self, trip, ranked, weather, preferences, wishes, run):
         """Metacognition: draft, self-check, and let the LLM fix what the check found.
 
@@ -298,6 +326,7 @@ class PlanningOrchestrator:
         A revision that fails validation or errors is discarded; the best draft (fewest
         failed checks, earliest on ties) is returned.
         """
+        # Chỉ sửa được khi planner dùng LLM; lịch mẫu của demo không sửa theo góp ý.
         can_revise = getattr(self.registry.get("planner"), "llm", None) is not None
         feedback, attempts, best = [], [], None
         scheduled_by = "llm" if can_revise else "demo"
@@ -317,6 +346,7 @@ class PlanningOrchestrator:
                     # The itinerary LLM failed (quota, outage, invalid draft): schedule by rules so
                     # the user still gets a plan, and say so.
                     logger.warning("self_check outcome=rule_fallback error_type=%s", type(exc).__name__)
+                    # LLM lỗi ngay ở lần đầu: xếp lịch theo luật và báo rõ cho người dùng.
                     draft = rule_draft(trip, ranked, weather, set().union(*(ids for _, _, ids in wishes)))
                     validate_draft(trip, draft, ranked)
                     checks = review_draft(draft, ranked, weather, wishes)

@@ -7,6 +7,8 @@ the task while it is TASK_STATE_INPUT_REQUIRED. The bearer token comes from TRAV
 in .env (never printed). Use --url for a server other than http://127.0.0.1:8000.
 """
 
+# Thử nói chuyện với TravelMate như một agent khác, qua giao thức A2A (JSON-RPC).
+
 import argparse
 import json
 import sys

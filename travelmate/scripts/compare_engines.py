@@ -8,6 +8,9 @@ Calls the real Gemini API (costs tokens). Writes evaluation/engine-comparison-<U
 with report.json and REPORT.md.
 """
 
+# So sánh hai engine ADK và MAF trên Gemini thật (tốn lượt). Kết quả ghi vào evaluation/engine-
+# comparison-*/. Chạy tay khi cần, gọi nguồn thật; không nằm trong bộ test tự động.
+
 import argparse
 import asyncio
 import json
@@ -24,6 +27,7 @@ from app.specialists.api import SpecialistSettings, gemini_factory, maf_gemini_f
 from app.specialists.recommendation import RecommendationRequest  # noqa: E402
 
 
+# File có 'trip' là trường hợp xếp lịch; có 'candidates' là trường hợp xếp hạng.
 def load_case(path):
     """A file with "trip" is a planner case; one with "candidates" a recommendation case."""
     raw = path.read_text("utf-8-sig")

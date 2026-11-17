@@ -1,5 +1,9 @@
 """Local-only harness for individual specialists; not a public identity boundary."""
 
+# Dòng lệnh chạy thử một chuyên gia: đọc đầu vào JSON, chạy, ghi kết quả JSON. Thuộc 'bàn thử chuyên gia'
+# (app/specialists): mỗi chuyên gia chạy riêng lẻ để thử và chấm điểm, không gọi agent khác. Trang web chính
+# không dùng file này trừ khi ghi rõ.
+
 import argparse
 import asyncio
 import sys
@@ -25,6 +29,7 @@ from app.specialists.trip_budget import TripBudgetRequest, TripBudgetSpecialist
 from app.specialists.weather import WeatherRequest, WeatherSpecialist
 
 
+# Cấu hình riêng của dòng lệnh (khoá Gemini, engine).
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     google_api_key: SecretStr = SecretStr("")
@@ -34,6 +39,7 @@ class Settings(BaseSettings):
     )
 
 
+# Ghi kết quả ra file hoặc màn hình.
 def write_result(args, result):
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -41,6 +47,7 @@ def write_result(args, result):
     print(result.model_dump_json(indent=2))
 
 
+# Chọn chuyên gia theo tham số dòng lệnh rồi chạy.
 async def run(args):
     raw = args.input.read_text(encoding="utf-8-sig")
     settings = Settings()

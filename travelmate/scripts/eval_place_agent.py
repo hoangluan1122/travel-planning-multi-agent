@@ -6,6 +6,9 @@ Needs GOOGLE_API_KEY in .env, network access, and the ai + maf extras:
 Calls real Gemini and Photon/OpenStreetMap. Writes evaluation/place-agent-eval-<UTC>/.
 """
 
+# Đánh giá Place Agent LLM trên cả hai engine. Chạy tay khi cần, gọi nguồn thật; không nằm trong bộ test tự
+# động.
+
 import argparse
 import asyncio
 import json

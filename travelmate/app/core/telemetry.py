@@ -9,6 +9,9 @@ Spans carry agent name, request_id and outcome only. Prompt and message content 
 never exported: sensitive telemetry stays disabled.
 """
 
+# Ghi trace OpenTelemetry (tuỳ chọn, mặc định tắt). Mỗi lần agent chạy là một span; nếu chưa cài
+# OpenTelemetry thì các hàm ở đây không làm gì.
+
 import logging
 from contextlib import contextmanager, nullcontext
 from typing import Literal
@@ -24,6 +27,7 @@ except ImportError:  # base install without the ai/maf extras
     _trace = None
 
 
+# Gọi một lần khi khởi động: off / console (in ra terminal) / otlp (gửi tới Jaeger, Aspire...).
 def configure_telemetry(mode: TelemetryMode, service_name: str = "travelmate") -> None:
     """Call once at startup. otlp reads OTEL_EXPORTER_OTLP_ENDPOINT and related env vars."""
     global _configured
@@ -43,6 +47,7 @@ def configure_telemetry(mode: TelemetryMode, service_name: str = "travelmate") -
     logger.info("telemetry mode=%s service=%s", mode, service_name)
 
 
+# Bọc một lần chạy agent trong một span kèm request_id.
 @contextmanager
 def agent_span(agent_name: str, request_id):
     """Span around one agent invocation; a no-op when OpenTelemetry is not installed."""
@@ -60,6 +65,7 @@ def agent_span(agent_name: str, request_id):
         yield span
 
 
+# Ghi kết quả (success/failed/timeout) vào span.
 def set_outcome(span, outcome: str) -> None:
     if span is None or _trace is None:
         return

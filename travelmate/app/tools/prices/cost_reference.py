@@ -6,6 +6,9 @@ lacks, and any destination not in the table, uses the national figures, marked `
 answer can say it is a country-wide level rather than a price for that city.
 """
 
+# Giá tham khảo lưu trú, ăn uống, đi lại theo mức chi tiêu, đọc từ app/data/cost_reference.json (có nguồn).
+# Thành phố có trong bảng dùng giá riêng; nơi khác dùng mức chung cả nước.
+
 import json
 from datetime import date
 from decimal import Decimal
@@ -44,6 +47,7 @@ def load_reference():
     return checked, cities, country
 
 
+# Giá tham khảo cho một điểm đến.
 def reference_for(destination):
     """(checked date, entry): the destination's city entry, or the national one for anywhere else."""
     checked, cities, country = load_reference()

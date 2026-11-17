@@ -1,5 +1,7 @@
 """Shapes for choosing a place when a name matches several (e.g. two "Hội An")."""
 
+# Dùng bởi osm_places.py và bàn thử chuyên gia.
+
 from typing import Literal
 
 from pydantic import Field

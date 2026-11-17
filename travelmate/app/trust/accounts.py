@@ -4,6 +4,10 @@ Signed-in users send `Authorization: Bearer <session token>`. The same header al
 planning API, so a signed-in user does not need the operator's TRAVELMATE_API_TOKEN.
 """
 
+# Endpoint cho tài khoản và dữ liệu người dùng: đăng ký, đăng nhập, quên mật khẩu, hồ sơ, chuyến đi đã lưu
+# (sửa được), chat đã lưu, yêu thích, trang địa điểm, đánh giá, liên hệ, và khu vực admin. Mọi endpoint nằm
+# dưới /api/v1.
+
 import asyncio
 import logging
 import re
@@ -41,6 +45,8 @@ SESSION_COOKIE = "tm_session"
 SAFE_METHODS = {"GET", "HEAD", "OPTIONS"}
 
 
+# Đọc phiên đăng nhập từ Bearer token hoặc cookie. Chống CSRF: yêu cầu ghi dùng cookie phải có header
+# X-Requested-With: travelmate (trang khác không tự thêm header này được), và cookie là SameSite=Strict.
 async def session_from(request, credentials, store):
     """(user, token) from a Bearer session token or the HttpOnly session cookie, else (None, None).
 
@@ -61,17 +67,20 @@ async def session_from(request, credentials, store):
     return (user, token) if user else (None, None)
 
 
+# Cookie phiên: HttpOnly (JavaScript không đọc được), 30 ngày, Secure khi chạy HTTPS.
 def set_session_cookie(response, request, token):
     response.set_cookie(SESSION_COOKIE, token, max_age=30 * 24 * 3600, httponly=True, samesite="strict",
                         secure=request.url.scheme == "https", path="/")
 
 
+# Giới hạn chống dò mật khẩu: 8 lần đăng nhập / 15 phút; liên hệ: 5 tin / giờ.
 EMAIL = re.compile(r"^[^@\s]{1,64}@[^@\s]{1,190}\.[^@\s]{2,}$")
 LOGIN_WINDOW_S, LOGIN_ATTEMPTS = 15 * 60, 8
 CONTACT_WINDOW_S, CONTACT_MESSAGES = 60 * 60, 5
 CONTACT_TOPICS = ("support", "feedback", "partner", "privacy", "other")
 
 
+# Các model bên dưới là dữ liệu từng endpoint nhận vào, đã kiểm tra độ dài/định dạng.
 class Credentials(Model):
     email: str = Field(max_length=254)
     password: str = Field(min_length=1, max_length=128)
@@ -145,6 +154,8 @@ class TripSave(Model):
     title: str | None = Field(default=None, max_length=120)
 
 
+# Sửa chuyến đi: đổi tên, thêm địa điểm yêu thích, chi phí tự nhập, mức chi tiêu; về lịch thì mỗi lần chỉ
+# một trong ba: sửa lịch, dời ngày, hoặc xếp lại tự động.
 class TripEdit(Model):
     title: str | None = Field(default=None, min_length=1, max_length=120)
     draft: Draft | None = None
@@ -190,6 +201,7 @@ class Moderation(Model):
     note: str = Field(default="", max_length=300)
 
 
+# Chuyến đi đã lưu có thể đã ở quá khứ: dựng lại mà không áp luật 'không ở quá khứ'.
 def trip_for(request):
     """A saved trip may be in the past now: build it without the "not in the past" rule."""
     return TripRequest.model_construct(**{**request, "start_date": date.fromisoformat(request["start_date"]),
@@ -198,6 +210,7 @@ def trip_for(request):
                                           "travelers": int(request["travelers"])})
 
 
+# Lịch sau khi sửa vẫn phải qua validate_draft; chi phí được tính lại.
 def edited_result(request, result, draft, extra_places):
     """Validate an edited schedule against the saved trip and recompute its budget."""
     plan_days = [d["date"] for d in result["draft"]["days"]]
@@ -225,6 +238,7 @@ def edited_result(request, result, draft, extra_places):
     return data, kept
 
 
+# Tạo nhóm endpoint; các hàm bên trong dùng store và cấu hình của hàm ngoài.
 def create_accounts_router(store, settings, mailer=None):
     router = APIRouter(prefix="/api/v1")
     if mailer is None:
@@ -237,27 +251,32 @@ def create_accounts_router(store, settings, mailer=None):
     attempts: dict[str, deque] = defaultdict(deque)
     contact_attempts: dict[str, deque] = defaultdict(deque)
 
+    # Gọi hàm cơ sở dữ liệu ở luồng riêng; StoreError thành lỗi HTTP có câu tiếng Việt.
     async def run(fn, *args, **kwargs):
         try:
             return await asyncio.to_thread(fn, *args, **kwargs)
         except StoreError as exc:
             raise HTTPException(exc.status, str(exc)) from None
 
+    # Dependency: bắt buộc đăng nhập (401 nếu chưa).
     async def current_user(request: Request, credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
         user, token = await session_from(request, credentials, store)
         if user is None:
             raise HTTPException(401, "Bạn cần đăng nhập, hoặc phiên đăng nhập đã hết hạn.")
         return {**user, "token": token}
 
+    # Dependency: đăng nhập hay không đều được.
     async def optional_user(request: Request, credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
         user, _ = await session_from(request, credentials, store)
         return user
 
+    # Dependency: bắt buộc là admin (403 nếu không).
     async def admin_user(user=Depends(current_user)):
         if user["role"] != "admin":
             raise HTTPException(403, "Chỉ quản trị viên mới dùng được chức năng này.")
         return user
 
+    # Đếm số lần thử theo (địa chỉ IP, email) trong cửa sổ 15 phút.
     def throttle(request, email):
         key = f"{request.client.host if request.client else '-'}|{email.casefold()}"
         window = attempts[key]
@@ -268,12 +287,14 @@ def create_accounts_router(store, settings, mailer=None):
             raise HTTPException(429, "Bạn đã thử quá nhiều lần. Vui lòng đợi 15 phút.", headers={"Retry-After": "900"})
         window.append(now)
 
+    # Đường dẫn đặt lại mật khẩu gửi qua email.
     def reset_link(request, token):
         base = getattr(settings, "travelmate_public_url", "") or str(request.base_url)
         return f"{base.rstrip('/')}/?view=forgot&reset={token}"
 
     # --- accounts ------------------------------------------------------------------------
 
+    # --- Tài khoản: đăng ký, đăng nhập, đăng xuất, quên/đặt lại mật khẩu ---
     @router.post("/auth/signup")
     async def signup(data: Signup, request: Request, response: Response):
         if not settings.travelmate_signup_open:
@@ -296,6 +317,7 @@ def create_accounts_router(store, settings, mailer=None):
         response.delete_cookie(SESSION_COOKIE, path="/")
         return {"ok": True}
 
+    # Luôn trả cùng một câu, dù email có tồn tại hay không, để không lộ ai có tài khoản.
     @router.post("/auth/forgot")
     async def forgot(data: Forgot, request: Request):
         throttle(request, data.email)
@@ -320,6 +342,7 @@ def create_accounts_router(store, settings, mailer=None):
         await run(store.reset_password, data.token, data.password)
         return {"ok": True}
 
+    # --- Hồ sơ: xem, sửa, đổi mật khẩu, xoá tài khoản ---
     @router.get("/me")
     async def me(user=Depends(current_user)):
         return {k: v for k, v in user.items() if k != "token"}
@@ -341,6 +364,7 @@ def create_accounts_router(store, settings, mailer=None):
 
     # --- trips ---------------------------------------------------------------------------
 
+    # --- Chuyến đi đã lưu ---
     @router.get("/me/trips")
     async def my_trips(user=Depends(current_user)):
         return await run(store.trips, user["id"])
@@ -364,6 +388,7 @@ def create_accounts_router(store, settings, mailer=None):
     async def get_trip(trip_id: str, user=Depends(current_user)):
         return await run(store.trip, user["id"], trip_id)
 
+    # Sửa lịch: kiểm tra lại toàn bộ lịch và tính lại chi phí trước khi lưu.
     @router.patch("/me/trips/{trip_id}")
     async def edit_trip(trip_id: str, data: TripEdit, user=Depends(current_user)):
         changes_plan = (data.draft is not None or data.start_date or data.auto_arrange or data.user_costs is not None
@@ -421,6 +446,7 @@ def create_accounts_router(store, settings, mailer=None):
 
     # --- chats -----------------------------------------------------------------------------
 
+    # --- Chat đã lưu ---
     @router.get("/me/chats")
     async def my_chats(user=Depends(current_user)):
         return await run(store.chats, user["id"])
@@ -439,6 +465,7 @@ def create_accounts_router(store, settings, mailer=None):
 
     # --- favourites and place pages -------------------------------------------------------
 
+    # --- Yêu thích, trang địa điểm, đánh giá ---
     @router.get("/me/favorites")
     async def favorites(user=Depends(current_user)):
         return await run(store.favorites, user["id"])
@@ -479,6 +506,7 @@ def create_accounts_router(store, settings, mailer=None):
 
     # --- admin ---------------------------------------------------------------------------
 
+    # --- Khu vực admin: thống kê, người dùng, địa điểm, kiểm duyệt, tin nhắn ---
     @router.get("/admin/stats")
     async def stats(admin=Depends(admin_user)):
         return await run(store.stats)
@@ -491,6 +519,8 @@ def create_accounts_router(store, settings, mailer=None):
     async def update_user(user_id: str, data: UserAdminUpdate, admin=Depends(admin_user)):
         return await run(store.admin_update_user, admin["id"], user_id, data.role, data.status)
 
+    # Admin tạo đường dẫn đặt lại mật khẩu (30 phút) để gửi cho người dùng, dùng khi máy chủ chưa gửi được
+    # email.
     @router.post("/admin/users/{user_id}/reset-link")
     async def admin_reset_link(user_id: str, request: Request, admin=Depends(admin_user)):
         user, token = await run(store.create_reset, user_id=user_id, actor_id=admin["id"])
@@ -517,6 +547,7 @@ def create_accounts_router(store, settings, mailer=None):
 
     # --- contact form and its inbox ---------------------------------------------------------
 
+    # Tin nhắn liên hệ: có giới hạn số tin mỗi giờ để chống spam.
     @router.post("/contact")
     async def contact(data: ContactMessage, request: Request, user=Depends(optional_user)):
         window = contact_attempts[request.client.host if request.client else "-"]

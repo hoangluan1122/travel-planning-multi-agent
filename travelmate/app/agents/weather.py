@@ -1,5 +1,7 @@
 """Weather agent: the forecast for the trip's dates from the weather provider (a tool)."""
 
+# Agent thời tiết: lấy dự báo cho các ngày của chuyến đi từ provider (Open-Meteo).
+
 from app.core.base import BaseAgent
 from app.core.models import TripRequest, WeatherResult
 

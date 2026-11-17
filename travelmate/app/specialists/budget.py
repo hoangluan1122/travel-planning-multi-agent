@@ -1,5 +1,9 @@
 """Budget specialist (standalone test bench): adds cost lines and compares them to a budget."""
 
+# Chuyên gia chi phí đơn giản: cộng các dòng chi phí người gọi đưa vào và so với ngân sách. Thuộc 'bàn thử
+# chuyên gia' (app/specialists): mỗi chuyên gia chạy riêng lẻ để thử và chấm điểm, không gọi agent khác.
+# Trang web chính không dùng file này trừ khi ghi rõ.
+
 from decimal import Decimal
 from typing import Literal
 
@@ -9,6 +13,7 @@ from app.core.base import BaseAgent
 from app.core.models import Model, ShortText
 
 
+# Một dòng chi phí: loại, số tiền, nguồn.
 class CostLine(Model):
     id: ShortText
     category: Literal["accommodation", "meals", "transport", "visits", "other"]
@@ -55,6 +60,7 @@ class BudgetReport(Model):
     estimated_subtotal_vnd: Decimal = Decimal("0")
 
 
+# Không có giá thì ghi 'chưa biết', không coi là 0.
 class BudgetSpecialist(BaseAgent[BudgetRequest, BudgetReport]):
     name, input_schema, output_schema = "budget_specialist", BudgetRequest, BudgetReport
 

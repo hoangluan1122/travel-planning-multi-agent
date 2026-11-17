@@ -16,6 +16,9 @@ The server reads the same .env as the API. Tool errors return a short message, n
 provider URLs, keys or stack traces. Over stdio nothing but MCP messages goes to stdout.
 """
 
+# MCP (Model Context Protocol): mở các công cụ của TravelMate (tìm địa điểm, thời tiết, hỏi hướng dẫn viên,
+# lập lịch) cho Claude Desktop và các ứng dụng MCP khác. Chạy riêng: python -m app.protocols.mcp_server.
+
 import argparse
 import asyncio
 import json
@@ -44,6 +47,7 @@ INSTRUCTIONS = (
 )
 
 
+# Câu báo lỗi cho client: không bao giờ chứa URL nhà cung cấp, khoá hay traceback.
 def safe(error):
     """A message for the client that never carries provider URLs, keys or tracebacks."""
     if isinstance(error, ValidationError):
@@ -55,11 +59,13 @@ def safe(error):
     return "The request failed; retry shortly."
 
 
+# Đăng ký các công cụ MCP trên cùng các dịch vụ mà web dùng (build_services).
 def create_mcp(services, name="TravelMate"):
     mcp = FastMCP(name, instructions=INSTRUCTIONS)
     provider, orchestrator, settings = services.provider, services.orchestrator, services.settings
     guide = services.chat.guide
 
+    # Chạy một công cụ, đổi mọi lỗi thành câu an toàn.
     async def guarded(label, work):
         try:
             async with asyncio.timeout(settings.travelmate_agent_timeout + 30):
@@ -158,6 +164,7 @@ def create_mcp(services, name="TravelMate"):
     return mcp
 
 
+# Bảo vệ bản HTTP của máy chủ MCP bằng token.
 class BearerGuard:
     """ASGI wrapper: every HTTP request needs Authorization: Bearer <token> (constant-time check)."""
 
@@ -182,6 +189,7 @@ def http_app(mcp, token):
     return BearerGuard(app, token) if token else app
 
 
+# Chạy qua stdio (Claude Desktop) hoặc HTTP.
 def main(argv=None):
     parser = argparse.ArgumentParser(description="TravelMate MCP server")
     parser.add_argument("--http", action="store_true", help="serve Streamable HTTP instead of stdio")

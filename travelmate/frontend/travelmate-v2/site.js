@@ -1,3 +1,7 @@
+// Các trang thông tin: Giới thiệu, Bảng giá, Liên hệ, Điều khoản, Chính sách bảo mật; hộp thư liên hệ của
+// admin; hạn mức AI hôm nay trên trang tài khoản. Tên đơn vị vận hành, email và hạn mức lấy từ máy chủ
+// (/api/v1/site).
+
 /* Company pages of the public site: about, pricing, contact, terms, privacy; the contact inbox
    for admins; today's AI quota on the account page. Uses the helpers integration.js exports. */
 (() => {
@@ -7,6 +11,7 @@
   const {api, render, esc, head, link, route, session, notify, dialog} = tm;
   const get = path => api(path, null, undefined, 'GET');
   const user = () => session()?.user || null;
+  // Ngày hiệu lực của Điều khoản và Chính sách bảo mật.
   const EFFECTIVE = '12/11/2026';
   // Who runs the site and how to reach them come from the server (TRAVELMATE_OPERATOR_NAME, ..._CONTACT_EMAIL).
   const site = get('/api/v1/site').catch(() => ({daily_plans: 10, daily_chats: 60, operator_name: '', contact_email: '', signup_open: true}));
@@ -15,6 +20,7 @@
     ? `email <a href="mailto:${esc(s.contact_email)}">${esc(s.contact_email)}</a> hoặc <a href="?view=contact">biểu mẫu liên hệ</a>`
     : '<a href="?view=contact">biểu mẫu liên hệ</a>';
   const limitText = n => n ? `${n} mỗi ngày` : 'không giới hạn';
+  // Khung chung cho các trang văn bản.
   const doc = (eyebrow, title, intro, sections) => render(`<article class="tm-doc">${head(eyebrow, title, intro)}
     ${sections.map(([h, body]) => `<section><h2>${h}</h2>${body}</section>`).join('')}</article>`);
   const list = items => `<ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
