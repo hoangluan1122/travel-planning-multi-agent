@@ -327,3 +327,36 @@ figure.tm-illustration{position:relative}
 .tm-plan-hero .tm-photo-badge{display:none}
 /* Past years' weather (no forecast yet) and no data: quieter than a real forecast. */
 .tm-weather-typical,.tm-weather-none{background:var(--sand-2);color:var(--muted);font-weight:400}
+
+/* ==== Accessibility pass (checklist of the ui-ux-pro-max skill) ====
+   Rà theo checklist: chữ tối thiểu 12px, tương phản 4.5:1, vùng bấm tối thiểu 24px (WCAG 2.2),
+   viền focus luôn thấy được khi dùng bàn phím, tôn trọng cài đặt "giảm chuyển động". */
+
+/* Focus: every control shows a ring, even where a component removed its outline. */
+:is(input, select, textarea):focus-visible,input:is([type=date],[type=time]):is(:focus,:focus-within){outline:3px solid var(--teal)!important;outline-offset:2px}
+/* The home search is a pill: ring the whole pill, not the borderless input inside it. */
+.tm-quick:focus-within{outline:3px solid var(--teal);outline-offset:3px}
+.tm-quick input:focus-visible{outline:none!important}
+
+/* Text no smaller than 12px. */
+.tm-footer-links b,#tm-credit,.tm-footer .tm-footer-bottom small,.tm-pill,.tm-photo-badge,.tm-stop-time span,
+figure figcaption a,.tm-dest small,.mini-step b{font-size:12px}
+/* Older stylesheets (style.css, pages.css, refinement.css) shrink eyebrow labels to 7-9px at many
+   breakpoints with more specific selectors; 12px is the floor everywhere. */
+.eyebrow{font-size:12px!important}
+.surface small,.surface small.tm-field-hint{font-size:13px;color:var(--muted)}  /* was 10px, 2.99:1 */
+
+/* Contrast. */
+.intro .eyebrow{color:var(--teal-700)}  /* teal on sand was 4.15:1 */
+.steps b{background:var(--coral-ink)}  /* white on coral was 3.0:1 */
+
+/* Targets at least 24px tall. */
+.tm-footer-links a{padding-block:3px}
+.text-link{display:inline-block;padding-block:4px}
+figure figcaption a{display:inline-block;padding-block:5px}
+
+/* Reduced motion: no animations or transitions when the visitor asks for less motion. */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
