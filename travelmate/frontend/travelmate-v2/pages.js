@@ -7,6 +7,10 @@
   'use strict';
   const params = new URLSearchParams(location.search);
   const route = params.get('view') || 'home';
+  // Sở thích gợi ý, dùng chung cho form Tạo chuyến đi và trang cá nhân: sở thích lưu ở trang cá nhân
+  // phải trùng tên ô ở form để được tích sẵn khi tạo chuyến đi mới.
+  const interestOptions = window.tmInterestOptions =
+    ['Biển & thiên nhiên', 'Ẩm thực', 'Văn hóa', 'Lịch sử & di tích', 'Nghỉ dưỡng', 'Cà phê & dạo phố'];
   // Tên từng màn hình, dùng làm tiêu đề tab.
   const routes = {
     home: 'Lên kế hoạch du lịch cùng AI', explore: 'Khám phá', chat: 'Trợ lý AI', login: 'Đăng nhập', signup: 'Đăng ký',
@@ -48,7 +52,7 @@
 
   if (route === 'home') document.getElementById('home').classList.add('visible');
   else if (route === 'create') {
-    const interests = ['Biển & thiên nhiên', 'Ẩm thực', 'Văn hóa', 'Lịch sử & di tích', 'Nghỉ dưỡng', 'Cà phê & dạo phố'];
+    const interests = interestOptions;
     show(`<div class="page-shell"><div class="page-intro"><div><div class="eyebrow">LÊN KẾ HOẠCH</div><h1>Chuyến đi sắp tới.<br><span>Theo cách bạn muốn.</span></h1><p>Vài thông tin cơ bản là đủ. Bạn có thể chỉnh lịch sau khi xem bản phác thảo.</p></div></div>
       <div class="form-layout"><form class="surface large-form" data-form="create"><div class="section-label"><h2>Thông tin chuyến đi</h2></div>
         ${field('Bạn muốn đi đâu?', 'destination', 'text', '', 'minlength="2" maxlength="200" placeholder="Ví dụ: Huế, Đà Nẵng, Đà Lạt" autocomplete="off"')}

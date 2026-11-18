@@ -43,7 +43,7 @@ header nav a,header nav a[aria-current=page]{border-bottom:0;border-bottom-color
 header .avatar.tm-login{background:var(--teal);color:#fff;height:40px;padding:0 20px;font-size:14px}
 header .avatar.tm-login:hover{background:var(--teal-700)}
 header .avatar.tm-user{background:var(--paper);border:1px solid var(--line);color:var(--ink)}
-header .avatar.tm-user b{background:var(--coral)}
+header .avatar.tm-user b{background:var(--coral-ink)}  /* white on coral was 3.0:1 */
 .menu-toggle{color:var(--ink);font-size:20px;background:none;border:0}
 .menu-toggle .tm-i{width:26px;height:26px}
 
