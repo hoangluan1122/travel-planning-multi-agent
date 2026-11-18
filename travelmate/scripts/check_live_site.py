@@ -58,8 +58,9 @@ def request(url, data=None, token=None, timeout=30):
 
 # Chạy từng mục kiểm tra, ghi đạt/cảnh báo/lỗi cho mỗi mục.
 class Checker:
-    def __init__(self, base, token=None, wake_s=180):
+    def __init__(self, base, token=None, wake_s=180, days_ahead=5):
         self.base, self.token, self.wake_s = base.rstrip("/") + "/", token, wake_s
+        self.days_ahead = days_ahead
         self.results = []
 
     def record(self, name, status, detail):
@@ -173,7 +174,9 @@ class Checker:
 
     # Tạo một lịch trình thật bằng token vận hành (tốn một lượt Gemini).
     def plan(self):
-        start = date.today() + timedelta(days=14)
+        # 5 days ahead by default: inside both forecasts (Open-Meteo 16 days, MET Norway ~10), so every
+        # day must have one. A trip further out (--days-ahead 40) checks past years' weather instead.
+        start = date.today() + timedelta(days=self.days_ahead)
         trip = {"destination": "Huế", "start_date": start.isoformat(), "end_date": (start + timedelta(days=1)).isoformat(),
                 "travelers": 2, "budget_vnd": 5_000_000, "interests": ["di tích"]}
         started = time.monotonic()
@@ -191,13 +194,15 @@ class Checker:
         if not days or not places:
             return FAIL, f"lịch trình rỗng ({len(days)} ngày, {len(places)} địa điểm)"
         by = (plan.get("self_check") or {}).get("scheduled_by", "?")
-        # The trip starts in 14 days, inside Open-Meteo's 16-day forecast: every day should have one.
         weather = plan.get("weather") or {}
         forecast = {d.get("date") for d in weather.get("days", [])}
+        typical = {d.get("date") for d in weather.get("typical", [])}
         covered = sum(d.get("date") in forecast for d in days)
-        detail = (f"{len(days)} ngày, {len(places)} địa điểm, xếp bởi {by}, thời tiết {covered}/{len(days)} ngày, "
-                  f"{seconds:.0f} giây")
-        if not covered:
+        past = sum(d.get("date") in typical for d in days)
+        source = "MET Norway" if any("MET Norway" in w for w in weather.get("warnings", [])) else "Open-Meteo"
+        detail = (f"{len(days)} ngày, {len(places)} địa điểm, xếp bởi {by}, thời tiết {covered}/{len(days)} ngày "
+                  f"({source})" + (f" + cùng kỳ các năm trước {past} ngày" if past else "") + f", {seconds:.0f} giây")
+        if not covered and not past:
             note = next((w for w in weather.get("warnings", []) if "thời tiết" in w.lower() or "dự báo" in w.lower()), "")
             return WARN, detail + f" (máy chủ không lấy được dự báo thời tiết{': ' + note[:120] if note else ''})"
         if by == "rules":
@@ -235,10 +240,11 @@ def main(argv=None):
     parser.add_argument("url", help="địa chỉ trang, ví dụ https://travelmate.onrender.com")
     parser.add_argument("--plan", action="store_true", help="tạo thêm một lịch trình thật (tốn vài lượt Gemini)")
     parser.add_argument("--wake-seconds", type=int, default=180)
+    parser.add_argument("--days-ahead", type=int, default=5, help="lịch trình thử bắt đầu sau bao nhiêu ngày")
     args = parser.parse_args(argv)
     if not args.url.startswith(("https://", "http://")):
         parser.error("url phải bắt đầu bằng https:// hoặc http://")
-    checker = Checker(args.url, os.environ.get("TRAVELMATE_API_TOKEN") or None, args.wake_seconds)
+    checker = Checker(args.url, os.environ.get("TRAVELMATE_API_TOKEN") or None, args.wake_seconds, args.days_ahead)
     results = checker.run(plan=args.plan)
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as out:

@@ -14,6 +14,10 @@ on:
         description: "Also make one real plan (uses a few Gemini calls)"
         type: boolean
         default: false
+      days_ahead:
+        description: "The plan starts this many days ahead (5: forecast; 40: past years' weather)"
+        type: number
+        default: 5
 
 permissions:
   contents: read
@@ -38,9 +42,10 @@ jobs:
           SITE_URL: ${{ vars.TRAVELMATE_URL }}
           TRAVELMATE_API_TOKEN: ${{ secrets.TRAVELMATE_API_TOKEN }}
           WITH_PLAN: ${{ github.event.schedule == '45 1 * * *' || inputs.plan == true }}
+          DAYS_AHEAD: ${{ inputs.days_ahead || 5 }}
         run: |
           if [ "$WITH_PLAN" = "true" ]; then
-            python travelmate/scripts/check_live_site.py "$SITE_URL" --plan
+            python travelmate/scripts/check_live_site.py "$SITE_URL" --plan --days-ahead "$DAYS_AHEAD"
           else
             python travelmate/scripts/check_live_site.py "$SITE_URL"
           fi
