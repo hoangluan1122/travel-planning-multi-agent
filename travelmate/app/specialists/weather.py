@@ -151,6 +151,9 @@ class WeatherSpecialist(BaseAgent[WeatherRequest, WeatherReport]):
                     )
             except httpx.TimeoutException:
                 raise TimeoutError("Weather service timed out") from None
+            except httpx.HTTPStatusError as exc:
+                # The status says why: 429 means this server's address is being rate-limited.
+                raise AgentError(f"Weather service returned HTTP {exc.response.status_code}") from None
             except (httpx.HTTPError, ValueError, KeyError, TypeError):
                 raise AgentError("Weather service unavailable or invalid response") from None
         days.sort(key=lambda d: d.date)

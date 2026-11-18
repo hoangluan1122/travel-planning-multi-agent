@@ -21,3 +21,21 @@ class _NoHistory:
 def _offline_weather_history(monkeypatch):
     # Tests of the history itself pass their own WeatherHistory(transport=...) to the provider.
     monkeypatch.setattr("app.tools.places.open_data_provider.WeatherHistory", _NoHistory)
+
+
+class _NoBackupWeather:
+    """MET Norway off by default: a failed Open-Meteo stays a failure, as before the backup existed."""
+
+    def __init__(self, contact=""):
+        pass
+
+    async def daily(self, latitude, longitude):
+        import httpx
+
+        raise httpx.ConnectError("backup weather disabled in tests")
+
+
+@pytest.fixture(autouse=True)
+def _offline_backup_weather(monkeypatch):
+    # Tests of the backup itself pass their own MetNorway(transport=...) to the provider.
+    monkeypatch.setattr("app.tools.places.open_data_provider.MetNorway", _NoBackupWeather)

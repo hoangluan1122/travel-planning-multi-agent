@@ -117,7 +117,8 @@ def place_provider(settings, place_cache=None):
     if settings.travelmate_place_provider == "open_data":
         from app.tools.places.open_data_provider import OpenDataProvider
 
-        provider = OpenDataProvider()
+        # MET Norway (backup weather) asks every request to carry the site's address.
+        provider = OpenDataProvider(contact=settings.travelmate_public_url)
     else:
         photos = GooglePhotoProxy(settings.google_maps_api_key)
         provider = LiveProvider(settings.google_maps_api_key, photos=photos)
