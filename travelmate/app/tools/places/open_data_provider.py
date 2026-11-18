@@ -16,6 +16,7 @@ import asyncio
 import re
 import time
 import unicodedata
+from datetime import date, timedelta
 
 from app.core.base import AgentError, UserError
 from app.core.models import Context, PlaceResult, WeatherDay, WeatherResult
@@ -25,6 +26,7 @@ from app.tools.places.place_media import WikipediaImages, plain
 from app.tools.places.vietnam_regions import load_catalog
 from app.tools.places.wiki_places import WikipediaPlaces
 from app.tools.prices.ticket_prices import apply_tickets
+from app.tools.weather_history import WeatherHistory
 
 # Cảnh báo ghi nguồn OpenStreetMap (bắt buộc theo giấy phép ODbL).
 SOURCE_NOTE = (
@@ -162,7 +164,7 @@ class OpenDataProvider:
 
     def __init__(
         self, geo=None, weather=None, radius_m=5000, attractions=12, meals=5, cafes=2, max_parks=2,
-        heritage_radius_m=15000, heritage=8, stays=5, images=None, wiki=None,
+        heritage_radius_m=15000, heritage=8, stays=5, images=None, wiki=None, history=None,
     ):
         self.geo = geo or GeoPlaceService()
         self.weather = weather  # a WeatherSpecialist; created lazily
@@ -172,6 +174,8 @@ class OpenDataProvider:
         self.images = images if images is not None else WikipediaImages()
         # Sights when Photon is down (it often is: a free public server); False turns it off.
         self.wiki = wiki if wiki is not None else WikipediaPlaces()
+        # Past years' weather for trip days beyond the 16-day forecast; False turns it off.
+        self.history = history if history is not None else WeatherHistory()
         self.pickers = {
             "attraction": lambda found: pick_attractions(found, attractions, max_parks),
             "restaurant": lambda found: pick_food(found, meals, cafes),
@@ -436,16 +440,23 @@ class OpenDataProvider:
             Context(),
         )
         days = [WeatherDay(date=d.date, weather_code=d.weather_code) for d in report.days if d.weather_code is not None]
-        warnings = list(report.warnings)
+        # "not_flagged" is the specialist's own label, not something to show travellers.
+        warnings = [w for w in report.warnings if "not_flagged" not in w]
         for d in report.days:
             if d.outdoor_risk == "elevated":
                 chance = f" ({d.precipitation_probability}% khả năng mưa)" if d.precipitation_probability is not None else ""
                 warnings.append(f"{d.date.isoformat()}: thời tiết có thể không thuận cho hoạt động ngoài trời{chance}.")
+        typical = []
         if report.missing_dates:
-            warnings.append(
-                "Chưa có dự báo cho: " + ", ".join(day.isoformat() for day in report.missing_dates) + "."
-            )
-        return WeatherResult(days=days, warnings=warnings + ["Thời tiết: dự báo Open-Meteo."])
+            missing = ", ".join(day.strftime("%d/%m") for day in report.missing_dates)
+            far = min(report.missing_dates) > date.today() + timedelta(days=15)
+            if self.history:
+                typical = await self.history.typical(location.latitude, location.longitude, report.missing_dates)
+            reason = " (Open-Meteo chỉ dự báo 16 ngày tới)" if far else ""
+            note = (" Lịch hiện thời tiết cùng kỳ các năm trước để tham khảo, không phải dự báo."
+                    if typical else "")
+            warnings.append(f"Chưa có dự báo cho {missing}{reason}.{note}")
+        return WeatherResult(days=days, warnings=warnings + ["Thời tiết: dự báo Open-Meteo."], typical=typical)
 
 
 # Các từ của một chuỗi, viết thường.
