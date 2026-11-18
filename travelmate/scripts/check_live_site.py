@@ -191,7 +191,15 @@ class Checker:
         if not days or not places:
             return FAIL, f"lịch trình rỗng ({len(days)} ngày, {len(places)} địa điểm)"
         by = (plan.get("self_check") or {}).get("scheduled_by", "?")
-        detail = f"{len(days)} ngày, {len(places)} địa điểm, xếp bởi {by}, {seconds:.0f} giây"
+        # The trip starts in 14 days, inside Open-Meteo's 16-day forecast: every day should have one.
+        weather = plan.get("weather") or {}
+        forecast = {d.get("date") for d in weather.get("days", [])}
+        covered = sum(d.get("date") in forecast for d in days)
+        detail = (f"{len(days)} ngày, {len(places)} địa điểm, xếp bởi {by}, thời tiết {covered}/{len(days)} ngày, "
+                  f"{seconds:.0f} giây")
+        if not covered:
+            note = next((w for w in weather.get("warnings", []) if "thời tiết" in w.lower() or "dự báo" in w.lower()), "")
+            return WARN, detail + f" (máy chủ không lấy được dự báo thời tiết{': ' + note[:120] if note else ''})"
         if by == "rules":
             return WARN, detail + " (Gemini không trả lời, đã xếp theo quy tắc)"
         if seconds > 240:

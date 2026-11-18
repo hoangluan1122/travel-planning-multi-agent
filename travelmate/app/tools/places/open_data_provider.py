@@ -13,10 +13,13 @@ say so.
 # 4. Nơi ở gần đó, rồi ảnh cho tất cả, rồi giá vé từ bảng có nguồn.
 
 import asyncio
+import logging
 import re
 import time
 import unicodedata
 from datetime import date, timedelta
+
+import httpx
 
 from app.core.base import AgentError, UserError
 from app.core.models import Context, PlaceResult, WeatherDay, WeatherResult
@@ -27,8 +30,11 @@ from app.tools.places.vietnam_regions import load_catalog
 from app.tools.places.wiki_places import WikipediaPlaces
 from app.tools.prices.ticket_prices import apply_tickets
 from app.tools.weather_history import WeatherHistory
+from app.tools.weather_met import MetNorway
 
 # Cảnh báo ghi nguồn OpenStreetMap (bắt buộc theo giấy phép ODbL).
+logger = logging.getLogger(__name__)
+
 SOURCE_NOTE = (
     "Địa điểm từ OpenStreetMap qua Photon (dữ liệu cộng đồng, ODbL); có thể thiếu hoặc cũ, "
     "chưa xác minh giờ mở cửa, giá hay tình trạng hoạt động."
@@ -164,7 +170,8 @@ class OpenDataProvider:
 
     def __init__(
         self, geo=None, weather=None, radius_m=5000, attractions=12, meals=5, cafes=2, max_parks=2,
-        heritage_radius_m=15000, heritage=8, stays=5, images=None, wiki=None, history=None,
+        heritage_radius_m=15000, heritage=8, stays=5, images=None, wiki=None, history=None, backup_weather=None,
+        contact="",
     ):
         self.geo = geo or GeoPlaceService()
         self.weather = weather  # a WeatherSpecialist; created lazily
@@ -176,6 +183,9 @@ class OpenDataProvider:
         self.wiki = wiki if wiki is not None else WikipediaPlaces()
         # Past years' weather for trip days beyond the 16-day forecast; False turns it off.
         self.history = history if history is not None else WeatherHistory()
+        # Forecast from MET Norway when Open-Meteo fails (it limits shared cloud IPs); False turns it off.
+        # contact: the site's public address, which MET asks every request to carry.
+        self.backup_weather = backup_weather if backup_weather is not None else MetNorway(contact)
         self.pickers = {
             "attraction": lambda found: pick_attractions(found, attractions, max_parks),
             "restaurant": lambda found: pick_food(found, meals, cafes),
@@ -424,21 +434,31 @@ class OpenDataProvider:
         found = await self.images.enrich(found) if self.images else found
         return PlaceResult(places=found, warnings=warnings + [SOURCE_NOTE])
 
-    # Dự báo thời tiết Open-Meteo cho từng ngày của chuyến đi.
+    # Dự báo thời tiết cho từng ngày của chuyến đi: Open-Meteo; lỗi thì MET Norway; ngày quá xa thì thời
+    # tiết cùng kỳ các năm trước (chỉ để tham khảo).
     async def forecast(self, trip):
         from app.specialists.weather import WeatherRequest, WeatherSpecialist
 
         location, _ = await self.locate(trip.destination)
         weather = self.weather or WeatherSpecialist()
-        report = await weather.run(
-            WeatherRequest(
-                latitude=location.latitude,
-                longitude=location.longitude,
-                start_date=trip.start_date,
-                end_date=trip.end_date,
-            ),
-            Context(),
-        )
+        requested = [trip.start_date + timedelta(days=i) for i in range((trip.end_date - trip.start_date).days + 1)]
+        try:
+            report = await weather.run(
+                WeatherRequest(
+                    latitude=location.latitude,
+                    longitude=location.longitude,
+                    start_date=trip.start_date,
+                    end_date=trip.end_date,
+                ),
+                Context(),
+            )
+        except (AgentError, TimeoutError) as exc:
+            # Keep why (HTTP status, timeout) in the log: a shared server IP being limited looks like this.
+            logger.warning("weather source=open-meteo outcome=failed error_type=%s detail=%s", type(exc).__name__,
+                           str(exc)[:120])
+            if not self.backup_weather:
+                raise
+            return await self.backup_forecast(location, requested)
         days = [WeatherDay(date=d.date, weather_code=d.weather_code) for d in report.days if d.weather_code is not None]
         # "not_flagged" is the specialist's own label, not something to show travellers.
         warnings = [w for w in report.warnings if "not_flagged" not in w]
@@ -446,17 +466,40 @@ class OpenDataProvider:
             if d.outdoor_risk == "elevated":
                 chance = f" ({d.precipitation_probability}% khả năng mưa)" if d.precipitation_probability is not None else ""
                 warnings.append(f"{d.date.isoformat()}: thời tiết có thể không thuận cho hoạt động ngoài trời{chance}.")
-        typical = []
-        if report.missing_dates:
-            missing = ", ".join(day.strftime("%d/%m") for day in report.missing_dates)
-            far = min(report.missing_dates) > date.today() + timedelta(days=15)
-            if self.history:
-                typical = await self.history.typical(location.latitude, location.longitude, report.missing_dates)
-            reason = " (Open-Meteo chỉ dự báo 16 ngày tới)" if far else ""
-            note = (" Lịch hiện thời tiết cùng kỳ các năm trước để tham khảo, không phải dự báo."
-                    if typical else "")
-            warnings.append(f"Chưa có dự báo cho {missing}{reason}.{note}")
+        typical, note = await self.past_years(location, report.missing_dates, horizon_days=15, source="Open-Meteo",
+                                              horizon="16 ngày")
+        warnings += note
         return WeatherResult(days=days, warnings=warnings + ["Thời tiết: dự báo Open-Meteo."], typical=typical)
+
+    async def backup_forecast(self, location, requested):
+        """Forecast from MET Norway after Open-Meteo failed; raises when both are down."""
+        try:
+            met = await self.backup_weather.daily(location.latitude, location.longitude)
+        except (httpx.HTTPError, KeyError, TypeError, ValueError) as exc:
+            logger.warning("weather source=met-norway outcome=failed error_type=%s", type(exc).__name__)
+            raise AgentError("Both weather sources failed") from exc
+        found = [met[d] for d in requested if d in met]
+        days = [WeatherDay(date=d.date, weather_code=d.weather_code) for d in found]
+        warnings = ["Nguồn MET Norway (Viện Khí tượng Na Uy), vì Open-Meteo không trả lời. Dự báo có thể thay đổi; "
+                    "không phải cảnh báo thời tiết chính thức."]
+        for d in found:
+            if d.elevated:
+                rain = f" (tới {d.rain_mm:g} mm mưa trong 6 giờ)" if d.rain_mm else ""
+                warnings.append(f"{d.date.isoformat()}: thời tiết có thể không thuận cho hoạt động ngoài trời{rain}.")
+        missing = [d for d in requested if d not in met]
+        typical, note = await self.past_years(location, missing, horizon_days=8, source="MET Norway",
+                                              horizon="khoảng 10 ngày")
+        return WeatherResult(days=days, warnings=warnings + note + ["Thời tiết: dự báo MET Norway."], typical=typical)
+
+    async def past_years(self, location, missing, horizon_days, source, horizon):
+        """(typical weather, notes) for days without a forecast: past years' weather, and why there is none."""
+        if not missing:
+            return [], []
+        typical = await self.history.typical(location.latitude, location.longitude, missing) if self.history else []
+        dates = ", ".join(day.strftime("%d/%m") for day in missing)
+        reason = f" ({source} chỉ dự báo {horizon} tới)" if min(missing) > date.today() + timedelta(days=horizon_days) else ""
+        note = " Lịch hiện thời tiết cùng kỳ các năm trước để tham khảo, không phải dự báo." if typical else ""
+        return typical, [f"Chưa có dự báo cho {dates}{reason}.{note}"]
 
 
 # Các từ của một chuỗi, viết thường.
