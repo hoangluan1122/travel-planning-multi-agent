@@ -25,6 +25,19 @@
   const statusLabel = {pending: 'Chờ duyệt', approved: 'Đã duyệt', rejected: 'Bị từ chối', hidden: 'Đã ẩn'};
   const starText = n => '★'.repeat(n) + '☆'.repeat(5 - n);
 
+  // Bảng quản trị trên màn hình hẹp hiện thành từng thẻ; mỗi ô cần biết tên cột của nó (data-label) để CSS
+  // hiện tên cột cạnh giá trị. Bảng được vẽ lại sau mỗi lần tìm, nên theo dõi trang và gắn nhãn khi có bảng mới.
+  const labelTables = () => document.querySelectorAll('.tm-table').forEach(table => {
+    // The header is the first row made of <th> (the tables here have no <thead>).
+    const headRow = [...table.rows].find(r => r.querySelector('th'));
+    if (!headRow) return;
+    const heads = [...headRow.cells].map(th => th.textContent.trim());
+    [...table.rows].filter(r => r !== headRow).forEach(tr => [...tr.cells].forEach((td, i) => {
+      if (!td.dataset.label && heads[i]) td.dataset.label = heads[i];
+    }));
+  });
+  new MutationObserver(labelTables).observe(document.body, {childList: true, subtree: true});
+
   const style = document.createElement('style');
   style.textContent = '.tm-table{width:100%;border-collapse:collapse;font-size:14px}.tm-table th,.tm-table td{border-bottom:1px solid #e5e2da;padding:8px;text-align:left;vertical-align:top}.tm-badge{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;background:#ece8dd}.tm-badge.pending{background:#fff1c2}.tm-badge.approved{background:#d8f0dd}.tm-badge.rejected,.tm-badge.hidden{background:#f6d6d6}.tm-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.tm-tabs a.active{background:#16302b;color:#fff}.tm-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.tm-stats .api-card strong{font-size:28px;display:block}.tm-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.tm-row input[type=time]{padding:6px}.tm-auth{max-width:440px}.tm-fav{font-size:22px;background:none;border:0;cursor:pointer}';
   document.head.prepend(style);  // before the stylesheets, so theme.css can restyle it
@@ -400,7 +413,7 @@
     let q = '';
     const load = () => get(`/api/v1/admin/users?q=${encodeURIComponent(q)}`).then(list => {
       box.innerHTML = `<div class="tm-table-wrap"><table class="tm-table"><tr><th>Người dùng</th><th>Quyền</th><th>Trạng thái</th><th>Chuyến đi</th><th>Đánh giá</th><th>Đăng nhập gần nhất</th><th></th></tr>${list.map(u => `<tr><td><strong>${esc(u.name)}</strong><br><span class="api-meta">${esc(u.email)}</span></td>
-        <td><select data-role="${esc(u.id)}"><option value="user" ${u.role === 'user' ? 'selected' : ''}>Thành viên</option><option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Quản trị</option></select></td>
+        <td><select data-role="${esc(u.id)}" aria-label="Quyền của ${esc(u.name)}"><option value="user" ${u.role === 'user' ? 'selected' : ''}>Thành viên</option><option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Quản trị</option></select></td>
         <td><span class="tm-badge ${u.status === 'locked' ? 'rejected' : 'approved'}">${u.status === 'locked' ? 'Đã khoá' : 'Hoạt động'}</span></td><td>${u.trip_count}</td><td>${u.review_count}</td><td>${date(u.last_login)}</td>
         <td class="tm-row">${btn(u.status === 'locked' ? 'Mở khoá' : 'Khoá', `data-status="${esc(u.id)}" data-to="${u.status === 'locked' ? 'active' : 'locked'}"`, 'button outline tm-small')}${btn('Link đặt lại mật khẩu', `data-reset="${esc(u.id)}"`, 'button outline tm-small')}</td></tr>`).join('')}</table></div>`;
     }).catch(err => { box.textContent = err.message; });
@@ -423,7 +436,7 @@
     let filter = '';
     const load = () => get(`/api/v1/admin/places?${filter}`).then(list => {
       box.innerHTML = `<div class="tm-table-wrap"><table class="tm-table"><tr><th>Địa điểm</th><th>Loại</th><th>Đánh giá</th><th>Yêu thích</th><th>Ghi chú hiển thị</th><th></th></tr>${list.map(r => `<tr><td><a href="?view=place&id=${encodeURIComponent(r.place.id)}">${esc(r.place.name)}</a><br><span class="api-meta">${esc(r.place.address || '')}</span></td><td>${esc(kind(r.place))}</td><td>${r.review_count}</td><td>${r.favorite_count}</td>
-        <td><textarea data-note="${esc(r.place.id)}" rows="2" maxlength="500" placeholder="Ví dụ: đang trùng tu đến 12/2026">${esc(r.admin_note)}</textarea></td>
+        <td><textarea data-note="${esc(r.place.id)}" aria-label="Ghi chú quản trị cho ${esc(r.place.name)}" rows="2" maxlength="500" placeholder="Ví dụ: đang trùng tu đến 12/2026">${esc(r.admin_note)}</textarea></td>
         <td class="tm-row"><span class="tm-badge ${r.hidden ? 'hidden' : 'approved'}">${r.hidden ? 'Đang ẩn' : 'Đang hiện'}</span>${btn(r.hidden ? 'Hiện lại' : 'Ẩn', `data-hide="${esc(r.place.id)}" data-to="${!r.hidden}"`, 'button outline tm-small')}</td></tr>`).join('') || '<tr><td colspan="6">Chưa có địa điểm nào.</td></tr>'}</table></div>`;
     }).catch(err => { box.textContent = err.message; });
     main.querySelector('#tm-place-search').onsubmit = e => { e.preventDefault(); const f = new FormData(e.target); filter = new URLSearchParams([...f].filter(([, v]) => v)).toString(); load(); };
@@ -437,7 +450,7 @@
     const box = main.querySelector('#tm-mod'), out = main.querySelector('#tm-mod-status');
     const item = (r, reported) => `<article class="api-card"><div class="tm-row"><strong>${esc(r.place_name)}</strong><span class="tm-stars">${starText(r.rating)}</span><span class="tm-badge ${r.status}">${statusLabel[r.status]}</span>${reported ? `<span class="tm-badge rejected">${r.report_count} báo cáo</span>` : ''}</div>
       <p>${esc(r.text)}</p><p class="api-meta">${esc(r.author)} · ${esc(r.author_email)} · ${date(r.updated_at)}</p>${reported ? `<p class="api-meta">Lý do: ${esc(r.reasons)}</p>` : ''}
-      <input data-note-for="${esc(r.id)}" placeholder="Ghi chú cho người viết (tuỳ chọn)" maxlength="300" style="width:100%">
+      <input data-note-for="${esc(r.id)}" aria-label="Ghi chú cho người viết đánh giá" placeholder="Ghi chú cho người viết (tuỳ chọn)" maxlength="300" style="width:100%">
       <div class="tm-row">${btn(reported ? 'Giữ lại' : 'Duyệt', `data-mod="${esc(r.id)}" data-action="approve"`, 'button dark')}${reported ? btn('Ẩn đánh giá', `data-mod="${esc(r.id)}" data-action="hide"`) : btn('Từ chối', `data-mod="${esc(r.id)}" data-action="reject"`)}</div></article>`;
     const load = () => get('/api/v1/admin/moderation').then(q => {
       box.innerHTML = `<h2>Đánh giá chờ duyệt (${q.pending.length})</h2>${q.pending.map(r => item(r, false)).join('') || '<p>Không có đánh giá chờ duyệt.</p>'}

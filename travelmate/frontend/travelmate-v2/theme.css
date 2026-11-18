@@ -360,3 +360,43 @@ figure figcaption a{display:inline-block;padding-block:5px}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
     transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
+
+/* ==== All-screens pass: signed-in and admin screens, phone to desktop ====
+   Rà thêm các màn hình cần đăng nhập và khu quản trị ở 375/768/1440px. */
+
+/* Header "Đăng nhập" button wrapped onto two lines on phones. */
+header .avatar.tm-login{white-space:nowrap}
+
+/* Back links ("← Quay lại", "← Về lịch trình"): 11px, 3.37:1 and 18px tall before. */
+.back,#tm-back{color:var(--ink-2);font-size:14px;display:inline-flex;align-items:center;min-height:32px;padding-block:4px}
+.back:hover,#tm-back:hover{color:var(--teal-700)}
+
+/* Star ratings: amber on white was 2.3-4.2:1; a darker amber keeps the colour and reads. */
+.tm-stars,.tm-rating label span{color:#8A5300}
+
+/* Chat side panel: 10-11px labels. */
+.tm-chat-side .side-label,.tm-history-open small{font-size:12px}
+
+/* Admin: stat links and message senders were 19-20px tall; moderation buttons touched the note field. */
+.tm-stats .api-card a,.tm-message h3 a{display:inline-block;padding-block:4px}
+#tm-mod article.api-card>input{margin-bottom:12px}
+.tm-table td{vertical-align:middle}
+
+/* Admin tables on phones: each row becomes a card with "column: value" lines, so the last
+   columns (status, Khoá, Link đặt lại mật khẩu) are not hidden off to the right. The labels come
+   from data-label, set by features.js from the table header. */
+@media (max-width: 720px){
+  .tm-table-wrap{overflow:visible;border:0;background:none}
+  .tm-table-wrap .tm-table{min-width:0;width:100%}
+  .tm-table thead,.tm-table tr:has(> th){display:none}
+  .tm-table,.tm-table tbody,.tm-table tr,.tm-table td{display:block}
+  .tm-table tr{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:6px 0;margin-bottom:12px}
+  .tm-table td{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+    padding:8px 16px!important;border-bottom:0!important;text-align:right}
+  .tm-table td[data-label]::before{content:attr(data-label);font-size:12px;font-weight:600;color:var(--muted);text-align:left}
+  .tm-table td:first-child{text-align:left;justify-content:flex-start}
+  .tm-table td:first-child::before{display:none}
+  .tm-table td:not([data-label]),.tm-table td[data-label=""]{justify-content:flex-start}
+  .tm-table textarea{min-width:0;flex:1 1 100%}
+  .tm-table td a{display:inline-block;padding-block:3px}
+}
