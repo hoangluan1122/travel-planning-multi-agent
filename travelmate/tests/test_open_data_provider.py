@@ -173,7 +173,7 @@ async def test_forecast_maps_days_rain_risk_and_missing_dates():
     assert weather.requests[0].latitude == 15.88
     assert [d.weather_code for d in result.days] == [63]
     text = " ".join(result.warnings)
-    assert "80% khả năng mưa" in text and t.end_date.isoformat() in text
+    assert "80% khả năng mưa" in text and t.end_date.strftime("%d/%m") in text
 
 
 @pytest.mark.asyncio

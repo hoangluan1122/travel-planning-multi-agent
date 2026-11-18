@@ -754,12 +754,24 @@ class ChatService:
         end = slots.end_date or start + timedelta(days=2)
         trip = TripRequest(destination=slots.destination, start_date=start, end_date=end, travelers=1, budget_vnd=1)
         forecast = await self.provider.forecast(trip)
-        if not forecast.days:
-            return ChatMessage(role="assistant", agent="weather_advisor",
-                               text=f"Chưa có dự báo cho {slots.destination} vào các ngày này.")
-        days = "; ".join(f"{d.date.strftime('%d/%m')}: {weather_label(d.weather_code)}" for d in forecast.days)
-        return ChatMessage(role="assistant", agent="weather_advisor",
-                           text=f"Dự báo ở {slots.destination} — {days}. Nguồn: Open-Meteo.")
+        typical = getattr(forecast, "typical", [])
+        if not forecast.days and not typical:
+            return ChatMessage(role="assistant", agent="weather_advisor", text=(
+                f"Chưa có dự báo cho {slots.destination} vào các ngày này (Open-Meteo chỉ dự báo 16 ngày tới)."))
+        parts = []
+        if forecast.days:
+            days = "; ".join(f"{d.date.strftime('%d/%m')}: {weather_label(d.weather_code)}" for d in forecast.days)
+            parts.append(f"Dự báo ở {slots.destination} — {days}. Nguồn: Open-Meteo.")
+        if typical:
+            # Ngày quá xa để có dự báo: kể thời tiết cùng kỳ các năm trước, nói rõ không phải dự báo.
+            def past(t):
+                temp = f", {t.temp_min_c}–{t.temp_max_c}°C" if t.temp_min_c is not None and t.temp_max_c is not None else ""
+                return f"{t.date.strftime('%d/%m')}: {t.rainy_years}/{t.years} năm có mưa{temp}"
+            parts.append(
+                f"Chưa có dự báo cho {'các ngày còn lại' if forecast.days else 'các ngày này'} (Open-Meteo chỉ dự báo "
+                f"16 ngày tới). Cùng kỳ {typical[0].years} năm trước ở {slots.destination} — "
+                + "; ".join(past(t) for t in typical) + ". Đây chỉ là tham khảo, không phải dự báo.")
+        return ChatMessage(role="assistant", agent="weather_advisor", text=" ".join(parts))
 
     # Hướng dẫn viên: trả lời có nguồn về lịch sử, giá vé, giờ mở cửa.
     async def guide_advisor(self, session, hand, context):

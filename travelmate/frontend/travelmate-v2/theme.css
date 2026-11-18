@@ -325,3 +325,5 @@ fieldset legend,.form-grid>.field>span,.form-grid label>b{color:var(--ink-2)}
 figure.tm-illustration{position:relative}
 .tm-photo-badge{position:absolute;left:10px;top:10px;padding:3px 9px;border-radius:999px;background:rgba(15,42,48,.78);color:#fff;font-size:11px;font-weight:600;letter-spacing:.02em;pointer-events:none}
 .tm-plan-hero .tm-photo-badge{display:none}
+/* Past years' weather (no forecast yet) and no data: quieter than a real forecast. */
+.tm-weather-typical,.tm-weather-none{background:var(--sand-2);color:var(--muted);font-weight:400}

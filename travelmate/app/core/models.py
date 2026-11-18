@@ -155,9 +155,21 @@ class WeatherDay(Model):
     weather_code: int
 
 
+class TypicalWeather(Model):
+    """What a trip day was like in past years (no forecast that far ahead). Reference only."""
+
+    date: date
+    years: int = Field(ge=1, le=10)  # past years with data for this day
+    rainy_years: int = Field(ge=0, le=10)  # of those, years with at least 1 mm of rain
+    temp_min_c: int | None = None
+    temp_max_c: int | None = None
+
+
 class WeatherResult(Model):
     days: list[WeatherDay] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
+    # Thời tiết cùng kỳ các năm trước cho ngày chưa có dự báo; chỉ để hiển thị, không dùng khi xếp lịch.
+    typical: list[TypicalWeather] = Field(default_factory=list)
 
 
 # Đầu vào agent xếp hạng: địa điểm + sở thích.
