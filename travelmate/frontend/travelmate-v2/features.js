@@ -105,52 +105,19 @@
   // --- profile ---------------------------------------------------------------------------
   if (route === 'profile' && !needLogin()) {
     const u = user();
-    const icon = name => `<svg class="tm-i" aria-hidden="true"><use href="#i-${name}"></use></svg>`;
-    const main = render(`<div class="tm-account">
-      <div class="tm-account-heading"><div><div class="eyebrow">KHÔNG GIAN CỦA BẠN</div><h1>Trang cá nhân</h1><p>Một chút về bạn. Cho những chuyến đi đúng ý hơn.</p></div>${tm.link('create', 'Lên kế hoạch mới ↗', 'button dark')}</div>
-      <div class="tm-account-layout"><aside class="tm-account-sidebar">
-        <section class="tm-identity"><div class="tm-identity-cover"></div><div class="tm-identity-body"><div class="tm-identity-avatar" aria-hidden="true">${esc((u.name.trim()[0] || 'T').toUpperCase())}</div><span class="tm-account-role">${u.role === 'admin' ? 'Quản trị viên' : 'Thành viên TravelMate'}</span><h2 id="tm-profile-name">${esc(u.name)}</h2><p>${esc(u.email)}</p>
-        <nav class="tm-account-links" aria-label="Tài khoản"><a href="?view=saved">${icon('luggage')} Chuyến đi của tôi <span>↗</span></a><a href="?view=favorites">${icon('heart')} Địa điểm yêu thích <span>↗</span></a>${u.role === 'admin' ? `<a href="?view=admin">${icon('lock')} Quản trị <span>↗</span></a>` : ''}</nav>${btn('Đăng xuất', 'id="tm-logout"', 'button outline tm-account-logout')}</div></section>
-        <div id="tm-profile-usage"></div>
-      </aside><div class="tm-profile-grid">
-      <form class="api-card tm-account-card" id="tm-profile"><div class="tm-account-card-title"><span>${icon('users')}</span><div><h2>Thông tin cá nhân</h2><p>Để TravelMate hiểu bạn hơn trên mỗi hành trình.</p></div></div>
-      <div class="tm-account-fields">${field('Họ và tên', 'name', 'text', u.name, 'required maxlength="80" autocomplete="name"')}${field('Email đăng nhập', 'email', 'email', u.email, 'readonly autocomplete="email"')}</div>
-      <div class="tm-account-interests"><h3>Bạn thích trải nghiệm gì?</h3><p class="api-meta">Sở thích được điền sẵn khi bạn tạo chuyến đi mới.</p>
-      ${field('Sở thích du lịch', 'interests', 'text', (u.interests || []).join(', '), 'maxlength="440" aria-describedby="tm-interests-hint"')}
-      <p class="api-meta" id="tm-interests-hint">Cách nhau bằng dấu phẩy, tối đa 10 sở thích. Hoặc chọn gợi ý bên dưới.</p>
-      <div class="tm-interest-options" aria-label="Gợi ý sở thích">${['Ẩm thực', 'Thiên nhiên', 'Văn hoá', 'Biển', 'Khám phá', 'Nghỉ dưỡng'].map(s => btn(esc(s), `data-interest="${esc(s)}" aria-pressed="false"`, 'tm-interest-option')).join('')}</div></div>
-      <div class="tm-account-form-footer">${status('tm-profile-status')}<button class="button dark">Lưu thay đổi</button></div></form>
-      <form class="api-card tm-account-card" id="tm-password"><div class="tm-account-card-title"><span>${icon('lock')}</span><div><h2>Mật khẩu & bảo mật</h2><p>Cập nhật mật khẩu để bảo vệ tài khoản của bạn.</p></div></div><div class="tm-account-fields">${field('Mật khẩu hiện tại', 'current', 'password', '', 'required autocomplete="current-password"')}${field('Mật khẩu mới', 'next', 'password', '', 'required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="tm-password-hint"')}</div><p class="api-meta" id="tm-password-hint">Mật khẩu mới có ít nhất 8 ký tự. Sau khi đổi, các thiết bị khác sẽ được đăng xuất.</p><div class="tm-account-form-footer">${status('tm-password-status')}<button class="button outline">Đổi mật khẩu</button></div></form>
-      <section class="api-card tm-account-card"><div class="tm-account-card-title"><span>${icon('chat')}</span><div><h2>Đánh giá của bạn</h2><p>Những trải nghiệm bạn đã chia sẻ.</p></div></div><div id="tm-my-reviews" aria-live="polite">Đang tải…</div></section>
-      <details class="tm-account-delete"><summary>Quản lý việc xoá tài khoản</summary><form id="tm-delete"><h3>Xoá tài khoản</h3><p>Xoá vĩnh viễn tài khoản, chuyến đi, yêu thích và đánh giá của bạn.</p>${field('Nhập mật khẩu để xác nhận', 'password', 'password', '', 'required autocomplete="current-password"')}<button class="button danger">Xoá tài khoản</button>${status('tm-delete-status')}</form></details>
-      </div></div></div>`);
-    const interestsInput = main.querySelector('[name=interests]');
-    const selectedInterests = () => interestsInput.value.split(',').map(s => s.trim()).filter(Boolean);
-    const syncInterests = () => main.querySelectorAll('[data-interest]').forEach(b => b.setAttribute('aria-pressed', String(selectedInterests().some(s => s.toLocaleLowerCase('vi') === b.dataset.interest.toLocaleLowerCase('vi')))));
-    interestsInput.addEventListener('input', syncInterests);
-    main.querySelectorAll('[data-interest]').forEach(b => b.onclick = () => {
-      const list = selectedInterests(), found = list.findIndex(s => s.toLocaleLowerCase('vi') === b.dataset.interest.toLocaleLowerCase('vi'));
-      if (found >= 0) list.splice(found, 1);
-      else if (list.length < 10) list.push(b.dataset.interest);
-      else { say(main.querySelector('#tm-profile-status'), 'Bạn có thể chọn tối đa 10 sở thích.'); return; }
-      interestsInput.value = list.join(', '); syncInterests();
-    });
-    syncInterests();
+    const main = render(head('TÀI KHOẢN', `Xin chào, ${esc(u.name)}.`, `${esc(u.email)} · ${u.role === 'admin' ? 'Quản trị viên' : 'Thành viên'}`,
+      `${tm.link('saved', 'Chuyến đi của tôi')}${tm.link('favorites', 'Địa điểm yêu thích')}${u.role === 'admin' ? tm.link('admin', 'Quản trị') : ''}${btn('Đăng xuất', 'id="tm-logout"')}`) + `<div class="tm-profile-grid">
+      <form class="api-card" id="tm-profile"><h3>Thông tin cá nhân</h3>${field('Họ và tên', 'name', 'text', u.name, 'required maxlength="80"')}
+      ${field('Sở thích du lịch (cách nhau bằng dấu phẩy, tối đa 10)', 'interests', 'text', (u.interests || []).join(', '), 'maxlength="440"')}
+      <p class="api-meta">Sở thích được điền sẵn khi bạn tạo chuyến đi mới.</p><button class="button dark">Lưu thay đổi</button>${status('tm-profile-status')}</form>
+      <form class="api-card" id="tm-password"><h3>Đổi mật khẩu</h3>${field('Mật khẩu hiện tại', 'current', 'password', '', 'required autocomplete="current-password"')}${field('Mật khẩu mới (ít nhất 8 ký tự)', 'next', 'password', '', 'required minlength="8" maxlength="128" autocomplete="new-password"')}<button class="button dark">Đổi mật khẩu</button>${status('tm-password-status')}</form>
+      <section class="api-card"><h3>Đánh giá của bạn</h3><div id="tm-my-reviews">Đang tải…</div></section>
+      <form class="api-card tm-danger-zone" id="tm-delete"><h3>Xoá tài khoản</h3><p>Xoá vĩnh viễn tài khoản, chuyến đi, yêu thích và đánh giá của bạn.</p>${field('Nhập mật khẩu để xác nhận', 'password', 'password', '', 'required autocomplete="current-password"')}<button class="button danger">Xoá tài khoản</button>${status('tm-delete-status')}</form></div>`);
     main.querySelector('#tm-logout').onclick = async () => { try { await api('/api/v1/auth/logout', {}); } catch {} localStorage.removeItem('tm-session'); go('home'); };
     main.querySelector('#tm-profile').onsubmit = async e => {
       e.preventDefault(); const f = new FormData(e.target), out = main.querySelector('#tm-profile-status');
       const interests = String(f.get('interests')).split(',').map(s => s.trim()).filter(Boolean);
-      if (interests.length > 10) { say(out, 'Bạn có thể chọn tối đa 10 sở thích.'); return; }
-      const button = e.target.querySelector('button[type=submit], button:not([type])');
-      button.disabled = true;
-      try {
-        const updated = await patch('/api/v1/me', {name: f.get('name'), interests});
-        refreshUser(updated);
-        main.querySelector('#tm-profile-name').textContent = updated.name;
-        main.querySelector('.tm-identity-avatar').textContent = (updated.name.trim()[0] || 'T').toUpperCase();
-        if (avatar) { avatar.innerHTML = `<b>${esc((updated.name.trim()[0] || 'T').toUpperCase())}</b><span>${esc(updated.name)}</span>`; avatar.setAttribute('aria-label', `Tài khoản của ${updated.name}`); }
-        say(out, 'Đã lưu thay đổi.', true); notify('Đã lưu thông tin cá nhân.');
-      } catch (err) { say(out, err.message); } finally { button.disabled = false; }
+      try { refreshUser(await patch('/api/v1/me', {name: f.get('name'), interests})); say(out, 'Đã lưu.', true); notify('Đã lưu thông tin cá nhân.'); } catch (err) { say(out, err.message); }
     };
     main.querySelector('#tm-password').onsubmit = async e => {
       e.preventDefault(); const f = new FormData(e.target), out = main.querySelector('#tm-password-status');

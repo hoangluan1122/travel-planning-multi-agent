@@ -196,8 +196,7 @@
     const card = document.createElement('section');
     card.className = 'api-card tm-usage';
     card.innerHTML = '<h3>Hạn mức AI hôm nay</h3><p>Đang tải…</p>';
-    const usageSlot = document.querySelector('#tm-profile-usage');
-    if (usageSlot) usageSlot.append(card); else grid.prepend(card);
+    grid.prepend(card);
     const bar = (label, u) => u.limit === null
       ? `<div class="tm-usage-row"><span>${label}</span><b>${u.used} · không giới hạn</b></div>`
       : `<div class="tm-usage-row"><span>${label}</span><b>${u.used}/${u.limit}</b></div><div class="tm-usage-bar" role="progressbar" aria-label="${label}" aria-valuemin="0" aria-valuemax="${u.limit}" aria-valuenow="${u.used}"><i style="width:${Math.min(100, Math.round(u.used / u.limit * 100))}%"></i></div>`;
