@@ -1,6 +1,7 @@
 # Đánh giá Trợ lý AI (gemini-3.5-flash-lite)
 
 1 ca chỉ đạt ở lần chạy lại (nguồn miễn phí tạm từ chối yêu cầu ở lần đầu): guide-opening-hours-unknown.
+
 | Nhóm | Đạt | Tỉ lệ |
 |---|---|---|
 | Giao tiếp | 3/3 | 100% |

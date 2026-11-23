@@ -157,8 +157,9 @@ def markdown(rows, model):
               "", "| Mã | Nhóm | Kết quả | Chuyên gia | Giây | Lỗi |", "|---|---|---|---|---|---|"]
     retried = [r for r in rows if r.get("retried") and r["passed"]]
     if retried:
-        lines.insert(lines.index("") + 1, f"{len(retried)} ca chỉ đạt ở lần chạy lại (nguồn miễn phí tạm từ chối "
-                                           "yêu cầu ở lần đầu): " + ", ".join(r["id"] for r in retried) + ".")
+        at = lines.index("") + 1  # after the title, before the score table, with a blank line between
+        lines[at:at] = [f"{len(retried)} ca chỉ đạt ở lần chạy lại (nguồn miễn phí tạm từ chối yêu cầu ở lần đầu): "
+                        + ", ".join(r["id"] for r in retried) + ".", ""]
     for r in rows:
         result = "✅" if r["passed"] else "❌"
         if r.get("retried") and r["passed"]:
