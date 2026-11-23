@@ -239,6 +239,17 @@ Lần kiểm tra ngày 16/11/2026: **837 passed, 22 skipped**. Các test bị b�
 GitHub Actions chạy chúng với PostgreSQL thật cho mỗi PR. `uv run ruff check app scripts tests`
 kiểm tra kiểu viết.
 
+**Đánh giá Trợ lý AI trên Gemini thật** (chạy tay, tốn lượt Gemini miễn phí): 42 hội thoại mẫu chia 9 nhóm
+(giao tiếp, tìm địa điểm, hướng dẫn viên, thời tiết, lập lịch và chi phí, câu ghép, ngoài phạm vi, an toàn,
+ngôn ngữ) trong `app/evaluation/assistant_cases.json`, mỗi câu có tiêu chí chấm tự động.
+
+```powershell
+uv run python scripts/eval_assistant.py            # toàn bộ; --only guide để chạy một nhóm
+```
+
+Báo cáo ghi vào `evaluation/assistant-eval-<UTC>/`. Câu hỏng được chạy lại một lần sau 65 giây để tách lỗi
+tạm thời của nguồn miễn phí khỏi câu trả lời sai. Lần chạy 23/11/2026: 42/42 đạt (1 câu đạt ở lần chạy lại).
+
 Bằng chứng các lần đo dữ liệu thật trước đây nằm trong `evaluation/` (ví dụ
 `evaluation/fix-verification-20261022T182826Z/`).
 

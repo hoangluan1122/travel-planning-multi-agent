@@ -298,7 +298,9 @@ CONCIERGE_INSTRUCTION = (
     "of the current plan, whether the budget is enough, how to save, and 'what if' questions such as a hotel "
     "price per night, more people, another spending level or another budget); weather_advisor (weather questions); guide_advisor (facts about a place or city: "
     "history, what is special, entrance fees, opening hours, getting around, travel tips; set question to "
-    "the user's question rewritten to stand alone, naming the place).\n"
+    "the user's question rewritten to stand alone, naming the place). A request for places of a kind "
+    "(\"bảo tàng ở TP.HCM\", \"chùa đẹp ở Hà Nội\", \"quán phở\") goes to place_finder; guide_advisor is "
+    "for facts about one named place or a city.\n"
     "4. Put every trip detail the user has given into slots: destination, start_date and end_date as "
     "YYYY-MM-DD (resolve words like 'cuối tuần này' or '3 ngày từ thứ Bảy' using today's date), travelers, "
     "budget_vnd as a number (5 triệu = 5000000; never a price per night or per person), interests, notes, "
@@ -705,14 +707,22 @@ class ChatService:
         label = CATEGORY_LABELS[query.category]
         request = PlaceSearchRequest(destination=destination, category=query.category,
                                      keyword=query.keyword.strip(), limit=6, radius_m=5000)
-        result = await self.provider.search_places(request)
         widened = False
-        synonym = SYNONYMS.get(request.keyword.casefold())
-        if not result.places and synonym:
-            result = await self.provider.search_places(request.model_copy(update={"keyword": synonym}))
-        if not result.places and request.keyword:
-            result = await self.provider.search_places(request.model_copy(update={"keyword": ""}))
-            widened = True
+        try:
+            result = await self.provider.search_places(request)
+            synonym = SYNONYMS.get(request.keyword.casefold())
+            if not result.places and synonym:
+                result = await self.provider.search_places(request.model_copy(update={"keyword": synonym}))
+            if not result.places and request.keyword:
+                result = await self.provider.search_places(request.model_copy(update={"keyword": ""}))
+                widened = True
+        except UserError:
+            raise
+        except (AgentError, TimeoutError):
+            # The free map server limits or drops requests now and then; say so instead of a generic error.
+            return ChatMessage(role="assistant", agent="place_finder", failed=True, text=(
+                f"Máy chủ bản đồ đang bận nên mình chưa tìm được {label} ở {destination}. "
+                "Bạn thử lại sau khoảng một phút nhé."))
         places = result.places
         images = getattr(self.provider, "images", None)
         if places and images:
