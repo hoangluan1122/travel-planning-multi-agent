@@ -152,6 +152,30 @@ Tìm có phân biệt dấu tiếng Việt: “lăng” không còn ra “Làng�
   - Chat câu hỏi ghép, được hai chuyên gia trả lời; lịch sử chat được lưu.
   - Admin duyệt đánh giá; điểm 5/5 hiện trên trang địa điểm.
 
+## Chuyển động và âm thanh
+
+- **Chuyển trang:** trang mới hiện ra bằng hiệu ứng mờ dần và trượt lên, thanh trên cùng đứng yên. Không dùng
+  View Transitions giữa các trang, vì nó báo lỗi khi trang tự chuyển hướng (ví dụ từ màn hình chờ sang lịch trình).
+- **Các khối nội dung** (thẻ, bảng, mục lịch trình) trượt lên khi cuộn tới, lần lượt từng cái một
+  (`frontend/travelmate-v2/motion.js`).
+- **Phản hồi khi tương tác:**
+  - nút lún nhẹ khi bấm;
+  - thẻ nổi lên khi rê chuột;
+  - trái tim yêu thích "nảy";
+  - thông báo nhỏ bật lên;
+  - menu trên điện thoại trượt xuống.
+- **Màn hình chờ và chi phí:** trong lúc lập lịch, bước đang chạy và bước xong có hiệu ứng riêng; chữ "Đang tải"
+  có ánh sáng chạy qua; thanh chi phí mọc dần từ 0.
+- **Giảm chuyển động:** khi người dùng chọn "giảm chuyển động" trong hệ điều hành, mọi hiệu ứng tắt và nội dung
+  hiện ngay. Nội dung không bao giờ phụ thuộc vào hiệu ứng: nếu `motion.js` không chạy, mọi thứ vẫn hiện bình thường.
+- **Âm thanh khi bấm** (`sound.js`): tạo bằng Web Audio ngay trên trình duyệt, không tải file.
+  - Tiếng "tách" nhẹ cho nút và thẻ, "pop" khi thả tim, chuông ngắn khi có thông báo.
+  - Nút **Âm thanh: bật/tắt** ở chân trang; trình duyệt ghi nhớ lựa chọn.
+- **Kiểm thử:** `tests/test_ui_e2e.py` kiểm tra:
+  - không khối nào bị kẹt ẩn sau khi cuộn hết trang;
+  - chế độ giảm chuyển động tắt hiệu ứng;
+  - lựa chọn tắt âm thanh được nhớ.
+
 ## Giới hạn còn lại
 
 - Chưa đăng nhập bằng Google/Facebook, chưa xác minh email khi đăng ký.

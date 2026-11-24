@@ -252,3 +252,44 @@ def test_company_pages_and_contact_inbox(server, browser):
 
     assert not errors, errors
     context.close()
+
+
+SETTLED_JS = """async () => {
+  const h = document.documentElement.scrollHeight;
+  for (let y = 0; y <= h; y += 300) { scrollTo(0, y); await new Promise(r => setTimeout(r, 60)); }
+  scrollTo(0, h); await new Promise(r => setTimeout(r, 1500));
+  const hidden = [...document.querySelectorAll('[data-reveal]')]
+    .filter(e => e.getClientRects().length && Number(getComputedStyle(e).opacity) < 0.99);
+  return {revealed: document.querySelectorAll('[data-revealed]').length, hidden: hidden.length};
+}"""
+
+
+def test_motion_reveals_everything_and_sound_can_be_switched_off(server, browser):
+    """Blocks rise in as they are scrolled to and none stays hidden; reduced motion turns it off;
+    the footer sound switch is remembered."""
+    errors = []
+    context = browser.new_context(reduced_motion="no-preference")
+    page = context.new_page()
+    page.on("pageerror", lambda exc: errors.append(str(exc)))
+    for view in ("home", "about", "pricing", "explore"):
+        page.goto(f"{server}?view={view}")
+        result = page.evaluate(SETTLED_JS)
+        assert result["revealed"] > 0 and result["hidden"] == 0, (view, result)
+
+    page.goto(f"{server}?view=about")
+    toggle = page.locator("#tm-sound-toggle")
+    assert toggle.get_attribute("aria-pressed") == "true"
+    toggle.click()
+    assert page.evaluate("localStorage.getItem('tm-sound')") == "off"
+    page.reload()
+    assert page.locator("#tm-sound-toggle").get_attribute("aria-pressed") == "false"
+    context.close()
+
+    still = browser.new_context(reduced_motion="reduce")
+    page = still.new_page()
+    page.on("pageerror", lambda exc: errors.append(str(exc)))
+    page.goto(server)
+    page.wait_for_timeout(500)
+    assert page.locator("[data-revealed]").count() == 0
+    still.close()
+    assert not errors, errors
