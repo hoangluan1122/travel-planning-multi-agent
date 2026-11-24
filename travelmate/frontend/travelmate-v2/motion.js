@@ -11,11 +11,11 @@
 
   const BLOCKS = [
     '.hero-copy > *', '.hero-photo', '.page-intro', '.tm-head', '.tm-admin-head', '.tm-section > .eyebrow', '.tm-section > h2',
-    '.tm-feature-grid > *', '.tm-dest-grid > *', '.tm-trip-grid > *', '.api-grid > *', '.tm-stats > *',
+    '.tm-feature-grid > *', '.tm-preview-main', '.tm-preview-side > *', '.tm-dest-grid > *', '.tm-chat-demo', '.tm-trip-grid > *', '.api-grid > *', '.tm-stats > *',
     '.api-card', '.tm-plan-card', '.tm-account-card', '.tm-table-wrap', '.tm-stop', '.tm-weather', '.tm-cta', '.tm-doc > *',
     '.tm-loading', '.tm-empty', '.tm-auth', '.tm-timeline > *',
   ].join(',');
-  const STEP_MS = 70, MAX_STAGGER = 6;
+  const STEP_MS = 45, MAX_STAGGER = 4;
   // animationend bubbles up from children (the cost bar, a spinner): only the element's own animation counts.
   const onOwnAnimationEnd = (el, done) => {
     const handler = ev => { if (ev.target !== el) return; el.removeEventListener('animationend', handler); done(); };

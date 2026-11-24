@@ -264,9 +264,9 @@ SETTLED_JS = """async () => {
 }"""
 
 
-def test_motion_reveals_everything_and_sound_can_be_switched_off(server, browser):
+def test_motion_reveals_everything_and_sound_can_be_switched_on(server, browser):
     """Blocks rise in as they are scrolled to and none stays hidden; reduced motion turns it off;
-    the footer sound switch is remembered."""
+    the footer sound switch starts off and is remembered; the home itinerary preview switches day."""
     errors = []
     context = browser.new_context(reduced_motion="no-preference")
     page = context.new_page()
@@ -278,11 +278,21 @@ def test_motion_reveals_everything_and_sound_can_be_switched_off(server, browser
 
     page.goto(f"{server}?view=about")
     toggle = page.locator("#tm-sound-toggle")
-    assert toggle.get_attribute("aria-pressed") == "true"
+    assert toggle.get_attribute("aria-pressed") == "false"  # sound is off until the visitor turns it on
     toggle.click()
-    assert page.evaluate("localStorage.getItem('tm-sound')") == "off"
+    assert page.evaluate("localStorage.getItem('tm-sound')") == "on"
     page.reload()
-    assert page.locator("#tm-sound-toggle").get_attribute("aria-pressed") == "false"
+    assert page.locator("#tm-sound-toggle").get_attribute("aria-pressed") == "true"
+
+    # Home: the itinerary preview switches day from the tabs and the keyboard.
+    page.goto(server)
+    page.click("#tm-pv-tab-1")
+    page.wait_for_function("document.querySelector('.tm-pv-stops').innerText.includes('Khải Định')")
+    assert page.inner_text("[data-pv-tickets]").startswith("200.000")
+    page.keyboard.press("ArrowRight")
+    page.wait_for_function("document.querySelector('.tm-pv-stops').innerText.includes('Tự Đức')")
+    assert page.get_attribute("#tm-pv-tab-2", "aria-selected") == "true"
+    assert page.locator(".tm-cta [data-member-only]").is_hidden()
     context.close()
 
     still = browser.new_context(reduced_motion="reduce")

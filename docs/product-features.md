@@ -169,8 +169,20 @@ Tìm có phân biệt dấu tiếng Việt: “lăng” không còn ra “Làng�
 - **Giảm chuyển động:** khi người dùng chọn "giảm chuyển động" trong hệ điều hành, mọi hiệu ứng tắt và nội dung
   hiện ngay. Nội dung không bao giờ phụ thuộc vào hiệu ứng: nếu `motion.js` không chạy, mọi thứ vẫn hiện bình thường.
 - **Âm thanh khi bấm** (`sound.js`): tạo bằng Web Audio ngay trên trình duyệt, không tải file.
-  - Tiếng "tách" nhẹ cho nút và thẻ, "pop" khi thả tim, chuông ngắn khi có thông báo.
-  - Nút **Âm thanh: bật/tắt** ở chân trang; trình duyệt ghi nhớ lựa chọn.
+  - **Mặc định tắt.** Người dùng tự bật bằng nút **Âm thanh** ở chân trang; trình duyệt ghi nhớ lựa chọn.
+  - Khi bật: tiếng "tách" nhẹ cho nút và thẻ, "pop" khi thả tim, chuông ngắn khi có thông báo.
+- **Trang chủ** (`home.css`, `home.js`), theo thứ tự:
+  1. Hero gọn hơn, ảnh vịnh Hạ Long.
+  2. **Xem trước một lịch trình**: Huế 3 ngày, 2 người, dữ liệu minh họa.
+     - Tab Ngày 1/2/3 (dùng được bằng phím mũi tên); danh sách điểm dừng mờ dần khi đổi ngày.
+     - Sơ đồ đánh số điểm và vẽ lại đường đi.
+     - Vé theo ngày đếm lên số mới.
+     - Chi phí cả chuyến lấy từ bảng giá có nguồn (vé Huế; mức vừa phải, 2 đêm).
+  3. Tám điểm đến bằng ảnh thật từ Wikimedia Commons, có ghi tác giả và giấy phép.
+  4. Ba bước sử dụng.
+  5. Đoạn hội thoại mẫu với Trợ lý AI (giá vé có nguồn, tính thử chi phí).
+  6. Lời mời cuối trang đổi theo trạng thái đăng nhập: khách thấy "Tạo tài khoản", thành viên thấy "Tiếp tục lên
+     kế hoạch" và "Xem chuyến đi của bạn".
 - **Kiểm thử:** `tests/test_ui_e2e.py` kiểm tra:
   - không khối nào bị kẹt ẩn sau khi cuộn hết trang;
   - chế độ giảm chuyển động tắt hiệu ứng;

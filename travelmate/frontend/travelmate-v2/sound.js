@@ -1,16 +1,17 @@
-// Âm thanh khi bấm: tiếng "tách" nhẹ cho nút và thẻ, tiếng "pop" khi thả tim, tiếng chuông ngắn khi có thông
+// Âm thanh khi bấm (mặc định tắt, bật ở chân trang): tiếng "tách" nhẹ cho nút và thẻ, tiếng "pop" khi thả tim, tiếng chuông ngắn khi có thông
 // báo. Tạo bằng Web Audio ngay trên trình duyệt (không tải file). Nút "Âm thanh" ở chân trang bật/tắt, lựa chọn
 // được nhớ trong trình duyệt.
 
 /* UI sounds synthesised with the Web Audio API: no audio files, nothing loaded from elsewhere.
    The AudioContext starts on the visitor's first press (browsers allow sound only after a gesture).
-   localStorage 'tm-sound' = 'off' mutes them; the footer button switches it. */
+   Off by default: localStorage 'tm-sound' = 'on' (set by the footer button) turns them on. */
 (() => {
   'use strict';
   const AC = window.AudioContext || window.webkitAudioContext;
   if (!AC) return;
   const KEY = 'tm-sound';
-  const read = () => { try { return localStorage.getItem(KEY) !== 'off'; } catch { return true; } };
+  // Off until the visitor turns it on: sound on a website should be a choice, not a surprise.
+  const read = () => { try { return localStorage.getItem(KEY) === 'on'; } catch { return false; } };
   let enabled = read();
   let ctx;
 

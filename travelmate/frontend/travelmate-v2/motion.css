@@ -11,7 +11,7 @@
   --ease-out:cubic-bezier(.22,1,.36,1);
   --ease-in-out:cubic-bezier(.65,0,.35,1);
   --ease-spring:cubic-bezier(.34,1.56,.64,1);
-  --d-fast:140ms; --d:240ms; --d-slow:560ms;
+  --d-fast:140ms; --d:220ms; --d-slow:420ms;
   --lift-shadow:0 22px 44px -22px rgba(11,63,71,.38),0 4px 10px rgba(23,32,51,.06);
 }
 
@@ -24,9 +24,8 @@ main.visible,#home.visible{animation:tm-page-in 420ms var(--ease-out) backwards}
 /* ---------- blocks rise into view ---------- */
 [data-reveal]:not(.tm-in){opacity:0}
 [data-reveal].tm-in{animation:tm-rise var(--d-slow) var(--ease-out) var(--stagger,0ms) backwards}
-@keyframes tm-rise{from{opacity:0;transform:translateY(18px)}}
-.hero-photo[data-reveal].tm-in{animation-name:tm-zoom-in;animation-duration:900ms}
-@keyframes tm-zoom-in{from{opacity:0;transform:scale(.97)}}
+@keyframes tm-rise{from{opacity:0;transform:translateY(12px)}}
+.hero-photo[data-reveal].tm-in{animation-name:tm-fade;animation-duration:600ms}
 
 /* ---------- header ---------- */
 header{transition:box-shadow var(--d) var(--ease-out),background-color var(--d) var(--ease-out)}
@@ -47,9 +46,13 @@ button[aria-busy=true],.button[aria-busy=true]{cursor:progress;opacity:.8}
 /* ---------- cards that open something ---------- */
 a.tm-feature,a.tm-dest,.tm-trip-card,a.api-card,.tm-plan-card{transition:transform var(--d) var(--ease-out),box-shadow var(--d) var(--ease-out),border-color var(--d) var(--ease-out)}
 a.tm-feature:hover,.tm-trip-card:hover,a.api-card:hover,.tm-plan-card:hover{transform:translateY(-4px);box-shadow:var(--lift-shadow)}
-a.tm-dest:hover{transform:translateY(-4px) scale(1.01);box-shadow:var(--lift-shadow)}
+a.tm-dest:hover{transform:translateY(-2px);box-shadow:var(--lift-shadow)}
+.tm-dest>img{transition:transform 600ms var(--ease-out)}
+a.tm-dest:hover>img{transform:scale(1.03)}
+.tm-dest::after{transition:transform var(--d) var(--ease-out),background-color var(--d)}
+a.tm-dest:hover::after{transform:translate(2px,-2px);background-color:rgba(255,255,255,.3)}
 .tm-feature-ico{transition:transform var(--d) var(--ease-spring)}
-a.tm-feature:hover .tm-feature-ico{transform:scale(1.08) rotate(-4deg)}
+a.tm-feature:hover .tm-feature-ico{transform:scale(1.05)}
 .api-photo img,.tm-thumb img{transition:transform 700ms var(--ease-out)}
 .api-card:hover .api-photo img,.tm-trip-card:hover .tm-thumb img{transform:scale(1.04)}
 
@@ -62,7 +65,7 @@ input,select,textarea{transition:border-color var(--d-fast) var(--ease-out),box-
 .tm-fav{transition:transform var(--d) var(--ease-spring),background-color var(--d-fast),color var(--d-fast)}
 .tm-fav:hover{transform:scale(1.06)}
 .tm-fav.tm-pop{animation:tm-pop 420ms var(--ease-spring)}
-@keyframes tm-pop{0%{transform:scale(1)}35%{transform:scale(1.28)}100%{transform:scale(1)}}
+@keyframes tm-pop{0%{transform:scale(1)}40%{transform:scale(1.15)}100%{transform:scale(1)}}
 
 /* ---------- toast ---------- */
 #toast{transition:opacity var(--d) var(--ease-out),transform 420ms var(--ease-spring)}
@@ -93,9 +96,20 @@ input,select,textarea{transition:border-color var(--d-fast) var(--ease-out),box-
 @keyframes tm-msg-in{from{opacity:0;transform:translate(-10px,8px)}}
 @keyframes tm-msg-in-right{from{opacity:0;transform:translate(10px,8px)}}
 
+/* ---------- home: itinerary preview (home.js) ---------- */
+.tm-pv-panel{transition:opacity 180ms var(--ease-in-out),transform 180ms var(--ease-in-out)}
+.tm-pv-panel.out{opacity:0;transform:translateY(4px)}
+.tm-pv-stops li{animation:tm-rise 320ms var(--ease-out) calc(var(--i,0) * 40ms) backwards}
+.tm-pv-stops li,.tm-pv-stops li[data-place]:hover{transition:background-color var(--d-fast)}
+.tm-pv-pin-body{transition:transform 320ms var(--ease-out)}
+.tm-pv-pin circle{transition:fill var(--d) var(--ease-out)}
+.tm-pv-route.draw{animation:tm-route 700ms var(--ease-out) both}
+@keyframes tm-route{from{stroke-dashoffset:60;opacity:0}to{stroke-dashoffset:0;opacity:1}}
+.tm-preview-tabs button{transition:background-color var(--d) var(--ease-out),color var(--d),box-shadow var(--d)}
+.tm-pv-bar span{transform-origin:left center;animation:tm-grow 900ms var(--ease-out) backwards}
+.tm-pv-bar span:nth-child(2){animation-delay:80ms}.tm-pv-bar span:nth-child(3){animation-delay:160ms}.tm-pv-bar span:nth-child(4){animation-delay:240ms}
+
 /* ---------- small things ---------- */
-.float-pill .pulse{animation:tm-pulse 2.2s var(--ease-in-out) infinite}
-@keyframes tm-pulse{0%{box-shadow:0 0 0 0 rgba(14,124,123,.45)}70%{box-shadow:0 0 0 10px rgba(14,124,123,0)}100%{box-shadow:0 0 0 0 rgba(14,124,123,0)}}
 details>summary{transition:color var(--d-fast)}
 details[open]>:not(summary){animation:tm-fade-down var(--d) var(--ease-out)}
 @keyframes tm-fade-down{from{opacity:0;transform:translateY(-4px)}}
