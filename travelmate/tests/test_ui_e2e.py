@@ -292,6 +292,12 @@ def test_motion_reveals_everything_and_sound_can_be_switched_on(server, browser)
     page.keyboard.press("ArrowRight")
     page.wait_for_function("document.querySelector('.tm-pv-stops').innerText.includes('Tự Đức')")
     assert page.get_attribute("#tm-pv-tab-2", "aria-selected") == "true"
+    page.keyboard.press("Tab")  # from the tabs, Tab moves into the day's content
+    assert page.evaluate("document.activeElement.id") == "tm-pv-panel"
+    for tab in ("#tm-pv-tab-0", "#tm-pv-tab-2", "#tm-pv-tab-1"):  # quick switching shows the last day chosen
+        page.click(tab)
+    page.wait_for_timeout(600)
+    assert "Khải Định" in page.inner_text(".tm-pv-stops")
     assert page.locator(".tm-cta [data-member-only]").is_hidden()
     context.close()
 

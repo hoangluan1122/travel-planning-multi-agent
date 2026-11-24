@@ -49,7 +49,7 @@
     pins[key] = g;
   }
 
-  let current = 0, tween;
+  let current = 0, tween, swap;
   const countTo = (el, from, to) => {
     cancelAnimationFrame(tween);
     if (still) { el.textContent = money(to); return; }
@@ -98,8 +98,10 @@
     current = day;
     countTo(tickets, before, TICKETS[day]);
     if (still) { draw(day); return; }
+    // Quick switching: only the last chosen day is drawn.
+    clearTimeout(swap);
     panel.classList.add('out');
-    setTimeout(() => { draw(day); panel.classList.remove('out'); }, 180);
+    swap = setTimeout(() => { draw(current); panel.classList.remove('out'); }, 180);
   };
 
   tabs.forEach((tab, i) => tab.addEventListener('click', () => select(i)));

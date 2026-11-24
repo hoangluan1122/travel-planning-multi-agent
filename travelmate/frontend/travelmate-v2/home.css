@@ -23,6 +23,8 @@
 .tm-preview-tabs button{border:0;background:transparent;color:var(--ink-2);font:inherit;font-weight:600;font-size:14px;padding:8px 18px;border-radius:999px;cursor:pointer}
 .tm-preview-tabs button[aria-selected=true]{background:var(--paper);color:var(--teal-700);box-shadow:var(--shadow-sm)}
 .tm-preview-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,300px);gap:24px;align-items:start}
+.tm-pv-panel{border-radius:14px;outline-offset:4px}
+.tm-pv-panel:focus-visible{outline:3px solid var(--teal)}
 .tm-pv-weather{display:flex;align-items:center;gap:8px;margin:0 0 12px;color:var(--ink-2);font-size:14px}
 .tm-pv-weather .tm-i{color:var(--teal)}
 .tm-pv-stops{list-style:none;margin:0;padding:0;display:grid;gap:4px}
@@ -94,7 +96,7 @@
   .tm-preview-head{flex-direction:column;align-items:flex-start;gap:10px}
   .tm-preview-main{padding:16px}
   .tm-preview-body{grid-template-columns:1fr}
-  .tm-pv-map{order:-1}
+  .tm-pv-map svg{max-height:190px;margin:0 auto}
   .tm-preview-side{grid-template-columns:1fr}
   .tm-pv-stops li{grid-template-columns:46px 28px minmax(0,1fr);gap:8px;padding:8px 4px}
   .tm-demo-msg{max-width:94%}
