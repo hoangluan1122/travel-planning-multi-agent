@@ -1,0 +1,7 @@
+# Caddy tự xin chứng chỉ HTTPS (Let's Encrypt) cho SITE_ADDRESS, ví dụ 13-250-1-2.sslip.io,
+# và chuyển mọi yêu cầu vào app. Caddy gửi kèm X-Forwarded-For/Proto; app tin các header này
+# (uvicorn --proxy-headers) để cookie có cờ Secure và giới hạn đăng nhập thấy đúng IP khách.
+{$SITE_ADDRESS} {
+	encode zstd gzip
+	reverse_proxy app:8000
+}
