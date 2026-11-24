@@ -12,6 +12,8 @@ miễn phí, không cần thẻ:
 
 Không dùng PostgreSQL miễn phí của Render: nó bị xoá sau 30 ngày.
 
+Trang chính hiện chạy trên AWS EC2 (dùng tín dụng AWS), trang Render này là dự phòng: xem [deploy-aws.md](deploy-aws.md).
+
 ## 1. Tạo cơ sở dữ liệu trên Neon
 
 1. Đăng ký tại <https://console.neon.tech> (có thể dùng tài khoản GitHub).

@@ -1,0 +1,38 @@
+# TravelMate trên một máy EC2: app (image do GitHub Actions build) sau Caddy (HTTPS tự động).
+# Cài bằng deploy/aws/setup.sh; hướng dẫn: docs/deploy-aws.md.
+# Cổng 8000 của app không mở ra ngoài: chỉ Caddy (80, 443) nhận khách.
+services:
+  app:
+    image: ghcr.io/hoangluan1122/travelmate:latest
+    env_file: /opt/travelmate/.env
+    restart: unless-stopped
+    expose: ["8000"]
+    mem_limit: 700m
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+
+  caddy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:?SITE_ADDRESS chưa đặt trong /opt/travelmate/site.env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [app]
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+
+volumes:
+  caddy_data:    # chứng chỉ HTTPS: giữ lại khi cập nhật, tránh xin lại quá nhiều lần
+  caddy_config:

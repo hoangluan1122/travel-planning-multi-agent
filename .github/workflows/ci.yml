@@ -1,4 +1,5 @@
-# CI: lint, every test (SQLite and PostgreSQL, browser tests included) and the Docker image.
+# CI: lint, every test (SQLite and PostgreSQL, browser tests included), the Docker image, and the
+# AWS stack (deploy/aws: the image behind Caddy). On main, the Image workflow then publishes the image.
 # Render deploys main only after these checks pass (render.yaml: autoDeployTrigger: checksPass).
 name: CI
 
@@ -81,3 +82,23 @@ jobs:
       - name: Server log
         if: always()
         run: docker logs travelmate || true
+      - name: AWS stack (deploy/aws) runs behind Caddy over HTTPS
+        run: |
+          shellcheck deploy/aws/setup.sh deploy/aws/update.sh
+          docker rm -f travelmate
+          docker tag travelmate:ci ghcr.io/hoangluan1122/travelmate:latest
+          sudo mkdir -p /opt/travelmate
+          printf 'GOOGLE_API_KEY=ci-placeholder-not-a-key\nTRAVELMATE_API_TOKEN=ci-operator-token\n' | sudo tee /opt/travelmate/.env >/dev/null
+          cd deploy/aws
+          SITE_ADDRESS=localhost docker compose up -d --pull missing
+          for i in $(seq 1 45); do
+            if curl -fsSk https://localhost/health; then echo; break; fi
+            sleep 2
+          done
+          curl -fsSk https://localhost/health | grep -q '"status":"ok"'
+          curl -fsSk https://localhost/ | grep -q '<title>TravelMate'
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost/)" = "308"
+          if curl -fsS --max-time 3 http://127.0.0.1:8000/health; then echo "app port is public"; exit 1; fi
+      - name: AWS stack log
+        if: always()
+        run: cd deploy/aws && SITE_ADDRESS=localhost docker compose logs --tail 80 || true

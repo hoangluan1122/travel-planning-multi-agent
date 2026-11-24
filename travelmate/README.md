@@ -58,7 +58,8 @@ Bảng giá, Liên hệ (tin nhắn vào **Quản trị → Liên hệ**), Đi�
 `robots.txt`, `sitemap.xml`, thẻ chia sẻ (Open Graph) và header bảo mật. Mỗi tài khoản có hạn mức AI
 mỗi ngày (`TRAVELMATE_DAILY_PLANS`, `TRAVELMATE_DAILY_CHATS`) để khoá Gemini miễn phí không bị một người
 dùng hết. Triển khai miễn phí bằng Render + Neon với `render.yaml` và `travelmate/Dockerfile`; GitHub Actions chạy test cho mỗi PR, Render chỉ deploy khi CI qua, và cứ 3 giờ một lần kiểm tra trang đang chạy (hỏng thì gửi email):
-[`docs/deploy.md`](../docs/deploy.md).
+[`docs/deploy.md`](../docs/deploy.md). Trang chính chạy trên một máy AWS EC2 t3.micro (Docker + Caddy,
+tự kéo image mới sau mỗi lần CI đạt), Render giữ làm dự phòng: [`docs/deploy-aws.md`](../docs/deploy-aws.md).
 
 ## Tài khoản và nghiệp vụ
 
