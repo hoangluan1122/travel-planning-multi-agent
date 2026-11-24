@@ -90,7 +90,7 @@ jobs:
           sudo mkdir -p /opt/travelmate
           printf 'GOOGLE_API_KEY=ci-placeholder-not-a-key\nTRAVELMATE_API_TOKEN=ci-operator-token\n' | sudo tee /opt/travelmate/.env >/dev/null
           cd deploy/aws
-          SITE_ADDRESS=localhost docker compose up -d --pull never
+          SITE_ADDRESS=localhost docker compose up -d --pull missing
           for i in $(seq 1 45); do
             if curl -fsSk https://localhost/health; then echo; break; fi
             sleep 2
