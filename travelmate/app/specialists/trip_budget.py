@@ -406,9 +406,9 @@ class TripBudgetSpecialist(BaseAgent[TripBudgetRequest, TripBudgetReport]):
         )
 
 
-# Bản công cụ (ADK) của chuyên gia này.
+# Bản công cụ (function tool cho agent LLM) của chuyên gia này.
 async def assess_trip_budget(request_json: str) -> dict:
-    """ADK-callable tool. All prices, sources and acceptable options are supplied input."""
+    """Function tool for an LLM agent. All prices, sources and acceptable options are supplied input."""
     data = TripBudgetRequest.model_validate_json(request_json)
     result = await TripBudgetSpecialist().run(data, Context())
     return result.model_dump(mode="json")

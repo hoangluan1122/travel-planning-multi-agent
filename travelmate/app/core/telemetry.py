@@ -1,7 +1,7 @@
 """OpenTelemetry traces for TravelMate agents (opt-in).
 
-Every BaseAgent.run opens an "agent <name>" span, for both engines and for the
-deterministic agents. With TRAVELMATE_TELEMETRY=console|otlp the MAF providers are
+Every BaseAgent.run opens an "agent <name>" span, for the LLM agents and for
+the deterministic agents. With TRAVELMATE_TELEMETRY=console|otlp the MAF providers are
 configured, so MAF's own spans (invoke_agent, chat, execute_tool) nest under ours and
 one request becomes one trace.
 
@@ -23,7 +23,7 @@ _configured = False
 
 try:
     from opentelemetry import trace as _trace
-except ImportError:  # base install without the ai/maf extras
+except ImportError:  # base install without the maf extra
     _trace = None
 
 
@@ -36,7 +36,7 @@ def configure_telemetry(mode: TelemetryMode, service_name: str = "travelmate") -
     try:
         from agent_framework.observability import configure_otel_providers
     except ImportError:
-        raise ValueError("TRAVELMATE_TELEMETRY requires the maf dependency extra") from None
+        raise ValueError("TRAVELMATE_TELEMETRY requires the maf and telemetry dependency extras") from None
     configure_otel_providers(
         service_name=service_name,
         enable_console_exporters=mode == "console",

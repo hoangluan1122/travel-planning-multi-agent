@@ -5,7 +5,7 @@ Bật bằng `TRAVELMATE_ORCHESTRATOR=planning`. Mã: `travelmate/app/agents/pla
 
 ## Ba bước của pattern
 
-1. **Task decomposition + structured output.** Planning Agent (LLM, chạy được ADK hoặc MAF)
+1. **Task decomposition + structured output.** Planning Agent (LLM, chạy trên Microsoft Agent Framework)
    đọc yêu cầu, kể cả ghi chú tự do, và nộp một `TravelPlan` dạng JSON: danh sách việc con,
    mỗi việc giao cho một agent (`places`, `place_search`, `weather`, `recommendation`,
    `itinerary`, `budget`), có mục tiêu và phụ thuộc. Planning Agent tự quyết các lượt

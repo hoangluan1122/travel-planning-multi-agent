@@ -68,23 +68,12 @@ def calls_for(plan):
 
 
 @pytest.mark.asyncio
-async def test_planning_agent_repairs_a_rejected_plan_on_adk():
-    pytest.importorskip("google.adk")
-    from test_adk_tools import ScriptedModel
-
-    model = ScriptedModel(calls=calls_for(plan_dict([("restaurant", "chay")])))
-    plan = await PlanningAgent(lambda: model, engine="adk").plan(TripRequest(**payload()), _ctx())
-    assert plan.of("place_search")[0].inputs.keyword == "chay"
-    assert any(o.get("accepted") is False for o in model.observations)
-
-
-@pytest.mark.asyncio
 async def test_planning_agent_repairs_a_rejected_plan_on_maf():
     pytest.importorskip("agent_framework")
-    from test_maf_tools import ScriptedClient
+    from scripted_llm import ScriptedClient
 
     client = ScriptedClient(calls_for(plan_dict([("attraction", "lăng")])))
-    plan = await PlanningAgent(lambda: client, engine="maf").plan(TripRequest(**payload()), _ctx())
+    plan = await PlanningAgent(lambda: client).plan(TripRequest(**payload()), _ctx())
     assert plan.of("place_search")[0].inputs.category == "attraction"
     assert client.index == 3  # stops right after acceptance
 

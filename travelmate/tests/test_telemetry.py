@@ -10,8 +10,7 @@ from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor
 from opentelemetry.sdk.trace.export.in_memory_span_exporter import InMemorySpanExporter
-from test_adk_tools import fixture_data
-from test_maf_tools import ScriptedClient
+from scripted_llm import ScriptedClient, fixture_data
 from test_planning import payload
 
 import app.core.telemetry as telemetry

@@ -252,13 +252,12 @@ def test_input_validation(case):
 
 @pytest.mark.asyncio
 async def test_llm_cannot_restore_a_filtered_candidate():
-    pytest.importorskip("google.adk")
-    from test_adk_tools import ScriptedModel
+    pytest.importorskip("agent_framework")
+    from scripted_llm import ScriptedClient
 
     data = example()
     data["context"]["max_distance_m"] = 500
-    model = ScriptedModel(
-        calls=[
+    model = ScriptedClient([
             {"name": "inspect_candidates", "args": {}},
             {"name": "submit_ranking", "args": {"place_ids": ["fixture-park"]}},
             {"name": "submit_ranking", "args": {"place_ids": ["fixture-museum"]}},

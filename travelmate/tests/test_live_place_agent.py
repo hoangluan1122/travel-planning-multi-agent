@@ -138,9 +138,9 @@ async def test_no_cross_request_place_memory_and_needs_not_claimed_verified():
 
 
 @pytest.mark.asyncio
-async def test_adk_engine_search_details_and_repaired_selection_use_real_tools_contract():
-    pytest.importorskip("google.adk")
-    from test_adk_tools import ScriptedModel
+async def test_llm_mode_search_details_and_repaired_selection_use_real_tools_contract():
+    pytest.importorskip("agent_framework")
+    from scripted_llm import ScriptedClient
 
     p = record()
 
@@ -149,8 +149,7 @@ async def test_adk_engine_search_details_and_repaired_selection_use_real_tools_c
             assert url == URL and destination == "Sa Pa"
             return record()
 
-    model = ScriptedModel(
-        calls=[
+    model = ScriptedClient([
             {"name": "search_places", "args": {"keyword": ""}},
             {"name": "get_place_details", "args": {"place_id": p.id}},
             {"name": "submit_places", "args": {"place_ids": ["invented"]}},
@@ -160,7 +159,7 @@ async def test_adk_engine_search_details_and_repaired_selection_use_real_tools_c
     result = await LivePlaceAgent(
         model_factory=lambda: model, web_tool=Web([discovery()]), reader=Reader()
     ).run(LivePlaceRequest(destination="Sa Pa"), Context())
-    assert result.status == "success" and result.execution_mode == "adk_llm"
+    assert result.status == "success" and result.execution_mode == "maf_llm"
     assert result.search_calls == result.detail_calls == 1
     assert result.places[0].source_url == URL
     assert any(o.get("accepted") is False for o in model.observations)
@@ -219,8 +218,8 @@ def test_ui_api_status_auth_origin_and_failed_sources():
         )
 
 
-def test_adk_configuration_cannot_silently_switch_to_workflow():
+def test_llm_mode_without_key_cannot_silently_switch_to_workflow():
     from app.place_agent.live_api import LivePlaceSettings, create_app
 
     with pytest.raises(ValueError, match="GOOGLE_API_KEY"):
-        create_app(LivePlaceSettings(live_place_mode="adk_llm", google_api_key=""))
+        create_app(LivePlaceSettings(live_place_mode="maf_llm", google_api_key=""))

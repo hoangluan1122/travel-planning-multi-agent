@@ -115,7 +115,7 @@
   const health = fetch('/health').then(r => {if (!r.ok) throw Error(); return r.json()}).then(h => {
     banner.hidden = h.mode !== 'demo' && !dev;
     document.querySelector('#api-health').textContent = h.mode === 'demo' ? 'Chế độ demo: dữ liệu giả lập, không phải địa điểm thật.'
-      : `Backend đã kết nối · ${h.place_provider === 'open_data' ? 'OpenStreetMap + Open-Meteo' : 'Google Places'} · ${(h.agent_engine || 'adk').toUpperCase()}${h.token_required ? ' · yêu cầu đăng nhập hoặc token' : ''}`;
+      : `Backend đã kết nối · ${h.place_provider === 'open_data' ? 'OpenStreetMap + Open-Meteo' : 'Google Places'} · ${(h.agent_engine || 'maf').toUpperCase()}${h.token_required ? ' · yêu cầu đăng nhập hoặc token' : ''}`;
     if (credit && h.mode === 'demo') credit.textContent = 'Chế độ demo: địa điểm và thời tiết là dữ liệu giả lập.';
     else if (credit && h.place_provider !== 'open_data') credit.textContent = 'Dữ liệu địa điểm: Google Places.';
     return h;

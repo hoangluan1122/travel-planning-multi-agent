@@ -126,12 +126,11 @@ class RecommendationSpecialist(BaseAgent[RecommendationRequest, RecommendationRe
         RecommendationReport,
     )
 
-    def __init__(self, model_factory, max_llm_calls=6, max_submissions=3, now=None, engine="adk"):
-        """engine "adk": model_factory returns an ADK model; "maf": a MAF chat client."""
+    def __init__(self, model_factory, max_llm_calls=6, max_submissions=3, now=None):
+        """model_factory returns a fresh MAF chat client per call."""
         if max_llm_calls < 1 or max_submissions < 1:
             raise ValueError("Agent limits must be positive")
         self.model_factory = model_factory
-        self.engine = engine
         self.max_llm_calls = max_llm_calls
         self.max_submissions = max_submissions
         self.now = now or (lambda: datetime.now(UTC))
@@ -202,7 +201,7 @@ class RecommendationSpecialist(BaseAgent[RecommendationRequest, RecommendationRe
             budget_message="Recommendation model-call budget exceeded",
             is_done=lambda: accepted is not None,
         )
-        await run_tool_loop(self.engine, self.model_factory, loop, context)
+        await run_tool_loop(self.model_factory, loop, context)
         if accepted is None:
             raise AgentError("Recommendation ended without validated output")
         return accepted

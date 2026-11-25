@@ -1,4 +1,4 @@
-"""Chat-client factories for the MAF engine.
+"""Chat-client factories for Microsoft Agent Framework (MAF), the agent runtime.
 
 MafPlanner mutates per-client settings (iteration limit), so every factory call
 returns a new GeminiChatClient. The underlying google-genai client is shared within

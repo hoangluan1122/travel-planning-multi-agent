@@ -277,7 +277,7 @@ async def test_runtime_revalidates_mutation():
 
 
 @pytest.mark.asyncio
-async def test_adk_callable_returns_same_deterministic_amounts():
+async def test_function_tool_returns_same_deterministic_amounts():
     result = await assess_trip_budget(json.dumps(example()))
     assert result["known_max_with_reserve_vnd"] == "4070000"
     assert result["proposal"]["applied"] is False

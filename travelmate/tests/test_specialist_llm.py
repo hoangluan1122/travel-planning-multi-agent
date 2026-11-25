@@ -2,8 +2,8 @@ import json
 
 import pytest
 
-pytest.importorskip("google.adk")
-from test_adk_tools import ScriptedModel, fixture_data
+pytest.importorskip("agent_framework")
+from scripted_llm import ScriptedClient, fixture_data
 
 from app.core.base import AgentError
 from app.core.models import Context, Place
@@ -13,8 +13,7 @@ from app.specialists.recommendation import RecommendationRequest, Recommendation
 
 @pytest.mark.asyncio
 async def test_recommendation_repairs_ids_without_rewriting_facts():
-    model = ScriptedModel(
-        calls=[
+    model = ScriptedClient([
             {"name": "inspect_candidates", "args": {}},
             {"name": "submit_ranking", "args": {"place_ids": ["invented"]}},
             {"name": "submit_ranking", "args": {"place_ids": ["p1"]}},
@@ -41,7 +40,7 @@ async def test_recommendation_repairs_ids_without_rewriting_facts():
 
 @pytest.mark.asyncio
 async def test_recommendation_rejects_text_only():
-    agent = RecommendationSpecialist(lambda: ScriptedModel(calls=[]))
+    agent = RecommendationSpecialist(lambda: ScriptedClient([]))
     with pytest.raises(AgentError):
         await agent.run(
             RecommendationRequest(
@@ -57,8 +56,7 @@ async def test_recommendation_rejects_text_only():
 async def test_standalone_planner_uses_supplied_evidence():
     data, draft = await fixture_data()
     agent = PlannerSpecialist(
-        lambda: ScriptedModel(
-            calls=[
+        lambda: ScriptedClient([
                 {"name": "inspect_trip", "args": {}},
                 {"name": "submit_itinerary", "args": {"draft_json": json.dumps(draft)}},
             ]
@@ -83,8 +81,7 @@ async def test_planner_repairs_daily_bounds_and_visit_window():
     corrected = json.loads(json.dumps(draft))
     for day in corrected["days"]:
         day["activities"][0].update(start_minute=630, end_minute=690)
-    model = ScriptedModel(
-        calls=[
+    model = ScriptedClient([
             {"name": "inspect_trip", "args": {}},
             {"name": "submit_itinerary", "args": {"draft_json": json.dumps(draft)}},
             {"name": "submit_itinerary", "args": {"draft_json": json.dumps(corrected)}},
@@ -99,8 +96,7 @@ async def test_planner_repairs_daily_bounds_and_visit_window():
 async def test_recommendation_cannot_select_excluded_or_omit_required():
     from test_agent_contracts import place
 
-    model = ScriptedModel(
-        calls=[
+    model = ScriptedClient([
             {"name": "inspect_candidates", "args": {}},
             {"name": "submit_ranking", "args": {"place_ids": ["p2"]}},
             {"name": "submit_ranking", "args": {"place_ids": ["p3"]}},
@@ -124,8 +120,7 @@ async def test_recommendation_model_budget_is_domain_error():
     from test_agent_contracts import place
 
     agent = RecommendationSpecialist(
-        lambda: ScriptedModel(
-            calls=[
+        lambda: ScriptedClient([
                 {"name": "inspect_candidates", "args": {}},
                 {"name": "inspect_candidates", "args": {}},
             ]
