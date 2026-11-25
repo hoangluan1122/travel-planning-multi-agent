@@ -1,5 +1,5 @@
 # TravelMate trên một máy EC2: app (image do GitHub Actions build) sau Caddy (HTTPS tự động).
-# Cài bằng deploy/aws/setup.sh; hướng dẫn: docs/deploy-aws.md.
+# Cài bằng deploy/aws/setup.sh; hướng dẫn: docs/trien-khai/aws.md.
 # Cổng 8000 của app không mở ra ngoài: chỉ Caddy (80, 443) nhận khách.
 services:
   app:

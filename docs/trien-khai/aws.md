@@ -1,7 +1,7 @@
 # Chạy TravelMate trên AWS EC2 (Render làm dự phòng)
 
 Trang chính chạy trên một máy ảo **EC2 t3.micro** của AWS, trả bằng tín dụng của gói miễn phí.
-Render (xem [deploy.md](deploy.md)) vẫn chạy song song từ cùng nhánh `main`, cùng cơ sở dữ liệu Neon:
+Render (xem [deploy.md](render.md)) vẫn chạy song song từ cùng nhánh `main`, cùng cơ sở dữ liệu Neon:
 hai trang dùng chung tài khoản và chuyến đi, trang nào hỏng thì dùng trang kia.
 
 ```mermaid

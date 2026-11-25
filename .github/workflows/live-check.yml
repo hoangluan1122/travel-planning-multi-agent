@@ -1,6 +1,6 @@
 # Checks the live site on Render every 3 hours, the way a visitor would (and once a day makes a
 # real plan). A failed run is a failed workflow: GitHub emails the repository owner.
-# Setup (docs/deploy.md, "Canh trang đang chạy"): repository variable TRAVELMATE_URL, and for the
+# Setup (docs/trien-khai/render.md, "Canh trang đang chạy"): repository variable TRAVELMATE_URL, and for the
 # daily plan the secret TRAVELMATE_API_TOKEN. Without TRAVELMATE_URL the job is skipped.
 name: Live site check
 

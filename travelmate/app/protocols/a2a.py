@@ -77,7 +77,7 @@ def agent_card(base_url, token_required):
         "provider": {"organization": "TravelMate (demo)",
                      "url": "https://github.com/hoangluan1122/travel-planning-multi-agent"},
         "version": "0.1.0",
-        "documentationUrl": "https://github.com/hoangluan1122/travel-planning-multi-agent/blob/main/docs/mcp-a2a.md",
+        "documentationUrl": "https://github.com/hoangluan1122/travel-planning-multi-agent/blob/main/docs/kien-truc/mcp-a2a.md",
         "capabilities": {"streaming": False, "pushNotifications": False, "extendedAgentCard": False},
         "defaultInputModes": ["text/plain"],
         "defaultOutputModes": ["text/plain", "application/json"],
