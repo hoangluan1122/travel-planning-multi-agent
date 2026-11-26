@@ -8,10 +8,9 @@ import argparse
 import asyncio
 import sys
 from pathlib import Path
-from typing import Literal
 from uuid import UUID
 
-from pydantic import AliasChoices, Field, SecretStr
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from app.core.models import Context, PlannerInput
@@ -29,14 +28,11 @@ from app.specialists.trip_budget import TripBudgetRequest, TripBudgetSpecialist
 from app.specialists.weather import WeatherRequest, WeatherSpecialist
 
 
-# Cấu hình riêng của dòng lệnh (khoá Gemini, engine).
+# Cấu hình riêng của dòng lệnh (khoá Gemini, model).
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     google_api_key: SecretStr = SecretStr("")
     gemini_model: str = "gemini-3.5-flash-lite"
-    agent_engine: Literal["adk", "maf"] = Field(
-        default="adk", validation_alias=AliasChoices("agent_engine", "planner_engine")
-    )
 
 
 # Ghi kết quả ra file hoặc màn hình.
@@ -52,21 +48,17 @@ async def run(args):
     raw = args.input.read_text(encoding="utf-8-sig")
     settings = Settings()
     if args.agent in {"recommendation", "planner", "routed-planner"}:
-        from app.core.llm.adk_adapter import AdkPlanner
-        from app.core.llm.maf_adapter import MafPlanner
-        from app.specialists.api import agent_model_factory
+        from app.specialists.api import maf_gemini_factory
 
         if not settings.google_api_key.get_secret_value():
             raise ValueError("Configure GOOGLE_API_KEY in .env locally")
-        engine = settings.agent_engine
-        planner_cls = MafPlanner if engine == "maf" else AdkPlanner
-        async with agent_model_factory(settings, engine) as factory:
+        async with maf_gemini_factory(settings) as factory:
             if args.agent == "recommendation":
-                agent, schema = RecommendationSpecialist(factory, engine=engine), RecommendationRequest
+                agent, schema = RecommendationSpecialist(factory), RecommendationRequest
             elif args.agent == "routed-planner":
-                agent, schema = RoutedPlannerSpecialist(factory, planner_cls=planner_cls), RoutedPlannerInput
+                agent, schema = RoutedPlannerSpecialist(factory), RoutedPlannerInput
             else:
-                agent, schema = PlannerSpecialist(factory, planner_cls), PlannerInput
+                agent, schema = PlannerSpecialist(factory), PlannerInput
             result = await agent.run(schema.model_validate_json(raw), Context(), timeout=60)
         write_result(args, result)
         return

@@ -191,9 +191,9 @@ class BrowserWeatherTool(BaseAgent[BrowserWeatherRequest, BrowserWeatherResult])
                 result.warnings.append("Không lưu được ảnh bằng chứng; vẫn giữ nội dung DOM đã đọc.")
 
 
-# Bản công cụ (ADK): chỉ nhận yêu cầu có cấu trúc, không nhận URL tuỳ ý.
+# Bản công cụ (function tool cho agent LLM): chỉ nhận yêu cầu có cấu trúc, không nhận URL tuỳ ý.
 async def get_weather_from_browser(request_json: str) -> dict:
-    """ADK function tool: pass BrowserWeatherRequest JSON, never arbitrary URLs.
+    """Function tool for an LLM agent: pass BrowserWeatherRequest JSON, never arbitrary URLs.
 
     Returns structured forecast/status; location mismatch and missing data must not
     be represented as sunshine or zero rain. No booking or other agent calls.

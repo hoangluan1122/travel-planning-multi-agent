@@ -126,36 +126,24 @@ GROUNDED = {"status": "partial", "text": "Vé 150.000 ₫, xây từ 1864. Ngu�
             "citations": ["t1", "w2"]}
 
 
-async def test_gate_rejects_unknown_citations_and_invented_numbers_on_adk():
-    pytest.importorskip("google.adk")
-    from test_adk_tools import ScriptedModel
-
-    model = ScriptedModel(calls=scripted(INVENTED, GROUNDED))
-    answer = await KnowledgeAgent(FakeBase(), lambda: model, "adk").ask("Lăng Tự Đức?", Context())
-    rejected = [o for o in model.observations if o.get("accepted") is False]
-    assert rejected and any("x9" in e for e in rejected[0]["errors"]) and any("730" in e for e in rejected[0]["errors"])
-    assert answer.status == "partial" and [c.id for c in answer.citations] == ["t1", "w2"]
-    assert answer.citations[0].url == "https://tuoitre.vn/x"
-
-
 async def test_gate_works_on_maf():
     pytest.importorskip("agent_framework")
-    from test_maf_tools import ScriptedClient
+    from scripted_llm import ScriptedClient
 
     client = ScriptedClient(scripted(INVENTED, GROUNDED))
-    answer = await KnowledgeAgent(FakeBase(), lambda: client, "maf").ask("Lăng Tự Đức?", Context())
+    answer = await KnowledgeAgent(FakeBase(), lambda: client).ask("Lăng Tự Đức?", Context())
     assert answer.answered_by == "llm" and answer.searches == ["tickets:lang tu duc", "wikipedia:lang tu duc"]
 
 
 async def test_repeated_search_is_refused_and_budget_falls_back_to_quotes():
-    pytest.importorskip("google.adk")
-    from test_adk_tools import ScriptedModel
+    pytest.importorskip("agent_framework")
+    from scripted_llm import ScriptedClient
 
     searches = [("Huế", "wikipedia"), ("Huế", "wikipedia"), ("Huế 2", "wikivoyage"), ("Huế 3", "tickets"),
                 ("Huế 4", "wikipedia"), ("Huế 5", "wikipedia")]
-    model = ScriptedModel(calls=scripted(searches=searches))
+    model = ScriptedClient(scripted(searches=searches))
     base = FakeBase()
-    answer = await KnowledgeAgent(base, lambda: model, "adk", max_llm_calls=8).ask("Huế?", Context())
+    answer = await KnowledgeAgent(base, lambda: model, max_llm_calls=8).ask("Huế?", Context())
     assert len(base.queries) == 4  # the repeat and over-budget calls never reach the sources
     assert any("Already searched" in str(o) for o in model.observations)
     assert any("budget used up" in str(o) for o in model.observations)
@@ -213,5 +201,5 @@ async def test_model_outage_falls_back_to_quotes():
         raise RuntimeError("429 quota")
 
     base = FakeBase()
-    answer = await KnowledgeAgent(base, broken_model, "adk").ask("Lăng Tự Đức có gì đặc biệt?", Context())
+    answer = await KnowledgeAgent(base, broken_model).ask("Lăng Tự Đức có gì đặc biệt?", Context())
     assert answer.answered_by == "extractive" and answer.citations

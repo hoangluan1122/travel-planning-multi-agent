@@ -7,7 +7,7 @@ Backend FastAPI, các agent và giao diện thử nghiệm cho hệ thống lậ
 Chạy các lệnh sau trong thư mục `travelmate`:
 
 ```powershell
-uv sync --extra dev --extra ai --extra browser
+uv sync --extra dev --extra maf --extra browser
 ```
 
 Chỉ tạo `.env` từ `.env.example` khi cần cấu hình khóa API; không commit `.env`.
@@ -17,7 +17,7 @@ Chỉ tạo `.env` từ `.env.example` khi cần cấu hình khóa API; không c
 Nhập điểm đến trên web, nhận lịch trình từ **địa điểm thật** (OpenStreetMap/Photon),
 **thời tiết thật** (Open-Meteo) và lịch do **Gemini** lập. Không cần Google Maps key.
 
-1. Cài đặt: `uv sync --extra dev --extra ai --extra browser --extra maf`
+1. Cài đặt: `uv sync --extra dev --extra maf --extra browser`
 2. Tạo `.env` từ `.env.example`, rồi đặt:
 
    ```dotenv
@@ -25,7 +25,6 @@ Nhập điểm đến trên web, nhận lịch trình từ **địa điểm th�
    TRAVELMATE_API_TOKEN=<chuỗi ngẫu nhiên bất kỳ>
    TRAVELMATE_MODE=live
    TRAVELMATE_PLACE_PROVIDER=open_data
-   AGENT_ENGINE=maf
    TRAVELMATE_ORCHESTRATOR=planning
    TRAVELMATE_AGENT_TIMEOUT=120
    ```
@@ -90,7 +89,7 @@ phân trang và tải JSON. Không cần khóa Google Maps cho giao diện này.
 
 Khi tên trùng nhau, chọn đúng địa danh và loại thực thể. Với khu du lịch lớn,
 điểm nguồn có thể là tâm hình học. Nút mở rộng bán kính cần người dùng bấm xác nhận.
-Mặc định chạy workflow công cụ; ADK/LLM là chế độ tùy chọn cần cấu hình riêng.
+Mặc định chạy workflow công cụ; chế độ LLM (`LIVE_PLACE_MODE=maf_llm`) là tùy chọn, cần `GOOGLE_API_KEY`.
 
 ## API lịch trình thử nghiệm
 
@@ -101,23 +100,17 @@ uv run uvicorn app.main:create_app --factory --reload --host 127.0.0.1 --port 80
 Mở http://127.0.0.1:8000/docs. `.env.example` mặc định `TRAVELMATE_MODE=demo`:
 endpoint demo dùng dữ liệu giả lập có nhãn. Cấu hình `live` cần khóa API tương ứng.
 
-## Engine agent: ADK hoặc Microsoft Agent Framework
+## Khung chạy agent: Microsoft Agent Framework
 
-Các agent dùng LLM (planner, routed planner, recommendation, Place Agent) chạy được bằng
-Google ADK (mặc định) hoặc Microsoft Agent Framework (MAF). Mỗi agent định nghĩa tool và
-điều kiện chấp nhận một lần; `app/core/llm/tool_loop.py` chạy vòng lặp đó trên engine được chọn.
-Để dùng MAF:
-
-```powershell
-uv sync --extra dev --extra ai --extra browser --extra maf
-```
-
-rồi đặt `AGENT_ENGINE=maf` trong `.env` (`PLANNER_ENGINE` cũ vẫn được nhận). Giao diện
-Place Agent dữ liệu thật dùng `LIVE_PLACE_MODE=maf_llm`.
+Mọi agent dùng LLM (lễ tân Trợ lý AI, Planning Agent, hướng dẫn viên, planner, recommendation,
+Place Agent) chạy trên Microsoft Agent Framework (MAF) với Gemini; cài bằng `--extra maf`. Google ADK
+đã được gỡ khỏi dự án (11/2026). Mỗi agent định nghĩa tool và điều kiện chấp nhận một lần;
+`app/core/llm/tool_loop.py` chạy vòng lặp đó.
 
 MAF mặc định trả lỗi tool về cho model, gọi thêm một lượt khi chạm giới hạn vòng lặp và
-chỉ dừng sớm khi tín hiệu đến từ middleware. `app/core/llm/tool_loop.py` xử lý cả ba để ngân sách
-tool, ngân sách gọi model và điểm dừng sau khi chấp nhận giống hệt ADK.
+chỉ dừng sớm khi tín hiệu đến từ middleware. `tool_loop.py` thêm hai middleware để có đủ ba đảm
+bảo: lỗi ngân sách của tool dừng cả lượt chạy, không vượt số lần gọi model, và dừng ngay khi bài nộp
+được chấp nhận.
 
 ### Orchestrator dạng MAF Workflow
 
@@ -151,23 +144,14 @@ trình đọc sở thích đã lưu của danh tính đó, gộp sau sở thích
 - **Không chặn kế hoạch:** memory hết hạn, đã xóa hoặc không đọc được thì chỉ dùng sở thích
   trong request, kèm cảnh báo.
 
-## Trace và so sánh engine
+## Trace
 
 **Trace (OpenTelemetry).** Đặt `TRAVELMATE_TELEMETRY=console` (in ra terminal) hoặc `otlp`
-(gửi tới `OTEL_EXPORTER_OTLP_ENDPOINT`, ví dụ Jaeger hoặc Aspire Dashboard); cần extra `maf`.
+(gửi tới `OTEL_EXPORTER_OTLP_ENDPOINT`, ví dụ Jaeger hoặc Aspire Dashboard); cần extra `maf` và
+`telemetry`.
 Mỗi lần agent chạy có một span `agent <tên>` kèm `request_id` và kết quả; span của MAF
 (`invoke_agent`, `chat`, `execute_tool`) nằm lồng bên trong, nên một request là một trace.
 Không xuất nội dung prompt, tham số hay kết quả tool: chế độ sensitive luôn tắt.
-
-**So sánh ADK và MAF trên Gemini thật** (tốn token, cần `GOOGLE_API_KEY`):
-
-```powershell
-uv sync --extra dev --extra ai --extra maf
-uv run python scripts/compare_engines.py --runs 3
-```
-
-Script cho cả hai engine lập lịch cùng đầu vào qua cùng submit gate, rồi ghi tỷ lệ được chấp
-nhận, loại lỗi và thời gian vào `evaluation/engine-comparison-<UTC>/`.
 
 ## Cấu trúc
 
@@ -179,7 +163,7 @@ nhận, loại lỗi và thời gian vào `evaluation/engine-comparison-<UTC>/`.
 app/
 ├─ main.py                 Máy chủ FastAPI: chỉ ghép các phần dưới lại (lệnh chạy không đổi)
 ├─ settings.py             Mọi cấu hình đọc từ biến môi trường / .env, có giải thích từng mục
-├─ services.py             Dựng agent và nguồn dữ liệu theo cấu hình (demo/live, ADK/MAF, orchestrator)
+├─ services.py             Dựng agent và nguồn dữ liệu theo cấu hình (demo/live, nguồn địa điểm, orchestrator)
 ├─ api/                    Các endpoint, mỗi file một nhóm
 │  ├─ plans.py             Tìm địa điểm, tạo lịch trình (chạy nền) và xem tiến độ
 │  ├─ chat.py              Trợ lý AI
@@ -189,10 +173,10 @@ app/
 │  ├─ base.py              BaseAgent: kiểm tra đầu vào/ra, giới hạn thời gian, log, telemetry
 │  ├─ models.py            Schema (Pydantic): TripRequest, Context, PlanResponse, BudgetResult…
 │  ├─ telemetry.py         OpenTelemetry (bật khi cần)
-│  └─ llm/                 MODEL: Gemini qua Microsoft Agent Framework hoặc Google ADK
+│  └─ llm/                 MODEL: Gemini qua Microsoft Agent Framework
 │     ├─ tool_loop.py      Vòng gọi công cụ có giới hạn số lần gọi model
 │     ├─ maf_clients.py    Tạo client Gemini cho MAF
-│     └─ adk_adapter.py, maf_adapter.py   Hai engine cho agent xếp lịch
+│     └─ maf_adapter.py    Agent xếp lịch từng ngày (MafPlanner)
 ├─ agents/                 Các agent
 │  ├─ concierge.py         Trợ lý điều phối trong chat, chuyển cho chuyên gia (Multi-Agent)
 │  ├─ planning.py          Planning Agent: chia việc, giao việc, lập kế hoạch lại

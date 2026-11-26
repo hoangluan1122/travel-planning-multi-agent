@@ -10,7 +10,7 @@ from app.specialists.routing import RouteMatrix
 @pytest.mark.asyncio
 @pytest.mark.parametrize("finish,status", [(1080, "route_feasible_draft"), (550, "infeasible")])
 async def test_routed_plan_preserves_visits_and_exposes_infeasibility(finish, status):
-    from test_adk_tools import fixture_data
+    from scripted_llm import fixture_data
 
     data, draft = await fixture_data()
     request = RoutedPlannerInput(
@@ -46,7 +46,7 @@ async def test_routed_plan_preserves_visits_and_exposes_infeasibility(finish, st
 
 @pytest.mark.asyncio
 async def test_routing_preserves_general_schedule_window():
-    from test_adk_tools import fixture_data
+    from scripted_llm import fixture_data
 
     from app.core.models import ScheduleConstraints
 
@@ -90,7 +90,7 @@ async def test_routing_preserves_general_schedule_window():
 
 @pytest.mark.asyncio
 async def test_routed_planner_keeps_appointment_buffer_and_separate_endpoint():
-    from test_adk_tools import fixture_data
+    from scripted_llm import fixture_data
 
     data, draft = await fixture_data()
     request = RoutedPlannerInput(

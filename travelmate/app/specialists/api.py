@@ -17,11 +17,10 @@ from uuid import UUID
 
 from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import AliasChoices, Field, SecretStr
+from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from app.core.base import AgentError
-from app.core.llm.adk_adapter import AdkPlanner
 from app.core.llm.maf_adapter import MafPlanner
 from app.core.models import Context, Draft, PlaceSearchRequest, PlannerInput
 from app.core.telemetry import configure_telemetry
@@ -59,46 +58,14 @@ class SpecialistSettings(BaseSettings):
     travelmate_api_token: SecretStr = SecretStr("")
     google_api_key: SecretStr = SecretStr("")
     gemini_model: str = "gemini-3.5-flash-lite"
-    # LLM runtime for planner, routed_planner and recommendation. PLANNER_ENGINE is the
-    # name used before recommendation was ported and is still accepted.
-    agent_engine: Literal["adk", "maf"] = Field(
-        default="adk", validation_alias=AliasChoices("agent_engine", "planner_engine")
-    )
     specialist_timeout: float = Field(default=60, gt=0, le=180)
     specialist_concurrency: int = Field(default=2, ge=1, le=8)
     specialist_memory_user: UUID | None = None
     specialist_memory_db: Path = Path("agent-memory.sqlite3")
     overpass_url: str = "https://overpass-api.de/api/interpreter"
     osrm_url: str = "https://router.project-osrm.org"
-    # OpenTelemetry traces: off, console, or otlp (OTEL_EXPORTER_OTLP_ENDPOINT); needs --extra maf
+    # OpenTelemetry traces: off, console, or otlp (OTEL_EXPORTER_OTLP_ENDPOINT); needs --extra maf --extra telemetry
     travelmate_telemetry: Literal["off", "console", "otlp"] = "off"
-
-
-# Tạo model Gemini cho ADK, mỗi lần gọi một client riêng.
-@asynccontextmanager
-async def gemini_factory(settings):
-    if not settings.google_api_key.get_secret_value():
-        raise HTTPException(503, "Configure GOOGLE_API_KEY on the server")
-    try:
-        from google.adk.models import Gemini
-        from google.genai import Client
-    except ImportError:
-        raise HTTPException(503, "Install the ai dependency extra on the server") from None
-
-    client = Client(api_key=settings.google_api_key.get_secret_value())
-
-    class RequestGemini(Gemini):
-        @property
-        def api_client(self):
-            return client
-
-    try:
-        yield lambda: RequestGemini(model=settings.gemini_model)
-    finally:
-        try:
-            await client.aio.aclose()
-        finally:
-            client.close()
 
 
 # Tạo client Gemini cho MAF.
@@ -116,12 +83,6 @@ async def maf_gemini_factory(settings):
         settings.google_api_key.get_secret_value(), settings.gemini_model
     ) as factory:
         yield factory
-
-
-# Chọn cách tạo model theo engine (ADK hoặc MAF).
-def agent_model_factory(settings, engine):
-    """Context manager yielding a per-call model factory for the given engine."""
-    return maf_gemini_factory(settings) if engine == "maf" else gemini_factory(settings)
 
 
 # Tạo ứng dụng FastAPI của bàn thử; `overrides` cho phép test thay chuyên gia giả.
@@ -182,15 +143,13 @@ def create_app(settings=None, overrides=None):
                             settings.specialist_memory_db, settings.specialist_memory_user
                         )
                     else:
-                        engine = settings.agent_engine
-                        planner_cls = MafPlanner if engine == "maf" else AdkPlanner
-                        async with agent_model_factory(settings, engine) as factory:
+                        async with maf_gemini_factory(settings) as factory:
                             if name == "routed_planner":
-                                agent = RoutedPlannerSpecialist(factory, roads, planner_cls)
+                                agent = RoutedPlannerSpecialist(factory, roads, MafPlanner)
                             elif name == "planner":
-                                agent = PlannerSpecialist(factory, planner_cls)
+                                agent = PlannerSpecialist(factory, MafPlanner)
                             else:
-                                agent = RecommendationSpecialist(factory, engine=engine)
+                                agent = RecommendationSpecialist(factory)
                             return await agent.run(data, context, settings.specialist_timeout)
                     return await agent.run(data, context, settings.specialist_timeout)
             except HTTPException:

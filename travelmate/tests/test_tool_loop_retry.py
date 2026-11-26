@@ -53,7 +53,7 @@ async def test_one_retry_after_a_transient_error(monkeypatch):
     monkeypatch.setattr(tool_loop, "_run_maf", runner)
     monkeypatch.setattr(tool_loop, "RETRY_DELAYS_S", (0, 0))
     monkeypatch.setattr(tool_loop, "RATE_LIMIT_DELAYS_S", (0, 0))
-    await run_tool_loop("maf", None, loop(done), Context())
+    await run_tool_loop(None, loop(done), Context())
     assert len(calls) == 2 and done["v"]
 
 
@@ -67,7 +67,7 @@ async def test_no_retry_for_agent_errors_or_after_the_retry_budget(monkeypatch):
 
     monkeypatch.setattr(tool_loop, "_run_maf", budget)
     with pytest.raises(AgentError):
-        await run_tool_loop("maf", None, loop({"v": False}), Context())
+        await run_tool_loop(None, loop({"v": False}), Context())
     assert len(calls) == 1
 
     async def always_down(factory, lp, ctx):
@@ -78,7 +78,7 @@ async def test_no_retry_for_agent_errors_or_after_the_retry_budget(monkeypatch):
     monkeypatch.setattr(tool_loop, "RETRY_DELAYS_S", (0, 0))
     monkeypatch.setattr(tool_loop, "RATE_LIMIT_DELAYS_S", (0, 0))
     with pytest.raises(Wrapped):
-        await run_tool_loop("maf", None, loop({"v": False}), Context())
+        await run_tool_loop(None, loop({"v": False}), Context())
     assert calls.count(2) == 3  # first try + 2 retries
 
 

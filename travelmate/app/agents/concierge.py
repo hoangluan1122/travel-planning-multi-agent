@@ -316,8 +316,8 @@ CONCIERGE_INSTRUCTION = (
 class ConciergeAgent:
     """LLM router over read_conversation/decide with a validated decision."""
 
-    def __init__(self, model_factory, engine="adk", max_llm_calls=4):
-        self.model_factory, self.engine, self.max_llm_calls = model_factory, engine, max_llm_calls
+    def __init__(self, model_factory, max_llm_calls=4):
+        self.model_factory, self.max_llm_calls = model_factory, max_llm_calls
 
     async def decide(self, session, context):
         state = {"decision": None, "reads": 0, "submissions": 0}
@@ -369,7 +369,7 @@ class ConciergeAgent:
             budget_message="Concierge model-call budget exceeded",
             is_done=lambda: state["decision"] is not None,
         )
-        await run_tool_loop(self.engine, self.model_factory, loop, context)
+        await run_tool_loop(self.model_factory, loop, context)
         if state["decision"] is None:
             raise AgentError("Concierge ended without a decision")
         return state["decision"]

@@ -2,9 +2,9 @@ import asyncio
 
 import pytest
 
-pytest.importorskip("google.adk")
+pytest.importorskip("agent_framework")
 from fastapi.testclient import TestClient
-from test_adk_tools import ScriptedModel
+from scripted_llm import ScriptedClient
 
 from app.core.base import AgentError
 from app.core.models import Context, Place, PlaceResult
@@ -53,7 +53,7 @@ def call(name, **args):
 
 
 def assistant(provider, calls, **kwargs):
-    return PlaceAssistant(lambda: ScriptedModel(calls=calls), provider, **kwargs)
+    return PlaceAssistant(lambda: ScriptedClient(calls), provider, **kwargs)
 
 
 @pytest.mark.asyncio

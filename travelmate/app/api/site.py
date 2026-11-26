@@ -78,7 +78,7 @@ def create_site_router(deps: ApiDeps):
             "mode": settings.travelmate_mode,
             "token_required": bool(settings.travelmate_api_token),
             "place_provider": None if settings.travelmate_mode == "demo" else settings.travelmate_place_provider,
-            "agent_engine": settings.agent_engine,
+            "agent_engine": "maf",
             "orchestrator": settings.travelmate_orchestrator,
             "accounts": True,
             "database": store.backend,

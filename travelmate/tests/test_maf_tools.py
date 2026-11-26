@@ -1,57 +1,16 @@
-"""MafPlanner must enforce the same submit gate and budgets as AdkPlanner."""
+"""MafPlanner: the submit gate, budgets and request isolation of the day-scheduling LLM."""
 
 import asyncio
 import json
 
 import pytest
-from test_adk_tools import fixture_data
 
 pytest.importorskip("agent_framework")
-from agent_framework import (
-    BaseChatClient,
-    ChatMiddlewareLayer,
-    ChatResponse,
-    Content,
-    FunctionInvocationLayer,
-    Message,
-)
+from scripted_llm import ScriptedClient, fixture_data  # noqa: E402
 
 from app.core.base import AgentError
 from app.core.llm.maf_adapter import MafPlanner
 from app.core.models import Context
-
-
-class ScriptedClient(FunctionInvocationLayer, ChatMiddlewareLayer, BaseChatClient):
-    """Replays scripted tool calls through MAF's real function-invocation loop."""
-
-    def __init__(self, calls):
-        super().__init__()
-        self.calls = calls
-        self.index = 0
-        self.observations = []
-
-    async def _inner_get_response(self, *, messages, stream, options, **kwargs):
-        assert not stream
-        for message in messages:
-            for content in message.contents:
-                if content.type == "function_result" and content.call_id.startswith(f"r{self.index - 1}-"):
-                    result = content.result
-                    try:
-                        result = json.loads(result) if isinstance(result, str) else result
-                    except ValueError:
-                        result = {"raw": result}
-                    self.observations.append(result)
-        call = self.calls[self.index] if self.index < len(self.calls) else None
-        if call is not None and options.get("tool_choice") == "none":
-            call = None  # MAF's forced final turn disables tools
-        self.index += 1
-        if call is None:
-            content = Content.from_text("Done")
-        else:
-            content = Content.from_function_call(
-                f"r{self.index - 1}-{call['name']}", call["name"], arguments=call["args"]
-            )
-        return ChatResponse(messages=[Message(role="assistant", contents=[content])])
 
 
 def factory(client):
@@ -184,7 +143,7 @@ def test_specialist_api_planner_engine_switch(tmp_path, monkeypatch):
         )
 
     monkeypatch.setattr(api, "maf_gemini_factory", scripted_factory)
-    with TestClient(api.create_app(settings(tmp_path, planner_engine="maf"))) as client:
+    with TestClient(api.create_app(settings(tmp_path))) as client:
         response = client.post("/api/v1/agents/planner", headers=HEADERS, json=data.model_dump(mode="json"))
     assert response.status_code == 200, response.text
     assert used == ["maf"]

@@ -6,9 +6,10 @@ requires-python = ">=3.11,<3.14"
 dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1", "pydantic-settings>=2.6,<3", "httpx>=0.27,<1"]
 
 [project.optional-dependencies]
-ai = ["google-adk>=1.18,<2"]
-# Microsoft Agent Framework engine. Pinned exactly: MAF renames APIs between releases.
+# Microsoft Agent Framework: runs every LLM agent. Pinned exactly: MAF renames APIs between releases.
 maf = ["agent-framework-core==1.24.0", "agent-framework-gemini==1.0.0b261030"]
+# OpenTelemetry export for TRAVELMATE_TELEMETRY=console|otlp (MAF itself only needs the API).
+telemetry = ["opentelemetry-sdk>=1.41,<2", "opentelemetry-exporter-otlp-proto-http>=1.41,<2"]
 browser = ["playwright>=1.48,<2"]
 # MCP server (app/protocols/mcp_server.py); the API and A2A endpoint do not need it.
 mcp = ["mcp>=1.20,<2"]

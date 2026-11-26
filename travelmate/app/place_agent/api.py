@@ -8,7 +8,7 @@ from typing import Literal
 
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from pydantic import AliasChoices, Field, SecretStr
+from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from app.core.base import AgentError
@@ -27,9 +27,6 @@ class PlaceSettings(BaseSettings):
     travelmate_agent_timeout: float = Field(default=60, gt=0, le=180)
     place_provider: Literal["osm", "google", "browser"] = "osm"
     overpass_url: str = "https://overpass-api.de/api/interpreter"
-    agent_engine: Literal["adk", "maf"] = Field(
-        default="adk", validation_alias=AliasChoices("agent_engine", "planner_engine")
-    )
 
 
 def create_app(settings=None, assistant=None):
@@ -68,35 +65,17 @@ def create_app(settings=None, assistant=None):
 
     @app.post("/api/v1/agent/places", response_model=PlaceAgentOutput, dependencies=[Depends(authorize)])
     async def discover(data: PlaceAgentInput):
-        client = None
         try:
-            active = assistant
-            if active is None and settings.agent_engine == "maf":
-                from app.core.llm.maf_clients import maf_gemini_client_factory
+            if assistant is not None:
+                return await assistant.run(data, Context(), timeout=settings.travelmate_agent_timeout)
+            from app.core.llm.maf_clients import maf_gemini_client_factory
 
-                async with maf_gemini_client_factory(
-                    settings.google_api_key.get_secret_value(), settings.gemini_model
-                ) as factory:
-                    return await PlaceAssistant(factory, provider, engine="maf").run(
-                        data, Context(), timeout=settings.travelmate_agent_timeout
-                    )
-            if active is None:
-                from google.adk.models import Gemini
-                from google.genai import Client
-
-                class RequestGemini(Gemini):
-                    """Inject a client without mutating process-wide API-key environment."""
-
-                    @property
-                    def api_client(self):
-                        return client
-
-                client = Client(api_key=settings.google_api_key.get_secret_value())
-                active = PlaceAssistant(
-                    lambda: RequestGemini(model=settings.gemini_model),
-                    provider,
+            async with maf_gemini_client_factory(
+                settings.google_api_key.get_secret_value(), settings.gemini_model
+            ) as factory:
+                return await PlaceAssistant(factory, provider).run(
+                    data, Context(), timeout=settings.travelmate_agent_timeout
                 )
-            return await active.run(data, Context(), timeout=settings.travelmate_agent_timeout)
         except TimeoutError:
             raise HTTPException(504, "Place agent timed out") from None
         except AgentError:
@@ -105,11 +84,5 @@ def create_app(settings=None, assistant=None):
             raise HTTPException(
                 502, "Place agent failed; check configuration and provider availability"
             ) from None
-        finally:
-            if client is not None:
-                try:
-                    await client.aio.aclose()
-                finally:
-                    client.close()
 
     return app

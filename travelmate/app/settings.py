@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Literal
 from uuid import UUID
 
-from pydantic import AliasChoices, Field, field_validator
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -32,11 +32,6 @@ class Settings(BaseSettings):
     google_api_key: str = ""
     google_maps_api_key: str = ""
     gemini_model: str = "gemini-3.5-flash-lite"
-    # Agent framework running the LLM agents: Google ADK or Microsoft Agent Framework.
-    # Khung chạy agent LLM. Tên cũ PLANNER_ENGINE vẫn được nhận.
-    agent_engine: Literal["adk", "maf"] = Field(
-        default="adk", validation_alias=AliasChoices("agent_engine", "planner_engine")
-    )
     # How a plan is put together:
     # classic: asyncio pipeline in app/agents/orchestrator.py; workflow: MAF Workflow graph (needs --extra maf);
     # planning: Planning pattern (LLM decomposes the request into subtasks, re-plans on misses).
@@ -52,7 +47,7 @@ class Settings(BaseSettings):
     # requests cannot choose whose memory is read. Unset = request interests only.
     travelmate_memory_user: UUID | None = None
     travelmate_memory_db: Path = Path("agent-memory.sqlite3")
-    # OpenTelemetry traces: off, console, or otlp (OTEL_EXPORTER_OTLP_ENDPOINT); needs --extra maf.
+    # OpenTelemetry traces: off, console, or otlp (OTEL_EXPORTER_OTLP_ENDPOINT); needs --extra maf --extra telemetry.
     travelmate_telemetry: Literal["off", "console", "otlp"] = "off"
 
     # --- Product database and accounts ---------------------------------------------------

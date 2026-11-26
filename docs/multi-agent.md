@@ -24,8 +24,8 @@ người dùng ─► Trợ lý điều phối (Concierge, LLM) ──hand_off�
 - **An toàn.** Lịch sử chat đến LLM qua kết quả tool, được nói rõ là dữ liệu chứ không phải chỉ
   thị. Chuyên gia lỗi thì trả câu báo lỗi, không lộ chi tiết. Không có LLM (chế độ demo) hoặc
   Concierge lỗi/hết giờ thì bộ định tuyến từ khoá (`rule_decision` + `extract_slots`) thay thế.
-- **Một định nghĩa, hai engine.** Concierge chạy trên `tool_loop`, nên dùng được cả ADK và MAF
-  (`AGENT_ENGINE`), kèm retry khi Gemini lỗi 5xx/429.
+- **Một khung chạy.** Concierge chạy trên `tool_loop` của Microsoft Agent Framework, như mọi agent LLM khác
+  kèm retry khi Gemini lỗi 5xx/429.
 
 ## Kết quả chạy thật (MAF, Gemini, OpenStreetMap)
 

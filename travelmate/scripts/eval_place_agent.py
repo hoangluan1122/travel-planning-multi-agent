@@ -1,13 +1,13 @@
-"""Opt-in live evaluation of the LLM Place Agent on both engines; not part of the unit suite.
+"""Opt-in live evaluation of the LLM Place Agent; not part of the unit suite.
 
-Needs GOOGLE_API_KEY in .env, network access, and the ai + maf extras:
+Needs GOOGLE_API_KEY in .env, network access, and the maf extra:
     uv run python scripts/eval_place_agent.py --runs 1
 
 Calls real Gemini and Photon/OpenStreetMap. Writes evaluation/place-agent-eval-<UTC>/.
 """
 
-# Đánh giá Place Agent LLM trên cả hai engine. Chạy tay khi cần, gọi nguồn thật; không nằm trong bộ test tự
-# động.
+# Đánh giá Place Agent LLM (Microsoft Agent Framework). Chạy tay khi cần, gọi nguồn thật; không nằm trong bộ
+# test tự động.
 
 import argparse
 import asyncio
@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from app.evaluation.place_agent_eval import evaluate, markdown  # noqa: E402
-from app.specialists.api import SpecialistSettings, gemini_factory, maf_gemini_factory  # noqa: E402
+from app.specialists.api import SpecialistSettings, maf_gemini_factory  # noqa: E402
 from app.tools.places.geo_places import GeoPlaceService  # noqa: E402
 
 
@@ -32,10 +32,8 @@ async def main(args):
     cases = json.loads(args.cases.read_text("utf-8"))
     if args.only:
         cases = [c for c in cases if c["id"] in args.only]
-    async with gemini_factory(settings) as adk, maf_gemini_factory(settings) as maf:
-        report = await evaluate(
-            cases, {"adk": adk, "maf": maf}, GeoPlaceService(), runs=args.runs, pause_s=args.pause
-        )
+    async with maf_gemini_factory(settings) as maf:
+        report = await evaluate(cases, {"maf": maf}, GeoPlaceService(), runs=args.runs, pause_s=args.pause)
     report |= {"model": settings.gemini_model, "created_at": datetime.now(UTC).isoformat()}
     out = ROOT / "evaluation" / f"place-agent-eval-{datetime.now(UTC):%Y%m%dT%H%M%SZ}"
     out.mkdir(parents=True)

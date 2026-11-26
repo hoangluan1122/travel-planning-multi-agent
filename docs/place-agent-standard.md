@@ -22,7 +22,7 @@ qua đúng ba tool:
 
 | Thành phần | Trước khi sửa | Sau khi sửa |
 |---|---|---|
-| **Model** | ✅ ADK và MAF; giới hạn số lần gọi model | ✅ |
+| **Model** | ✅ Gemini qua Microsoft Agent Framework; giới hạn số lần gọi model | ✅ |
 | **Tools** | ⚠️ Instruction nói 3 lần tìm / 3 lần xem, provider thật chỉ cho 2 / 2; `get_place_details` thiếu mô tả tham số | ✅ Một nguồn ngân sách duy nhất, instruction sinh từ ngân sách; mọi tool có mô tả tham số |
 | **Knowledge** | ✅ Evidence store: chỉ nhận ID đã thấy trong lượt chạy, dữ kiện lấy từ nguồn, `LivePlaceAgent` kiểm lại từng bản ghi | ✅ |
 | **Context** | ⚠️ Instruction bị đảo câu (giới hạn lần tìm nằm lạc chỗ); dữ liệu người dùng/nguồn đã được đánh dấu là DATA | ✅ Instruction viết lại thành các quy tắc có thứ tự |
@@ -30,14 +30,14 @@ qua đúng ba tool:
 | **Planning** | ⚠️ Có thể dùng hết lượt tìm với từ khoá hẹp rồi kết luận "không có kết quả" | ✅ Lượt tìm cuối tự mở rộng (bỏ từ khoá) khi chưa có bằng chứng nào, và báo cho LLM |
 | **Trust** | ✅ Dừng chờ người dùng chọn địa danh; mở rộng bán kính cần người bấm; lỗi nguồn không bị coi là "không có địa điểm"; không đặt chỗ/thanh toán | ✅ |
 | **Observability** | ⚠️ Trace không ghi từ khoá LLM đã dùng nên không debug được hành vi | ✅ Trace ghi từ khoá từng lượt tìm và việc tự mở rộng |
-| **Evaluation** | ⚠️ Có kiểm thử với model giả và một lần chạy thật, chưa có bộ đánh giá lặp lại được trên cả hai engine | ✅ `scripts/eval_place_agent.py`: bộ ca cố định, chạy cả ADK và MAF, đo tỷ lệ thành công, số bản ghi, số lượt tìm, lượt tự mở rộng, thời gian |
+| **Evaluation** | ⚠️ Có kiểm thử với model giả và một lần chạy thật, chưa có bộ đánh giá lặp lại được | ✅ `scripts/eval_place_agent.py`: bộ ca cố định, chạy trên MAF, đo tỷ lệ thành công, số bản ghi, số lượt tìm, lượt tự mở rộng, thời gian |
 
 ## Các quy tắc agent phải giữ (đã có test)
 
 1. Không bao giờ trả địa điểm hay dữ kiện không có trong bằng chứng của chính lượt chạy.
 2. Lỗi nguồn ≠ không có địa điểm: trạng thái `provider_error` / `source_error`, không phải `no_results`.
 3. Tên địa danh mơ hồ → dừng ở `needs_location`, không tự chọn thay người dùng.
-4. Mỗi ngân sách (lượt tìm, lượt xem, lượt nộp, lượt gọi model) là giới hạn cứng trên cả hai engine.
+4. Mỗi ngân sách (lượt tìm, lượt xem, lượt nộp, lượt gọi model) là giới hạn cứng.
 5. Không đặt chỗ, thanh toán, hay gọi agent khác.
 
 ## Chạy đánh giá
@@ -48,11 +48,14 @@ uv run python scripts/eval_place_agent.py --runs 1
 ```
 
 Bộ ca nằm ở `travelmate/examples/eval/place_cases.json` (Hội An chay, Sa Pa khách sạn,
-Đà Lạt tham quan, Huế di tích, Đà Nẵng hải sản). Mỗi ca chạy trên ADK rồi MAF; kết quả
+Đà Lạt tham quan, Huế di tích, Đà Nẵng hải sản). Mỗi ca chạy trên Microsoft Agent Framework; kết quả
 ghi vào `travelmate/evaluation/place-agent-eval-<UTC>/` gồm `REPORT.md` và `report.json`.
 Tốn token Gemini và gọi Photon/OSM thật.
 
 ## Kết quả đánh giá thật (gemini-3.5-flash-lite, 2026-11-05)
+
+Các lần chạy dưới đây so sánh hai engine vì khi đó dự án còn chạy được cả Google ADK. ADK đã được gỡ
+(11/2026), nay chỉ còn MAF; giữ lại số liệu để thấy MAF đạt cùng mức với ADK trước khi bỏ.
 
 | Lần chạy | Điều đã thay đổi | Kết quả chính |
 |---|---|---|

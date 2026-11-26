@@ -15,16 +15,17 @@ def test_keywords_are_read_from_the_trace():
 
 
 def test_summary_and_markdown():
+    # Labels name what is compared on MAF, e.g. two Gemini models.
     rows = [
-        {"case": "a", "engine": "adk", "status": "success", "places": 5, "grounded": True, "keywords": [""],
+        {"case": "a", "engine": "flash", "status": "success", "places": 5, "grounded": True, "keywords": [""],
          "search_calls": 1, "duration_ms": 1000, "needs_hits": 2},
-        {"case": "a", "engine": "maf", "status": "no_results", "places": 0, "grounded": True, "keywords": ["x", ""],
+        {"case": "a", "engine": "lite", "status": "no_results", "places": 0, "grounded": True, "keywords": ["x", ""],
          "search_calls": 2, "duration_ms": 3000},
     ]
     summary = summarize(rows)
-    assert summary["adk"]["success_rate"] == 1.0 and summary["adk"]["broad_first_rate"] == 1.0
-    assert summary["maf"]["success"] == 0 and summary["maf"]["statuses"] == {"no_results": 1}
-    assert summary["adk"]["needs_match_rate"] == 1.0 and summary["adk"]["needs_hit_share"] == 0.4
-    assert summary["maf"]["needs_match_rate"] is None  # no expectation for that row
+    assert summary["flash"]["success_rate"] == 1.0 and summary["flash"]["broad_first_rate"] == 1.0
+    assert summary["lite"]["success"] == 0 and summary["lite"]["statuses"] == {"no_results": 1}
+    assert summary["flash"]["needs_match_rate"] == 1.0 and summary["flash"]["needs_hit_share"] == 0.4
+    assert summary["lite"]["needs_match_rate"] is None  # no expectation for that row
     text = markdown({"summary": summary, "runs": rows}, "m")
-    assert "| adk | 1 | 1 | 100% |" in text and "“x”, (rộng)" in text
+    assert "| flash | 1 | 1 | 100% |" in text and "“x”, (rộng)" in text

@@ -236,7 +236,7 @@ async def test_weather_malformed_values_fail_closed(code, rain):
     ],
 )
 async def test_planner_validator_enforces_each_constraint(constraints):
-    from test_adk_tools import fixture_data
+    from scripted_llm import fixture_data
 
     from app.agents.orchestrator import validate_draft
     from app.core.models import Draft

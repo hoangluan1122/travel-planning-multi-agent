@@ -149,14 +149,14 @@ async def test_empty_or_blocked_never_means_no_places(status, expected):
 
 
 @pytest.mark.asyncio
-async def test_adk_place_assistant_uses_browser_tool():
-    pytest.importorskip("google.adk")
-    from test_adk_tools import ScriptedModel
+async def test_place_assistant_uses_browser_tool():
+    pytest.importorskip("agent_framework")
+    from scripted_llm import ScriptedClient
 
     from app.place_agent.agent import PlaceAgentInput, PlaceAssistant
 
     agent = PlaceAssistant(
-        lambda: ScriptedModel(calls=[{"name": "search_places", "args": {"keyword": ""}}]),
+        lambda: ScriptedClient([{"name": "search_places", "args": {"keyword": ""}}]),
         None,
         web_tool=tool_for([{"title": "Hotel", "snippet": "", "link": URL}]),
     )
