@@ -24,4 +24,6 @@ uv run uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8000
 Mở http://127.0.0.1:8000/. Cấu hình (khoá Gemini, PostgreSQL) đặt trong `travelmate/.env`,
 xem `travelmate/.env.example`. Không commit `.env`.
 
-Hướng dẫn đầy đủ và sơ đồ từng thư mục: [travelmate/README.md](travelmate/README.md).
+- Kiến trúc, các agent và luồng chạy: [docs/architecture.md](docs/architecture.md).
+- Knowledge: các nguồn kiến thức, cách tìm và kiểm tra: [docs/knowledge.md](docs/knowledge.md).
+- Hướng dẫn đầy đủ và sơ đồ từng thư mục: [travelmate/README.md](travelmate/README.md).
