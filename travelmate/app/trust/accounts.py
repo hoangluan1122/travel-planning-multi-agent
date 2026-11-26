@@ -470,17 +470,17 @@ def create_accounts_router(store, settings, mailer=None):
     async def favorites(user=Depends(current_user)):
         return await run(store.favorites, user["id"])
 
-    @router.put("/me/favorites/{place_id}")
+    @router.put("/me/favorites/{place_id:path}")
     async def add_favorite(place_id: str, user=Depends(current_user)):
         await run(store.set_favorite, user["id"], place_id, True)
         return {"ok": True}
 
-    @router.delete("/me/favorites/{place_id}")
+    @router.delete("/me/favorites/{place_id:path}")
     async def remove_favorite(place_id: str, user=Depends(current_user)):
         await run(store.set_favorite, user["id"], place_id, False)
         return {"ok": True}
 
-    @router.get("/places/{place_id}")
+    @router.get("/places/{place_id:path}")
     async def place_page(place_id: str, user=Depends(optional_user)):
         return await run(store.place, place_id, user)
 
@@ -490,11 +490,11 @@ def create_accounts_router(store, settings, mailer=None):
     async def my_reviews(user=Depends(current_user)):
         return await run(store.my_reviews, user["id"])
 
-    @router.put("/places/{place_id}/review")
+    @router.put("/places/{place_id:path}/review")
     async def write_review(place_id: str, data: ReviewIn, user=Depends(current_user)):
         return await run(store.upsert_review, user["id"], place_id, data.rating, data.text)
 
-    @router.delete("/places/{place_id}/review")
+    @router.delete("/places/{place_id:path}/review")
     async def delete_review(place_id: str, user=Depends(current_user)):
         await run(store.delete_review, user["id"], place_id)
         return {"ok": True}
@@ -532,7 +532,7 @@ def create_accounts_router(store, settings, mailer=None):
     async def admin_places(q: str = "", hidden: bool | None = None, admin=Depends(admin_user)):
         return await run(store.admin_places, q[:100], hidden)
 
-    @router.patch("/admin/places/{place_id}")
+    @router.patch("/admin/places/{place_id:path}")
     async def update_place(place_id: str, data: PlaceAdminUpdate, admin=Depends(admin_user)):
         return await run(store.admin_update_place, admin["id"], place_id, data.hidden, data.admin_note)
 

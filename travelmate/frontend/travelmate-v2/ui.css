@@ -466,3 +466,23 @@ body:has(.tm-chat) .tm-footer{display:none}
   .tm-about-grid,.tm-plans,.tm-contact-grid{grid-template-columns:1fr}
 }
 .tm-usage a{color:#1f4fd1}
+
+/* Place photos: a drawn stand-in per kind sits under every photo, the size of the image area, and shows when
+   there is none or it fails to load (integration.js photo()).
+   Ảnh địa điểm: hình vẽ sẵn theo nhóm nằm dưới ảnh, đúng bằng khung ảnh; hiện khi không có ảnh hoặc ảnh lỗi. */
+figure.tm-photo,figure.tm-photo-none{position:relative}
+figure.tm-photo>img{position:relative;z-index:1}
+.tm-photo-badge{z-index:2}
+.tm-ph{position:absolute;left:0;right:0;top:0;height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#0b5d63;background:linear-gradient(135deg,#e3f2ef,#f6ecdf)}
+.tm-ph svg{width:40px;height:40px;opacity:.75}
+.tm-ph b{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;opacity:.8}
+.tm-ph-food{color:#9a3d26;background:linear-gradient(135deg,#fdeee9,#f9e3c9)}
+.tm-ph-stay{color:#35507a;background:linear-gradient(135deg,#e7eef9,#efe9f7)}
+.api-thumb .tm-ph{height:140px}
+.api-thumb .tm-ph svg{width:30px;height:30px}
+.tm-place-photo .tm-ph{height:420px}
+.tm-photo-none .tm-ph,.tm-photo-failed .tm-ph{position:relative}
+.tm-photo-failed figcaption,.tm-photo-failed .tm-photo-badge{display:none}
+.tm-thumb-food{background:linear-gradient(135deg,#fdeee9,#f9e3c9)}
+.tm-thumb-stay{background:linear-gradient(135deg,#e7eef9,#efe9f7)}
+@media (max-width:720px){.tm-place-photo .tm-ph{height:260px}}

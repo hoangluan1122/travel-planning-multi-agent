@@ -1,0 +1,471 @@
+{
+ "about": "One credited Wikimedia Commons photo per place kind, shown only when a place has no photo of its own, always labelled as an illustration (app/tools/places/place_media.py). Built from metadata from the Commons API; URLs are 960px thumbnails; a place always gets the same one of its kind's photos.",
+ "kinds": {
+  "food": {
+   "label": "món ăn Việt Nam",
+   "photos": [
+    {
+     "file": "File:Bún bò Huế-Feb 2025.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/B%C3%BAn_b%C3%B2_Hu%E1%BA%BF-Feb_2025.jpg/960px-B%C3%BAn_b%C3%B2_Hu%E1%BA%BF-Feb_2025.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:B%C3%BAn_b%C3%B2_Hu%E1%BA%BF-Feb_2025.jpg",
+     "author": "TarnishedPath",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "File:BunboHue.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/5/58/BunboHue.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:BunboHue.jpg",
+     "author": "không rõ tác giả",
+     "license": "CC BY-SA 2.0"
+    }
+   ]
+  },
+  "cafe": {
+   "label": "cà phê Việt Nam",
+   "photos": [
+    {
+     "file": "File:Ca Phe Sua Da.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Ca_Phe_Sua_Da.jpg/960px-Ca_Phe_Sua_Da.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Ca_Phe_Sua_Da.jpg",
+     "author": "Clarin",
+     "license": "CC BY 2.5"
+    },
+    {
+     "file": "File:Vietnamese iced coffee - Jan 31, 2018.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Vietnamese_iced_coffee_-_Jan_31%2C_2018.jpg/960px-Vietnamese_iced_coffee_-_Jan_31%2C_2018.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Vietnamese_iced_coffee_-_Jan_31,_2018.jpg",
+     "author": "Vinnie Cartabiano",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  "hotel": {
+   "label": "phòng khách sạn",
+   "photos": [
+    {
+     "file": "File:A room of Kim Hotel - panoramio.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/A_room_of_Kim_Hotel_-_panoramio.jpg/960px-A_room_of_Kim_Hotel_-_panoramio.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:A_room_of_Kim_Hotel_-_panoramio.jpg",
+     "author": "jetsun",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "File:A room of Kim Hotel - panoramio - jetsun.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/A_room_of_Kim_Hotel_-_panoramio_-_jetsun.jpg/960px-A_room_of_Kim_Hotel_-_panoramio_-_jetsun.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:A_room_of_Kim_Hotel_-_panoramio_-_jetsun.jpg",
+     "author": "jetsun",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  "homestay": {
+   "label": "homestay",
+   "photos": [
+    {
+     "file": "File:Vietnam 08 - 091 - my homestay (3184886982).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Vietnam_08_-_091_-_my_homestay_%283184886982%29.jpg/960px-Vietnam_08_-_091_-_my_homestay_%283184886982%29.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Vietnam_08_-_091_-_my_homestay_(3184886982).jpg",
+     "author": "McKay Savage from London, UK",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "File:Vietnam 08 - 093 - garden of my homestay (3184891576).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Vietnam_08_-_093_-_garden_of_my_homestay_%283184891576%29.jpg/960px-Vietnam_08_-_093_-_garden_of_my_homestay_%283184891576%29.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Vietnam_08_-_093_-_garden_of_my_homestay_(3184891576).jpg",
+     "author": "McKay Savage from London, UK",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "File:Formal tea set and incense at my homestay in Vietnam (3185111762).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Formal_tea_set_and_incense_at_my_homestay_in_Vietnam_%283185111762%29.jpg/960px-Formal_tea_set_and_incense_at_my_homestay_in_Vietnam_%283185111762%29.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Formal_tea_set_and_incense_at_my_homestay_in_Vietnam_(3185111762).jpg",
+     "author": "McKay Savage from London, UK",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  "resort": {
+   "label": "khu nghỉ dưỡng",
+   "photos": [
+    {
+     "file": "File:DGJ 0721 - Pool at the Resort, Da Nang, Viet Nam (3382626443).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/DGJ_0721_-_Pool_at_the_Resort%2C_Da_Nang%2C_Viet_Nam_%283382626443%29.jpg/960px-DGJ_0721_-_Pool_at_the_Resort%2C_Da_Nang%2C_Viet_Nam_%283382626443%29.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:DGJ_0721_-_Pool_at_the_Resort,_Da_Nang,_Viet_Nam_(3382626443).jpg",
+     "author": "Dennis G. Jarvis",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "File:Furama Resort Da Nang pool.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Furama_Resort_Da_Nang_pool.jpg/960px-Furama_Resort_Da_Nang_pool.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Furama_Resort_Da_Nang_pool.jpg",
+     "author": "missbossy",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "File:Matterport Pro2 Capturing 360 Panoramas in Phu Quoc Vietnam.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Matterport_Pro2_Capturing_360_Panoramas_in_Phu_Quoc_Vietnam.jpg/960px-Matterport_Pro2_Capturing_360_Panoramas_in_Phu_Quoc_Vietnam.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Matterport_Pro2_Capturing_360_Panoramas_in_Phu_Quoc_Vietnam.jpg",
+     "author": "Niranjan Ramamurthy",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  "pagoda": {
+   "label": "chùa Việt Nam",
+   "photos": [
+    {
+     "file": "File:Dau pagoda.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Dau_pagoda.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Dau_pagoda.jpg",
+     "author": "Chitto",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "File:One Pillar Pagoda Hanoi.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/9/90/One_Pillar_Pagoda_Hanoi.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:One_Pillar_Pagoda_Hanoi.jpg",
+     "author": "Staffan Scherz",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  "temple": {
+   "label": "đền Việt Nam",
+   "photos": [
+    {
+     "file": "File:Temple commémoratif au roi Dinh Tien Hoang (Hoa Lu).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Temple_comm%C3%A9moratif_au_roi_Dinh_Tien_Hoang_%28Hoa_Lu%29.jpg/960px-Temple_comm%C3%A9moratif_au_roi_Dinh_Tien_Hoang_%28Hoa_Lu%29.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Temple_comm%C3%A9moratif_au_roi_Dinh_Tien_Hoang_(Hoa_Lu).jpg",
+     "author": "Jean-Pierre Dalbéra",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  "communal_house": {
+   "label": "đình làng",
+   "photos": [
+    {
+     "file": "File:Đình Tây Đằng 1.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/%C4%90%C3%ACnh_T%C3%A2y_%C4%90%E1%BA%B1ng_1.jpg/960px-%C4%90%C3%ACnh_T%C3%A2y_%C4%90%E1%BA%B1ng_1.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:%C4%90%C3%ACnh_T%C3%A2y_%C4%90%E1%BA%B1ng_1.jpg",
+     "author": "Duyphuong (thảo luận)",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  "church": {
+   "label": "nhà thờ",
+   "photos": [
+    {
+     "file": "File:Basílica de Nuestra Señora, Ciudad Ho Chi Minh, Vietnam, 2013-08-14, DD 05.JPG",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Bas%C3%ADlica_de_Nuestra_Se%C3%B1ora%2C_Ciudad_Ho_Chi_Minh%2C_Vietnam%2C_2013-08-14%2C_DD_05.JPG/960px-Bas%C3%ADlica_de_Nuestra_Se%C3%B1ora%2C_Ciudad_Ho_Chi_Minh%2C_Vietnam%2C_2013-08-14%2C_DD_05.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Bas%C3%ADlica_de_Nuestra_Se%C3%B1ora,_Ciudad_Ho_Chi_Minh,_Vietnam,_2013-08-14,_DD_05.JPG",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  "tomb": {
+   "label": "lăng tẩm",
+   "photos": [
+    {
+     "file": "File:Hue Vietnam Tomb-of-Emperor-Tu-Duc-05.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Hue_Vietnam_Tomb-of-Emperor-Tu-Duc-05.jpg/960px-Hue_Vietnam_Tomb-of-Emperor-Tu-Duc-05.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Hue_Vietnam_Tomb-of-Emperor-Tu-Duc-05.jpg",
+     "author": "CEphoto, Uwe Aranas",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "File:Hue Vietnam Tomb-of-Emperor-Tu-Duc-06.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Hue_Vietnam_Tomb-of-Emperor-Tu-Duc-06.jpg/960px-Hue_Vietnam_Tomb-of-Emperor-Tu-Duc-06.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Hue_Vietnam_Tomb-of-Emperor-Tu-Duc-06.jpg",
+     "author": "CEphoto, Uwe Aranas",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "File:Hue Vietnam Tomb-of-Emperor-Tu-Duc-07.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Hue_Vietnam_Tomb-of-Emperor-Tu-Duc-07.jpg/960px-Hue_Vietnam_Tomb-of-Emperor-Tu-Duc-07.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Hue_Vietnam_Tomb-of-Emperor-Tu-Duc-07.jpg",
+     "author": "CEphoto, Uwe Aranas",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  "museum": {
+   "label": "bảo tàng",
+   "photos": [
+    {
+     "file": "File:Trống Đồng building, Vietnam Museum of Ethnology.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Tr%E1%BB%91ng_%C4%90%E1%BB%93ng_building%2C_Vietnam_Museum_of_Ethnology.jpg/960px-Tr%E1%BB%91ng_%C4%90%E1%BB%93ng_building%2C_Vietnam_Museum_of_Ethnology.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Tr%E1%BB%91ng_%C4%90%E1%BB%93ng_building,_Vietnam_Museum_of_Ethnology.jpg",
+     "author": "Nam Hy Hoàng Phong",
+     "license": "CC BY 3.0"
+    },
+    {
+     "file": "File:Exterior view - Vietnam Museum of Ethnology - Hanoi, Vietnam - DSC03432.JPG",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Exterior_view_-_Vietnam_Museum_of_Ethnology_-_Hanoi%2C_Vietnam_-_DSC03432.JPG/960px-Exterior_view_-_Vietnam_Museum_of_Ethnology_-_Hanoi%2C_Vietnam_-_DSC03432.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Exterior_view_-_Vietnam_Museum_of_Ethnology_-_Hanoi,_Vietnam_-_DSC03432.JPG",
+     "author": "Daderot",
+     "license": "CC0"
+    }
+   ]
+  },
+  "market": {
+   "label": "chợ",
+   "photos": [
+    {
+     "file": "File:HCMC Binh Tay.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/HCMC_Binh_Tay.jpg/960px-HCMC_Binh_Tay.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:HCMC_Binh_Tay.jpg",
+     "author": "Lerdsuwa",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  "beach": {
+   "label": "bãi biển",
+   "photos": [
+    {
+     "file": "File:Phu quoc plage sao.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Phu_quoc_plage_sao.jpg/960px-Phu_quoc_plage_sao.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Phu_quoc_plage_sao.jpg",
+     "author": "ntt",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  "waterfall": {
+   "label": "thác nước",
+   "photos": [
+    {
+     "file": "File:Ban Gioc - Detian Falls2.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Ban_Gioc_-_Detian_Falls2.jpg/960px-Ban_Gioc_-_Detian_Falls2.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Ban_Gioc_-_Detian_Falls2.jpg",
+     "author": "jankgo",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "File:Ban Gioc - Detian Falls14.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Ban_Gioc_-_Detian_Falls14.jpg/960px-Ban_Gioc_-_Detian_Falls14.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Ban_Gioc_-_Detian_Falls14.jpg",
+     "author": "kenner116",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  "lake": {
+   "label": "hồ",
+   "photos": [
+    {
+     "file": "File:Ba Be Lake 5.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Ba_Be_Lake_5.jpg/960px-Ba_Be_Lake_5.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Ba_Be_Lake_5.jpg",
+     "author": "Pilip",
+     "license": "CC BY-SA 2.0"
+    },
+    {
+     "file": "File:Ba Be Lake 4.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Ba_Be_Lake_4.jpg/960px-Ba_Be_Lake_4.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Ba_Be_Lake_4.jpg",
+     "author": "Pilip",
+     "license": "CC BY-SA 2.0"
+    }
+   ]
+  },
+  "peak": {
+   "label": "núi",
+   "photos": [
+    {
+     "file": "File:Fansipan summit pyramid monument sunset sea of clouds Sa Pa Vietnam.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Fansipan_summit_pyramid_monument_sunset_sea_of_clouds_Sa_Pa_Vietnam.jpg/960px-Fansipan_summit_pyramid_monument_sunset_sea_of_clouds_Sa_Pa_Vietnam.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Fansipan_summit_pyramid_monument_sunset_sea_of_clouds_Sa_Pa_Vietnam.jpg",
+     "author": "Vivu Vietnam",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "file": "File:Fansipan summit pagoda stupa sea of clouds aerial view Sa Pa Vietnam.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Fansipan_summit_pagoda_stupa_sea_of_clouds_aerial_view_Sa_Pa_Vietnam.jpg/960px-Fansipan_summit_pagoda_stupa_sea_of_clouds_aerial_view_Sa_Pa_Vietnam.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Fansipan_summit_pagoda_stupa_sea_of_clouds_aerial_view_Sa_Pa_Vietnam.jpg",
+     "author": "Vivu Vietnam",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  "park": {
+   "label": "công viên",
+   "photos": [
+    {
+     "file": "File:Parque Tao Dan, Ciudad Ho Chi Minh, Vietnam, 2013-08-15, DD 05.JPG",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Parque_Tao_Dan%2C_Ciudad_Ho_Chi_Minh%2C_Vietnam%2C_2013-08-15%2C_DD_05.JPG/960px-Parque_Tao_Dan%2C_Ciudad_Ho_Chi_Minh%2C_Vietnam%2C_2013-08-15%2C_DD_05.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Parque_Tao_Dan,_Ciudad_Ho_Chi_Minh,_Vietnam,_2013-08-15,_DD_05.JPG",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "File:Parque Tao Dan, Ciudad Ho Chi Minh, Vietnam, 2013-08-15, DD 02.JPG",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Parque_Tao_Dan%2C_Ciudad_Ho_Chi_Minh%2C_Vietnam%2C_2013-08-15%2C_DD_02.JPG/960px-Parque_Tao_Dan%2C_Ciudad_Ho_Chi_Minh%2C_Vietnam%2C_2013-08-15%2C_DD_02.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Parque_Tao_Dan,_Ciudad_Ho_Chi_Minh,_Vietnam,_2013-08-15,_DD_02.JPG",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "File:Parque Tao Dan, Ciudad Ho Chi Minh, Vietnam, 2013-08-15, DD 09.JPG",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Parque_Tao_Dan%2C_Ciudad_Ho_Chi_Minh%2C_Vietnam%2C_2013-08-15%2C_DD_09.JPG/960px-Parque_Tao_Dan%2C_Ciudad_Ho_Chi_Minh%2C_Vietnam%2C_2013-08-15%2C_DD_09.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Parque_Tao_Dan,_Ciudad_Ho_Chi_Minh,_Vietnam,_2013-08-15,_DD_09.JPG",
+     "author": "Diego Delso",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  "bridge": {
+   "label": "cây cầu",
+   "photos": [
+    {
+     "file": "File:Long Bien Bridge 3796092037 9c2b2a236a.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Long_Bien_Bridge_3796092037_9c2b2a236a.jpg/960px-Long_Bien_Bridge_3796092037_9c2b2a236a.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Long_Bien_Bridge_3796092037_9c2b2a236a.jpg",
+     "author": "Tuabiht Rellahcs",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "File:Long-bien-bridge-3371615.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Long-bien-bridge-3371615.jpg/960px-Long-bien-bridge-3371615.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Long-bien-bridge-3371615.jpg",
+     "author": "Quangpraha",
+     "license": "CC0"
+    }
+   ]
+  },
+  "monument": {
+   "label": "tượng đài",
+   "photos": [
+    {
+     "file": "File:Hanoi Martyr's Monument Near Hoan Kiem Lake.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Hanoi_Martyr%27s_Monument_Near_Hoan_Kiem_Lake.jpg/960px-Hanoi_Martyr%27s_Monument_Near_Hoan_Kiem_Lake.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Hanoi_Martyr%27s_Monument_Near_Hoan_Kiem_Lake.jpg",
+     "author": "Gary Todd",
+     "license": "CC0"
+    }
+   ]
+  },
+  "zoo": {
+   "label": "vườn thú",
+   "photos": [
+    {
+     "file": "File:Hồ nước ở Thảo Cầm Viên.JPG",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/H%E1%BB%93_n%C6%B0%E1%BB%9Bc_%E1%BB%9F_Th%E1%BA%A3o_C%E1%BA%A7m_Vi%C3%AAn.JPG/960px-H%E1%BB%93_n%C6%B0%E1%BB%9Bc_%E1%BB%9F_Th%E1%BA%A3o_C%E1%BA%A7m_Vi%C3%AAn.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:H%E1%BB%93_n%C6%B0%E1%BB%9Bc_%E1%BB%9F_Th%E1%BA%A3o_C%E1%BA%A7m_Vi%C3%AAn.JPG",
+     "author": "Hoangvantoanajc",
+     "license": "CC BY-SA 3.0"
+    }
+   ]
+  },
+  "theme_park": {
+   "label": "khu vui chơi",
+   "photos": [
+    {
+     "file": "File:Dam-sen-water-park-tuonglamphotos.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Dam-sen-water-park-tuonglamphotos.jpg/960px-Dam-sen-water-park-tuonglamphotos.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Dam-sen-water-park-tuonglamphotos.jpg",
+     "author": "Trantuonglam",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  "viewpoint": {
+   "label": "cảnh núi đèo",
+   "photos": [
+    {
+     "file": "File:Ma Pi Leng Pass winding road Ha Giang Vietnam.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Ma_Pi_Leng_Pass_winding_road_Ha_Giang_Vietnam.jpg/960px-Ma_Pi_Leng_Pass_winding_road_Ha_Giang_Vietnam.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Ma_Pi_Leng_Pass_winding_road_Ha_Giang_Vietnam.jpg",
+     "author": "Khánh Hmoong",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "File:Mountain road at Mã Pí Lèng Pass, Hà Giang Province, Vietnam.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Mountain_road_at_M%C3%A3_P%C3%AD_L%C3%A8ng_Pass%2C_H%C3%A0_Giang_Province%2C_Vietnam.jpg/960px-Mountain_road_at_M%C3%A3_P%C3%AD_L%C3%A8ng_Pass%2C_H%C3%A0_Giang_Province%2C_Vietnam.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Mountain_road_at_M%C3%A3_P%C3%AD_L%C3%A8ng_Pass,_H%C3%A0_Giang_Province,_Vietnam.jpg",
+     "author": "Khánh Hmoong",
+     "license": "CC BY 2.0"
+    }
+   ]
+  },
+  "cave": {
+   "label": "hang động",
+   "photos": [
+    {
+     "file": "File:Dong Hoi Phong Nha grotten (68776).jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Dong_Hoi_Phong_Nha_grotten_%2868776%29.jpg/960px-Dong_Hoi_Phong_Nha_grotten_%2868776%29.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Dong_Hoi_Phong_Nha_grotten_(68776).jpg",
+     "author": "Andre Hospers",
+     "license": "CC BY 4.0"
+    },
+    {
+     "file": "File:Dong Hoi Phong Nha grotten.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Dong_Hoi_Phong_Nha_grotten.jpg/960px-Dong_Hoi_Phong_Nha_grotten.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Dong_Hoi_Phong_Nha_grotten.jpg",
+     "author": "Andre Hospers",
+     "license": "CC BY 4.0"
+    }
+   ]
+  },
+  "island": {
+   "label": "đảo",
+   "photos": [
+    {
+     "file": "File:A seaside shot in Cù Lao Chàm, Quảng Nam province, taken in July 2024.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/A_seaside_shot_in_C%C3%B9_Lao_Ch%C3%A0m%2C_Qu%E1%BA%A3ng_Nam_province%2C_taken_in_July_2024.jpg/960px-A_seaside_shot_in_C%C3%B9_Lao_Ch%C3%A0m%2C_Qu%E1%BA%A3ng_Nam_province%2C_taken_in_July_2024.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:A_seaside_shot_in_C%C3%B9_Lao_Ch%C3%A0m,_Qu%E1%BA%A3ng_Nam_province,_taken_in_July_2024.jpg",
+     "author": "Theguywithkpdomain",
+     "license": "CC0"
+    },
+    {
+     "file": "File:Cu Lao Cham.JPG",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Cu_Lao_Cham.JPG/960px-Cu_Lao_Cham.JPG",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Cu_Lao_Cham.JPG",
+     "author": "Original uploaded by Lê Thy (Transfered by Phó Nháy)",
+     "license": "Public domain"
+    }
+   ]
+  },
+  "old_quarter": {
+   "label": "phố cổ",
+   "photos": [
+    {
+     "file": "File:Hanoi shophouse 2.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Hanoi_shophouse_2.jpg/960px-Hanoi_shophouse_2.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Hanoi_shophouse_2.jpg",
+     "author": "Sgnpkd",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  "sight": {
+   "label": "du lịch Việt Nam",
+   "photos": [
+    {
+     "file": "File:Ha Long Bay, sunset.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Ha_Long_Bay%2C_sunset.jpg/960px-Ha_Long_Bay%2C_sunset.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Ha_Long_Bay,_sunset.jpg",
+     "author": "Andrew Crump from London, UK",
+     "license": "CC BY 2.0"
+    },
+    {
+     "file": "File:Halong Bay in Vietnam.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Halong_Bay_in_Vietnam.jpg/960px-Halong_Bay_in_Vietnam.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Halong_Bay_in_Vietnam.jpg",
+     "author": "Thomas Hirsch / User:Ravn",
+     "license": "CC BY-SA 3.0"
+    },
+    {
+     "file": "File:Thu Bồn River at night - Hội An 2022.jpg",
+     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Thu_B%E1%BB%93n_River_at_night_-_H%E1%BB%99i_An_2022.jpg/960px-Thu_B%E1%BB%93n_River_at_night_-_H%E1%BB%99i_An_2022.jpg",
+     "source_url": "https://commons.wikimedia.org/wiki/File:Thu_B%E1%BB%93n_River_at_night_-_H%E1%BB%99i_An_2022.jpg",
+     "author": "Nguyen QuocTrung",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  }
+ }
+}

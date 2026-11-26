@@ -7,6 +7,11 @@ from app.core.models import Place
 from app.tools.places.place_media import GooglePhotoProxy, WikipediaImages, dish_for, titles_match
 
 
+def stand_in(photo):
+    """A labelled illustration of the place's kind: what enrich gives when no photo matches."""
+    return photo is not None and photo.illustration and "không phải ảnh của nơi này" in photo.attribution
+
+
 def place(ident, name, types=("tomb",)):
     return Place(id=ident, name=name, address="a", latitude=16, longitude=107, source="osm", types=list(types))
 
@@ -47,7 +52,8 @@ async def test_enrich_adds_matching_wikimedia_photos_only():
     out = await WikipediaImages(transport=transport).enrich(places)
     photos = {p.id: p.photo for p in out}
     assert photos["t"].url == "https://thumb.wikimedia.org/a.jpg" and "Wikipedia" in photos["t"].attribution
-    assert photos["c"] is None and photos["x"] is None and photos["r"] is None
+    # No matching photo: a labelled illustration of the kind, never the mismatched article's image.
+    assert all(stand_in(photos[k]) for k in "cxr") and "b.jpg" not in photos["c"].url and "evil" not in photos["x"].url
     assert "Quán Bún" not in calls  # restaurants are not looked up on Wikipedia
 
 
@@ -55,7 +61,8 @@ async def test_enrich_adds_matching_wikimedia_photos_only():
 async def test_enrich_never_fails_the_search():
     transport = httpx.MockTransport(lambda request: httpx.Response(503))
     places = [place("t", "Lăng Tự Đức")]
-    assert await WikipediaImages(transport=transport).enrich(places) == places
+    out = await WikipediaImages(transport=transport).enrich(places)
+    assert [p.name for p in out] == ["Lăng Tự Đức"] and stand_in(out[0].photo)
 
 
 @pytest.mark.asyncio
@@ -117,7 +124,8 @@ async def test_wikidata_image_needs_matching_label_and_nearby_coordinates():
     assert out[0].photo.url == "https://upload.wikimedia.org/thumb/x.jpg"
     assert "Nguyễn A" in out[0].photo.attribution and "CC BY-SA 4.0" in out[0].photo.attribution
     far, _ = router(wikidata_routes(17.0))  # ~110 km away: a different place with the same name
-    assert (await WikipediaImages(transport=far).enrich([place("w", "Chùa Thiên Mụ", ["restaurant"])]))[0].photo is None
+    far_photo = (await WikipediaImages(transport=far).enrich([place("w", "Chùa Thiên Mụ", ["restaurant"])]))[0].photo
+    assert stand_in(far_photo) and far_photo.url != "https://upload.wikimedia.org/thumb/x.jpg"
 
 
 @pytest.mark.asyncio
@@ -132,7 +140,8 @@ async def test_commons_nearby_needs_a_distinctive_shared_word():
     out = await WikipediaImages(transport=match).enrich([place("c", "Thong Dalat Space", ["cafe"])])
     assert out[0].photo is not None
     generic, _ = router(geo(["File:Cafe in Hue city.jpg"]))  # only generic words shared
-    assert (await WikipediaImages(transport=generic).enrich([place("c", "Hue Cafe", ["cafe"])]))[0].photo is None
+    generic_photo = (await WikipediaImages(transport=generic).enrich([place("c", "Hue Cafe", ["cafe"])]))[0].photo
+    assert stand_in(generic_photo) and "cà phê" in generic_photo.attribution
 
 
 @pytest.mark.parametrize("name,types,title", [

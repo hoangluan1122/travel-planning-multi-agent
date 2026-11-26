@@ -121,6 +121,23 @@ Lịch vẫn được tạo. Bộ xếp lịch theo luật (`app/agents/rule_sch
 khớp mong muốn, rồi đến các điểm nổi tiếng (mỗi khu một điểm), có bữa trưa trong 10:30–14:30, các bữa cách
 nhau ít nhất 3 tiếng, ngày mưa tối đa một điểm ngoài trời, không lặp địa điểm. Lịch có cảnh báo ghi rõ là xếp bằng luật, và phần tự kiểm tra ghi `scheduled_by: rules`.
 
+## Ảnh địa điểm: nơi nào cũng có hình, không nơi nào bị gán ảnh sai
+
+Mọi kết quả tìm địa điểm (Khám phá, lịch trình, Trợ lý AI) đều có ảnh, theo ba tầng:
+
+1. **Ảnh thật của chính nơi đó**, miễn phí: bài Wikipedia trùng tên, Wikidata cùng tên cách dưới 1,5 km, hoặc ảnh
+   Wikimedia Commons chụp trong vòng 150 m có tên trùng.
+2. **Ảnh minh hoạ theo loại**: quán ăn (món trong tên quán), cà phê, khách sạn, homestay, resort, chùa, đền, đình,
+   nhà thờ, lăng, bảo tàng, chợ, biển, thác, hồ, núi, công viên, cầu, tượng đài, vườn thú, khu vui chơi, đèo, hang,
+   đảo, phố cổ. 48 ảnh Việt Nam chọn sẵn trên Wikimedia Commons (`app/data/place_illustrations.json`), luôn có
+   nhãn **"Ảnh minh hoạ"** và dòng "không phải ảnh của nơi này", kèm tác giả và giấy phép. Loại được đoán từ tên
+   trước ("Chùa…", "Bảo tàng…"), rồi mới từ loại OpenStreetMap; mỗi loại có vài ảnh và mỗi nơi luôn nhận đúng
+   một ảnh, để danh sách không lặp một hình.
+3. **Hình vẽ sẵn** (quán ăn, nơi ở, địa điểm) khi chưa có ảnh nào hoặc ảnh không tải được, không cần mạng.
+
+Mã địa điểm thật có dấu `/` (`osm:way/…`, `photon:node/…`); các trang chi tiết, yêu thích, đánh giá và quản trị
+địa điểm nhận được các mã này.
+
 ## Tìm theo từ khoá
 
 Tìm có phân biệt dấu tiếng Việt: “lăng” không còn ra “Làng…”, “chay” không ra “cháy”, “phở” không ra
