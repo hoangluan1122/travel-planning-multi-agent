@@ -37,7 +37,7 @@ from pydantic import Field, ValidationError, model_validator
 
 from app.agents.budget import BudgetAgent
 from app.agents.guide import Citation, KnowledgeAgent, KnowledgeBase
-from app.core.base import AgentError
+from app.core.base import AgentError, UserError
 from app.core.llm.tool_loop import ToolLoop, run_tool_loop
 from app.core.models import (
     BudgetInput,
@@ -298,7 +298,9 @@ CONCIERGE_INSTRUCTION = (
     "of the current plan, whether the budget is enough, how to save, and 'what if' questions such as a hotel "
     "price per night, more people, another spending level or another budget); weather_advisor (weather questions); guide_advisor (facts about a place or city: "
     "history, what is special, entrance fees, opening hours, getting around, travel tips; set question to "
-    "the user's question rewritten to stand alone, naming the place).\n"
+    "the user's question rewritten to stand alone, naming the place). A request for places of a kind "
+    "(\"bảo tàng ở TP.HCM\", \"chùa đẹp ở Hà Nội\", \"quán phở\") goes to place_finder; guide_advisor is "
+    "for facts about one named place or a city.\n"
     "4. Put every trip detail the user has given into slots: destination, start_date and end_date as "
     "YYYY-MM-DD (resolve words like 'cuối tuần này' or '3 ngày từ thứ Bảy' using today's date), travelers, "
     "budget_vnd as a number (5 triệu = 5000000; never a price per night or per person), interests, notes, "
@@ -382,7 +384,8 @@ ROUTES = [
     ("budget_advisor", r"chi phí|bao nhiêu tiền|giá|ngân sách|tốn|tổng|đủ không|có đủ|thì sao|"
                        r"/\s*đêm|mỗi đêm|một đêm|tiết kiệm|cao cấp"),
     ("trip_planner", r"lịch trình|lên lịch|kế hoạch|lịch đi|\bngày\b.*\bđi\b|đi .*\bngày\b"),
-    ("place_finder", r"quán|ăn|uống|cà phê|cafe|khách sạn|nhà nghỉ|homestay|ở đâu|chơi|tham quan|đi đâu"),
+    ("place_finder", r"quán|ăn|uống|cà phê|cafe|khách sạn|nhà nghỉ|homestay|ở đâu|chơi|tham quan|đi đâu|"
+                     r"chùa|đền|lăng|bảo tàng|chợ|bãi biển|công viên"),
 ]
 FOOD = re.compile(r"quán|ăn|uống|cà phê|cafe|chay|hải sản", re.I)
 STAY = re.compile(r"khách sạn|nhà nghỉ|homestay|chỗ ở|nơi ở", re.I)
@@ -429,6 +432,11 @@ DAYS = re.compile(r"(\d{1,2})\s*ngày", re.I)
 
 
 # Đọc ngày trong câu: dạng 2026-12-01 hoặc 1/12; thiếu năm thì lấy năm nay, ngày đã qua thì sang năm sau.
+RELATIVE_DAYS = [(re.compile(r"(?<!\w)(?:hôm nay|today)(?!\w)", re.I), 0),
+                 (re.compile(r"(?<!\w)(?:ngày mai|tomorrow)(?!\w)", re.I), 1),  # not "mai": Mai Châu
+                 (re.compile(r"(?<!\w)(?:ngày kia|ngày mốt)(?!\w)", re.I), 2)]
+
+
 def found_dates(text):
     today = date.today()
     dates = []
@@ -445,7 +453,32 @@ def found_dates(text):
         if not y and value < today:
             value = value.replace(year=today.year + 1)
         dates.append(value)
-    return dates
+    # "hôm nay", "ngày mai", "ngày kia" only when no date is written: "hôm nay mình muốn đi từ 1/12" means 1/12.
+    return dates or [today + timedelta(days=offset) for pattern, offset in RELATIVE_DAYS if pattern.search(text)]
+
+
+def keyword_in(lowered):
+    """The dish or kind of place a question names ("bún bò", "chay", "lăng", "chợ"), longest first; else ""."""
+    from app.tools.places.open_data_provider import KEYWORD_TYPES
+    from app.tools.places.place_media import DISHES
+
+    words = {w for keywords, *_ in DISHES for w in keywords} | set(KEYWORD_TYPES)
+    for word in sorted(words, key=len, reverse=True):
+        if re.search(rf"(?<!\w){re.escape(word)}(?!\w)", lowered):
+            return word
+    return ""
+
+
+def known_destination(text):
+    """A well-known destination or province named anywhere in the text ("thời tiết Huế"), longest name first."""
+    from app.tools.places.destination_names import known_names
+    from app.tools.places.place_media import plain
+
+    flat = f" {plain(text)} "
+    for name in sorted(known_names().values(), key=len, reverse=True):
+        if f" {plain(name)} " in flat:
+            return name
+    return None
 
 
 # Trích thông tin chuyến đi bằng luật từ khoá; không chắc thì để trống.
@@ -454,6 +487,8 @@ def extract_slots(text):
     data = {}
     if match := PLACE_AFTER.search(text):
         data["destination"] = match.group(1).strip()
+    elif name := known_destination(text):  # no "ở/tại/đi" before it: "thời tiết Huế ngày mai"
+        data["destination"] = name
     dates = found_dates(text)
     if dates:
         data["start_date"] = dates[0]
@@ -501,7 +536,7 @@ def single_rule_decision(session, text, slots):
             query = None
             if agent == "place_finder":
                 category = "restaurant" if FOOD.search(lowered) else "hotel" if STAY.search(lowered) else "attraction"
-                keyword = "chay" if "chay" in lowered else "hải sản" if "hải sản" in lowered else ""
+                keyword = keyword_in(lowered)
                 query = PlaceQuery(category=category, keyword=keyword)
             return Decision(action="hand_off", hand_off=HandOff(
                 agent=agent, reason="Chuyển theo từ khoá trong câu hỏi.", place_query=query, slots=slots,
@@ -540,6 +575,20 @@ def what_if(text, trip):
 
 def money_range(low, high):
     return money(low) if low == high else f"{money(low)} – {money(high)}"
+
+
+def budget_note(b, trip):
+    """One sentence for the plan reply: the estimate against the budget, so a trip that does not fit says so."""
+    if b.total_low_vnd is None or b.total_high_vnd is None or b.verdict == "unknown":
+        return ""
+    estimate = money_range(b.total_low_vnd, b.total_high_vnd)
+    budget = money(trip.budget_vnd)
+    if b.verdict == "over":
+        return (f" Lưu ý: chi phí ước tính {estimate}, vượt ngân sách {budget}. "
+                "Hỏi mình “làm sao tiết kiệm” để xem cách giảm chi phí.")
+    if b.verdict == "tight":
+        return f" Chi phí ước tính {estimate}: ngân sách {budget} chỉ vừa nếu chi ở mức thấp."
+    return f" Chi phí ước tính {estimate}, đủ ngân sách {budget}."
 
 
 # Câu trả lời chi phí bằng tiếng Việt; mọi con số lấy từ BudgetResult.
@@ -620,12 +669,19 @@ class ChatService:
         if decision.action == "reply":
             replies.append(ChatMessage(role="assistant", agent="concierge", text=decision.text))
         for hand in decision.hand_offs():
-            session.slots = session.slots.merged(hand.slots)
+            slots = hand.slots
+            if hand.agent == "guide_advisor" and slots.destination:
+                # A question about a sight ("Lăng Tự Đức") must not become the trip's destination.
+                slots = slots.model_copy(update={"destination": None})
+            session.slots = session.slots.merged(slots)
             handler = getattr(self, hand.agent)
             try:
                 reply = await handler(session, hand, context)
             except asyncio.CancelledError:
                 raise
+            except UserError as exc:
+                # Written for the traveller ("Không tìm thấy địa danh “Bangkok” ở Việt Nam…"): say it as is.
+                reply = ChatMessage(role="assistant", agent=hand.agent, text=str(exc))
             except Exception as exc:
                 logger.warning("chat specialist=%s outcome=failed error_type=%s", hand.agent, type(exc).__name__)
                 reply = ChatMessage(role="assistant", agent=hand.agent, failed=True, text=(
@@ -651,14 +707,22 @@ class ChatService:
         label = CATEGORY_LABELS[query.category]
         request = PlaceSearchRequest(destination=destination, category=query.category,
                                      keyword=query.keyword.strip(), limit=6, radius_m=5000)
-        result = await self.provider.search_places(request)
         widened = False
-        synonym = SYNONYMS.get(request.keyword.casefold())
-        if not result.places and synonym:
-            result = await self.provider.search_places(request.model_copy(update={"keyword": synonym}))
-        if not result.places and request.keyword:
-            result = await self.provider.search_places(request.model_copy(update={"keyword": ""}))
-            widened = True
+        try:
+            result = await self.provider.search_places(request)
+            synonym = SYNONYMS.get(request.keyword.casefold())
+            if not result.places and synonym:
+                result = await self.provider.search_places(request.model_copy(update={"keyword": synonym}))
+            if not result.places and request.keyword:
+                result = await self.provider.search_places(request.model_copy(update={"keyword": ""}))
+                widened = True
+        except UserError:
+            raise
+        except (AgentError, TimeoutError):
+            # The free map server limits or drops requests now and then; say so instead of a generic error.
+            return ChatMessage(role="assistant", agent="place_finder", failed=True, text=(
+                f"Máy chủ bản đồ đang bận nên mình chưa tìm được {label} ở {destination}. "
+                "Bạn thử lại sau khoảng một phút nhé."))
         places = result.places
         images = getattr(self.provider, "images", None)
         if places and images:
@@ -709,6 +773,7 @@ class ChatService:
                      else " Lịch đã tự kiểm tra nhưng còn điểm chưa đạt, xem chi tiết trong kế hoạch.")
         return ChatMessage(role="assistant", agent="trip_planner", plan=plan, trip=trip, text=(
             f"Mình đã lập lịch {len(plan.draft.days)} ngày ở {trip.destination} — {days}.{check}"
+            f"{budget_note(plan.budget, trip)}"
         ))
 
     # Chuyên gia chi phí: tính cho lịch gần nhất, và tính thử khi người dùng hỏi 'nếu...' (không sửa lịch đã
@@ -750,8 +815,14 @@ class ChatService:
         slots = session.slots
         if not slots.destination:
             return ChatMessage(role="assistant", agent="weather_advisor", text="Bạn muốn xem thời tiết ở đâu?")
-        start = slots.start_date or date.today()
-        end = slots.end_date or start + timedelta(days=2)
+        # Days named in the question ("ngày mai", "1/12") win over the trip's dates.
+        asked = found_dates(hand.question or next((m.text for m in reversed(session.messages) if m.role == "user"), ""))
+        asked = [day for day in asked if day >= date.today()]
+        if asked:
+            start, end = min(asked), max(asked)
+        else:
+            start = slots.start_date or date.today()
+            end = slots.end_date or start + timedelta(days=2)
         trip = TripRequest(destination=slots.destination, start_date=start, end_date=end, travelers=1, budget_vnd=1)
         forecast = await self.provider.forecast(trip)
         typical = getattr(forecast, "typical", [])
