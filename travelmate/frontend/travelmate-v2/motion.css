@@ -1,0 +1,129 @@
+/* Motion: one set of timings for the whole site, loaded after every other stylesheet.
+   - A new page fades and rises in under a header that stays put.
+   - Blocks rise into view once, as they are scrolled to (motion.js marks them with data-reveal).
+   - Buttons, cards, the heart, the toast, the menu and the progress screen react to the visitor.
+   Nothing is hidden unless motion.js runs, and prefers-reduced-motion turns all of it off. */
+
+/* Chuyển động của cả trang: chuyển trang mờ dần, khối nội dung trượt lên khi cuộn tới, nút và thẻ phản hồi khi
+   rê chuột hoặc bấm. Người dùng chọn "giảm chuyển động" trong hệ điều hành thì tắt hết. */
+
+:root{
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --ease-in-out:cubic-bezier(.65,0,.35,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+  --d-fast:140ms; --d:220ms; --d-slow:420ms;
+  --lift-shadow:0 22px 44px -22px rgba(11,63,71,.38),0 4px 10px rgba(23,32,51,.06);
+}
+
+/* ---------- page changes ----------
+   Each screen is a page load: the new page fades and rises in while the header stays put. (Cross-document
+   View Transitions were tried: they throw "Transition was aborted" when a page redirects, e.g. loading -> plan.) */
+main.visible,#home.visible{animation:tm-page-in 420ms var(--ease-out) backwards}
+@keyframes tm-page-in{from{opacity:0;transform:translateY(10px)}}
+
+/* ---------- blocks rise into view ---------- */
+[data-reveal]:not(.tm-in){opacity:0}
+[data-reveal].tm-in{animation:tm-rise var(--d-slow) var(--ease-out) var(--stagger,0ms) backwards}
+@keyframes tm-rise{from{opacity:0;transform:translateY(12px)}}
+.hero-photo[data-reveal].tm-in{animation-name:tm-fade;animation-duration:600ms}
+
+/* ---------- header ---------- */
+header{transition:box-shadow var(--d) var(--ease-out),background-color var(--d) var(--ease-out)}
+header.tm-scrolled{box-shadow:0 10px 30px -18px rgba(11,63,71,.35)}
+header nav a{transition:background-color var(--d-fast) var(--ease-out),color var(--d-fast) var(--ease-out)}
+.menu-open nav{animation:tm-drop var(--d) var(--ease-out)}
+@keyframes tm-drop{from{opacity:0;transform:translateY(-8px)}}
+
+/* ---------- buttons ---------- */
+.button,button{transition:background-color var(--d-fast) var(--ease-out),border-color var(--d-fast) var(--ease-out),color var(--d-fast) var(--ease-out),box-shadow var(--d) var(--ease-out),transform var(--d-fast) var(--ease-out)}
+.button:not(:disabled):hover{transform:translateY(-1px)}
+.button:not(:disabled):active,button:not(:disabled):active{transform:scale(.97);transition-duration:60ms}
+.button.dark:not(:disabled):hover{box-shadow:0 10px 22px -12px rgba(11,63,71,.6)}
+.button .tm-i,.quiet span,.tm-feature b{transition:transform var(--d) var(--ease-out)}
+.button:hover .tm-i:last-child,.quiet:hover span,.tm-feature:hover b{transform:translateX(3px)}
+button[aria-busy=true],.button[aria-busy=true]{cursor:progress;opacity:.8}
+
+/* ---------- cards that open something ---------- */
+a.tm-feature,a.tm-dest,.tm-trip-card,a.api-card,.tm-plan-card{transition:transform var(--d) var(--ease-out),box-shadow var(--d) var(--ease-out),border-color var(--d) var(--ease-out)}
+a.tm-feature:hover,.tm-trip-card:hover,a.api-card:hover,.tm-plan-card:hover{transform:translateY(-4px);box-shadow:var(--lift-shadow)}
+a.tm-dest:hover{transform:translateY(-2px);box-shadow:var(--lift-shadow)}
+.tm-dest>img{transition:transform 600ms var(--ease-out)}
+a.tm-dest:hover>img{transform:scale(1.03)}
+.tm-dest::after{transition:transform var(--d) var(--ease-out),background-color var(--d)}
+a.tm-dest:hover::after{transform:translate(2px,-2px);background-color:rgba(255,255,255,.3)}
+.tm-feature-ico{transition:transform var(--d) var(--ease-spring)}
+a.tm-feature:hover .tm-feature-ico{transform:scale(1.05)}
+.api-photo img,.tm-thumb img{transition:transform 700ms var(--ease-out)}
+.api-card:hover .api-photo img,.tm-trip-card:hover .tm-thumb img{transform:scale(1.04)}
+
+/* ---------- form fields ---------- */
+input,select,textarea{transition:border-color var(--d-fast) var(--ease-out),box-shadow var(--d) var(--ease-out),background-color var(--d-fast)}
+.tm-quick-chips a,.tm-pill,.tm-filter button,.tm-tabs a,.tm-tabs button{transition:background-color var(--d-fast) var(--ease-out),color var(--d-fast),border-color var(--d-fast),transform var(--d-fast) var(--ease-out)}
+.tm-quick-chips a:hover{transform:translateY(-2px)}
+
+/* ---------- heart (favourite) ---------- */
+.tm-fav{transition:transform var(--d) var(--ease-spring),background-color var(--d-fast),color var(--d-fast)}
+.tm-fav:hover{transform:scale(1.06)}
+.tm-fav.tm-pop{animation:tm-pop 420ms var(--ease-spring)}
+@keyframes tm-pop{0%{transform:scale(1)}40%{transform:scale(1.15)}100%{transform:scale(1)}}
+
+/* ---------- toast ---------- */
+#toast{transition:opacity var(--d) var(--ease-out),transform 420ms var(--ease-spring)}
+#toast:not(.show){transform:translate(-50%,16px) scale(.96)}
+
+/* ---------- loading: plan in progress, lists still loading ---------- */
+.tm-steps li{transition:color var(--d) var(--ease-out),opacity var(--d) var(--ease-out)}
+.tm-steps li.done::before{animation:tm-check-pop 360ms var(--ease-spring)}
+@keyframes tm-check-pop{0%{transform:scale(.4)}100%{transform:scale(1)}}
+.tm-steps li.active{animation:tm-step-in var(--d) var(--ease-out)}
+@keyframes tm-step-in{from{opacity:.4;transform:translateX(-4px)}}
+.tm-spinner{animation-timing-function:cubic-bezier(.55,.15,.45,.85)}
+.tm-loading-line{background:linear-gradient(90deg,var(--muted) 0%,var(--muted) 40%,var(--teal-100) 50%,var(--muted) 60%,var(--muted) 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:tm-shimmer 1.6s linear infinite}
+@keyframes tm-shimmer{from{background-position:100% 0}to{background-position:-150% 0}}
+
+/* ---------- cost bar grows from zero ---------- */
+.tm-bar span{transform-origin:left center;animation:tm-grow 900ms var(--ease-out) backwards}
+.tm-bar span:nth-child(2){animation-delay:80ms}.tm-bar span:nth-child(3){animation-delay:160ms}
+.tm-bar span:nth-child(4){animation-delay:240ms}.tm-bar span:nth-child(5){animation-delay:320ms}
+@keyframes tm-grow{from{transform:scaleX(0)}}
+.tm-bar b{animation:tm-fade 400ms var(--ease-out) 600ms backwards}
+.tm-usage-bar span,.tm-usage-bar i{transform-origin:left center;animation:tm-grow 900ms var(--ease-out) backwards}
+@keyframes tm-fade{from{opacity:0}}
+
+/* ---------- chat ---------- */
+.chat-msg.tm-new{animation:tm-msg-in 420ms var(--ease-out) backwards}
+.chat-msg.user.tm-new{animation-name:tm-msg-in-right}
+@keyframes tm-msg-in{from{opacity:0;transform:translate(-10px,8px)}}
+@keyframes tm-msg-in-right{from{opacity:0;transform:translate(10px,8px)}}
+
+/* ---------- home: itinerary preview (home.js) ---------- */
+.tm-pv-panel{transition:opacity 180ms var(--ease-in-out),transform 180ms var(--ease-in-out)}
+.tm-pv-panel.out{opacity:0;transform:translateY(4px)}
+.tm-pv-stops li{animation:tm-rise 320ms var(--ease-out) calc(var(--i,0) * 40ms) backwards}
+.tm-pv-stops li,.tm-pv-stops li[data-place]:hover{transition:background-color var(--d-fast)}
+.tm-pv-pin-body{transition:transform 320ms var(--ease-out)}
+.tm-pv-pin circle{transition:fill var(--d) var(--ease-out)}
+.tm-pv-route.draw{animation:tm-route 700ms var(--ease-out) both}
+@keyframes tm-route{from{stroke-dashoffset:60;opacity:0}to{stroke-dashoffset:0;opacity:1}}
+.tm-preview-tabs button{transition:background-color var(--d) var(--ease-out),color var(--d),box-shadow var(--d)}
+.tm-pv-bar span{transform-origin:left center;animation:tm-grow 900ms var(--ease-out) backwards}
+.tm-pv-bar span:nth-child(2){animation-delay:80ms}.tm-pv-bar span:nth-child(3){animation-delay:160ms}.tm-pv-bar span:nth-child(4){animation-delay:240ms}
+
+/* ---------- small things ---------- */
+details>summary{transition:color var(--d-fast)}
+details[open]>:not(summary){animation:tm-fade-down var(--d) var(--ease-out)}
+@keyframes tm-fade-down{from{opacity:0;transform:translateY(-4px)}}
+.api-error,.tm-verdict{animation:tm-fade-down var(--d) var(--ease-out)}
+
+/* ---------- sound switch (sound.js) in the footer ---------- */
+#tm-sound-toggle{display:inline-flex;align-items:center;gap:6px;margin-top:16px;padding:7px 14px;border-radius:999px;border:1px solid currentColor;background:transparent;color:inherit;font:inherit;font-size:13px;opacity:.85;cursor:pointer}
+#tm-sound-toggle:hover{opacity:1}
+#tm-sound-toggle[aria-pressed=false]{opacity:.6}
+
+/* ---------- print and reduced motion ---------- */
+@media print{[data-reveal]{opacity:1!important;animation:none!important}}
+@media (prefers-reduced-motion: reduce){
+  [data-reveal]:not(.tm-in){opacity:1}
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .tm-loading-line{color:var(--muted);background:none}
+}

@@ -152,6 +152,42 @@ Tìm có phân biệt dấu tiếng Việt: “lăng” không còn ra “Làng�
   - Chat câu hỏi ghép, được hai chuyên gia trả lời; lịch sử chat được lưu.
   - Admin duyệt đánh giá; điểm 5/5 hiện trên trang địa điểm.
 
+## Chuyển động và âm thanh
+
+- **Chuyển trang:** trang mới hiện ra bằng hiệu ứng mờ dần và trượt lên, thanh trên cùng đứng yên. Không dùng
+  View Transitions giữa các trang, vì nó báo lỗi khi trang tự chuyển hướng (ví dụ từ màn hình chờ sang lịch trình).
+- **Các khối nội dung** (thẻ, bảng, mục lịch trình) trượt lên khi cuộn tới, lần lượt từng cái một
+  (`frontend/travelmate-v2/motion.js`).
+- **Phản hồi khi tương tác:**
+  - nút lún nhẹ khi bấm;
+  - thẻ nổi lên khi rê chuột;
+  - trái tim yêu thích "nảy";
+  - thông báo nhỏ bật lên;
+  - menu trên điện thoại trượt xuống.
+- **Màn hình chờ và chi phí:** trong lúc lập lịch, bước đang chạy và bước xong có hiệu ứng riêng; chữ "Đang tải"
+  có ánh sáng chạy qua; thanh chi phí mọc dần từ 0.
+- **Giảm chuyển động:** khi người dùng chọn "giảm chuyển động" trong hệ điều hành, mọi hiệu ứng tắt và nội dung
+  hiện ngay. Nội dung không bao giờ phụ thuộc vào hiệu ứng: nếu `motion.js` không chạy, mọi thứ vẫn hiện bình thường.
+- **Âm thanh khi bấm** (`sound.js`): tạo bằng Web Audio ngay trên trình duyệt, không tải file.
+  - **Mặc định tắt.** Người dùng tự bật bằng nút **Âm thanh** ở chân trang; trình duyệt ghi nhớ lựa chọn.
+  - Khi bật: tiếng "tách" nhẹ cho nút và thẻ, "pop" khi thả tim, chuông ngắn khi có thông báo.
+- **Trang chủ** (`home.css`, `home.js`), theo thứ tự:
+  1. Hero gọn hơn, ảnh vịnh Hạ Long.
+  2. **Xem trước một lịch trình**: Huế 3 ngày, 2 người, dữ liệu minh họa.
+     - Tab Ngày 1/2/3 (dùng được bằng phím mũi tên); danh sách điểm dừng mờ dần khi đổi ngày.
+     - Sơ đồ đánh số điểm và vẽ lại đường đi.
+     - Vé theo ngày đếm lên số mới.
+     - Chi phí cả chuyến lấy từ bảng giá có nguồn (vé Huế; mức vừa phải, 2 đêm).
+  3. Tám điểm đến bằng ảnh thật từ Wikimedia Commons, có ghi tác giả và giấy phép.
+  4. Ba bước sử dụng.
+  5. Đoạn hội thoại mẫu với Trợ lý AI (giá vé có nguồn, tính thử chi phí).
+  6. Lời mời cuối trang đổi theo trạng thái đăng nhập: khách thấy "Tạo tài khoản", thành viên thấy "Tiếp tục lên
+     kế hoạch" và "Xem chuyến đi của bạn".
+- **Kiểm thử:** `tests/test_ui_e2e.py` kiểm tra:
+  - không khối nào bị kẹt ẩn sau khi cuộn hết trang;
+  - chế độ giảm chuyển động tắt hiệu ứng;
+  - lựa chọn tắt âm thanh được nhớ.
+
 ## Giới hạn còn lại
 
 - Chưa đăng nhập bằng Google/Facebook, chưa xác minh email khi đăng ký.
