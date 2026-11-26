@@ -1,5 +1,5 @@
 # Render Blueprint: one free web service running travelmate/Dockerfile.
-# How to use it: docs/deploy.md. The database is a free Neon PostgreSQL (Render's free
+# How to use it: docs/trien-khai/render.md. The database is a free Neon PostgreSQL (Render's free
 # PostgreSQL is deleted after 30 days), so its URL is entered by hand.
 services:
   - type: web

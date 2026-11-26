@@ -7,7 +7,7 @@
 #
 # Lần đầu: tạo /opt/travelmate/.env rồi dừng để bạn điền khoá (nano). Chạy lại lệnh trên để khởi động.
 # Chạy lại bao nhiêu lần cũng được: chỉ cập nhật file cấu hình, không ghi đè .env.
-# Hướng dẫn đầy đủ: docs/deploy-aws.md.
+# Hướng dẫn đầy đủ: docs/trien-khai/aws.md.
 set -euo pipefail
 
 RAW="${TRAVELMATE_RAW:-https://raw.githubusercontent.com/hoangluan1122/travel-planning-multi-agent/main/deploy/aws}"

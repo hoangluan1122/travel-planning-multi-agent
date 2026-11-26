@@ -44,11 +44,11 @@ chọn địa danh khớp nhất và báo rõ trong cảnh báo; chưa có giờ
 
 Màn hình **Trợ lý AI** (`?view=chat`) gọi `POST /api/v1/chat`: một trợ lý điều phối đọc câu hỏi
 rồi chuyển cho chuyên gia địa điểm, lịch trình, chi phí hoặc thời tiết, nhớ thông tin chuyến đi
-qua các lượt. Chi tiết và kết quả chạy thật: [`docs/multi-agent.md`](../docs/multi-agent.md).
+qua các lượt. Chi tiết và kết quả chạy thật: [`docs/kien-truc/multi-agent.md`](../docs/kien-truc/multi-agent.md).
 
 Câu hỏi về một địa danh (lịch sử, giá vé, giờ mở cửa, đi lại) đi tới **Hướng dẫn viên**
 (Agentic RAG): agent tự tìm trong Wikipedia, Wikivoyage và bảng giá vé, trả lời kèm nguồn, và
-không được ghi con số nào không có trong nguồn. Xem [`docs/agentic-rag.md`](../docs/agentic-rag.md).
+không được ghi con số nào không có trong nguồn. Xem [`docs/kien-truc/agentic-rag.md`](../docs/kien-truc/agentic-rag.md).
 
 ## Đưa lên Internet
 
@@ -57,8 +57,8 @@ Bảng giá, Liên hệ (tin nhắn vào **Quản trị → Liên hệ**), Đi�
 `robots.txt`, `sitemap.xml`, thẻ chia sẻ (Open Graph) và header bảo mật. Mỗi tài khoản có hạn mức AI
 mỗi ngày (`TRAVELMATE_DAILY_PLANS`, `TRAVELMATE_DAILY_CHATS`) để khoá Gemini miễn phí không bị một người
 dùng hết. Triển khai miễn phí bằng Render + Neon với `render.yaml` và `travelmate/Dockerfile`; GitHub Actions chạy test cho mỗi PR, Render chỉ deploy khi CI qua, và cứ 3 giờ một lần kiểm tra trang đang chạy (hỏng thì gửi email):
-[`docs/deploy.md`](../docs/deploy.md). Trang chính chạy trên một máy AWS EC2 t3.micro (Docker + Caddy,
-tự kéo image mới sau mỗi lần CI đạt), Render giữ làm dự phòng: [`docs/deploy-aws.md`](../docs/deploy-aws.md).
+[`docs/trien-khai/render.md`](../docs/trien-khai/render.md). Trang chính chạy trên một máy AWS EC2 t3.micro (Docker + Caddy,
+tự kéo image mới sau mỗi lần CI đạt), Render giữ làm dự phòng: [`docs/trien-khai/aws.md`](../docs/trien-khai/aws.md).
 
 ## Tài khoản và nghiệp vụ
 
@@ -66,7 +66,7 @@ tự kéo image mới sau mỗi lần CI đạt), Render giữ làm dự phòng:
 đánh giá có kiểm duyệt và khu vực quản trị. Dữ liệu nằm trong PostgreSQL (`TRAVELMATE_DATABASE_URL`,
 cần extra `postgres`) hoặc SQLite (`TRAVELMATE_DB`) khi không đặt URL; đặt
 `TRAVELMATE_ADMIN_EMAIL` để tài khoản đăng ký bằng email đó là quản trị viên. Chi tiết:
-[`docs/product-features.md`](../docs/product-features.md).
+[`docs/san-pham/product-features.md`](../docs/san-pham/product-features.md).
 
 ## MCP và A2A
 
@@ -75,7 +75,7 @@ cần extra `postgres`) hoặc SQLite (`TRAVELMATE_DB`) khi không đặt URL; �
 - **A2A 1.0:** API ở cổng 8000 có Agent Card tại `/.well-known/agent-card.json` và endpoint
   JSON-RPC `/a2a` (`SendMessage`, `GetTask`), để agent khác giao việc cho TravelMate.
 
-Chi tiết, cấu hình Claude Desktop và kết quả chạy thử: [`docs/mcp-a2a.md`](../docs/mcp-a2a.md).
+Chi tiết, cấu hình Claude Desktop và kết quả chạy thử: [`docs/kien-truc/mcp-a2a.md`](../docs/kien-truc/mcp-a2a.md).
 
 ## Place Agent — dữ liệu thật
 

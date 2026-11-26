@@ -12,7 +12,7 @@ miễn phí, không cần thẻ:
 
 Không dùng PostgreSQL miễn phí của Render: nó bị xoá sau 30 ngày.
 
-Trang chính hiện chạy trên AWS EC2 (dùng tín dụng AWS), trang Render này là dự phòng: xem [deploy-aws.md](deploy-aws.md).
+Trang chính hiện chạy trên AWS EC2 (dùng tín dụng AWS), trang Render này là dự phòng: xem [deploy-aws.md](aws.md).
 
 ## 1. Tạo cơ sở dữ liệu trên Neon
 
@@ -144,7 +144,7 @@ Mở <http://127.0.0.1:8000>. Image không chứa `.env`, file SQLite hay thư m
 
 ## Trước khi mở cho mọi người
 
-- Đọc lại [Điều khoản sử dụng](../travelmate/frontend/travelmate-v2/site.js) và Chính sách bảo mật (cùng file),
+- Đọc lại [Điều khoản sử dụng](../../travelmate/frontend/travelmate-v2/site.js) và Chính sách bảo mật (cùng file),
   sửa cho đúng đơn vị vận hành của bạn. Hai trang này được viết theo đúng những gì mã nguồn đang làm, nhưng
   không thay cho tư vấn pháp lý.
 - Phần Guardrails (lọc nội dung, chống prompt injection) chưa làm; Trợ lý AI có thể trả lời sai hoặc lạc đề.

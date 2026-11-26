@@ -4,7 +4,7 @@ param(
 )
 
 $previousLivePlaceMode = $env:LIVE_PLACE_MODE
-Push-Location -LiteralPath $PSScriptRoot
+Push-Location -LiteralPath (Split-Path -Parent $PSScriptRoot)  # run from travelmate/, one level above scripts/
 try {
     $env:LIVE_PLACE_MODE = $Mode
     Write-Host "Place Agent: http://127.0.0.1:$Port/ (engine: $Mode)"

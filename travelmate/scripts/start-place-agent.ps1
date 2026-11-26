@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
-Push-Location -LiteralPath $PSScriptRoot
+Push-Location -LiteralPath (Split-Path -Parent $PSScriptRoot)  # run from travelmate/, one level above scripts/
 try {
     & uv sync --extra dev --extra maf
     if ($LASTEXITCODE -ne 0) { throw "Cannot install project dependencies." }
