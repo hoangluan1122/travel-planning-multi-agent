@@ -1,6 +1,8 @@
 """Place photos without exposing API keys.
 
-WikipediaImages adds free Wikipedia/Wikimedia thumbnails to well-known sights.
+WikipediaImages adds free Wikipedia/Wikimedia thumbnails to well-known sights. A place with no
+photo of its own gets a labelled illustration of its kind (app/data/place_illustrations.json), so
+every search result has an image and none is passed off as the place itself.
 GooglePhotoProxy serves Google Places photos through the backend: the browser only ever
 sees a same-origin path, and only photo names this process handed out can be fetched, so
 the endpoint cannot be used to spend the key on arbitrary requests.
@@ -8,15 +10,20 @@ the endpoint cannot be used to spend the key on arbitrary requests.
 
 # Ảnh cho địa điểm, miễn phí và không lộ khoá API:
 # - WikipediaImages: ảnh từ Wikipedia/Wikidata/Commons, chỉ nhận khi chắc đúng là địa điểm đó; quán ăn không
-# có ảnh thì dùng ảnh minh hoạ món ăn (có ghi rõ).
+# có ảnh thì dùng ảnh minh hoạ món ăn (có ghi rõ). Nơi nào vẫn không có ảnh thì dùng ảnh minh hoạ theo loại
+# (khách sạn, chùa, bãi biển...) từ app/data/place_illustrations.json, luôn ghi "Ảnh minh hoạ".
 # - GooglePhotoProxy: ảnh Google Places qua máy chủ, để trình duyệt không thấy khoá Google.
 
 import asyncio
+import json
 import math
 import re
 import time
 import unicodedata
+import zlib
 from collections import OrderedDict
+from functools import cache
+from pathlib import Path
 from urllib.parse import urlsplit
 
 import httpx
@@ -142,6 +149,83 @@ def dish_for(place):
     if "cafe" in types or has_word(flat, "cafe") or has_word(flat, "coffee") or has_word(name, "cà phê"):
         return "Quán cà phê", "quán cà phê"
     return "Ẩm thực Việt Nam", "ẩm thực Việt Nam"
+
+
+ILLUSTRATIONS_FILE = Path(__file__).resolve().parents[2] / "data" / "place_illustrations.json"
+# Name words first (they say most about a place), then OpenStreetMap types; the first rule that matches
+# wins, so compound names go to the most specific kind ("Bảo tàng Cổ vật Cung đình" is a museum).
+# A word starting with "^" only counts at the start of the name. (kind, name words, types)
+# Từ trong tên được xét trước, sau đó mới đến loại của OpenStreetMap; luật nào khớp trước thì dùng luật đó.
+KIND_RULES = [
+    ("homestay", ("homestay", "home stay", "nhà nghỉ", "guesthouse", "guest house"), {"guest_house"}),
+    ("resort", ("resort", "khu nghỉ dưỡng"), {"resort"}),
+    ("hotel", ("hotel", "khách sạn", "hostel", "motel", "villa", "apartment"), {"hotel", "hostel", "motel", "apartment",
+                                                                                  "lodging", "camp_site"}),
+    ("theme_park", ("vinwonders", "công viên nước", "khu vui chơi", "water park", "sun world"), {"theme_park", "water_park"}),
+    ("zoo", ("thảo cầm viên", "vườn thú", "zoo", "safari"), {"zoo"}),
+    ("museum", ("bảo tàng", "museum", "nhà trưng bày", "gallery"), {"museum", "gallery"}),
+    ("pagoda", ("chùa", "pagoda", "thiền viện", "tịnh xá"), set()),
+    ("church", ("nhà thờ", "church", "cathedral", "basilica"), set()),
+    ("communal_house", ("^đình", "đình làng"), set()),
+    ("temple", ("đền", "miếu", "temple", "shrine", "điện", "hội quán"), {"temple", "shrine"}),
+    ("tomb", ("lăng", "tomb", "mausoleum", "mộ"), {"tomb", "grave_yard"}),
+    ("market", ("chợ", "market"), {"marketplace"}),
+    ("beach", ("bãi biển", "bãi tắm", "beach", "bãi"), {"beach"}),
+    ("waterfall", ("thác", "waterfall", "falls"), {"waterfall"}),
+    ("cave", ("hang", "động", "cave", "grotto"), {"cave_entrance"}),
+    ("island", ("đảo", "cù lao", "island", "hòn"), {"island", "islet"}),
+    ("viewpoint", ("đèo", "viewpoint", "điểm ngắm", "pass"), {"viewpoint"}),
+    ("peak", ("núi", "đỉnh", "peak", "mount", "fansipan"), {"peak", "volcano"}),
+    ("lake", ("hồ", "lake", "đầm", "lagoon"), {"lake", "water", "reservoir"}),
+    ("bridge", ("cầu", "bridge"), {"bridge"}),
+    ("monument", ("tượng đài", "đài tưởng niệm", "tượng", "monument", "memorial", "đài liệt sĩ"), {"monument", "memorial"}),
+    ("park", ("công viên", "vườn", "park", "garden"), {"park", "garden", "nature_reserve"}),
+    ("old_quarter", ("phố cổ", "phố đi bộ", "old quarter", "old town", "khu phố"), set()),
+    ("pagoda", (), {"place_of_worship", "buddhist"}),
+]
+
+
+@cache
+def illustration_table():
+    """{kind: entry} from app/data/place_illustrations.json; read once."""
+    return json.loads(ILLUSTRATIONS_FILE.read_text(encoding="utf-8"))["kinds"]
+
+
+# Loại của một địa điểm để chọn ảnh minh hoạ: quán ăn, cà phê, nơi ở, rồi theo tên và loại OpenStreetMap.
+def kind_for(place):
+    """The illustration kind of a place: food, cafe, a stay or a sight kind; "sight" when nothing matches."""
+    types = set(place.types or [])
+    name, flat = folded(place.name), plain(place.name)
+    if types & FOOD_TYPES:
+        cafe = "cafe" in types or has_word(flat, "cafe") or has_word(flat, "coffee") or has_word(name, "cà phê")
+        return "cafe" if cafe else "food"
+    stay = bool(types & STAY_TYPES)
+    for kind, words, kinds in KIND_RULES:
+        if stay and kind not in {"homestay", "resort", "hotel"}:
+            continue
+        # "Hồ Chí Minh" is a name, not a lake.
+        text = name.replace("hồ chí minh", "")
+        if any(text.startswith(folded(w[1:]) + " ") if w.startswith("^") else has_word(text, folded(w))
+               for w in words) or types & kinds:
+            return kind
+    return "hotel" if stay else "sight"
+
+
+# Ảnh minh hoạ theo loại, ghi rõ không phải ảnh của nơi này, kèm tác giả và giấy phép.
+def kind_illustration(place):
+    """A labelled Wikimedia Commons illustration of the place's kind; never presented as the place.
+
+    Kinds have several photos so a list of hotels is not one picture twelve times; the place id picks
+    one, so a place always shows the same illustration.
+    """
+    table = illustration_table()
+    entry = table.get(kind_for(place)) or table["sight"]
+    photo = entry["photos"][zlib.crc32(place.id.encode("utf-8")) % len(entry["photos"])]
+    return PlacePhoto(
+        url=photo["url"], source_url=photo["source_url"], illustration=True,
+        attribution=f"Ảnh minh hoạ {entry['label']}, không phải ảnh của nơi này — "
+                    f"{photo['author']}, {photo['license']}, Wikimedia Commons",
+    )
 
 
 # Tên không dấu (thường là tên tiếng Anh) thì tìm thêm trên Wikipedia tiếng Anh.
@@ -305,10 +389,14 @@ class WikipediaImages:
 
     # Thêm ảnh cho nhiều địa điểm cùng lúc, trong giới hạn thời gian; hết giờ thì giữ những ảnh đã có.
     async def enrich(self, places):
-        """Return places with a free photo added where one clearly matches, within a time budget."""
+        """Return places with a free photo added where one clearly matches, within a time budget.
+
+        Every place still without a photo after that (no match, past the limit, timed out) gets a
+        labelled illustration of its kind, so no search result is left without an image.
+        """
         wanted = [p for p in places if p.photo is None][: self.limit]
         if not wanted:
-            return places
+            return illustrate(places)
         found = {}
         async with httpx.AsyncClient(
             timeout=self.timeout, transport=self.transport, headers={"User-Agent": USER_AGENT}
@@ -320,7 +408,13 @@ class WikipediaImages:
             for task in done:
                 if not task.cancelled() and task.exception() is None and task.result():
                     found[tasks[task].id] = task.result()
-        return [p.model_copy(update={"photo": found[p.id]}) if p.id in found else p for p in places]
+        return illustrate([p.model_copy(update={"photo": found[p.id]}) if p.id in found else p for p in places])
+
+
+# Nơi nào chưa có ảnh thì gắn ảnh minh hoạ theo loại.
+def illustrate(places):
+    """Places without a photo get a labelled illustration of their kind; others are unchanged."""
+    return [p if p.photo is not None else p.model_copy(update={"photo": kind_illustration(p)}) for p in places]
 
 
 # Chỉ phục vụ tên ảnh mà chính máy chủ đã trả ra, để khoá Google không bị dùng cho yêu cầu tuỳ ý.

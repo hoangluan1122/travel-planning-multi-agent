@@ -26,6 +26,9 @@ class Provider(DemoProvider):
                   types=["tomb"], ticket=ticket),
             Place(id="osm:2", name="Chùa Thiên Mụ", address="Huế", latitude=16.45, longitude=107.54, source="osm",
                   types=["temple"]),
+            # Real ids carry a slash (OpenStreetMap way/node, Photon): the pages must still find them.
+            Place(id="osm:way/632173201", name="Chợ Đông Ba", address="Huế", latitude=16.47, longitude=107.59,
+                  source="osm", types=["marketplace"]),
         ])
 
 
@@ -250,6 +253,23 @@ def test_favourites_and_place_page(env):
     assert client.get("/api/v1/places/osm:404").status_code == 404
 
 
+def test_place_ids_with_a_slash_work_on_every_place_route(env):
+    """OpenStreetMap ids look like osm:way/123; the page sends them URL-encoded (encodeURIComponent)."""
+    client, _ = env
+    headers, _ = signup(client)
+    remember(client, headers)
+    encoded = "osm%3Away%2F632173201"
+    page = client.get(f"/api/v1/places/{encoded}", headers=headers)
+    assert page.status_code == 200 and page.json()["place"]["name"] == "Chợ Đông Ba"
+    assert client.put(f"/api/v1/me/favorites/{encoded}", headers=headers).status_code == 200
+    assert [p["id"] for p in client.get("/api/v1/me/favorites", headers=headers).json()] == ["osm:way/632173201"]
+    review = client.put(f"/api/v1/places/{encoded}/review", json={"rating": 4, "text": "Chợ đông, nhiều đặc sản."},
+                        headers=headers)
+    assert review.status_code == 200 and review.json()["status"] == "pending"
+    assert client.delete(f"/api/v1/places/{encoded}/review", headers=headers).status_code == 200
+    assert client.delete(f"/api/v1/me/favorites/{encoded}", headers=headers).status_code == 200
+
+
 def test_review_lifecycle_with_moderation_and_reports(env):
     client, _ = env
     admin, _ = signup(client, "admin@example.com", "Quản trị")
@@ -316,7 +336,7 @@ def test_hidden_places_disappear_for_users(env):
     r = client.patch("/api/v1/admin/places/osm:2", json={"hidden": True, "admin_note": "Đang trùng tu"}, headers=admin)
     assert r.json()["hidden"] is True and r.json()["admin_note"] == "Đang trùng tu"
     found = client.post("/api/v1/places/search", json={"destination": "Huế"}, headers=member).json()["places"]
-    assert [p["id"] for p in found] == ["osm:1"]
+    assert "osm:2" not in [p["id"] for p in found] and "osm:1" in [p["id"] for p in found]
     assert client.get("/api/v1/places/osm:2", headers=member).status_code == 404
     assert client.get("/api/v1/places/osm:2", headers=admin).status_code == 200
     assert client.get("/api/v1/me/favorites", headers=member).json() == []

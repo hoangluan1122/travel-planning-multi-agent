@@ -34,8 +34,26 @@
   const levels = {free:'Miễn phí',inexpensive:'₫ · bình dân',moderate:'₫₫ · vừa phải',expensive:'₫₫₫ · cao',very_expensive:'₫₫₫₫ · rất cao'};
   // Chỉ cho phép ảnh https hoặc ảnh qua máy chủ (/api/v1/places/photo).
   const safeUrl = u => /^(https:\/\/|\/api\/v1\/places\/photo\?)/.test(u||'') ? u : '';
-  // An illustration is a photo of what a place serves (a dish), not of the place: it says so on the image.
-  const photo = (p, cls='api-photo') => p?.photo && safeUrl(p.photo.url) ? `<figure class="${cls}${p.photo.illustration?' tm-illustration':''}"><img src="${esc(safeUrl(p.photo.url))}" alt="${esc(p.photo.illustration?p.photo.attribution:p.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()">${p.photo.illustration?'<span class="tm-photo-badge">Ảnh minh hoạ</span>':''}<figcaption>${p.photo.source_url&&/^https:\/\//.test(p.photo.source_url)?`<a href="${esc(p.photo.source_url)}" target="_blank" rel="noopener noreferrer">${esc(p.photo.attribution)}</a>`:esc(p.photo.attribution)}</figcaption></figure>` : '';
+  // An illustration is a photo of what a place serves or of its kind, not of the place: it says so on the image.
+  // Không có ảnh, hoặc ảnh tải lỗi, thì hiện hình vẽ sẵn theo nhóm (quán ăn, nơi ở, điểm tham quan) và ghi "Chưa có ảnh".
+  const FOOD_TYPES = new Set(['restaurant','cafe','fast_food','food_court','bar','pub','ice_cream','bakery']);
+  const STAY_TYPES = new Set(['hotel','hostel','guest_house','motel','apartment','resort','camp_site','lodging']);
+  const placeGroup = p => { const t = p?.types || []; return t.some(x => FOOD_TYPES.has(x)) ? 'food' : t.some(x => STAY_TYPES.has(x)) ? 'stay' : 'sight'; };
+  const GROUP_ICON = {
+    food: '<path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>',
+    stay: '<path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M6 10V7a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3"/>',
+    sight: '<path d="m2 20 7-12 4 6 3-4 6 10z"/><circle cx="17" cy="5" r="2"/>',
+  };
+  const GROUP_LABEL = {food: 'Quán ăn', stay: 'Nơi ở', sight: 'Địa điểm'};
+  const placeholder = p => { const g = placeGroup(p); return `<span class="tm-ph tm-ph-${g}" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${GROUP_ICON[g]}</svg><b>${esc(kind(p) || GROUP_LABEL[g])}</b></span>`; };
+  const photo = (p, cls='api-photo') => {
+    if (!p) return '';
+    const url = p.photo && safeUrl(p.photo.url);
+    // The trip cover keeps its own background when no place has a photo.
+    if (cls === 'tm-plan-cover') return url ? `<figure class="${cls}${p.photo.illustration?' tm-illustration':''}"><img src="${esc(url)}" alt="${esc(p.photo.illustration?p.photo.attribution:p.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('figure').remove()"><figcaption>${esc(p.photo.attribution)}</figcaption></figure>` : '';
+    if (!url) return `<figure class="${cls} tm-photo-none">${placeholder(p)}<figcaption>Chưa có ảnh của nơi này</figcaption></figure>`;
+    return `<figure class="${cls} tm-photo${p.photo.illustration?' tm-illustration':''}">${placeholder(p)}<img src="${esc(url)}" alt="${esc(p.photo.illustration?p.photo.attribution:p.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('figure').classList.add('tm-photo-failed');this.remove()">${p.photo.illustration?'<span class="tm-photo-badge">Ảnh minh hoạ</span>':''}<figcaption>${p.photo.source_url&&/^https:\/\//.test(p.photo.source_url)?`<a href="${esc(p.photo.source_url)}" target="_blank" rel="noopener noreferrer">${esc(p.photo.attribution)}</a>`:esc(p.photo.attribution)}</figcaption></figure>`;
+  };
   const vnd = v => Number(v).toLocaleString('vi-VN') + ' ₫';
   // Giá của một địa điểm: giá vé có nguồn, khoảng giá, hoặc mức giá.
   const price = p => {
@@ -302,7 +320,7 @@
     const real=p=>p?.photo&&!p.photo.illustration;
     const firstPhoto=d=>{const ps=d.activities.map(a=>places.get(a.place_id));return ps.find(real)||ps.find(p=>p?.photo)};
     const cover=(route==='day'&&day&&firstPhoto(day))||result.draft.days.map(d=>d.activities.map(a=>places.get(a.place_id)).find(real)).find(Boolean)||result.places.find(real)||result.draft.days.map(firstPhoto).find(Boolean);
-    const thumb=p=>p?.photo&&safeUrl(p.photo.url)?`<img class="tm-thumb" src="${esc(safeUrl(p.photo.url))}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:'<span class="tm-thumb tm-thumb-empty" aria-hidden="true"></span>';
+    const thumb=p=>p?.photo&&safeUrl(p.photo.url)?`<img class="tm-thumb" src="${esc(safeUrl(p.photo.url))}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'tm-thumb tm-thumb-empty tm-thumb-${placeGroup(p)}'}))">`:`<span class="tm-thumb tm-thumb-empty tm-thumb-${placeGroup(p)}" aria-hidden="true"></span>`;
     const heading=`<section class="tm-plan-hero">${photo(cover,'tm-plan-cover')}<div class="tm-plan-hero-text"><span class="tm-pill">${result.mode==='demo'?'DEMO · DỮ LIỆU GIẢ LẬP':'BẢN PHÁC THẢO · CHƯA XÁC MINH'}</span><h1>${esc(request.destination)}</h1><div class="tm-chips"><span><svg class="tm-i" aria-hidden="true"><use href="#i-calendar"></use></svg> ${esc(fmt(request.start_date))} → ${esc(fmt(request.end_date))}</span><span><svg class="tm-i" aria-hidden="true"><use href="#i-users"></use></svg> ${request.travelers} người</span><span><svg class="tm-i" aria-hidden="true"><use href="#i-wallet"></use></svg> Ngân sách ${money(request.budget_vnd)}</span>${request.travel_style?`<span>Mức ${esc((styles[request.travel_style]||'').toLowerCase())}</span>`:''}<span><svg class="tm-i" aria-hidden="true"><use href="#i-calendar"></use></svg> ${result.draft.days.length} ngày · ${result.draft.days.reduce((n,d)=>n+d.activities.length,0)} điểm</span></div></div></section>`;
     const requestId=`<p class="api-meta tm-request-id">Mã yêu cầu: ${esc(result.request_id)}</p>`;
     if(route==='plan'){
