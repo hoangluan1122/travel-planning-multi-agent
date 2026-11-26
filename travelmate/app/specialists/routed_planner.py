@@ -10,7 +10,7 @@ from typing import Annotated, Literal
 from pydantic import Field, model_validator
 
 from app.core.base import AgentError, BaseAgent
-from app.core.llm.adk_adapter import AdkPlanner
+from app.core.llm.maf_adapter import MafPlanner
 from app.core.models import Draft, Model, PlannerInput
 from app.specialists.planner import PlannerSpecialist
 from app.specialists.routing import (
@@ -167,7 +167,7 @@ async def route_draft(data: RoutedPlannerInput, draft: Draft, provider):
 class RoutedPlannerSpecialist(BaseAgent[RoutedPlannerInput, RoutedPlan]):
     name, input_schema, output_schema = "routed_planner", RoutedPlannerInput, RoutedPlan
 
-    def __init__(self, model_factory, provider=None, planner_cls=AdkPlanner):
+    def __init__(self, model_factory, provider=None, planner_cls=MafPlanner):
         self.model_factory, self.provider = model_factory, provider or OSRMProvider()
         self.planner_cls = planner_cls
 

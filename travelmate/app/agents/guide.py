@@ -310,8 +310,8 @@ KNOWLEDGE_INSTRUCTION = (
 
 # Agent hướng dẫn viên: LLM nếu có, không thì trích nguyên văn.
 class KnowledgeAgent:
-    def __init__(self, base, model_factory=None, engine="adk", max_llm_calls=7, max_searches=4):
-        self.base, self.model_factory, self.engine = base, model_factory, engine
+    def __init__(self, base, model_factory=None, max_llm_calls=7, max_searches=4):
+        self.base, self.model_factory = base, model_factory
         self.max_llm_calls, self.max_searches = max_llm_calls, max_searches
 
     # Trả lời một câu hỏi; LLM lỗi thì dùng đoạn đã tìm để trích nguyên văn.
@@ -415,7 +415,7 @@ class KnowledgeAgent:
             budget_message="Knowledge model-call budget exceeded", is_done=lambda: state["answer"] is not None,
         )
         try:
-            await run_tool_loop(self.engine, self.model_factory, loop, context)
+            await run_tool_loop(self.model_factory, loop, context)
         except asyncio.CancelledError:
             raise
         except Exception as exc:  # model quota/outage or budget: quote sources instead of failing

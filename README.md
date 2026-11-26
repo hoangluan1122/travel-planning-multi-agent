@@ -41,7 +41,7 @@ Muốn hiểu dự án: đọc [docs/README.md](docs/README.md). Muốn sửa co
 
 ```powershell
 cd travelmate
-uv sync --extra dev --extra ai --extra maf --extra postgres
+uv sync --extra dev --extra maf --extra postgres
 uv run uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8000
 ```
 

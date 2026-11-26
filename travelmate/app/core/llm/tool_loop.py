@@ -1,8 +1,8 @@
-"""One bounded tool loop, two runtimes (Google ADK and Microsoft Agent Framework).
+"""One bounded tool loop on Microsoft Agent Framework (MAF), the only agent runtime.
 
 Agents define their tools, instruction and acceptance state once. Tools signal a
 breached budget by raising AgentError and record an accepted result in their own
-state; is_done() reports whether that happened. Both runtimes then guarantee:
+state; is_done() reports whether that happened. The loop then guarantees:
 
 - an AgentError from a tool aborts the run (never fed back to the model),
 - at most max_llm_calls model calls, then AgentError(budget_message),
@@ -12,20 +12,17 @@ The caller reads its accepted result after run_tool_loop returns.
 """
 
 # Vòng lặp 'model gọi công cụ' dùng chung cho mọi agent LLM. Model đọc hướng dẫn, gọi công cụ (tool), nhận
-# kết quả, gọi tiếp... đến khi một công cụ chấp nhận bài nộp (is_done() = True). File này đảm bảo ADK và MAF
-# cư xử giống nhau: lỗi công cụ dừng vòng lặp, giới hạn số lần gọi model, dừng ngay khi đã có kết quả.
+# kết quả, gọi tiếp... đến khi một công cụ chấp nhận bài nộp (is_done() = True). Chạy trên Microsoft Agent
+# Framework, với ba đảm bảo: lỗi công cụ dừng vòng lặp, giới hạn số lần gọi model, dừng ngay khi đã có kết quả.
 
 import asyncio
 import logging
-from contextlib import aclosing
 from dataclasses import dataclass
-from typing import Callable, Literal
+from typing import Callable
 
 from app.core.base import AgentError
 
 logger = logging.getLogger(__name__)
-
-Engine = Literal["adk", "maf"]
 
 
 # Mô tả một vòng lặp: tên, hướng dẫn cho model, danh sách công cụ, câu hỏi đầu tiên, số lần gọi model tối
@@ -63,7 +60,7 @@ def is_rate_limited(exc):
 def is_transient(exc):
     """A provider hiccup worth one retry: 5xx/429 from the model API or a network timeout.
 
-    Walks the cause chain because MAF and ADK wrap provider errors. Budget breaches and
+    Walks the cause chain because MAF wraps provider errors. Budget breaches and
     other AgentErrors are never transient.
     """
     seen = 0
@@ -81,22 +78,19 @@ def is_transient(exc):
     return False
 
 
-# Chạy vòng lặp trên engine đã chọn; lỗi tạm thời được thử lại tối đa `retries` lần, chờ 2-5 giây (hoặc
+# Chạy vòng lặp; lỗi tạm thời được thử lại tối đa `retries` lần, chờ 2-5 giây (hoặc
 # 10-20 giây nếu bị giới hạn 429).
-async def run_tool_loop(engine: Engine, model_factory, loop: ToolLoop, context, retries=2) -> None:
-    """model_factory returns an ADK model (engine adk) or a MAF chat client (engine maf).
+async def run_tool_loop(model_factory, loop: ToolLoop, context, retries=2) -> None:
+    """model_factory returns a fresh MAF chat client (app/core/llm/maf_clients.py) per call.
 
     A transient provider error before anything was accepted is retried `retries` times with
     a fresh client. Tool state and budgets carry over, so a retry cannot exceed them.
     """
     if loop.max_llm_calls < 1:
         raise ValueError("max_llm_calls must be positive")
-    if engine not in {"maf", "adk"}:
-        raise ValueError(f"Unknown agent engine: {engine}")
-    runner = _run_maf if engine == "maf" else _run_adk
     for attempt in range(retries + 1):
         try:
-            await runner(model_factory, loop, context)
+            await _run_maf(model_factory, loop, context)
             return
         except Exception as exc:
             if loop.is_done() or attempt == retries or not is_transient(exc):
@@ -109,46 +103,10 @@ async def run_tool_loop(engine: Engine, model_factory, loop: ToolLoop, context, 
             await asyncio.sleep(delays[min(attempt, len(delays) - 1)])
 
 
-# Bản chạy bằng Google ADK: tạo LlmAgent + phiên tạm trong bộ nhớ, đọc sự kiện đến khi is_done(), cuối cùng
-# xoá phiên.
-async def _run_adk(model_factory, loop, context):
-    from google.adk.agents import LlmAgent
-    from google.adk.agents.invocation_context import LlmCallsLimitExceededError
-    from google.adk.agents.run_config import RunConfig
-    from google.adk.runners import Runner
-    from google.adk.sessions import InMemorySessionService
-    from google.genai import types
-
-    agent = LlmAgent(name=loop.name, model=model_factory(), instruction=loop.instruction, tools=loop.tools)
-    sessions = InMemorySessionService()
-    session_id = str(context.request_id)
-    await sessions.create_session(app_name=loop.name, user_id="request", session_id=session_id)
-    runner = Runner(agent=agent, app_name=loop.name, session_service=sessions)
-    try:
-        async with aclosing(
-            runner.run_async(
-                user_id="request",
-                session_id=session_id,
-                new_message=types.Content(role="user", parts=[types.Part(text=loop.message)]),
-                run_config=RunConfig(max_llm_calls=loop.max_llm_calls),
-            )
-        ) as events:
-            async for _ in events:
-                if loop.is_done():
-                    return
-    except LlmCallsLimitExceededError:
-        raise AgentError(loop.budget_message) from None
-    finally:
-        try:
-            await runner.close()
-        finally:
-            await sessions.delete_session(app_name=loop.name, user_id="request", session_id=session_id)
-
-
-# Bản chạy bằng Microsoft Agent Framework. MAF mặc định cư xử khác ADK nên cần hai middleware bên dưới để
-# giữ cùng đảm bảo.
+# Chạy bằng Microsoft Agent Framework. MAF mặc định không có ba đảm bảo trên, nên cần hai middleware bên
+# dưới.
 async def _run_maf(client_factory, loop, context):
-    """MAF defaults differ from ADK in three ways; the middleware below restores the guarantees.
+    """MAF defaults lack the three guarantees; the middleware below adds them.
 
     1. A tool exception becomes a tool-error result and the loop continues (fail-open).
        FailClosedTools re-raises AgentError as MiddlewareFailure, which aborts the run.

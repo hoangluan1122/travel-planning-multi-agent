@@ -1,15 +1,13 @@
 """Builds the agents and data sources from Settings, once per process.
 
-This is the one place that decides demo or live data, Google Maps or open data, ADK or
-MAF, and which orchestrator puts a plan together. The web API (app/main.py), the MCP
+This is the one place that decides demo or live data, Google Maps or open data, and which
+orchestrator puts a plan together. Every LLM agent runs on Microsoft Agent Framework. The web API (app/main.py), the MCP
 server and the A2A endpoint all use the Services it returns.
 """
 
 # Nơi duy nhất quyết định dùng thành phần nào dựa trên cấu hình: dữ liệu demo hay thật, Google hay
-# OpenStreetMap, ADK hay MAF, và cách điều phối nào. Web, máy chủ MCP và A2A đều dùng chung đối tượng
+# OpenStreetMap, và cách điều phối nào. Mọi agent LLM chạy trên MAF. Web, máy chủ MCP và A2A đều dùng chung đối tượng
 # Services mà build_services() trả về.
-
-import os
 
 from app.agents.budget import BudgetAgent
 from app.agents.itinerary import PlannerAgent
@@ -18,7 +16,6 @@ from app.agents.place import PlaceAgent
 from app.agents.recommendation import RecommendationAgent
 from app.agents.weather import WeatherAgent
 from app.core.base import Registry
-from app.core.llm.adk_adapter import AdkPlanner
 from app.memory.preferences import MemoryAgent
 from app.settings import Settings
 from app.tools.places.place_media import GooglePhotoProxy
@@ -39,12 +36,10 @@ class Services:
 # Trả về một hàm tạo model. Agent gọi hàm này mỗi lần chạy để có client riêng, không dùng chung trạng thái
 # giữa các yêu cầu.
 def model_factory(settings):
-    """How an LLM agent gets its model: a MAF Gemini client, or (ADK) the model's name."""
-    if settings.agent_engine == "maf":
-        from app.core.llm.maf_clients import maf_gemini_client
+    """How an LLM agent gets its model: a new MAF Gemini chat client per call."""
+    from app.core.llm.maf_clients import maf_gemini_client
 
-        return lambda: maf_gemini_client(settings.google_api_key, settings.gemini_model)
-    return lambda: settings.gemini_model
+    return lambda: maf_gemini_client(settings.google_api_key, settings.gemini_model)
 
 
 # Sở thích đã lưu chỉ đọc được khi máy chủ cấu hình sẵn một danh tính; người gọi không thể chọn đọc sở thích
@@ -65,7 +60,7 @@ def planning_agent(settings):
         return None
     from app.agents.planning import PlanningAgent
 
-    return PlanningAgent(model_factory(settings), settings.agent_engine)
+    return PlanningAgent(model_factory(settings))
 
 
 # Agent LLM điều phối cuộc chat; ở chế độ demo, chat chuyển việc theo từ khoá.
@@ -75,7 +70,7 @@ def concierge_agent(settings):
         return None
     from app.agents.concierge import ConciergeAgent
 
-    return ConciergeAgent(model_factory(settings), settings.agent_engine)
+    return ConciergeAgent(model_factory(settings))
 
 
 # Hướng dẫn viên (Agentic RAG): trả lời có nguồn về một địa danh.
@@ -85,17 +80,15 @@ def knowledge_agent(settings):
 
     if settings.travelmate_mode != "live":
         return KnowledgeAgent(KnowledgeBase())
-    return KnowledgeAgent(KnowledgeBase(), model_factory(settings), settings.agent_engine)
+    return KnowledgeAgent(KnowledgeBase(), model_factory(settings))
 
 
-# LLM xếp lịch từng ngày, chạy trên engine đã chọn.
+# LLM xếp lịch từng ngày.
 def live_planner(settings):
-    """The LLM that schedules the days, on the configured engine."""
-    if settings.agent_engine == "maf":
-        from app.core.llm.maf_adapter import MafPlanner
+    """The LLM that schedules the days."""
+    from app.core.llm.maf_adapter import MafPlanner
 
-        return MafPlanner(model_factory(settings))
-    return AdkPlanner(settings.gemini_model)
+    return MafPlanner(model_factory(settings))
 
 
 # Chế độ live bắt buộc có khoá Gemini và token vận hành; thiếu thì dừng ngay khi khởi động.
@@ -104,8 +97,6 @@ def check_live_settings(settings):
         raise ValueError("Live mode requires GOOGLE_API_KEY and TRAVELMATE_API_TOKEN")
     if settings.travelmate_place_provider == "google" and not settings.google_maps_api_key:
         raise ValueError("TRAVELMATE_PLACE_PROVIDER=google requires GOOGLE_MAPS_API_KEY")
-    # ADK reads the key from the environment; dotenv does not export it automatically.
-    os.environ["GOOGLE_API_KEY"] = settings.google_api_key
 
 
 # Chọn nguồn địa điểm và bọc thêm bộ nhớ đệm 24 giờ nếu có.

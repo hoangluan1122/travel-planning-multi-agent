@@ -1,6 +1,6 @@
 param(
     [ValidateRange(1024, 65535)][int]$Port = 8001,
-    [ValidateSet('tool_workflow', 'adk_llm')][string]$Mode = 'tool_workflow'
+    [ValidateSet('tool_workflow', 'maf_llm')][string]$Mode = 'tool_workflow'
 )
 
 $previousLivePlaceMode = $env:LIVE_PLACE_MODE

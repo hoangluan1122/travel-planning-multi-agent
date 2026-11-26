@@ -1,13 +1,13 @@
 """Place Agent standard: one budget source, no repeated queries, no false "no results"."""
 
 import pytest
-from test_adk_tools import ScriptedModel
+from scripted_llm import ScriptedClient
 from test_place_agent import Provider, call
 
 from app.core.models import Context, PlaceResult
 from app.place_agent.agent import PlaceAgentInput, PlaceAssistant, place_instruction
 
-pytest.importorskip("google.adk")
+pytest.importorskip("agent_framework")
 
 
 class KeywordProvider(Provider):
@@ -25,7 +25,7 @@ class KeywordProvider(Provider):
 
 
 def assistant(provider, calls, **kwargs):
-    model = ScriptedModel(calls=calls)
+    model = ScriptedClient(calls)
     return model, PlaceAssistant(lambda: model, provider, **kwargs)
 
 

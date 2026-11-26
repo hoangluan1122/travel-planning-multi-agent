@@ -199,16 +199,15 @@ def test_place_api_no_longer_requires_maps_for_osm():
 
 
 @pytest.mark.asyncio
-async def test_real_adk_tools_use_osm_records_without_rewriting_them():
-    pytest.importorskip("google.adk")
-    from test_adk_tools import ScriptedModel
+async def test_llm_tools_use_osm_records_without_rewriting_them():
+    pytest.importorskip("agent_framework")
+    from scripted_llm import ScriptedClient
 
     from app.place_agent.agent import PlaceAgentInput, PlaceAssistant
 
     source, calls = provider()
     agent = PlaceAssistant(
-        lambda: ScriptedModel(
-            calls=[
+        lambda: ScriptedClient([
                 {"name": "search_places", "args": {"keyword": ""}},
                 {"name": "get_place_details", "args": {"place_id": "osm:node/2"}},
                 {"name": "submit_places", "args": {"place_ids": ["osm:node/2"]}},
@@ -224,14 +223,14 @@ async def test_real_adk_tools_use_osm_records_without_rewriting_them():
 
 
 @pytest.mark.asyncio
-async def test_adk_stops_for_locality_choice_instead_of_guessing():
-    pytest.importorskip("google.adk")
-    from test_adk_tools import ScriptedModel
+async def test_llm_agent_stops_for_locality_choice_instead_of_guessing():
+    pytest.importorskip("agent_framework")
+    from scripted_llm import ScriptedClient
 
     from app.place_agent.agent import PlaceAgentInput, PlaceAssistant
 
     source, calls = provider(locations=[locality(1), locality(3)])
-    model = ScriptedModel(calls=[{"name": "search_places", "args": {"keyword": ""}}])
+    model = ScriptedClient([{"name": "search_places", "args": {"keyword": ""}}])
     result = await PlaceAssistant(lambda: model, source).run(PlaceAgentInput(destination="Sa Pa"), Context())
     assert result.status == "needs_location" and len(result.location_options) == 2
     assert result.places == [] and model.index == 1 and len(calls) == 1

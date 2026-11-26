@@ -26,11 +26,11 @@ UI = Path(__file__).resolve().parents[2] / "frontend" / "place-agent-live"
 
 class LivePlaceSettings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
-    live_place_mode: Literal["tool_workflow", "adk_llm", "maf_llm"] = "tool_workflow"
+    live_place_mode: Literal["tool_workflow", "maf_llm"] = "tool_workflow"
     google_api_key: SecretStr = SecretStr("")
     gemini_model: str = "gemini-3.5-flash-lite"
     travelmate_api_token: SecretStr = SecretStr("")
-    # OpenTelemetry traces: off, console, or otlp (OTEL_EXPORTER_OTLP_ENDPOINT); needs --extra maf
+    # OpenTelemetry traces: off, console, or otlp (OTEL_EXPORTER_OTLP_ENDPOINT); needs --extra maf --extra telemetry
     travelmate_telemetry: Literal["off", "console", "otlp"] = "off"
 
 
@@ -38,11 +38,11 @@ def create_app(settings=None, agent=None):
     settings = settings or LivePlaceSettings()
     configure_telemetry(settings.travelmate_telemetry, "travelmate-live-place")
     if (
-        settings.live_place_mode in {"adk_llm", "maf_llm"}
+        settings.live_place_mode == "maf_llm"
         and not settings.google_api_key.get_secret_value()
         and agent is None
     ):
-        raise ValueError("LLM mode requires GOOGLE_API_KEY; never silently switch engines")
+        raise ValueError("LLM mode requires GOOGLE_API_KEY; never silently fall back to tool_workflow")
     app = FastAPI(title="TravelMate — Live Place Agent", version="1.0.0")
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "testserver"])
     bearer = HTTPBearer(auto_error=False)
@@ -99,14 +99,13 @@ def create_app(settings=None, agent=None):
             try:
                 if agent is not None:
                     result = await agent.run(data, context, 140)
-                elif settings.live_place_mode in {"adk_llm", "maf_llm"}:
-                    from app.specialists.api import agent_model_factory
+                elif settings.live_place_mode == "maf_llm":
+                    from app.specialists.api import maf_gemini_factory
 
-                    engine = settings.live_place_mode.removesuffix("_llm")
-                    async with agent_model_factory(settings, engine) as factory:
-                        result = await LivePlaceAgent(
-                            model_factory=factory, geo_service=geo_service, engine=engine
-                        ).run(data, context, 140)
+                    async with maf_gemini_factory(settings) as factory:
+                        result = await LivePlaceAgent(model_factory=factory, geo_service=geo_service).run(
+                            data, context, 140
+                        )
                 else:
                     result = await LivePlaceAgent(geo_service=geo_service).run(data, context, 140)
             except TimeoutError:

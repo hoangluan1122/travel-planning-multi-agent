@@ -1,13 +1,13 @@
-"""Repeatable evaluation of the LLM Place Agent on fixed cases, per engine.
+"""Repeatable evaluation of the LLM Place Agent on fixed cases.
 
-Each case runs through LivePlaceAgent (the same path as LIVE_PLACE_MODE=adk_llm/maf_llm).
+Each case runs through LivePlaceAgent (the same path as LIVE_PLACE_MODE=maf_llm).
 Ambiguous destinations use the top location option, as a user click would, and the
 choice is recorded. Metrics come only from the report: status, number of places,
 searches and details used, keywords the LLM chose (from the trace), whether the last
 search was widened, whether every place is backed by a source, and latency.
 """
 
-# Đánh giá Place Agent LLM trên các trường hợp cố định, theo từng engine.
+# Đánh giá Place Agent LLM trên các trường hợp cố định (Microsoft Agent Framework).
 
 import statistics
 import time
@@ -44,9 +44,7 @@ async def run_case(case, engine, model_factory, geo):
             choice = resolved.location_options[0]
             row["chosen_location"] = f"{choice.name}, {choice.admin1}".strip(", ")
             request = request.model_copy(update={"location_id": choice.id})
-        report = await LivePlaceAgent(model_factory=model_factory, geo_service=geo, engine=engine).run(
-            request, Context(), 140
-        )
+        report = await LivePlaceAgent(model_factory=model_factory, geo_service=geo).run(request, Context(), 140)
         sources = {s.url for s in report.sources}
         row |= {
             "status": report.status,
@@ -94,7 +92,8 @@ def summarize(rows):
 
 
 async def evaluate(cases, engines, geo, runs=1, pause_s=0.0):
-    """engines: {"adk"|"maf": model_factory}. Sequential, alternating engines per case.
+    """engines: {label: model_factory}, e.g. {"maf": factory}; several labels compare models
+    or settings. Sequential, alternating labels per case.
 
     pause_s spaces runs out so the public place source does not throttle the evaluation;
     a throttled source shows up as source_error, which would otherwise skew the numbers.
@@ -117,7 +116,7 @@ def pct(value):
 
 def markdown(report, model):
     lines = [
-        f"# Đánh giá Place Agent — ADK vs MAF (model `{model}`)", "",
+        f"# Đánh giá Place Agent (Microsoft Agent Framework, model `{model}`)", "",
         "| Engine | Lượt | Thành công | Tỷ lệ | TB số địa điểm | Mọi địa điểm có nguồn | Ca đúng nhu cầu | Địa điểm đúng nhu cầu | Tìm rộng trước | Trung vị (ms) | Trạng thái |",
         "|---|---|---|---|---|---|---|---|---|---|---|",
     ]

@@ -47,13 +47,3 @@ async def test_agent_timeout():
 
     with pytest.raises(TimeoutError):
         await SlowMemory().run(TripRequest(**payload()), Context(), timeout=0.001)
-
-
-def test_adk_schema_compatible():
-    pytest.importorskip("google.adk")
-    from google.adk.agents import LlmAgent
-
-    from app.core.models import Draft
-
-    agent = LlmAgent(name="planner_test", model="gemini-2.5-flash", output_schema=Draft)
-    assert agent.output_schema is Draft

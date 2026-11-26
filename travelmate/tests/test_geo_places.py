@@ -211,13 +211,12 @@ async def test_malformed_individual_features_do_not_break_good_records():
 
 
 @pytest.mark.asyncio
-async def test_adk_geo_tools_reject_fabricated_output_and_submit_observed_ids():
-    pytest.importorskip("google.adk")
-    from test_adk_tools import ScriptedModel
+async def test_llm_geo_tools_reject_fabricated_output_and_submit_observed_ids():
+    pytest.importorskip("agent_framework")
+    from scripted_llm import ScriptedClient
 
     geo, _ = service(features=[feature()])
-    model = ScriptedModel(
-        calls=[
+    model = ScriptedClient([
             {"name": "search_places", "args": {"keyword": ""}},
             {"name": "get_place_details", "args": {"place_id": "osm:node/10"}},
             {"name": "submit_places", "args": {"place_ids": ["made-up"]}},
@@ -227,7 +226,7 @@ async def test_adk_geo_tools_reject_fabricated_output_and_submit_observed_ids():
     result = await LivePlaceAgent(geo_service=geo, model_factory=lambda: model).run(
         LivePlaceRequest(destination="Cát Bà"), Context()
     )
-    assert result.status == "success" and result.execution_mode == "adk_llm"
+    assert result.status == "success" and result.execution_mode == "maf_llm"
     assert result.search_calls == result.detail_calls == 1
     assert result.places[0].source == "osm_photon"
     assert any(o.get("accepted") is False for o in model.observations)

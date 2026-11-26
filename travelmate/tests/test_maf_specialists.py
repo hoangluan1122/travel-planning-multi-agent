@@ -1,4 +1,4 @@
-"""Place and Recommendation agents on the MAF engine keep the ADK guarantees.
+"""Place and Recommendation agents on Microsoft Agent Framework: fail-closed budgets, the submit gate.
 
 Scenarios mirror test_place_agent.py, test_specialist_llm.py and the LLM test in
 test_live_place_agent.py, replayed through MAF's real function-invocation loop.
@@ -9,8 +9,8 @@ import asyncio
 import pytest
 
 pytest.importorskip("agent_framework")
+from scripted_llm import ScriptedClient
 from test_live_place_agent import URL, Web, discovery, record
-from test_maf_tools import ScriptedClient
 from test_place_agent import Provider, call
 
 from app.core.base import AgentError
@@ -31,7 +31,7 @@ def maf_assistant(provider, calls, clients=None, **kwargs):
             clients.append(client)
         return client
 
-    return PlaceAssistant(factory, provider, engine="maf", **kwargs)
+    return PlaceAssistant(factory, provider, **kwargs)
 
 
 # --- Place agent ---------------------------------------------------------------
@@ -170,7 +170,7 @@ async def test_live_place_maf_engine_reports_maf_mode():
         ]
     )
     result = await LivePlaceAgent(
-        model_factory=lambda: client, web_tool=Web([discovery()]), reader=Reader(), engine="maf"
+        model_factory=lambda: client, web_tool=Web([discovery()]), reader=Reader()
     ).run(LivePlaceRequest(destination="Sa Pa"), Context())
     assert result.status == "success" and result.execution_mode == "maf_llm"
     assert result.places[0].source_url == URL
@@ -182,7 +182,7 @@ async def test_live_place_maf_engine_reports_maf_mode():
 
 def recommender(calls, **kwargs):
     client = ScriptedClient(calls)
-    return client, RecommendationSpecialist(lambda: client, engine="maf", **kwargs)
+    return client, RecommendationSpecialist(lambda: client, **kwargs)
 
 
 @pytest.mark.asyncio
@@ -247,18 +247,6 @@ async def test_recommendation_model_budget_is_domain_error():
 # --- Settings ---------------------------------------------------------------------
 
 
-def test_agent_engine_accepts_legacy_planner_engine_name(tmp_path, monkeypatch):
-    from test_specialist_api import settings
-
-    assert settings(tmp_path, agent_engine="maf").agent_engine == "maf"
-    assert settings(tmp_path, planner_engine="maf").agent_engine == "maf"
-    monkeypatch.setenv("PLANNER_ENGINE", "maf")
-    assert settings(tmp_path).agent_engine == "maf"
-    monkeypatch.setenv("AGENT_ENGINE", "adk")
-    monkeypatch.delenv("PLANNER_ENGINE")
-    assert settings(tmp_path).agent_engine == "adk"
-
-
 def test_specialist_api_recommendation_uses_maf_engine(tmp_path, monkeypatch):
     from contextlib import asynccontextmanager
 
@@ -281,7 +269,7 @@ def test_specialist_api_recommendation_uses_maf_engine(tmp_path, monkeypatch):
 
     monkeypatch.setattr(api, "maf_gemini_factory", scripted_factory)
     body = RecommendationRequest(candidates=[place()]).model_dump(mode="json")
-    with TestClient(api.create_app(settings(tmp_path, agent_engine="maf"))) as client:
+    with TestClient(api.create_app(settings(tmp_path))) as client:
         response = client.post("/api/v1/agents/recommendation", headers=HEADERS, json=body)
     assert response.status_code == 200, response.text
     assert used == ["maf"]

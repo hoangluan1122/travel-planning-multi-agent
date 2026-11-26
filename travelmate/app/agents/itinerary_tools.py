@@ -1,7 +1,7 @@
-"""Framework-neutral planner tools shared by the ADK and MAF engines.
+"""Planner tools for the Microsoft Agent Framework tool loop (app/core/llm/maf_adapter.py).
 
-Both engines expose the same two tools and the same submit gate, so a plan accepted
-by one engine would be accepted by the other. Only the loop runtime differs.
+The model only reads trip data through inspect_trip and every submit_itinerary is validated,
+so a plan with invented places or broken constraints is never accepted.
 """
 
 # Hai công cụ planner LLM được dùng: inspect_trip (đọc dữ liệu chuyến đi) và submit_itinerary (nộp lịch).
@@ -61,8 +61,7 @@ class PlannerToolState:
 def make_planner_tools(data, context, max_submissions):
     """Build request-scoped tool closures over fresh state.
 
-    Budget breaches raise AgentError; app/core/llm/tool_loop.py makes that abort the run in
-    both engines.
+    Budget breaches raise AgentError; app/core/llm/tool_loop.py makes that abort the run.
     """
     from app.agents.orchestrator import validate_draft
 

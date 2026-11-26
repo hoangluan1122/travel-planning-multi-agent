@@ -19,7 +19,6 @@ USER travelmate
 ENV PATH="/app/.venv/bin:$PATH" \
     TRAVELMATE_MODE=live \
     TRAVELMATE_AGENT_TIMEOUT=120 \
-    AGENT_ENGINE=maf \
     TRAVELMATE_ORCHESTRATOR=planning \
     TRAVELMATE_PLACE_PROVIDER=open_data
 

@@ -1,12 +1,12 @@
 """One runnable Place agent: live discovery, source validation and JSON export.
 
-The tool_workflow engine is a bounded deterministic agent workflow. The optional
-adk_llm engine delegates search/refinement/selection to the existing ADK agent.
-Neither engine reads example/evaluation files or falls back to demo records.
+The tool_workflow mode is a bounded deterministic agent workflow. The optional maf_llm
+mode delegates search/refinement/selection to the LLM Place Agent on Microsoft Agent Framework.
+Neither mode reads example/evaluation files or falls back to demo records.
 """
 
 # Place Agent dữ liệu thật: xác định địa danh, tìm địa điểm (GeoNames/Open-Meteo, Photon/OSM), kiểm tra
-# nguồn và xuất JSON. Có thể chạy theo luồng công cụ cố định hoặc bằng LLM (ADK/MAF). Ứng dụng phụ, chạy
+# nguồn và xuất JSON. Có thể chạy theo luồng công cụ cố định hoặc bằng LLM (Microsoft Agent Framework). Ứng dụng phụ, chạy
 # riêng; trang web chính không dùng file này.
 
 import argparse
@@ -72,7 +72,7 @@ class LivePlaceReport(Model):
     status: Literal[
         "success", "partial", "no_results", "needs_location", "source_error", "blocked", "timeout"
     ]
-    execution_mode: Literal["tool_workflow", "adk_llm", "maf_llm"]
+    execution_mode: Literal["tool_workflow", "maf_llm"]
     data_origin: Literal["live_network"] = "live_network"
     destination: str
     category: Literal["hotel", "restaurant", "attraction"] = "hotel"
@@ -112,7 +112,7 @@ class LivePlaceReport(Model):
 
 # Nguồn dùng trình duyệt; mỗi lần chạy có kho bằng chứng riêng.
 class GroundedBrowserProvider:
-    """Per-invocation evidence store and real tools for either execution engine."""
+    """Per-invocation evidence store and real tools for either execution mode."""
 
     MAX_SEARCHES = MAX_DETAILS = 2
 
@@ -334,10 +334,9 @@ class GeoGroundedProvider:
 class LivePlaceAgent(BaseAgent[LivePlaceRequest, LivePlaceReport]):
     name, input_schema, output_schema = "live_place_agent", LivePlaceRequest, LivePlaceReport
 
-    def __init__(self, *, model_factory=None, web_tool=None, reader=None, geo_service=None, engine="adk"):
-        """engine selects the LLM runtime when model_factory is set: adk or maf."""
+    def __init__(self, *, model_factory=None, web_tool=None, reader=None, geo_service=None):
+        """model_factory (a MAF chat-client factory) switches on the LLM mode."""
         self.model_factory = model_factory
-        self.engine = engine
         self.web_tool = web_tool
         self.reader = reader or StructuredHotelReader()
         self.geo_service = geo_service or GeoPlaceService()
@@ -349,7 +348,7 @@ class LivePlaceAgent(BaseAgent[LivePlaceRequest, LivePlaceReport]):
             if self.web_tool is not None
             else GeoGroundedProvider(data, self.geo_service)
         )
-        mode = f"{self.engine}_llm" if self.model_factory else "tool_workflow"
+        mode = "maf_llm" if self.model_factory else "tool_workflow"
         selected, failure = [], "source_error"
         try:
             if isinstance(provider, GeoGroundedProvider):
@@ -358,7 +357,7 @@ class LivePlaceAgent(BaseAgent[LivePlaceRequest, LivePlaceReport]):
                     provider.page_size = min(20, max(15, data.limit * 3))
             if self.model_factory:
                 agent = PlaceAssistant(
-                    self.model_factory, provider, max_llm_calls=8, engine=self.engine,
+                    self.model_factory, provider, max_llm_calls=8,
                     max_searches=provider.MAX_SEARCHES, max_details=provider.MAX_DETAILS,
                 )
                 output = await agent.run(

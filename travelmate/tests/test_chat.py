@@ -238,26 +238,14 @@ def _session():
     return session
 
 
-async def test_concierge_repairs_a_rejected_decision_on_adk():
-    pytest.importorskip("google.adk")
-    from test_adk_tools import ScriptedModel
-
-    from app.core.models import Context
-
-    model = ScriptedModel(calls=concierge_calls())
-    decision = await ConciergeAgent(lambda: model, engine="adk").decide(_session(), Context())
-    assert decision.hand_off.place_query.keyword == "chay"
-    assert any(o.get("accepted") is False for o in model.observations)
-
-
 async def test_concierge_repairs_a_rejected_decision_on_maf():
     pytest.importorskip("agent_framework")
-    from test_maf_tools import ScriptedClient
+    from scripted_llm import ScriptedClient
 
     from app.core.models import Context
 
     client = ScriptedClient(concierge_calls())
-    decision = await ConciergeAgent(lambda: client, engine="maf").decide(_session(), Context())
+    decision = await ConciergeAgent(lambda: client).decide(_session(), Context())
     assert decision.hand_off.agent == "place_finder" and client.index == 3
 
 

@@ -180,8 +180,7 @@ async def test_planner_sees_saved_memory_only_as_tool_data(tmp_path):
     pytest.importorskip("agent_framework")
     import json
 
-    from test_adk_tools import fixture_data
-    from test_maf_tools import ScriptedClient
+    from scripted_llm import ScriptedClient, fixture_data
 
     from app.agents.itinerary_tools import PLANNER_INSTRUCTION
     from app.core.llm.maf_adapter import MafPlanner

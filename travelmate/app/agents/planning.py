@@ -79,8 +79,8 @@ PLANNING_INSTRUCTION = (
 class PlanningAgent:
     """LLM planner over two tools (inspect_request, submit_plan) with a validated submit gate."""
 
-    def __init__(self, model_factory, engine="adk", max_llm_calls=6, max_submissions=3):
-        self.model_factory, self.engine = model_factory, engine
+    def __init__(self, model_factory, max_llm_calls=6, max_submissions=3):
+        self.model_factory = model_factory
         self.max_llm_calls, self.max_submissions = max_llm_calls, max_submissions
 
     async def plan(self, trip, context, previous=None, observations=()):
@@ -139,7 +139,7 @@ class PlanningAgent:
             budget_message="Planning model-call budget exceeded",
             is_done=lambda: state["accepted"] is not None,
         )
-        await run_tool_loop(self.engine, self.model_factory, loop, context)
+        await run_tool_loop(self.model_factory, loop, context)
         if state["accepted"] is None:
             raise AgentError("Planning agent ended without a validated plan")
         return state["accepted"]

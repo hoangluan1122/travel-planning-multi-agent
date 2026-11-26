@@ -84,14 +84,13 @@ class PlaceAssistant(BaseAgent[PlaceAgentInput, PlaceAgentOutput]):
     output_schema = PlaceAgentOutput
 
     def __init__(
-        self, model_factory, provider: PlaceProvider | None, max_llm_calls=10, web_tool=None, engine="adk",
+        self, model_factory, provider: PlaceProvider | None, max_llm_calls=10, web_tool=None,
         max_searches=3, max_details=3, max_submissions=3,
     ):
-        """engine "adk": model_factory returns an ADK model; "maf": a MAF chat client."""
+        """model_factory returns a fresh MAF chat client per call."""
         if min(max_llm_calls, max_searches, max_submissions) < 1 or max_details < 0:
             raise ValueError("Agent budgets must be positive")
         self.model_factory = model_factory
-        self.engine = engine
         self.provider = provider
         self.max_llm_calls = max_llm_calls
         self.max_searches, self.max_details, self.max_submissions = max_searches, max_details, max_submissions
@@ -278,7 +277,7 @@ class PlaceAssistant(BaseAgent[PlaceAgentInput, PlaceAgentOutput]):
             budget_message="Place model-call budget exceeded",
             is_done=lambda: accepted is not None,
         )
-        await run_tool_loop(self.engine, self.model_factory, loop, context)
+        await run_tool_loop(self.model_factory, loop, context)
         if accepted is None:
             raise AgentError("Place agent ended without validated output")
         return accepted
